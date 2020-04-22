@@ -18,20 +18,17 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:orientation="horizontal"
-       android:weightSum="1"
        >
    <TextView
-       android:layout_width="wrap_content"
+       android:layout_width="100dp"
        android:layout_height="50dp"
-       android:layout_weight="0.3"
        android:gravity="center"
        android:textSize="10pt"
        android:text="이 름"
        />
       <EditText
-          android:layout_width="wrap_content"
+          android:layout_width="match_parent"
           android:layout_height="50dp"
-          android:layout_weight="0.7"
           android:hint="이름을 입력하세요"/>
    </LinearLayout>
 
@@ -39,20 +36,17 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:orientation="horizontal"
-       android:weightSum="1"
        >
       <TextView
-          android:layout_width="wrap_content"
+          android:layout_width="100dp"
           android:layout_height="50dp"
-          android:layout_weight="0.3"
           android:gravity="center"
           android:textSize="10pt"
           android:text="아이디"
           />
       <EditText
-          android:layout_width="wrap_content"
+          android:layout_width="match_parent"
           android:layout_height="50dp"
-          android:layout_weight="0.7"
           android:hint="아이디를 입력하세요"/>
    </LinearLayout>
 
@@ -60,20 +54,17 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:orientation="horizontal"
-       android:weightSum="1"
        >
       <TextView
-          android:layout_width="wrap_content"
+          android:layout_width="100dp"
           android:layout_height="50dp"
-          android:layout_weight="0.3"
           android:gravity="center"
           android:textSize="10pt"
           android:text="비밀번호"
           />
       <EditText
-          android:layout_width="wrap_content"
+          android:layout_width="match_parent"
           android:layout_height="50dp"
-          android:layout_weight="0.7"
           android:hint="비밀번호를 입력하세요"/>
    </LinearLayout>
 

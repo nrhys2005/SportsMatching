@@ -8,8 +8,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.textfield.TextInputEditText;
-
 public class LoginResultActivity extends AppCompatActivity {
 
     TextView TextView_get;
@@ -35,7 +33,7 @@ public class LoginResultActivity extends AppCompatActivity {
         football_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginResultActivity.this,FootBallActivity.class);
+                Intent intent = new Intent(LoginResultActivity.this, FutSalActivity.class);
                 startActivity(intent);
             }
         });

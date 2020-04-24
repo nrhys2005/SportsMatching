@@ -33,7 +33,7 @@ public class LoginResultActivity extends AppCompatActivity {
         football_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginResultActivity.this, FutSalActivity.class);
+                Intent intent = new Intent(LoginResultActivity.this, FutSalSearchActivity.class);
                 startActivity(intent);
             }
         });

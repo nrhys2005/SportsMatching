@@ -20,32 +20,40 @@
        android:orientation="horizontal"
        android:weightSum="1">
 
-      <TextView
+      <Button
+          android:id="@+id/search_place"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_weight="0.25"
           android:gravity="center"
+          android:background="@android:color/transparent"
          android:text="구장 검색"/>
 
-      <TextView
+      <Button
+          android:id="@+id/match"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_weight="0.25"
           android:gravity="center"
+          android:background="@android:color/transparent"
           android:text="팀 매칭"/>
 
-      <TextView
+      <Button
+          android:id="@+id/team"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_weight="0.25"
           android:gravity="center"
+          android:background="@android:color/darker_gray"
           android:text="마이 팀"/>
 
-      <TextView
+      <Button
+          android:id="@+id/help"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_weight="0.25"
           android:gravity="center"
+          android:background="@android:color/transparent"
           android:text="고객 센터"/>
 
    </LinearLayout>

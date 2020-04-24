@@ -1,11 +1,11 @@
 package com.example.bestmatching;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 /*Toast.makeText(getApplicationContext(),"회원가입 버튼 눌림",Toast.LENGTH_LONG).show();*/
-                Intent intent = new Intent(LoginActivity.this,SignActivity.class);
+                Intent intent = new Intent(LoginActivity.this, SignActivity.class);
                 startActivity(intent);
             }
         });

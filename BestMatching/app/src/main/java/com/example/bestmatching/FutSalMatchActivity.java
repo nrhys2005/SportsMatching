@@ -29,7 +29,7 @@ public class FutSalMatchActivity extends AppCompatActivity {
         search_place.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FutSalMatchActivity.this, FutSalSearchActivity.class);
+                Intent intent = new Intent(FutSalMatchActivity.this, FutSalSearchMapActivity.class);
                 startActivity(intent);
             }
         });

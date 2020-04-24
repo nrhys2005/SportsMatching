@@ -29,11 +29,11 @@ public class LoginResultActivity extends AppCompatActivity {
 
         TextView_get.setText(id + " / " + password);*/
 
-        football_btn = findViewById(R.id.football_btn);
+        football_btn = findViewById(R.id.futsal_btn);
         football_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginResultActivity.this, FutSalSearchActivity.class);
+                Intent intent = new Intent(LoginResultActivity.this, FutSalSearchMapActivity.class);
                 startActivity(intent);
             }
         });

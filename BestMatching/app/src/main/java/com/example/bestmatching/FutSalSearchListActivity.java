@@ -4,28 +4,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class FutSalSearchActivity extends AppCompatActivity {
+public class FutSalSearchListActivity extends AppCompatActivity {
 
     Button search_place;
     Button match;
     Button team;
     Button help;
     Button map;
+    Button list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_futsal_search);
+        setContentView(R.layout.activity_futsal_search_list);
 
         search_place = findViewById(R.id.search_place);
         match = findViewById(R.id.match);
         team = findViewById(R.id.team);
         help = findViewById(R.id.help);
         map = findViewById(R.id.map);
+        list = findViewById(R.id.list);
 
         /*//구장검색 눌렀을때
         search_place.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +41,7 @@ public class FutSalSearchActivity extends AppCompatActivity {
         match.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FutSalSearchActivity.this, FutSalMatchActivity.class);
+                Intent intent = new Intent(FutSalSearchListActivity.this, FutSalMatchActivity.class);
                 startActivity(intent);
             }
         });
@@ -49,29 +50,28 @@ public class FutSalSearchActivity extends AppCompatActivity {
         team.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FutSalSearchActivity.this, FutSalTeamActivity.class);
+                Intent intent = new Intent(FutSalSearchListActivity.this, FutSalTeamActivity.class);
                 startActivity(intent);
             }
         });
 
-        //고객센터 눌렀을때
-        help.setOnClickListener(new View.OnClickListener() {
+        //지도로보기 눌렀을때
+        map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FutSalSearchActivity.this, FutSalHelpActivity.class);
+                Intent intent = new Intent(FutSalSearchListActivity.this,FutSalSearchMapActivity.class);
                 startActivity(intent);
             }
         });
 
-        /*map.setOnClickListener(new View.OnClickListener() {
+       /* //리스토로보기 눌렀을때
+        list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"버튼클릭",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(FutSalSearchListActivity.this,FutSalSearchListActivity.class);
+                startActivity(intent);
             }
         });*/
     }
 
-    public void map_btn(View v){
-        Toast.makeText(getApplicationContext(),"버튼클릭",Toast.LENGTH_LONG).show();
-    }
 }

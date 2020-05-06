@@ -7,16 +7,20 @@ const app = express();
 app.set('port', process.env.PORT || PORT);
 
 //서버 생성
-http.createServer(app).listen(app.get('port'), function(){
-    console.log('Express server listening on port ' + app.get('port'));
-});
+// http.createServer(app).listen(app.get('port'), function(){
+//     console.log('Express server listening on port ' + app.get('port'));
+// });
 
 //라우팅 모듈 선언
 var indexRouter = require('./routes/index');
 
 //회원가입 라우팅 선언
-var clubRouter = require('./routes/signup/signup');
-app.use('/signup', clubRouter);
+var signRouter = require('./routes/signup/signup');
+app.use('/signup', signRouter);
 
 //request 요청 URL과 처리 로직을 선언한 라우팅 모듈 매핑
 app.use('/', indexRouter);
+
+app.listen(PORT, () => {
+    console.log('Express server listening on port '+PORT);
+});

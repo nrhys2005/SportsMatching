@@ -15,13 +15,11 @@ app.set('port', process.env.PORT || PORT);
 var indexRouter = require('./routes/index');
 
 //회원가입 라우팅 선언
-var signRouter = require('./routes/signup/signup');
-app.use('/signup', signRouter);
+app.use('/signup', require('./routes/signup/signup'));
 
 
 
- var loginRouter = require('./routes/login');
- app.use('/login', loginRouter);
+ app.use('/login',  require('./routes/login'));
 
 app.listen(PORT, () => {
     console.log('Express server listening on port '+PORT);

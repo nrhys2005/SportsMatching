@@ -41,14 +41,14 @@ router.post('/check', function (req, res, next) {
     
     req.on('data', (data) => {
         inputData = JSON.parse(data);
-        var find_id = inputData.user_id;
+        var find_id = inputData.id;
 
-        var sql = 'SELECT * FROM user'; 
+        var sql = 'SELECT * WHERE id = '+ inputData.id +' FROM user'; 
         dbconn.query(sql,function (err, rows, fields) {
             if(!err){
                 var check = false;
                 for(var i =0;i<rows.length;i++){
-                    if(rows[i].user_id==find_id){
+                    if(rows[i].id==find_id){
                         console.log('duplication');
                         res.json({"result" : "duplication"});
                         check=true;

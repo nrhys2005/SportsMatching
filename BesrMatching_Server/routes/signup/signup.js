@@ -8,7 +8,6 @@ var dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태)�
 router.post('/signup', function (req, res) {
     
     console.log('<<Signup/signup>>');
-
     
     req.on('data', (data) => {
         var input_data_array= [];
@@ -30,10 +29,9 @@ router.post('/signup', function (req, res) {
                 res.json({"result" : err});
             }
         });
+        
     });
 
-    
-    
 });
 
 router.post('/check', function (req, res, next) {

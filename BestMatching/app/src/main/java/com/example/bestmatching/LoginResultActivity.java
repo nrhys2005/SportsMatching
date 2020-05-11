@@ -12,7 +12,7 @@ public class LoginResultActivity extends AppCompatActivity {
 
     TextView TextView_get;
 
-    Button football_btn;
+    Button futsal_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +29,11 @@ public class LoginResultActivity extends AppCompatActivity {
 
         TextView_get.setText(id + " / " + password);*/
 
-        football_btn = findViewById(R.id.futsal_btn);
-        football_btn.setOnClickListener(new View.OnClickListener() {
+        futsal_btn = findViewById(R.id.futsal_btn);
+        futsal_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginResultActivity.this, FutSalSearchMapActivity.class);
+                Intent intent = new Intent(LoginResultActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });

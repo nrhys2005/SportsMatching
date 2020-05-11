@@ -1,65 +1,46 @@
 package com.example.bestmatching;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
-public class FutSalMatchActivity extends AppCompatActivity {
+public class FutSalMatchActivity extends Fragment implements View.OnClickListener {
 
-    Button search_place;
-    Button match;
-    Button team;
-    Button help;
+    Button match_1;
+    Button match_2;
 
+
+    public static FutSalMatchActivity newInstance() {
+        return new FutSalMatchActivity();
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_futsal_match);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
+        View view = inflater.inflate(R.layout.activity_futsal_match_main, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
-        search_place = findViewById(R.id.search_place);
-        match = findViewById(R.id.match);
-        team = findViewById(R.id.team);
-        help = findViewById(R.id.help);
+        match_1 = (Button)view.findViewById(R.id.match_1);
+        match_2 =(Button)view.findViewById(R.id.match_2);
 
-        //구장검색 눌렀을때
-        search_place.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FutSalMatchActivity.this, FutSalSearchMapActivity.class);
-                startActivity(intent);
-            }
-        });
+        match_1.setOnClickListener(this);
+        match_2.setOnClickListener(this);
 
-       /* //매치검색 눌렀을때
-        match.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FutSalMatchActivity.this, FutSalMatchActivity.class);
-                startActivity(intent);
-            }
-        });*/
+        return view;
+    }
 
-        //마이팀 눌렀을때
-        team.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FutSalMatchActivity.this,FutSalTeamActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        //고객센터 눌렀을때
-        help.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FutSalMatchActivity.this, FutSalHelpActivity.class);
-                startActivity(intent);
-            }
-        });
-
+    @Override
+    public void onClick(View v) {
+        int a = v.getId();
+        switch (a){
+            case R.id.match_1:
+                ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalMatchRegisterActivity.newInstance());
+                break;
+            case R.id.match_2:
+                ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalMatchSearchActivity.newInstance());
+                break;
+        }
     }
 }

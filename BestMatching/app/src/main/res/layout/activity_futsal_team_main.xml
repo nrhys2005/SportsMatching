@@ -7,54 +7,30 @@
     android:orientation="vertical"
     >
 
-   <TextView
-       android:layout_width="match_parent"
-       android:layout_height="25dp"
-       android:gravity="center"
-       android:text="BestMatching -Futsal"
-       />
-
    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:orientation="horizontal"
-       android:weightSum="1">
-
+       android:gravity="center">
       <Button
-          android:id="@+id/search_place"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_weight="0.25"
-          android:gravity="center"
           android:background="@android:color/transparent"
-         android:text="구장 검색"/>
-
+          android:text="팀등록"
+          />
       <Button
-          android:id="@+id/match"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_weight="0.25"
-          android:gravity="center"
           android:background="@android:color/transparent"
-          android:text="팀 매칭"/>
+          android:text="팀검색"
+          />
 
       <Button
-          android:id="@+id/team"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_weight="0.25"
-          android:gravity="center"
           android:background="@android:color/transparent"
-          android:text="마이 팀"/>
-
-      <Button
-          android:id="@+id/help"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_weight="0.25"
-          android:gravity="center"
-          android:background="@android:color/darker_gray"
-          android:text="고객 센터"/>
+          android:text="팀기록"
+          />
 
    </LinearLayout>
 

@@ -12,14 +12,9 @@ app.set('port', process.env.PORT || PORT);
 // });
 
 //라우팅 모듈 선언
-var indexRouter = require('./routes/index');
 
-//회원가입 라우팅 선언
-app.use('/signup', require('./routes/signup/signup'));
+app.use('/', require('./routes/index'));
 
-
-
- app.use('/login',  require('./routes/login'));
 
 app.listen(PORT, () => {
     console.log('Express server listening on port '+PORT);

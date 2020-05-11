@@ -1,7 +1,7 @@
-var  mysql = require('mysql');
-var os = require('os');  //호스트 이름을 가져오기 위한 모듈
+const mysql = require('mysql');
+const os = require('os');  //호스트 이름을 가져오기 위한 모듈
 
-var dbconnInfo = {
+const dbconnInfo = {
 	dev:{
 		host: 'localhost',
 		port: '3306',
@@ -20,7 +20,7 @@ var dbconnInfo = {
 	// }	
 };
 
-var dbconnection = {
+const dbconnection = {
 	init : function(){
 		var hostname = os.hostname();
 		if(hostname === 'SANGHUN'){

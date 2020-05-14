@@ -17,12 +17,11 @@ router.post('/signup', function (req, res) {
         input_data_array.push(inputData.id);// json->array
         input_data_array.push(inputData.name);
         //var buffer;
-        var pw ;
         crypto.randomBytes(64, (err, buf) => {
             crypto.pbkdf2(inputData.pw,  buf.toString('base64'), 100000, 64, 'sha512', (err, key) => {
             //crypto.pbkdf2(inputData.pw, buf.toString('base64'), 9000, 64, 'sha512', (err, key) => {
+                input_data_array.push(key.toString('base64')); //pwd
                 input_data_array.push(buf.toString('base64')); //salt
-                input_data_array.push(key.toString('base64')); //pw
                 console.log("buf = " +buf.toString('base64')); 
                 console.log("key = " +key.toString('base64')); // 'dWhPkH6c4X1Y71A/DrAHhML3DyKQdEkUOIaSmYCI7xZkD5bLZhPF0dOSs2YZA/Y4B8XNfWd3DHIqR5234RtHzw=='
                 //buffer = buf.toString('base64');
@@ -31,7 +30,7 @@ router.post('/signup', function (req, res) {
                 input_data_array.push(inputData.email);
                 console.log('input_data : ' + input_data_array); // 회원가입 내용 출력
                 
-                var sql_insert = 'INSERT INTO best_matching.user (id, name , salt, pw, email) VALUES(?, ?, ?, ?, ?)';
+                var sql_insert = 'INSERT INTO best_matching.user (id, name, salt, pw, email) VALUES(?, ?, ?, ?, ?)';
                 dbconn.query(sql_insert,input_data_array, function (err, rows, fields) {//DB connect
                     if (!err) {
                         console.log('Query insert success');

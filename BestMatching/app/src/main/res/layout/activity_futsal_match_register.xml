@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/blue"
     android:gravity="center"
     >
 
@@ -30,6 +29,7 @@
              android:textSize="15sp"
              android:gravity="center"
              android:text="팀 이름"
+             android:textStyle="bold"
              android:padding="10dp"/>
 
          <EditText
@@ -53,6 +53,7 @@
              android:textSize="13sp"
              android:gravity="center"
              android:text="매칭제목"
+             android:textStyle="bold"
              android:padding="10dp"/>
 
          <EditText
@@ -76,6 +77,7 @@
              android:textSize="15sp"
              android:gravity="center"
              android:text="구장"
+             android:textStyle="bold"
              android:padding="10dp"/>
 
          <TextView
@@ -100,6 +102,7 @@
              android:textSize="13sp"
              android:gravity="center"
              android:text="시간"
+             android:textStyle="bold"
              android:padding="10dp"/>
 
          <EditText
@@ -123,6 +126,7 @@
              android:textSize="13sp"
              android:gravity="center"
              android:text="요금"
+             android:textStyle="bold"
              android:padding="10dp"/>
 
          <EditText

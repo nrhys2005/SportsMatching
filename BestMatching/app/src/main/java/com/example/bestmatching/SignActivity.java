@@ -30,10 +30,6 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
 
     Button finshsign_btn;
     Button back_btn;
-
-    TextView testget;
-    TextView testpost;
-
     EditText id;
     EditText pw;
     EditText pw_check;
@@ -53,9 +49,6 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
 
         finshsign_btn = findViewById(R.id.finshsign_btn);
         back_btn = findViewById(R.id.back_btn);
-
-        testget = findViewById(R.id.testget);
-        testpost = findViewById(R.id.testpost);
 
         id = findViewById(R.id.id);
         pw = findViewById(R.id.pw);
@@ -98,8 +91,6 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
                         emailList.add(jsonObject.getString("email"));
                     }
 
-                    //testpost.setText(idList+" "+nameList);
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -117,9 +108,6 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
-            testget.setText("성공");
-            testpost.setText(idList.get(0)+"\n"+nameList.get(0));
 
             /*String url = "http://localhost:3000/users";
             InputStream is = null;
@@ -254,7 +242,6 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            testpost.setText(result);//서버로 부터 받은 값을 출력해주는 부분
 
             try {
                 JSONObject jsonObject = new JSONObject(result);
@@ -282,7 +269,7 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.finshsign_btn:
 
                 if (pw.getText().toString().equals(pw_check.getText().toString())) {
-                    new Post().execute("http://59.151.245.176:3000/signup/signup");
+                    new Post().execute("http://60.253.53.7:3000/signup/signup");
                     //new JSONTask().execute("http://192.168.0.7:3000/users");
                     //new Get().execute("http://59.151.245.176:3000/users");
                 }

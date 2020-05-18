@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const crypto = require('crypto');
-const dbConObj = require('../../config/db_info');	//디비 정보 import
+const dbConObj = require('../../config/db_info');   //디비 정보 import
 const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태)에 저장)
  
 
@@ -20,8 +20,8 @@ router.post('/signup', function (req, res) {
         crypto.randomBytes(64, (err, buf) => {
             crypto.pbkdf2(inputData.pw,  buf.toString('base64'), 100000, 64, 'sha512', (err, key) => {
             //crypto.pbkdf2(inputData.pw, buf.toString('base64'), 9000, 64, 'sha512', (err, key) => {
-                input_data_array.push(key.toString('base64')); //pwd
                 input_data_array.push(buf.toString('base64')); //salt
+                input_data_array.push(key.toString('base64')); //pwd
                 console.log("buf = " +buf.toString('base64')); 
                 console.log("key = " +key.toString('base64')); // 'dWhPkH6c4X1Y71A/DrAHhML3DyKQdEkUOIaSmYCI7xZkD5bLZhPF0dOSs2YZA/Y4B8XNfWd3DHIqR5234RtHzw=='
                 //buffer = buf.toString('base64');
@@ -42,10 +42,10 @@ router.post('/signup', function (req, res) {
                 });
             });
         });
-        crypto.pbkdf2("pass", "salt", 100000, 64, 'sha512', (err, key) => {
-            console.log(key.toString('base64'));
-            console.log(key.toString('base64') === "pass");
-        });
+        // crypto.pbkdf2("pass", "salt", 100000, 64, 'sha512', (err, key) => {
+        //     console.log(key.toString('base64'));
+        //     console.log(key.toString('base64') === "pass");
+        // });
         //input_data_array.push(inputData.pw);
        
     });

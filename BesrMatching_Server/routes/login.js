@@ -13,21 +13,21 @@ router.post('/', function (req, res) {
         var login_id = inputData.id;
         var login_pwd = inputData.pw;
         console.log('로그인 시도 아이디 : ' + login_id);
-        var sql = 'select * from user ';
+        var sql = 'select * from user where id=?';
         var result= 'error';
-        dbconn.query(sql, function (err, rows, fields) {
+        var param = [login_id];
+        dbconn.query(sql,param, function (err, rows) {
             var find_pw = false;
             if (err) {
                 console.log(err);
-            } else {
-                for (var i = 0; i < rows.length; i++) {
-                    if (rows[i].id === login_id) {
+            } else {         
+                    if (rows[0].id === login_id) {
                         find_pw=true;
                         var salt = rows[i].salt.toString('base64');
                         //console.log('salt ' + rows[i].salt);
                         //console.log('pw ' + inputData.pw);
                         //console.log('row_pw ' + rows[i].pw);
-                        var pw = rows[i].pw;
+                        var pw = rows[0].pw;
                        // var code;
                         crypto.randomBytes(64, (err, buf) => {
                             
@@ -49,17 +49,14 @@ router.post('/', function (req, res) {
                                 });
                             });
                         });
-                        //result = crypto;
-                        break;
+                        //result = crypto;            
                     }
                     else {
                         result = 'No find'
                         message = '존재하지 않는 계정입니다!';
                         console.log(message);
                         
-                    }
-                }
-               
+                    }                               
                 if(!find_pw){
                     res.json({
                         'result': result

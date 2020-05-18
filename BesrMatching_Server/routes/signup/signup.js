@@ -71,8 +71,7 @@ router.post('/check', function (req, res, next) {
                         res.json({"result" : "duplication"});
                         check=true;
                         break;
-                    }
-                
+                    }                
                 if(!check){
                     console.log('no duplication');
                     res.json({"result" : "no duplication"});

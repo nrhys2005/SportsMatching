@@ -12,7 +12,7 @@ router.post('/create', function (req, res) {
         var input_data_array= [];
         var inputData = JSON.parse(data); // JSON data 받음
 
-        input_data_array.push(inputData.name);// json->array
+        input_data_array.push(inputData.team_name);// json->array
         input_data_array.push(inputData.phonenumber);
         input_data_array.push(inputData.age_range);
         input_data_array.push(inputData.level);
@@ -22,7 +22,7 @@ router.post('/create', function (req, res) {
 
         console.log('input_data : ' + input_data_array); // 회원가입 내용 출력
 
-        var sql_insert = 'INSERT INTO best_matching.team (name, phonenumber, age_range, level, location,week,comment) VALUES(?, ?, ?, ?, ?, ?, ?)';
+        var sql_insert = 'INSERT INTO best_matching.team (team_name, phonenumber, age_range, level, location,week,comment) VALUES(?, ?, ?, ?, ?, ?, ?)';
         dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
             if (!err) {
                 console.log('Query insert success');
@@ -41,14 +41,14 @@ router.post('/search', function (req, res) {
     req.on('data', (data) => {
         var search_data_array= [];
         var Data = JSON.parse(data); // JSON data 받음
-        search_data_array.push("%"+Data.name+"%");
+        search_data_array.push("%"+Data.team_name+"%");
         var sql;
         if(Data.location=="none"){
-            sql = 'select * from team where name like ?';
+            sql = 'select * from team where team_name like ?';
         }
         else{
             search_data_array.push(Data.location);
-            sql = 'select * from team where name like ? and location = ?';
+            sql = 'select * from team where team_name like ? and location = ?';
         }
         console.log('search_condition : ' + search_data_array); // 회원가입 내용 출력
     

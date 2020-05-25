@@ -52,7 +52,7 @@
              android:layout_marginBottom="10dp"
              android:textSize="13sp"
              android:gravity="center"
-             android:text="매칭제목"
+             android:text="대표번호"
              android:textStyle="bold"
              android:padding="10dp"/>
 
@@ -62,7 +62,7 @@
              android:layout_marginBottom="10dp"
              android:background="@color/white"
              android:gravity="center"
-             android:hint="제목을 입력해주세요."
+             android:hint="번호를 입력해주세요."
              android:padding="10dp" />
       </LinearLayout>
 
@@ -76,18 +76,18 @@
              android:layout_marginBottom="10dp"
              android:textSize="15sp"
              android:gravity="center"
-             android:text="구장"
+             android:text="팀수준"
              android:textStyle="bold"
              android:padding="10dp"/>
 
          <TextView
-             android:id="@+id/select_stadium"
+             android:id="@+id/team_level"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginBottom="10dp"
              android:background="@color/white"
              android:gravity="center"
-             android:hint="구장을 선택해주세요."
+             android:hint="팀수준을 선택해주세요."
              android:padding="10dp" />
       </LinearLayout>
 
@@ -101,7 +101,7 @@
              android:layout_marginBottom="10dp"
              android:textSize="13sp"
              android:gravity="center"
-             android:text="시간"
+             android:text="활동지역"
              android:textStyle="bold"
              android:padding="10dp"/>
 
@@ -111,31 +111,7 @@
              android:layout_marginBottom="10dp"
              android:background="@color/white"
              android:gravity="center"
-             android:hint="시간을 선택해주세요."
-             android:padding="10dp" />
-      </LinearLayout>
-
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          >
-         <TextView
-             android:layout_width="70dp"
-             android:layout_height="wrap_content"
-             android:layout_marginBottom="10dp"
-             android:textSize="13sp"
-             android:gravity="center"
-             android:text="요금"
-             android:textStyle="bold"
-             android:padding="10dp"/>
-
-         <EditText
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginBottom="10dp"
-             android:background="@color/white"
-             android:gravity="center"
-             android:hint="요금"
+             android:hint="지역을 선택해주세요."
              android:padding="10dp" />
       </LinearLayout>
 
@@ -153,14 +129,13 @@
        android:weightSum="1">
 
       <Button
-          android:id="@+id/match_register"
           android:layout_width="wrap_content"
           android:layout_height="50dp"
-          android:text="매칭등록"
+          android:text="팀등록"
+
           android:layout_weight="0.5"
           />
       <Button
-          android:id="@+id/match_cancel"
           android:layout_width="wrap_content"
           android:layout_height="50dp"
           android:text="취소"

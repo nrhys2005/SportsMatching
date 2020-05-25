@@ -13,12 +13,14 @@
        android:orientation="horizontal"
        android:gravity="center">
       <Button
+          android:id="@+id/team_1"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:background="@android:color/transparent"
           android:text="팀등록"
           />
       <Button
+          android:id="@+id/team_2"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:background="@android:color/transparent"
@@ -26,6 +28,7 @@
           />
 
       <Button
+          android:id="@+id/team_3"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:background="@android:color/transparent"

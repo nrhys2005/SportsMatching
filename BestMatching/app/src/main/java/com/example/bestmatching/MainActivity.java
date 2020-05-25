@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 replaceFragment(FutSalMatchActivity.newInstance(), FutSalMatchRegisterActivity.newInstance());
                 break;
             case R.id.team:
-                replaceFragment(FutSalTeamActivity.newInstance(), FutSalSearchMapActivity.newInstance());
+                replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamRegisterActivity.newInstance());
                 break;
             case R.id.help:
                 replaceFragment(FutSalHelpActivity.newInstance(), FutSalSearchMapActivity.newInstance());

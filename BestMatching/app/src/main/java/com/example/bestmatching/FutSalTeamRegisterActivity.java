@@ -7,36 +7,29 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-public class FutSalMatchRegisterActivity extends Fragment implements View.OnClickListener {
+public class FutSalTeamRegisterActivity extends Fragment implements View.OnClickListener {
 
     private Context context;
+    TextView team_level;
 
-    //Button match_cancel;
-    TextView select_stadium;
-
-    public static FutSalMatchRegisterActivity newInstance() {
-        return new FutSalMatchRegisterActivity();
+    public static FutSalTeamRegisterActivity newInstance() {
+        return new FutSalTeamRegisterActivity();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
-        View view = inflater.inflate(R.layout.activity_futsal_match_register, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
+        View view = inflater.inflate(R.layout.activity_futsal_team_register, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         context = container.getContext();
-        select_stadium = (TextView) view.findViewById(R.id.select_stadium);
-
-        //match_cancel = (Button)view.findViewById(R.id.match_cancel);
+        team_level = (TextView) view.findViewById(R.id.team_level);
 
 
-        //match_cancel.setOnClickListener(this);
-        select_stadium.setOnClickListener(this);
+        team_level.setOnClickListener(this);
 
         return view;
     }
@@ -46,9 +39,9 @@ public class FutSalMatchRegisterActivity extends Fragment implements View.OnClic
         int a = v.getId();
 
         switch (a) {
-            case R.id.select_stadium:
+            case R.id.team_level:
 
-                final String[] items = {"경북대 상주캠 풋살장", "경북대 대구캠 풋살장"};
+                final String[] items = {"상", "중", "하"};
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
@@ -57,7 +50,7 @@ public class FutSalMatchRegisterActivity extends Fragment implements View.OnClic
 
                             public void onClick(DialogInterface dialog, int index){
                                 /*Toast.makeText(context, items[index], Toast.LENGTH_SHORT).show();*/
-                                select_stadium.setText(items[index]);
+                                team_level.setText(items[index]);
                             }
                         })
 
@@ -78,10 +71,6 @@ public class FutSalMatchRegisterActivity extends Fragment implements View.OnClic
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
-                break;
-
-            case R.id.match_cancel:
-                //fisnsh();
                 break;
         }
     }

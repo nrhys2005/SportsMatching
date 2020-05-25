@@ -34,8 +34,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     TextInputEditText TextInputEditText_id;
     TextInputEditText TextInputEditText_password;
 
-    TextView test1;
-
     Button sign_btn;
     Button login_btn;
 
@@ -46,8 +44,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         TextInputEditText_id = findViewById(R.id.TextInputEditText_id);
         TextInputEditText_password = findViewById(R.id.TextInputEditText_password);
-
-        test1 = findViewById(R.id.test1);
 
         sign_btn = findViewById(R.id.sign_btn);
         login_btn = findViewById(R.id.login_btn);
@@ -139,7 +135,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            test1.setText(result);//서버로 부터 받은 값을 출력해주는 부분
+            //test1.setText(result);//서버로 부터 받은 값을 출력해주는 부분
 
             try {
                 JSONObject jsonObject = new JSONObject(result);
@@ -185,8 +181,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         int id = v.getId();
         switch (id) {
             case R.id.login_btn:
-                new Post().execute("http://59.151.245.176:3000/login");
-                //login();
+                //new Post().execute("http://60.253.53.7:3000/login");
+                login();
                 break;
             case R.id.sign_btn:
                 sign();

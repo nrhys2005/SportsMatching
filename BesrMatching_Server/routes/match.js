@@ -6,23 +6,23 @@ const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태
 
 router.post('/create', function (req, res) {
     
-    console.log('<<Team/create>>');
+    console.log('<<match/create>>');
  
     req.on('data', (data) => {
         var input_data_array= [];
         var inputData = JSON.parse(data); // JSON data 받음
 
-        input_data_array.push(inputData.name);// json->array
-        input_data_array.push(inputData.phonenumber);
-        input_data_array.push(inputData.age_range);
-        input_data_array.push(inputData.level);
-        input_data_array.push(inputData.location);
-        input_data_array.push(inputData.week);
-        input_data_array.push(inputData.comment);
+        // input_data_array.push(inputData.title);// json->array
+        // input_data_array.push(inputData.phonenumber);
+        // input_data_array.push(inputData.age_range);
+        // input_data_array.push(inputData.level);
+        // input_data_array.push(inputData.location);
+        // input_data_array.push(inputData.week);
+        // input_data_array.push(inputData.comment);
 
         console.log('input_data : ' + input_data_array); // 회원가입 내용 출력
 
-        var sql_insert = 'INSERT INTO best_matching.team (name, phonenumber, age_range, level, location,week,comment) VALUES(?, ?, ?, ?, ?, ?, ?)';
+        var sql_insert = 'INSERT INTO best_matching.match (name, phonenumber, age_range, level, location,week,comment) VALUES(?, ?, ?, ?, ?, ?, ?)';
         dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
             if (!err) {
                 console.log('Query insert success');
@@ -36,7 +36,7 @@ router.post('/create', function (req, res) {
 });
 router.post('/search', function (req, res) {
     
-    console.log('<<Team/search>>');
+    console.log('<<match/search>>');
 
     req.on('data', (data) => {
         var search_data_array= [];
@@ -44,11 +44,11 @@ router.post('/search', function (req, res) {
         search_data_array.push("%"+Data.name+"%");
         var sql;
         if(Data.location=="none"){
-            sql = 'select * from team where name like ?';
+            sql = 'select * from match where name like ?';
         }
         else{
             search_data_array.push(Data.location);
-            sql = 'select * from team where name like ? and location = ?';
+            sql = 'select * from match where name like ? and location = ?';
         }
         console.log('search_condition : ' + search_data_array); // 회원가입 내용 출력
     

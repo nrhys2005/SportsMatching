@@ -14,5 +14,8 @@ router.use('/signup', require('./signup/signup'));
 router.use('/login',  require('./login'));
 
 
+router.use('/team',  require('./team'));
+
+router.use('/match',  require('./match'));
 //모듈에 등록해야 web.js에서 app.use 함수를 통해서 사용 가능
 module.exports = router;

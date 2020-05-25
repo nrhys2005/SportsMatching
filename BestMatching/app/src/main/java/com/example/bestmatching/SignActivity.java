@@ -269,7 +269,7 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.finshsign_btn:
 
                 if (pw.getText().toString().equals(pw_check.getText().toString())) {
-                    new Post().execute("http://60.253.53.7:3000/signup/signup");
+                    new Post().execute("http://59.151.245.196:3000/signup/signup");
                     //new JSONTask().execute("http://192.168.0.7:3000/users");
                     //new Get().execute("http://59.151.245.176:3000/users");
                 }

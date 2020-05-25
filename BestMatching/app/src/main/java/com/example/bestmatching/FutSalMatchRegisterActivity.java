@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment;
 public class FutSalMatchRegisterActivity extends Fragment implements View.OnClickListener {
 
     private Context context;
+
+    //Button match_cancel;
     TextView select_stadium;
 
     public static FutSalMatchRegisterActivity newInstance() {
@@ -30,7 +32,10 @@ public class FutSalMatchRegisterActivity extends Fragment implements View.OnClic
         context = container.getContext();
         select_stadium = (TextView) view.findViewById(R.id.select_stadium);
 
+        //match_cancel = (Button)view.findViewById(R.id.match_cancel);
 
+
+        //match_cancel.setOnClickListener(this);
         select_stadium.setOnClickListener(this);
 
         return view;
@@ -73,6 +78,10 @@ public class FutSalMatchRegisterActivity extends Fragment implements View.OnClic
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
+                break;
+
+            case R.id.match_cancel:
+                //fisnsh();
                 break;
         }
     }

@@ -45,12 +45,14 @@ router.post('/search', function (req, res) {
         var sql;
         if(Data.location=="none"){
             sql = 'select * from team where team_name like ?';
+            console.log('search_condition : name = ' + search_data_array[0]); 
         }
         else{
             search_data_array.push(Data.location);
             sql = 'select * from team where team_name like ? and location = ?';
+            console.log('search_condition : name = ' + search_data_array[0]+ 'location = '+ search_data_array[1]); 
         }
-        console.log('search_condition : ' + search_data_array); // 회원가입 내용 출력
+        
 
         dbconn.query(sql, search_data_array, function (err, rows, fields) {//DB connect
             if (!err) {

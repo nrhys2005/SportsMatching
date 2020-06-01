@@ -20,7 +20,7 @@ router.post('/create', function (req, res) {
         // input_data_array.push(inputData.week);
         // input_data_array.push(inputData.comment);
 
-        console.log('input_data : ' + input_data_array); // 회원가입 내용 출력
+        console.log('input_data : ' + input_data_array); 
 
         var sql_insert = 'INSERT INTO best_matching.match (name, phonenumber, age_range, level, location,week,comment) VALUES(?, ?, ?, ?, ?, ?, ?)';
         dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
@@ -50,7 +50,7 @@ router.post('/search', function (req, res) {
             search_data_array.push(Data.location);
             sql = 'select * from match where name like ? and location = ?';
         }
-        console.log('search_condition : ' + search_data_array); // 회원가입 내용 출력
+        console.log('search_condition : ' + search_data_array); 
     
         dbconn.query(sql, search_data_array, function (err, rows, fields) {//DB connect
             if (!err) {

@@ -34,37 +34,63 @@ router.post('/create', function (req, res) {
         });
     });
 });
-router.post('/search', function (req, res) {
 
+router.get('/search/:search', function (req, res) {
     console.log('<<Team/search>>');
+    var search = req.params.search;
+    var search_data_array = [];
+    //var Data = JSON.parse(data); // JSON data 받음
+    var sql;
+    console.log('Search ='+ search);
+    if (search == "none") {
+        sql = 'select * from team';
+    }
+    else {
+        sql = 'select * from team where team_name like ? or location like ?';
+        search_data_array.push("%" + search + "%");
+        search_data_array.push("%" + search + "%");
+    }
+
+    dbconn.query(sql, search_data_array, function (err, rows, fields) {//DB connect
+        if (!err) {
+            if (rows.length == 0) {
+                console.log('Query Select Success("result": "no find")');
+                res.json({ "result": "no find" });
+            }
+            else {
+                console.log('Query Select Success(result": "Success)');
+                res.json({ "result": "Success" ,rows});
+            }
+
+        } else {
+            console.log('Query Select Error : ' + err);
+            res.json({ "result": err });
+        }
+    });
+});
+
+router.post('/signup', function (req, res) {
+
+    console.log('<<Team/signup>>');
 
     req.on('data', (data) => {
-        var search_data_array= [];
+        var update_data_array= [];
         var Data = JSON.parse(data); // JSON data 받음
-        search_data_array.push("%"+Data.team_name+"%");
-        var sql;
-        if(Data.location=="none"){
-            sql = 'select * from team where team_name like ?';
-            console.log('search_condition : name = ' + search_data_array[0]); 
-        }
-        else{
-            search_data_array.push(Data.location);
-            sql = 'select * from team where team_name like ? and location = ?';
-            console.log('search_condition : name = ' + search_data_array[0]+ 'location = '+ search_data_array[1]); 
-        }
-        
+        var sql = 'update user set team name = ? where user.id == ? ';
+        update_data_array.push(Data.team_name);
+        update_data_array.push(Data.id);
 
-        dbconn.query(sql, search_data_array, function (err, rows, fields) {//DB connect
+        dbconn.query(sql, update_data_array, function (err, rows, fields) {//DB connect
             if (!err) {
-                console.log('Query Select Success');
-                res.json({rows});
+                console.log('Query Update Success');
+                res.json( {"result": "Success"});
+                
             } else {
-                console.log('Query Select Error : ' + err);
+                console.log('Query Update Error : ' + err);
                 res.json({ "result": err });
             }
         });
     });
 });
-
 
 module.exports = router;

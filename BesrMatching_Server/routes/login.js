@@ -3,7 +3,10 @@ const router = express.Router();
 const crypto = require('crypto');
 const dbConObj = require('../config/db_info');   //디비 정보 import
 const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태)에 저장)
+const moment = require('moment')
 
+require('moment-timezone')
+moment.tz.setDefault('Asia/Seoul')
 
 router.post('/', function (req, res) {
     console.log('<<Login>>');
@@ -50,6 +53,58 @@ router.post('/', function (req, res) {
                                 //console.log(salt);
                                 //console.log(pw);
                                 console.log('로그인 성공! ' + login_id + '님 환영합니다!');
+                                req.session.user =
+                                {
+                                    user_id: login_id,
+                                    authorized: true
+                                };
+                                //res.cookie('user_id', login_id)
+                                var session_id = req.session.id
+                                console.log("세션 "+ req.session.id)
+                                console.log("세션 아이디"+req.session.user.user_id);
+                                var select_sql = 'select * FROM session WHERE user_id = ?';
+                                dbconn.query(select_sql, login_id, function (err, rows, fields) {
+                                    if (!err) {
+                                        var date = moment().format('YYYY-MM-DD HH:mm:ss')
+                                        if(rows.length==0){
+                                            var insert_sql = 'insert into session(session_id, user_id, date) values(?,?,?)';
+                                            var input_data_array= [];
+                                            input_data_array.push(session_id);
+                                            input_data_array.push(login_id);
+                                            input_data_array.push(date);
+                                            dbconn.query(insert_sql, input_data_array, function (err, rows, fields) {
+                                                if (!err) {
+                                                    console.log("insert session");
+                                                } 
+                                                else {
+                                                    console.log(err);
+                                                }
+                                            });
+                                        }
+                                        else if (rows[0].user_id == login_id) {
+                                            var update_sql = 'update session set session_id = ?, date = ? where user_id = ?';
+                                            var input_data_array= [];
+                                            input_data_array.push(session_id);
+                                            input_data_array.push(date);
+                                            input_data_array.push(login_id);
+                                            dbconn.query(update_sql, input_data_array, function (err, rows, fields) {
+                                                if (!err) {
+                                                    console.log("update session");
+                                                } 
+                                                else {
+                                                    console.log(err);
+                                                }
+                                            });
+                                        }
+                                        else {
+                                            console.log('session error');
+                                            console.log(err);
+                                        }
+                                    } else {
+                                        res.send(err);
+                                        console.log(err);
+                                    }
+                                });
                             }
                             else {
                                 //console.log(key);

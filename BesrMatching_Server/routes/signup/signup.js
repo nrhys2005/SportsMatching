@@ -3,7 +3,7 @@ const router = express.Router();
 const crypto = require('crypto');
 const dbConObj = require('../../config/db_info');   //디비 정보 import
 const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태)에 저장)
- 
+
 
 router.post('/signup', function (req, res) {
     
@@ -11,9 +11,9 @@ router.post('/signup', function (req, res) {
 
     
     req.on('data', (data) => {
-        var input_data_array= [];
+        
         var inputData = JSON.parse(data); // JSON data 받음
-
+        var input_data_array= [];
         input_data_array.push(inputData.id);// json->array
         input_data_array.push(inputData.name);
         //var buffer;
@@ -49,9 +49,6 @@ router.post('/signup', function (req, res) {
         //input_data_array.push(inputData.pw);
        
     });
-
-    
-    
 });
 
 router.post('/check', function (req, res, next) {
@@ -61,22 +58,25 @@ router.post('/check', function (req, res, next) {
         inputData = JSON.parse(data);
         var find_id = inputData.id;
 
-        var sql = 'SELECT * FROM user WHERE id = ?'; 
+        
+        var sql = 'SELECT * FROM user WHERE id = ?';
         var param = find_id;
-        dbconn.query(sql,param,function (err, rows, fields) {
-            if(!err){
-                var check = false;
-                    if(rows[0].id==find_id){
-                        console.log('duplication');
-                        res.json({"result" : "duplication"});
-                        check=true;
-                        break;
-                    }                
-                if(!check){
+        dbconn.query(sql, param, function (err, rows, fields) {
+            console.log(rows);
+            if (!err) {
+                if(rows.length==0){
                     console.log('no duplication');
-                    res.json({"result" : "no duplication"});
+                    res.json({ "result": "no duplication" });
                 }
-            }else{
+                else if (rows[0].id == find_id) {
+                    console.log('duplication');
+                    res.json({ "result": "duplication" });
+                }
+                else {
+                    console.log('no duplication');
+                    res.json({ "result": "no duplication" });
+                }
+            } else {
                 res.send(err);
                 console.log(err);
             }

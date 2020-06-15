@@ -63,7 +63,7 @@ router.get('/search', function (req, res) {
             }
             else {
                 console.log('Query Select Success');
-                res.json({ "result": "Success", rows });
+                res.json({ "result": "Success", groud_info : rows});
             }
         } else {
             console.log('Query Select Error : ' + err);

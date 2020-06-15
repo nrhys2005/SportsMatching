@@ -2,7 +2,44 @@ const express = require('express');
 const router = express.Router();
 const dbConObj = require('../config/db_info');   //디비 정보 import
 const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태)에 저장)
- 
+
+
+router.get('/', function (req, res) {
+    var sql = 'select * from ground';
+    dbconn.query(sql, function (err, rows, fields) {//DB connect
+        var List = new Array();
+        if (!err) {
+            console.log('Query Select Success');
+            console.log(rows);
+
+            for (var i = 0; i < rows.length; i++) {
+                var data = new Object();
+                data.name = rows[i].name;
+                data.lat = rows[i].latitude;
+                data.lon = rows[i].longtitude;
+                data.price = rows[i].price;
+
+                List.push(data);
+            }
+            var jsonData = JSON.stringify(List);
+            var senddata = JSON.parse(jsonData);
+            console.log(senddata);
+            info = jsonData;
+
+            //var team_info = JSON.stringify(rows);
+
+            res.json(
+                {
+                    ground_info : info,
+                    result: 'Success'
+                });
+        } else {
+            console.log('Query Select Error : ' + err);
+            res.json({ "result": err });
+        }
+    });
+});
+
 
 router.get('/search', function (req, res) {
     console.log('<<ground/search>>');
@@ -26,7 +63,7 @@ router.get('/search', function (req, res) {
             }
             else {
                 console.log('Query Select Success');
-                res.json({ "result": "Success", rows });
+                res.json({ "result": "Success", groud_info : rows});
             }
         } else {
             console.log('Query Select Error : ' + err);

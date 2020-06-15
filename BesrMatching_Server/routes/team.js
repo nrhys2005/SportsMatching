@@ -59,7 +59,7 @@ router.get('/search/:search', function (req, res) {
             }
             else {
                 console.log('Query Select Success(result": "Success)');
-                res.json({ "result": "Success" ,rows});
+                res.json({ "result": "Success" ,team_info : rows});
             }
 
         } else {

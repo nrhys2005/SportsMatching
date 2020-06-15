@@ -88,7 +88,7 @@
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
-                <EditText
+                <TextView
                     android:id="@+id/age_avg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
-                <EditText
+                <TextView
                     android:id="@+id/level"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -137,14 +137,14 @@
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
-                <EditText
+                <TextView
                     android:id="@+id/location"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
                     android:background="@color/white"
                     android:gravity="center"
-                    android:hint="지역을 선택해주세요."
+                    android:hint="활동지역을 선택해주세요."
                     android:padding="10dp" />
             </LinearLayout>
 
@@ -162,7 +162,7 @@
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
-                <EditText
+                <TextView
                     android:id="@+id/week"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -217,14 +217,6 @@
                 android:layout_height="50dp"
                 android:layout_weight="0.5"
                 android:text="팀등록" />
-
-            <Button
-                android:id="@+id/team_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_weight="0.5"
-                android:text="취소" />
-
         </LinearLayout>
 
     </LinearLayout>

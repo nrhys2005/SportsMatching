@@ -45,7 +45,7 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
                 ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamRegisterActivity.newInstance());
                 break;
             case R.id.team_2:
-                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalMatchSearchActivity.newInstance());
+                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamSearchActivity.newInstance());
                 break;
         }
 

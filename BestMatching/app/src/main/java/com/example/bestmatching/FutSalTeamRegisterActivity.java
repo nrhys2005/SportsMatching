@@ -3,13 +3,17 @@ package com.example.bestmatching;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +32,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 public class FutSalTeamRegisterActivity extends Fragment implements View.OnClickListener {
 
@@ -35,14 +40,21 @@ public class FutSalTeamRegisterActivity extends Fragment implements View.OnClick
 
     EditText team_name;
     EditText phonenumber;
-    EditText age_avg;
-    EditText level;
-    EditText location;
-    EditText week;
+    TextView age_avg;
+    TextView level;
+    TextView location;
+    TextView week;
     EditText comment;
+    LoginActivity l = new LoginActivity();
+    String ip = l.ip;
 
+    //private Spinner spinner_location;
+
+    AlertDialog.Builder builder;
+    AlertDialog dialog;
+    HttpURLConnection con = l.con;
+    BufferedReader reader = l.reader;
     Button team_regist;
-    Button team_cancel;
 
     public static FutSalTeamRegisterActivity newInstance() {
         return new FutSalTeamRegisterActivity();
@@ -56,23 +68,38 @@ public class FutSalTeamRegisterActivity extends Fragment implements View.OnClick
 
         team_name = (EditText) view.findViewById(R.id.team_name);
         phonenumber = (EditText) view.findViewById(R.id.phonenumber);
-        age_avg = (EditText) view.findViewById(R.id.age_avg);
-        level = (EditText) view.findViewById(R.id.level);
-        location = (EditText) view.findViewById(R.id.location);
-        week = (EditText) view.findViewById(R.id.week);
+        age_avg = (TextView) view.findViewById(R.id.age_avg);
+        level = (TextView) view.findViewById(R.id.level);
+        location = (TextView) view.findViewById(R.id.location);
+        week = (TextView) view.findViewById(R.id.week);
         comment = (EditText) view.findViewById(R.id.comment);
 
         team_regist = (Button)view.findViewById(R.id.team_regist);
-        team_cancel = (Button)view.findViewById(R.id.team_cancel);
 
+        /*final String[] location = {"10대", "20대", "30대", "40대", "50대"};
+        spinner_location = (Spinner)view.findViewById(R.id.location);
+        ArrayAdapter spinnerAdaptor;
+        spinnerAdaptor = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item,location);
+        spinner_location.setAdapter(spinnerAdaptor);*/
 
-
+        age_avg.setOnClickListener(this);
+        level.setOnClickListener(this);
+        location.setOnClickListener(this);
+        week.setOnClickListener(this);
         team_regist.setOnClickListener(this);
-        team_cancel.setOnClickListener(this);
-
         return view;
     }
 
+    public void reset()
+    {
+        team_name.setText("");
+        phonenumber.setText("");
+        age_avg.setText("");
+        level.setText("");
+        location.setText("");
+        week.setText("");
+        comment.setText("");
+    }
 
     // 안스에서 노드js로 데이터 보내는 부분
     public class Post extends AsyncTask<String, String, String> {
@@ -94,8 +121,7 @@ public class FutSalTeamRegisterActivity extends Fragment implements View.OnClick
                 jsonObject.put("comment", comment.getText().toString());
 
 
-                HttpURLConnection con = null;
-                BufferedReader reader = null;
+
 
                 try {
                     //URL url = new URL("http://192.168.25.16:3000/users");
@@ -109,6 +135,7 @@ public class FutSalTeamRegisterActivity extends Fragment implements View.OnClick
                     con.setRequestProperty("Accept", "text/html");//서버에 response 데이터를 html로 받음
                     con.setDoOutput(true);//Outstream으로 post 데이터를 넘겨주겠다는 의미
                     con.setDoInput(true);//Inputstream으로 서버로부터 응답을 받겠다는 의미
+                    setCookieHeader();
                     con.connect();
 
                     //서버로 보내기위해서 스트림 만듬
@@ -130,7 +157,7 @@ public class FutSalTeamRegisterActivity extends Fragment implements View.OnClick
                     while ((line = reader.readLine()) != null) {
                         buffer.append(line);
                     }
-
+                    getCookieHeader();
                     return buffer.toString();//서버로 부터 받은 값을 리턴해줌 아마 OK!!가 들어올것임
 
                 } catch (MalformedURLException e) {
@@ -166,6 +193,7 @@ public class FutSalTeamRegisterActivity extends Fragment implements View.OnClick
 
                 if ( msg.equals("Success")){
                     Toast.makeText(context.getApplicationContext(),"팀등록 성공",Toast.LENGTH_SHORT).show();
+                    reset();
                 }
                 else {
                     Toast.makeText(context.getApplicationContext(),"팀등록 실패",Toast.LENGTH_SHORT).show();
@@ -176,6 +204,45 @@ public class FutSalTeamRegisterActivity extends Fragment implements View.OnClick
 
         }
     }
+    private void getCookieHeader(){//Set-Cookie에 배열로 돼있는 쿠키들을 스트링 한줄로 변환
+        List<String> cookies = con.getHeaderFields().get("Set-Cookie");
+        //cookies -> [JSESSIONID=D3F829CE262BC65853F851F6549C7F3E; Path=/smartudy; HttpOnly] -> []가 쿠키1개임.
+        //Path -> 쿠키가 유효한 경로 ,/smartudy의 하위 경로에 위의 쿠키를 사용 가능.
+        if (cookies != null) {
+            for (String cookie : cookies) {
+                String sessionid = cookie.split(";\\s*")[0];
+                //JSESSIONID=FB42C80FC3428ABBEF185C24DBBF6C40를 얻음.
+                //세션아이디가 포함된 쿠키를 얻었음.
+                setSessionIdInSharedPref(sessionid);
+
+            }
+        }
+
+    }
+
+
+    private void setSessionIdInSharedPref(String sessionid){
+        SharedPreferences pref = context.getSharedPreferences("sessionCookie",context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = pref.edit();
+        if(pref.getString("sessionid",null) == null){ //처음 로그인하여 세션아이디를 받은 경우
+            Log.d("LOG","처음 로그인하여 세션 아이디를 pref에 넣었습니다."+sessionid);
+        }else if(!pref.getString("sessionid",null).equals(sessionid)){ //서버의 세션 아이디 만료 후 갱신된 아이디가 수신된경우
+            Log.d("LOG","기존의 세션 아이디"+pref.getString("sessionid",null)+"가 만료 되어서 "
+                    +"서버의 세션 아이디 "+sessionid+" 로 교체 되었습니다.");
+        }
+        edit.putString("sessionid",sessionid);
+        edit.apply(); //비동기 처리
+    }
+
+
+    private void setCookieHeader(){
+        SharedPreferences pref = context.getSharedPreferences("sessionCookie",context.MODE_PRIVATE);
+        String sessionid = pref.getString("sessionid",null);
+        if(sessionid!=null) {
+            Log.d("LOG","세션 아이디"+sessionid+"가 요청 헤더에 포함 되었습니다.");
+            con.setRequestProperty("Cookie", sessionid);
+        }
+    }
 
 
     @Override
@@ -183,41 +250,128 @@ public class FutSalTeamRegisterActivity extends Fragment implements View.OnClick
         int a = v.getId();
 
         switch (a) {
-            case R.id.level:
+            //평균연령 버튼
+            case R.id.age_avg:
+                final String[] ages = {"10대", "20대", "30대", "40대", "50대"};
 
-                /*final String[] items = {"상", "중", "하"};
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder = new AlertDialog.Builder(context);
 
                 builder.setTitle("선택하세요")
-                        .setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener(){
+                        .setSingleChoiceItems(ages, -1, new DialogInterface.OnClickListener(){
 
                             public void onClick(DialogInterface dialog, int index){
-                                *//*Toast.makeText(context, items[index], Toast.LENGTH_SHORT).show();*//*
-                                level.setText(items[index]);
+                                /*Toast.makeText(context, items[index], Toast.LENGTH_SHORT).show();*/
+                                age_avg.setText(ages[index]);
                             }
                         })
 
                         .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(context, "ok", Toast.LENGTH_SHORT).show();
+                            public void onClick(DialogInterface dialog, int which) {
                             }
                         })
 
                         .setNeutralButton("취소", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(context, "취소", Toast.LENGTH_SHORT).show();
                             }
                         });;
-
-
-                AlertDialog dialog = builder.create();
-                dialog.show();*/
+                dialog = builder.create();
+                dialog.show();
                 break;
+
+            //팀수준 버튼
+            case R.id.level:
+                final String[] levels = {"상", "중", "하"};
+
+                builder = new AlertDialog.Builder(context);
+
+                builder.setTitle("선택하세요")
+                        .setSingleChoiceItems(levels, -1, new DialogInterface.OnClickListener(){
+
+                            public void onClick(DialogInterface dialog, int index){
+                                /*Toast.makeText(context, items[index], Toast.LENGTH_SHORT).show();*/
+                                level.setText(levels[index]);
+                            }
+                        })
+
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+
+                        .setNeutralButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });;
+                dialog = builder.create();
+                dialog.show();
+                break;
+
+            //활동지역 버튼
+            case R.id.location:
+                final String[] locations = {"경기도", "경상도", "강원도", "전라도"};
+
+                builder = new AlertDialog.Builder(context);
+
+                builder.setTitle("선택하세요")
+                        .setSingleChoiceItems(locations, -1, new DialogInterface.OnClickListener(){
+
+                            public void onClick(DialogInterface dialog, int index){
+                                /*Toast.makeText(context, items[index], Toast.LENGTH_SHORT).show();*/
+                                location.setText(locations[index]);
+                            }
+                        })
+
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+
+                        .setNeutralButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });;
+                dialog = builder.create();
+                dialog.show();
+                break;
+
+            //활동요일 버튼
+            case R.id.week:
+                final String[] weeks = {"월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"};
+
+                builder = new AlertDialog.Builder(context);
+
+                builder.setTitle("선택하세요")
+                        .setSingleChoiceItems(weeks, -1, new DialogInterface.OnClickListener(){
+
+                            public void onClick(DialogInterface dialog, int index){
+                                /*Toast.makeText(context, items[index], Toast.LENGTH_SHORT).show();*/
+                                week.setText(weeks[index]);
+                            }
+                        })
+
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+
+                        .setNeutralButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });;
+                dialog = builder.create();
+                dialog.show();
+                break;
+
             case R.id.team_regist:
-                new Post().execute("http://59.151.245.196:3000/team/create");
+                new Post().execute(ip + "/team/create");
                 break;
         }
     }

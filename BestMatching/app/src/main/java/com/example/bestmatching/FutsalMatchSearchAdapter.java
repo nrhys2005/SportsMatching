@@ -14,8 +14,11 @@ import java.util.ArrayList;
 
 public class FutsalMatchSearchAdapter extends BaseAdapter {
 
-    private TextView test1;
-    private TextView test2;
+    private TextView match_search_title;
+    private TextView match_search_ground;
+    private TextView match_search_date;
+    private TextView match_search_start_time;
+    private TextView match_search_end_time;
 
     private ArrayList<FutSalMatchSearchItems> matchItems = new ArrayList<FutSalMatchSearchItems>();
 
@@ -56,19 +59,25 @@ public class FutsalMatchSearchAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.activity_futsal_match_search_item, parent, false);
         }
 
-        test1 = (TextView) convertView.findViewById(R.id.test1);
-        test2 = (TextView) convertView.findViewById(R.id.test2);
+        match_search_title = (TextView) convertView.findViewById(R.id.match_search_title);
+        match_search_ground = (TextView) convertView.findViewById(R.id.match_search_ground);
+        match_search_date = (TextView) convertView.findViewById(R.id.match_search_date);
+        match_search_start_time = (TextView) convertView.findViewById(R.id.match_search_start_time);
+        match_search_end_time = (TextView) convertView.findViewById(R.id.match_search_end_time);
 
         FutSalMatchSearchItems futSalMatchSearchItems = matchItems.get(position);
 
-        test1.setText(futSalMatchSearchItems.getTitle());
-        test2.setText(futSalMatchSearchItems.getText());
+        match_search_title.setText(futSalMatchSearchItems.getTitle());
+        match_search_ground.setText(futSalMatchSearchItems.getGround());
+        match_search_date.setText(futSalMatchSearchItems.getDate());
+        match_search_start_time.setText(futSalMatchSearchItems.getStartTime());
+        match_search_end_time.setText(futSalMatchSearchItems.getEndTime());
 
         LinearLayout layoutClick = (LinearLayout)convertView.findViewById(R.id.layoutClick);
         layoutClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), matchItems.get(pos).getText(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(v.getContext(), matchItems.get(pos).getText(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -77,11 +86,14 @@ public class FutsalMatchSearchAdapter extends BaseAdapter {
 
 
     //아이템 데이터 추가를 위한 함수
-    public void addItem(String title, String text){
+    public void addItem(String title, String ground, String date, String start_time, String end_time){
         FutSalMatchSearchItems matchSearchItems = new FutSalMatchSearchItems();
 
         matchSearchItems.setTitle(title);
-        matchSearchItems.setText(text);
+        matchSearchItems.setGround(ground);
+        matchSearchItems.setDate(date);
+        matchSearchItems.setStartTime(start_time);
+        matchSearchItems.setEndtime(end_time);
 
         matchItems.add(matchSearchItems);
     }

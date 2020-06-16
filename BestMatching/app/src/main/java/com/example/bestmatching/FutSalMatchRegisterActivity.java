@@ -36,6 +36,7 @@ import java.net.URL;
 public class FutSalMatchRegisterActivity extends Fragment implements View.OnClickListener {
 
     private Context context;
+    LoginActivity lg = new LoginActivity();
 
     EditText match_title;
     TextView select_stadium;
@@ -44,7 +45,7 @@ public class FutSalMatchRegisterActivity extends Fragment implements View.OnClic
     TextView match_end_time;
     EditText match_cost;
 
-    String ip = "http://113.59.129.168:3000";
+    String ip = lg.ip;
 
     private DatePickerDialog.OnDateSetListener callbackMethod;
     private TimePickerDialog.OnTimeSetListener start;

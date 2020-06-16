@@ -43,7 +43,9 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
     ArrayList<String> nameList = new ArrayList<>();
     ArrayList<String> emailList = new ArrayList<>();
 
-    String ip = "http://113.59.129.168:3000";
+    LoginActivity lg = new LoginActivity();
+
+    String ip = lg.ip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

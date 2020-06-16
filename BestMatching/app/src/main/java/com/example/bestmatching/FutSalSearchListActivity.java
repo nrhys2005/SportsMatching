@@ -34,9 +34,12 @@ public class FutSalSearchListActivity extends Fragment implements View.OnClickLi
     private static final int PERMISSION_REQUEST_CODE = 1;
     private ListView futsal_search_list;
     private FutsalSearchListAdapter futsalSearchListAdapter;
-    LoginActivity l = new LoginActivity();
-    String ip = l.ip;
+
+    LoginActivity lg = new LoginActivity();
+    String ip = lg.ip;
+
     private Context context;
+
     //구장 개수
     private int stadiumSize;
 
@@ -136,7 +139,7 @@ public class FutSalSearchListActivity extends Fragment implements View.OnClickLi
 
             //futsalTeamSearchAdapter.addItem(team_search_name.get(0).toString(), team_search_phone.get(0).toString(), team_search_loaction.get(0).toString(), team_search_week.get(0).toString() );
             for (int i = 0; i < stadiumSize; i++) {
-                futsalSearchListAdapter.addItem(stadium_name.get(i).toString(), "시간당 : " +price.get(i)+"원");
+                futsalSearchListAdapter.addItem(stadium_name.get(i).toString(),price.get(i)+"원");
             }
             futsalSearchListAdapter.notifyDataSetChanged();
 

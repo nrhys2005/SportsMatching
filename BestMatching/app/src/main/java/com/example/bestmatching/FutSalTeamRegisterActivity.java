@@ -45,15 +45,15 @@ public class FutSalTeamRegisterActivity extends Fragment implements View.OnClick
     TextView location;
     TextView week;
     EditText comment;
-    LoginActivity l = new LoginActivity();
-    String ip = l.ip;
+    LoginActivity lg = new LoginActivity();
+    String ip = lg.ip;
 
     //private Spinner spinner_location;
 
     AlertDialog.Builder builder;
     AlertDialog dialog;
-    HttpURLConnection con = l.con;
-    BufferedReader reader = l.reader;
+    HttpURLConnection con = lg.con;
+    BufferedReader reader = lg.reader;
     Button team_regist;
 
     public static FutSalTeamRegisterActivity newInstance() {

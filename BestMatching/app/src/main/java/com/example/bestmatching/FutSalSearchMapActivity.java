@@ -42,8 +42,8 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
 
     private static final int PERMISSION_REQUEST_CODE = 1;
     private MapView mapView = null;
-    LoginActivity l = new LoginActivity();
-    String ip = l.ip;
+    LoginActivity lg = new LoginActivity();
+    String ip = lg.ip;
 
     private Context context;
     private GoogleMap mMap;

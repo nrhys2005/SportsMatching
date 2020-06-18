@@ -42,7 +42,7 @@ router.get('/search:search', function (req, res) {
     var sql;
     console.log('Search = '+ search);
     if (search == "none") {
-        sql = 'select * from match';
+        sql = 'select * from best_matching.match';
     }
     else {
         sql = 'select * from match where title like ? ';

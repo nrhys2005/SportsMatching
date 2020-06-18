@@ -60,7 +60,6 @@
                         android:id="@+id/team_search_phone"
                         android:layout_width="75sp"
                         android:layout_height="match_parent"
-                        android:gravity="left"
                         android:textSize="8sp"
                         android:paddingLeft="10dp" />
 

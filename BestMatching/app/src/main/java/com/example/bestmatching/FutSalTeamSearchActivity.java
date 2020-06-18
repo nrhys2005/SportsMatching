@@ -36,7 +36,6 @@ public class FutSalTeamSearchActivity extends Fragment implements View.OnClickLi
     LoginActivity lg = new LoginActivity();
 
     String ip = lg.ip;
-    String text;
 
     //팀 개수
     private int teamSize;
@@ -59,16 +58,12 @@ public class FutSalTeamSearchActivity extends Fragment implements View.OnClickLi
         teamsearch_btn = (Button) view.findViewById(R.id.teamsearch_btn);
 
         futsalTeamSearchAdapter = new FutsalTeamSearchAdapter();
-        text = teamsearch_text.getText().toString();
 
         futsal_team_search = (ListView) view.findViewById(R.id.futsal_team_search);
         futsal_team_search.setAdapter(futsalTeamSearchAdapter);
 
 
-        /*if (text.equals("")) {
-            new Get().execute(ip + "/team/search/none");
-            futsalTeamSearchAdapter.notifyDataSetChanged();
-        }*/
+        new Get().execute(ip + "/team/search/none");
 
         teamsearch_btn.setOnClickListener(this);
 
@@ -113,6 +108,14 @@ public class FutSalTeamSearchActivity extends Fragment implements View.OnClickLi
                         }
                     }
 
+                    else if (msg.equals("no find")){
+                        teamSize = 0;
+                    }
+
+                    else {
+                        //Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
+                    }
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -131,12 +134,15 @@ public class FutSalTeamSearchActivity extends Fragment implements View.OnClickLi
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            //futsalTeamSearchAdapter.addItem(team_search_name.get(0).toString(), team_search_phone.get(0).toString(), team_search_loaction.get(0).toString(), team_search_week.get(0).toString() );
-            for (int i = 0; i < teamSize; i++) {
-                //futsalTeamSearchAdapter.addItem(team_search_name.get(i).toString(), "hi", team_search_loaction.get(i).toString(), "hi");
-                futsalTeamSearchAdapter.addItem(team_search_name.get(i).toString(), team_search_phone.get(i).toString(), team_search_loaction.get(i).toString(), team_search_week.get(i).toString() );
+            if (teamSize != 0) {
+                for (int i = 0; i < teamSize; i++) {
+                    futsalTeamSearchAdapter.addItem(team_search_name.get(i).toString(), team_search_phone.get(i).toString(), team_search_loaction.get(i).toString(), team_search_week.get(i).toString());
+                }
+                futsalTeamSearchAdapter.notifyDataSetChanged();
             }
-            futsalTeamSearchAdapter.notifyDataSetChanged();
+            else {
+                Toast.makeText(getActivity(), "검색결과 없습니다.", Toast.LENGTH_SHORT).show();
+            }
 
 
         }
@@ -144,6 +150,10 @@ public class FutSalTeamSearchActivity extends Fragment implements View.OnClickLi
     }
 
     public void clear() {
+        team_search_name.clear();
+        team_search_phone.clear();
+        team_search_loaction.clear();
+        team_search_week.clear();
         futsalTeamSearchAdapter.clearItem();
         futsalTeamSearchAdapter.notifyDataSetChanged();
     }
@@ -153,10 +163,16 @@ public class FutSalTeamSearchActivity extends Fragment implements View.OnClickLi
         int a = v.getId();
         switch (a) {
             case R.id.teamsearch_btn:
-                clear();
-                new Get().execute(ip + "/team/search/" + teamsearch_text.getText().toString());
-                Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
-                //futsalTeamSearchAdapter.notifyDataSetChanged();
+                String text = teamsearch_text.getText().toString();
+
+                if (text.length()>0) {
+                    clear();
+                    new Get().execute(ip + "/team/search/" + text);
+                    //Toast.makeText(getActivity(), teamsearch_text.getText().toString(), Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(getActivity(), "검색내용을 입력하세요.", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
 

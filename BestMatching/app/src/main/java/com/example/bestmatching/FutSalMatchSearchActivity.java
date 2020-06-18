@@ -6,7 +6,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -29,6 +33,9 @@ public class FutSalMatchSearchActivity extends Fragment implements View.OnClickL
 
     LoginActivity lg = new LoginActivity();
 
+    EditText matchsearch_text;
+    Button matchsearch_btn;
+
     String ip = lg.ip;
 
     //팀 개수
@@ -49,16 +56,19 @@ public class FutSalMatchSearchActivity extends Fragment implements View.OnClickL
         View view = inflater.inflate(R.layout.activity_futsal_match_search, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         context = container.getContext();
+        matchsearch_text = (EditText) view.findViewById(R.id.matchsearch_text);
+        matchsearch_btn = (Button) view.findViewById(R.id.matchsearch_btn);
 
         futsalMatchSearchAdapter = new FutsalMatchSearchAdapter();
 
-        futsal_match_search = (ListView)view.findViewById(R.id.futsal_match_search);
+        futsal_match_search = (ListView) view.findViewById(R.id.futsal_match_search);
         futsal_match_search.setAdapter(futsalMatchSearchAdapter);
 
         new Get().execute(ip + "/match/search/none");
-        //futsalMatchSearchAdapter.addItem("제목1", "내용1","1","1","1");
 
         futsalMatchSearchAdapter.notifyDataSetChanged();
+
+        matchsearch_btn.setOnClickListener(this);
 
         return view;
     }
@@ -100,6 +110,10 @@ public class FutSalMatchSearchActivity extends Fragment implements View.OnClickL
                             match_search_start_time.add(js.getString("start_time"));
                             match_search_end_time.add(js.getString("end_time"));
                         }
+                    } else if (msg.equals("no find")) {
+                        matchSize = 0;
+                    } else {
+                        //Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -120,19 +134,45 @@ public class FutSalMatchSearchActivity extends Fragment implements View.OnClickL
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            for (int i = 0; i < matchSize; i++) {
-                futsalMatchSearchAdapter.addItem(match_search_title.get(i), match_search_ground.get(i), match_search_date.get(i), match_search_start_time.get(i), match_search_end_time.get(i));
+            if (matchSize != 0) {
+                for (int i = 0; i < matchSize; i++) {
+                    futsalMatchSearchAdapter.addItem(match_search_title.get(i).toString(), match_search_ground.get(i).toString(), match_search_date.get(i).toString(),
+                            match_search_start_time.get(i).toString(), match_search_end_time.get(i).toString());
+                }
+                futsalMatchSearchAdapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(getActivity(), "검색결과 없습니다.", Toast.LENGTH_SHORT).show();
             }
-            futsalMatchSearchAdapter.notifyDataSetChanged();
 
 
         }
 
     }
 
+    public void clear() {
+        match_search_title.clear();
+        match_search_ground.clear();
+        match_search_date.clear();
+        match_search_start_time.clear();
+        match_search_end_time.clear();
+        futsalMatchSearchAdapter.clearItem();
+        futsalMatchSearchAdapter.notifyDataSetChanged();
+    }
+
     @Override
     public void onClick(View v) {
         int a = v.getId();
+        switch (a) {
+            case R.id.matchsearch_btn:
+                String text = matchsearch_text.getText().toString();
 
+                if (text.length() > 0) {
+                    clear();
+                    new Get().execute(ip + "/match/search/" + text);
+                } else {
+                    Toast.makeText(getActivity(), "검색내용을 입력하세요.", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
     }
 }

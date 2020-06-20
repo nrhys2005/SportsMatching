@@ -71,7 +71,6 @@
        android:weightSum="1">
 
       <Button
-          android:id="@+id/finshsign_btn"
           android:layout_width="wrap_content"
           android:layout_height="50dp"
           android:text="참여하기"

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -15,7 +16,10 @@ public class FutsalSearchListAdapter extends BaseAdapter {
     private TextView list_stadium_name;
     private TextView list_price;
 
-    private ArrayList<FutSalSearchListItems> listItems = new ArrayList<FutSalSearchListItems>();
+
+    MainActivity ma = new MainActivity();
+
+    public ArrayList<FutSalSearchListItems> listItems = new ArrayList<FutSalSearchListItems>();
 
     public FutsalSearchListAdapter() {
 
@@ -66,7 +70,8 @@ public class FutsalSearchListAdapter extends BaseAdapter {
         search_list_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Toast.makeText(v.getContext(), teamItems.get(pos).getText(), Toast.LENGTH_SHORT).show();*/
+                //ma.replaceFragment(FutSalSearchActivity.newInstance(), FutSalSearchListDetail.newInstance());
+                //Toast.makeText(v.getContext(), listItems.get(pos).getPrice(), Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ft.replace(R.id.fragment_container1, fragment1);
         ft.replace(R.id.fragment_container2, fragment2);
         ft.commit();
+        //ft.commitAllowingStateLoss();
     }
 
     @Override

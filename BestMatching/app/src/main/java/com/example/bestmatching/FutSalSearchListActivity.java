@@ -10,8 +10,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,8 +46,8 @@ public class FutSalSearchListActivity extends Fragment implements View.OnClickLi
     //구장 개수
     private int stadiumSize;
 
-    private ArrayList<String> stadium_name = new ArrayList<>();
-    private ArrayList<String> price = new ArrayList<>();
+    public ArrayList<String> stadium_name = new ArrayList<>();
+    public ArrayList<String> price = new ArrayList<>();
     LocationManager lm;
     Location myLocation;
 
@@ -60,8 +63,10 @@ public class FutSalSearchListActivity extends Fragment implements View.OnClickLi
         context = container.getContext();
         futsalSearchListAdapter = new FutsalSearchListAdapter();
 
+
         futsal_search_list = (ListView) view.findViewById(R.id.futsal_search_list);
         futsal_search_list.setAdapter(futsalSearchListAdapter);
+
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[] {
                     Manifest.permission.ACCESS_FINE_LOCATION,
@@ -72,11 +77,21 @@ public class FutSalSearchListActivity extends Fragment implements View.OnClickLi
 
         lm = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
         myLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        new Get().execute(ip + "/ground/search?"+"latitude="+myLocation.getLatitude()+"&"+"longtitude="+myLocation.getLongitude());
-       /* futsalTeamSearchAdapter.addItem("제목2", "내용1");
-        futsalTeamSearchAdapter.addItem("제목3", "내용2");*/
 
+        new Get().execute(ip + "/ground/search?"+"latitude="+myLocation.getLatitude()+"&"+"longtitude="+myLocation.getLongitude());
         futsalSearchListAdapter.notifyDataSetChanged();
+
+        futsal_search_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(view.getContext(), stadium_name.get(position), Toast.LENGTH_SHORT).show();
+                Fragment f = new Fragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("text", stadium_name.get(position));
+                f.setArguments(bundle);
+                ((MainActivity)getActivity()).replaceFragment(FutSalSearchActivity.newInstance(), FutSalSearchListDetail.newInstance());
+            }
+        });
 
         return view;
 
@@ -155,6 +170,8 @@ public class FutSalSearchListActivity extends Fragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-
+        int a = v.getId();
+        switch (a){
+        }
     }
 }

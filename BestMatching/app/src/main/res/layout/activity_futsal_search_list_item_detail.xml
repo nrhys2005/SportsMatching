@@ -40,7 +40,7 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:src="@color/colorAccent"
-                        android:text="바보" />
+                        android:text="구장이름" />
 
                     <TextView
                         android:id="@+id/test1"
@@ -60,7 +60,7 @@
                         android:layout_height="wrap_content"
                         android:src="@color/colorAccent"
                         android:textStyle="bold"
-                        android:text="멍청이" />
+                        android:text="가격" />
 
                     <TextView
                         android:id="@+id/test2"
@@ -69,7 +69,13 @@
                         android:gravity="left" />
                 </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="예약하기"/>
+
     </LinearLayout>
 </LinearLayout>

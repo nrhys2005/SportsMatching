@@ -17,8 +17,6 @@ public class FutsalSearchListAdapter extends BaseAdapter {
     private TextView list_price;
 
 
-    MainActivity ma = new MainActivity();
-
     public ArrayList<FutSalSearchListItems> listItems = new ArrayList<FutSalSearchListItems>();
 
     public FutsalSearchListAdapter() {
@@ -70,7 +68,6 @@ public class FutsalSearchListAdapter extends BaseAdapter {
         search_list_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //ma.replaceFragment(FutSalSearchActivity.newInstance(), FutSalSearchListDetail.newInstance());
                 //Toast.makeText(v.getContext(), listItems.get(pos).getPrice(), Toast.LENGTH_SHORT).show();
             }
         });

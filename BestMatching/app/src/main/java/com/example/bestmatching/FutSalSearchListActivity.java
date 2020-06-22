@@ -32,7 +32,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class FutSalSearchListActivity extends Fragment implements View.OnClickListener {
+public class FutSalSearchListActivity extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private static final int PERMISSION_REQUEST_CODE = 1;
     private ListView futsal_search_list;
@@ -43,11 +43,13 @@ public class FutSalSearchListActivity extends Fragment implements View.OnClickLi
 
     private Context context;
 
+    public int pos;
+
     //구장 개수
     private int stadiumSize;
 
-    public ArrayList<String> stadium_name = new ArrayList<>();
-    public ArrayList<String> price = new ArrayList<>();
+    private ArrayList<String> stadium_name = new ArrayList<>();
+    private ArrayList<String> price = new ArrayList<>();
     LocationManager lm;
     Location myLocation;
 
@@ -80,21 +82,32 @@ public class FutSalSearchListActivity extends Fragment implements View.OnClickLi
 
         new Get().execute(ip + "/ground/search?"+"latitude="+myLocation.getLatitude()+"&"+"longtitude="+myLocation.getLongitude());
         futsalSearchListAdapter.notifyDataSetChanged();
+        futsal_search_list.setOnItemClickListener(this);
 
-        futsal_search_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*futsal_search_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(view.getContext(), stadium_name.get(position), Toast.LENGTH_SHORT).show();
-                Fragment f = new Fragment();
+                FutSalSearchListDetail f = new FutSalSearchListDetail();
                 Bundle bundle = new Bundle();
                 bundle.putString("text", stadium_name.get(position));
                 f.setArguments(bundle);
+
                 ((MainActivity)getActivity()).replaceFragment(FutSalSearchActivity.newInstance(), FutSalSearchListDetail.newInstance());
             }
-        });
+        });*/
 
         return view;
 
+    }
+
+    //아이템값 가져오기 및 화면전환
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //Toast.makeText(view.getContext(), stadium_name.get(position), Toast.LENGTH_SHORT).show();
+        pos = position;
+        //Toast.makeText(view.getContext(), Integer.toString(pos), Toast.LENGTH_SHORT).show();
+        ((MainActivity)getActivity()).replaceFragment(FutSalSearchActivity.newInstance(), FutSalSearchListDetail.newInstance());
     }
 
     // 노드js에서 안스로 데이터 받는 부분

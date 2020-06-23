@@ -3,6 +3,9 @@ const router = express.Router();
 const dbConObj = require('../config/db_info');   //디비 정보 import
 const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태)에 저장)
  
+router.get('/', function (req, res) {
+    console.log('<<Login>>');
+});
 
 router.post('/create', function (req, res) {
     
@@ -45,7 +48,7 @@ router.get('/search:search', function (req, res) {
         sql = 'select * from match';
     }
     else {
-        sql = 'select * from match where title like ? ';
+        sql = 'select * from match where match.title like ? ';
         search_data_array.push("%" + search + "%");
     }
 

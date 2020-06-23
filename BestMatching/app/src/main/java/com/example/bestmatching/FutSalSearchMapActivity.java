@@ -39,7 +39,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
 
     private static final int PERMISSION_REQUEST_CODE = 1;
     private MapView mapView = null;
@@ -186,20 +186,32 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
             googleMap.animateCamera(CameraUpdateFactory.zoomTo(16));
         }
 
-        mMap.setOnMarkerClickListener(this);
+        //mMap.setOnMarkerClickListener(this);
+        mMap.setOnInfoWindowClickListener(this);
     }
 
     //마커 눌렀을때
     @Override
     public boolean onMarkerClick(Marker marker) {
         //Toast.makeText(context, marker.getTitle()+ "\n"+ marker.getSnippet(), Toast.LENGTH_SHORT).show();
+       /* Bundle bundle = new Bundle();
+        bundle.putString("name", marker.getTitle());
+        bundle.putString("price", marker.getSnippet());
+        FutSalSearchListDetail f = new FutSalSearchListDetail();
+        f.setArguments(bundle);
+        ((MainActivity)getActivity()).replaceFragment(FutSalSearchActivity.newInstance(), f);*/
+        return true;
+    }
+
+    //마커 정보 눌렀을때
+    @Override
+    public void onInfoWindowClick(Marker marker) {
         Bundle bundle = new Bundle();
         bundle.putString("name", marker.getTitle());
         bundle.putString("price", marker.getSnippet());
         FutSalSearchListDetail f = new FutSalSearchListDetail();
         f.setArguments(bundle);
         ((MainActivity)getActivity()).replaceFragment(FutSalSearchActivity.newInstance(), f);
-        return true;
     }
 
     // 노드js에서 안스로 데이터 받는 부분

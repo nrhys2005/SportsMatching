@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamRegisterActivity.newInstance());
                 break;
             case R.id.help:
-                replaceFragment(FutSalHelpActivity.newInstance(), FutSalSearchMapActivity.newInstance());
+                //replaceFragment(FutSalHelpActivity.newInstance(), FutSalSearchMapActivity.newInstance());
                 break;
         }
     }

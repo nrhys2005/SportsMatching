@@ -25,6 +25,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -38,7 +39,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallback {
+public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private static final int PERMISSION_REQUEST_CODE = 1;
     private MapView mapView = null;
@@ -53,7 +54,7 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
     LocationManager lm;
     Location myLocation;
 
-
+    ArrayList<Integer> id = new ArrayList<>();
     ArrayList<String> stadium_name = new ArrayList<>();
     ArrayList<Double> lat = new ArrayList<>();
     ArrayList<Double> lon = new ArrayList<>();
@@ -175,7 +176,7 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
                     .title(stadium_name.get(i))
                     //.position(SANGJU)
                     .position(new LatLng(lat.get(i),lon.get(i)))
-                    .snippet("가격 1인당 :"+price.get(i)));
+                    .snippet(price.get(i) + "원"));
         }
 
 
@@ -184,6 +185,21 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat.get(0),lon.get(0)), 16));
             googleMap.animateCamera(CameraUpdateFactory.zoomTo(16));
         }
+
+        mMap.setOnMarkerClickListener(this);
+    }
+
+    //마커 눌렀을때
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        //Toast.makeText(context, marker.getTitle()+ "\n"+ marker.getSnippet(), Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putString("name", marker.getTitle());
+        bundle.putString("price", marker.getSnippet());
+        FutSalSearchListDetail f = new FutSalSearchListDetail();
+        f.setArguments(bundle);
+        ((MainActivity)getActivity()).replaceFragment(FutSalSearchActivity.newInstance(), f);
+        return true;
     }
 
     // 노드js에서 안스로 데이터 받는 부분
@@ -216,6 +232,7 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
 
                         for (int i = 0; i < groundSize; i++) {
                             JSONObject js = jsonArray.getJSONObject(i);
+                            id.add(js.getInt("id"));
                             stadium_name.add(js.getString("name"));
                             lat.add(js.getDouble("latitude"));
                             lon.add(js.getDouble("longtitude"));

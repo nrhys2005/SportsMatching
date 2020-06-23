@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,9 +42,9 @@ public class FutSalSearchListActivity extends Fragment implements View.OnClickLi
     LoginActivity lg = new LoginActivity();
     String ip = lg.ip;
 
-    private Context context;
+    public static Context context;
 
-    public int pos;
+    private int pos;
 
     //구장 개수
     private int stadiumSize;
@@ -107,7 +108,12 @@ public class FutSalSearchListActivity extends Fragment implements View.OnClickLi
         //Toast.makeText(view.getContext(), stadium_name.get(position), Toast.LENGTH_SHORT).show();
         pos = position;
         //Toast.makeText(view.getContext(), Integer.toString(pos), Toast.LENGTH_SHORT).show();
-        ((MainActivity)getActivity()).replaceFragment(FutSalSearchActivity.newInstance(), FutSalSearchListDetail.newInstance());
+        Bundle bundle = new Bundle();
+        bundle.putString("name", stadium_name.get(pos));
+        bundle.putString("price", price.get(pos));
+        FutSalSearchListDetail f = new FutSalSearchListDetail();
+        f.setArguments(bundle);
+        ((MainActivity)getActivity()).replaceFragment(FutSalSearchActivity.newInstance(), f);
     }
 
     // 노드js에서 안스로 데이터 받는 부분

@@ -23,6 +23,7 @@ app.use(session({
 //라우팅 모듈 선언
 
 app.use('/', require('./routes/index'));
+app.use('/', require('./image/index'));
 
 
 app.listen(PORT, () => {

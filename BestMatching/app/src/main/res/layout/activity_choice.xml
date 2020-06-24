@@ -5,24 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background"
     android:gravity="center"
     >
 
    <Button
        android:id="@+id/futsal_btn"
+       android:background="@drawable/button_shape"
        android:layout_width="match_parent"
        android:layout_height="100dp"
+       android:layout_marginBottom="50dp"
        android:text="FutSal"/>
 
    <Button
        android:id="@+id/soccer"
+       android:background="@drawable/button_shape"
        android:layout_width="match_parent"
        android:layout_height="100dp"
        android:layout_below="@+id/futsal_btn"
+       android:layout_marginBottom="50dp"
        android:text="Soccer"/>
 
    <Button
        android:id="@+id/baseball"
+       android:background="@drawable/button_shape"
        android:layout_width="match_parent"
        android:layout_height="100dp"
        android:layout_below="@+id/soccer"

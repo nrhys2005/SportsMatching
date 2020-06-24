@@ -37,7 +37,7 @@ router.post('/create', function (req, res) {
     });
 });
 
-router.get('/search:search', function (req, res) {
+router.get('/search/:search', function (req, res) {
     console.log('<<match/search>>');
     var search = req.params.search;
     var search_data_array = [];
@@ -45,11 +45,11 @@ router.get('/search:search', function (req, res) {
     var sql;
     console.log('Search = '+ search);
     if (search == "none") {
-        sql = 'select * from match';
+        sql = 'select * from best_matching.match';
     }
     else {
-        sql = 'select * from match where match.title like ? ';
-        search_data_array.push("%" + search + "%");
+        sql = 'select * from best_matching.match where match.title like ?';
+        search_data_array.push('%' + search + '%');
     }
 
     dbconn.query(sql, search_data_array, function (err, rows, fields) {//DB connect

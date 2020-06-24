@@ -78,7 +78,7 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
 
         }
         lm = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
-        myLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        myLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 /*       lat.add(36.378633);
         lat.add(35.88812);
 

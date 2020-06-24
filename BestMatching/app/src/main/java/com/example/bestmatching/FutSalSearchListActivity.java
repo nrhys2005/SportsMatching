@@ -79,7 +79,7 @@ public class FutSalSearchListActivity extends Fragment implements View.OnClickLi
         }
 
         lm = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
-        myLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        myLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
         new Get().execute(ip + "/ground/search?"+"latitude="+myLocation.getLatitude()+"&"+"longtitude="+myLocation.getLongitude());
         futsalSearchListAdapter.notifyDataSetChanged();

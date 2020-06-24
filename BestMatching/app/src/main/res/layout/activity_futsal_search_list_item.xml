@@ -38,9 +38,9 @@
                     <TextView
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
                         android:src="@color/colorAccent"
-                        android:text="구장이름" />
+                        android:text="구장이름"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/list_stadium_name"
@@ -59,8 +59,8 @@
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
                         android:src="@color/colorAccent"
-                        android:textStyle="bold"
-                        android:text="경기가격" />
+                        android:text="경기가격"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/list_price"

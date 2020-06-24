@@ -1,10 +1,14 @@
 package com.example.bestmatching;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,7 +19,11 @@ public class FutsalSearchListAdapter extends BaseAdapter {
 
     private TextView list_stadium_name;
     private TextView list_price;
+    private ImageView list_ground_id;
 
+    public LinearLayout search_list_click;
+
+    MainActivity ma = new MainActivity();
 
     public ArrayList<FutSalSearchListItems> listItems = new ArrayList<FutSalSearchListItems>();
 
@@ -58,17 +66,25 @@ public class FutsalSearchListAdapter extends BaseAdapter {
 
         list_stadium_name = (TextView) convertView.findViewById(R.id.list_stadium_name);
         list_price = (TextView) convertView.findViewById(R.id.list_price);
+        list_ground_id = (ImageView) convertView.findViewById(R.id.list_ground_id);
 
         FutSalSearchListItems futSalSearchListItems = listItems.get(position);
 
         list_stadium_name.setText(futSalSearchListItems.getStadium());
         list_price.setText(futSalSearchListItems.getPrice());
+        if (futSalSearchListItems.getId() == 0 ){
+            //Bitmap bm = BitmapFactory.decodeResource()
+            //list_ground_id.setImageDrawable(R.drawable.sangju);
+        }
 
-        LinearLayout search_list_click = (LinearLayout)convertView.findViewById(R.id.search_list_click);
+
+
+        search_list_click = (LinearLayout)convertView.findViewById(R.id.search_list_click);
         search_list_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(v.getContext(), listItems.get(pos).getPrice(), Toast.LENGTH_SHORT).show();
+                /*FutSalSearchListDetail f = new FutSalSearchListDetail();
+                ma.replaceFragment(FutSalSearchActivity.newInstance(), f);*/
             }
         });
 

@@ -43,7 +43,7 @@
                         android:text="구장이름" />
 
                     <TextView
-                        android:id="@+id/test1"
+                        android:id="@+id/detail_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@color/colorAccent" />
@@ -63,10 +63,23 @@
                         android:text="가격" />
 
                     <TextView
-                        android:id="@+id/test2"
+                        android:id="@+id/detail_price"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/corner_shape">
+
+                    <ImageView
+                        android:id="@+id/detail_pic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true" />
+
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

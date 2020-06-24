@@ -49,6 +49,7 @@ public class FutSalSearchListActivity extends Fragment implements View.OnClickLi
     //구장 개수
     private int stadiumSize;
 
+    private ArrayList<Integer> ground_id = new ArrayList<>();
     private ArrayList<String> stadium_name = new ArrayList<>();
     private ArrayList<String> price = new ArrayList<>();
     LocationManager lm;
@@ -65,7 +66,6 @@ public class FutSalSearchListActivity extends Fragment implements View.OnClickLi
 
         context = container.getContext();
         futsalSearchListAdapter = new FutsalSearchListAdapter();
-
 
         futsal_search_list = (ListView) view.findViewById(R.id.futsal_search_list);
         futsal_search_list.setAdapter(futsalSearchListAdapter);
@@ -85,19 +85,6 @@ public class FutSalSearchListActivity extends Fragment implements View.OnClickLi
         futsalSearchListAdapter.notifyDataSetChanged();
         futsal_search_list.setOnItemClickListener(this);
 
-        /*futsal_search_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(view.getContext(), stadium_name.get(position), Toast.LENGTH_SHORT).show();
-                FutSalSearchListDetail f = new FutSalSearchListDetail();
-                Bundle bundle = new Bundle();
-                bundle.putString("text", stadium_name.get(position));
-                f.setArguments(bundle);
-
-                ((MainActivity)getActivity()).replaceFragment(FutSalSearchActivity.newInstance(), FutSalSearchListDetail.newInstance());
-            }
-        });*/
-
         return view;
 
     }
@@ -109,6 +96,7 @@ public class FutSalSearchListActivity extends Fragment implements View.OnClickLi
         pos = position;
         //Toast.makeText(view.getContext(), Integer.toString(pos), Toast.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
+        bundle.putInt("id", ground_id.get(pos));
         bundle.putString("name", stadium_name.get(pos));
         bundle.putString("price", price.get(pos));
         FutSalSearchListDetail f = new FutSalSearchListDetail();
@@ -148,6 +136,7 @@ public class FutSalSearchListActivity extends Fragment implements View.OnClickLi
 
                         for (int i = 0; i < stadiumSize; i++) {
                             JSONObject js = jsonArray.getJSONObject(i);
+                            ground_id.add(js.getInt("id"));
                             stadium_name.add(js.getString("name"));
                             price.add(js.getString("price"));
                         }

@@ -4,6 +4,7 @@ public class FutSalSearchListItems {
 
     private String stadiumStr;
     private String priceStr;
+    private int groundId;
 
     public void setStadium(String stadium) {
         stadiumStr = stadium;
@@ -11,6 +12,10 @@ public class FutSalSearchListItems {
 
     public void setPrice(String price) {
         priceStr = price;
+    }
+
+    public void setId(int id) {
+        groundId = id;
     }
 
     ////////////////////////////////////////////
@@ -22,6 +27,10 @@ public class FutSalSearchListItems {
 
     public String getPrice() {
         return this.priceStr;
+    }
+
+    public int getId() {
+        return this.groundId;
     }
 
 }

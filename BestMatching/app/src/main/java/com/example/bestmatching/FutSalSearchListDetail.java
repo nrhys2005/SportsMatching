@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +27,9 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
 
     private Context context;
 
-    TextView test1;
-    TextView test2;
+    TextView detail_name;
+    TextView detail_price;
+    ImageView detail_pic;
 
     public static FutSalSearchListDetail newInstance() {
         return new FutSalSearchListDetail();
@@ -39,15 +41,20 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
 
         context = container.getContext();
 
-        test1 = (TextView)view.findViewById(R.id.test1);
-        test2 = (TextView)view.findViewById(R.id.test2);
+        detail_name = (TextView)view.findViewById(R.id.detail_name);
+        detail_price = (TextView)view.findViewById(R.id.detail_price);
+        detail_pic = (ImageView)view.findViewById(R.id.detail_pic);
 
+        int id = getArguments().getInt("id");
         String name = getArguments().getString("name");
         String price = getArguments().getString("price");
         //Toast.makeText(getActivity(),Integer.toString(a),Toast.LENGTH_SHORT).show();
 
-        test1.setText(name);
-        test2.setText(price);
+        detail_name.setText(name);
+        detail_price.setText(price);
+        //detail_pic.setImageResource(R.drawable.sangju);
+        detail_pic.setImageDrawable(getResources().getDrawable(R.drawable.sangju));
+
 
         return view;
     }

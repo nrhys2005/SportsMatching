@@ -54,7 +54,7 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
     LocationManager lm;
     Location myLocation;
 
-    ArrayList<Integer> id = new ArrayList<>();
+    ArrayList<Integer> ground_id = new ArrayList<>();
     ArrayList<String> stadium_name = new ArrayList<>();
     ArrayList<Double> lat = new ArrayList<>();
     ArrayList<Double> lon = new ArrayList<>();
@@ -244,7 +244,7 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
 
                         for (int i = 0; i < groundSize; i++) {
                             JSONObject js = jsonArray.getJSONObject(i);
-                            id.add(js.getInt("id"));
+                            ground_id.add(js.getInt("id"));
                             stadium_name.add(js.getString("name"));
                             lat.add(js.getDouble("latitude"));
                             lon.add(js.getDouble("longtitude"));

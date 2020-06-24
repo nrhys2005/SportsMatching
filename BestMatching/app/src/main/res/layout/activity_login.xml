@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:gravity="bottom"
+    android:background="@drawable/background"
     android:orientation="vertical">
 
     <ImageView
@@ -16,22 +17,26 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/black">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/TextInputEditText_id"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:textSize="25sp"
             android:hint="ID"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/black">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/TextInputEditText_password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:inputType="textPassword"
+            android:textSize="25sp"
             android:hint="PassWord"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -39,6 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginBottom="100dp"
         android:weightSum="1">
 
         <Button
@@ -46,6 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="회원가입"
+            android:background="@drawable/button_shape"
             android:layout_weight="0.5"
             />
         <Button
@@ -53,6 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="로그인"
+            android:background="@drawable/button_shape"
             android:layout_weight="0.5"
             />
 

@@ -162,7 +162,7 @@ public class FutSalSearchListActivity extends Fragment implements View.OnClickLi
 
             //futsalTeamSearchAdapter.addItem(team_search_name.get(0).toString(), team_search_phone.get(0).toString(), team_search_loaction.get(0).toString(), team_search_week.get(0).toString() );
             for (int i = 0; i < stadiumSize; i++) {
-                futsalSearchListAdapter.addItem(stadium_name.get(i).toString(),price.get(i)+"원");
+                futsalSearchListAdapter.addItem(stadium_name.get(i).toString(),price.get(i)+"원", ground_id.get(i));
             }
             futsalSearchListAdapter.notifyDataSetChanged();
 

@@ -72,9 +72,24 @@ public class FutsalSearchListAdapter extends BaseAdapter {
 
         list_stadium_name.setText(futSalSearchListItems.getStadium());
         list_price.setText(futSalSearchListItems.getPrice());
-        if (futSalSearchListItems.getId() == 0 ){
-            //Bitmap bm = BitmapFactory.decodeResource()
-            //list_ground_id.setImageDrawable(R.drawable.sangju);
+
+        if (futSalSearchListItems.getId() == 1 ){
+            Bitmap bm1 = BitmapFactory.decodeResource(convertView.getResources(), R.drawable.sangju);
+            //Bitmap.createScaledBitmap(bm1, 1000,1000,false);
+
+            list_ground_id.setImageBitmap(bm1);
+            //list_ground_id.setImageResource(R.drawable.sangju);
+        }
+
+        else if (futSalSearchListItems.getId() == 2 ){
+            Bitmap bm2 = BitmapFactory.decodeResource(convertView.getResources(), R.drawable.background);
+            list_ground_id.setImageBitmap(bm2);
+            //list_ground_id.setImageResource(R.drawable.background);
+        }
+        else {
+            Bitmap bm3 = BitmapFactory.decodeResource(convertView.getResources(), R.drawable.ic_launcher_background);
+            list_ground_id.setImageBitmap(bm3);
+            //list_ground_id.setImageResource(R.drawable.ic_launcher_background);
         }
 
 
@@ -93,11 +108,12 @@ public class FutsalSearchListAdapter extends BaseAdapter {
 
 
     //아이템 데이터 추가를 위한 함수
-    public void addItem(String stadium_name, String prcie){
+    public void addItem(String stadium_name, String prcie, int id){
         FutSalSearchListItems searchListItems = new FutSalSearchListItems();
 
         searchListItems.setStadium(stadium_name);
         searchListItems.setPrice(prcie);
+        searchListItems.setId(id);
 
         listItems.add(searchListItems);
     }

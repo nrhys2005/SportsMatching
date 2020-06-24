@@ -7,40 +7,40 @@ const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태
 router.post('/upload', function (req, res) {
 
     console.log('<<Image/upload>>');
+    
 
-    req.on('data', (data) => {
-        var input_data_array= [];
-        var inputData = JSON.parse(data); // JSON data 받음
-        console.log('input_data : ' + inputData); 
-        input_data_array.push(inputData.id);// json->array
-        input_data_array.push(inputData.image);
+    var input_data_array = [];
+
+    console.log('input_data : ' + req.file);
+
+    input_data_array.push("1");
+    input_data_array.push(req.file);
 
 
-        console.log("id : "+ inputData.id)
-        console.log("이미지 : "+inputData.image);
-        var sql_insert = 'INSERT INTO best_matching.team (team_name, phonenumber, age_avg, level, location,week,comment) VALUES(?, ?, ?, ?, ?, ?, ?)';
-        dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
-            if (!err) {
-                console.log('Query insert success');
-            } else {
-                console.log('Query Error : ' + err);
-            }
-        });
-        var sql_update = 'update user set team_name = ? where id = ? ';
-        var update_data_array = [];
-        update_data_array.push(inputData.team_name);
-        update_data_array.push(req.session.user.user_id);
-        dbconn.query(sql_update, update_data_array, function (err, rows, fields) {//DB connect
-            if (!err) {
-                console.log('Query Update Success');
-                res.json( {"result": "Success"});
-                
-            } else {
-                console.log('Query Update Error : ' + err);
-                res.json({ "result": err });
-            }
-        });
+    console.log("id :   " )
+    console.log("이미지 : " + req.file);
+    var sql_insert = 'INSERT INTO best_matching.ground_image (id, image) VALUES(?, ?)';
+    dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
+        if (!err) {
+            console.log('Query insert success');
+        } else {
+            console.log('Query Error : ' + err);
+        }
     });
+    var sql = 'select image from best_matching.ground_image where ?';
+    var select_data_array = [];
+    select_data_array.push("1");
+    dbconn.query(sql, select_data_array, function (err, rows, fields) {//DB connect
+        if (!err) {
+            console.log('Query Select Success');
+            res.json(rows[0]);
+
+        } else {
+            console.log('Query Select Error : ' + err);
+            res.json({ "result": err });
+        }
+    });
+
 });
 
 

@@ -73,24 +73,22 @@ public class FutsalSearchListAdapter extends BaseAdapter {
         list_stadium_name.setText(futSalSearchListItems.getStadium());
         list_price.setText(futSalSearchListItems.getPrice());
 
-        if (futSalSearchListItems.getId() == 1 ){
-            Bitmap bm1 = BitmapFactory.decodeResource(convertView.getResources(), R.drawable.sangju);
-            //Bitmap.createScaledBitmap(bm1, 1000,1000,false);
-
-            list_ground_id.setImageBitmap(bm1);
-            //list_ground_id.setImageResource(R.drawable.sangju);
+        switch (futSalSearchListItems.getId())
+        {
+            case 1:
+                Bitmap bm1 = BitmapFactory.decodeResource(convertView.getResources(), R.drawable.sangju);
+                list_ground_id.setImageBitmap(bm1);
+                break;
+            case 2:
+                Bitmap bm2 = BitmapFactory.decodeResource(convertView.getResources(), R.drawable.background);
+                list_ground_id.setImageBitmap(bm2);
+                break;
+            default:
+                Bitmap bm3 = BitmapFactory.decodeResource(convertView.getResources(), R.drawable.sangju);
+                list_ground_id.setImageBitmap(bm3);
+                break;
         }
 
-        else if (futSalSearchListItems.getId() == 2 ){
-            Bitmap bm2 = BitmapFactory.decodeResource(convertView.getResources(), R.drawable.background);
-            list_ground_id.setImageBitmap(bm2);
-            //list_ground_id.setImageResource(R.drawable.background);
-        }
-        else {
-            Bitmap bm3 = BitmapFactory.decodeResource(convertView.getResources(), R.drawable.ic_launcher_background);
-            list_ground_id.setImageBitmap(bm3);
-            //list_ground_id.setImageResource(R.drawable.ic_launcher_background);
-        }
 
 
 

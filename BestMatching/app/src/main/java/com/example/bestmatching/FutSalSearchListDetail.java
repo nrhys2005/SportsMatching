@@ -1,6 +1,8 @@
 package com.example.bestmatching;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,7 +31,7 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
 
     TextView detail_name;
     TextView detail_price;
-    ImageView detail_pic;
+    ImageView detail_ground;
 
     public static FutSalSearchListDetail newInstance() {
         return new FutSalSearchListDetail();
@@ -43,17 +45,27 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
 
         detail_name = (TextView)view.findViewById(R.id.detail_name);
         detail_price = (TextView)view.findViewById(R.id.detail_price);
-        detail_pic = (ImageView)view.findViewById(R.id.detail_pic);
+        detail_ground = (ImageView)view.findViewById(R.id.detail_ground);
 
-        int id = getArguments().getInt("id");
+
         String name = getArguments().getString("name");
         String price = getArguments().getString("price");
         //Toast.makeText(getActivity(),Integer.toString(a),Toast.LENGTH_SHORT).show();
 
         detail_name.setText(name);
         detail_price.setText(price);
-        //detail_pic.setImageResource(R.drawable.sangju);
-        detail_pic.setImageDrawable(getResources().getDrawable(R.drawable.sangju));
+
+        int id = getArguments().getInt("id");
+        switch (id) {
+            case 1:
+                Bitmap bm1 = BitmapFactory.decodeResource(getResources(), R.drawable.sangju);
+                detail_ground.setImageBitmap(bm1);
+                break;
+            case 2:
+                Bitmap bm2 = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+                detail_ground.setImageBitmap(bm2);
+                break;
+        }
 
 
         return view;

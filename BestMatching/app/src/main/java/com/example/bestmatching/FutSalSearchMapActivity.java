@@ -207,6 +207,8 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
     @Override
     public void onInfoWindowClick(Marker marker) {
         Bundle bundle = new Bundle();
+        //Toast.makeText(context, marker.getId().substring(1)+1,Toast.LENGTH_SHORT).show();
+        bundle.putInt("id", Integer.valueOf(marker.getId().substring(1))+1);
         bundle.putString("name", marker.getTitle());
         bundle.putString("price", marker.getSnippet());
         FutSalSearchListDetail f = new FutSalSearchListDetail();

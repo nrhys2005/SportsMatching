@@ -350,7 +350,6 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         int a = v.getId();
         switch (a) {
-
                 //중복검사
             case R.id.id_check:
                 new CheckPost().execute(ip + "/signup/check");

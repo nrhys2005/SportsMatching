@@ -27,5 +27,5 @@ app.use('/', require('./upload/index'));
 
 
 app.listen(PORT, () => {
-    console.log('Express server listening on port '+PORT);
+    console.log('서버 실행 중 ' + '포트:'+PORT);
 });

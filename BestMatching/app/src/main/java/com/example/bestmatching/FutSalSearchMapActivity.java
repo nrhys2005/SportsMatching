@@ -168,6 +168,7 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
         googleMap.addMarker(markerOptions);*/
         mMap.setMyLocationEnabled(true);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(myLocation.getLatitude(),myLocation.getLongitude())));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(myLocation.getLatitude(),myLocation.getLongitude()),16));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
         MarkerOptions markerOptions = new MarkerOptions();
 
@@ -180,11 +181,11 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
         }
 
 
-        if (groundSize>0) {
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(lat.get(0),lon.get(0))));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat.get(0),lon.get(0)), 16));
-            googleMap.animateCamera(CameraUpdateFactory.zoomTo(16));
-        }
+//        if (groundSize>0) {
+//            googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(lat.get(0),lon.get(0))));
+//            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat.get(0),lon.get(0)), 16));
+//            googleMap.animateCamera(CameraUpdateFactory.zoomTo(16));
+//        }
 
         //mMap.setOnMarkerClickListener(this);
         mMap.setOnInfoWindowClickListener(this);
@@ -208,7 +209,7 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
     public void onInfoWindowClick(Marker marker) {
         Bundle bundle = new Bundle();
         //Toast.makeText(context, marker.getId().substring(1)+1,Toast.LENGTH_SHORT).show();
-        bundle.putInt("id", Integer.valueOf(marker.getId().substring(1))+1);
+        bundle.putInt("id", Integer.valueOf(marker.getId().substring(1)));
         bundle.putString("name", marker.getTitle());
         bundle.putString("price", marker.getSnippet());
         FutSalSearchListDetail f = new FutSalSearchListDetail();

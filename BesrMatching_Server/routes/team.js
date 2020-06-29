@@ -56,10 +56,10 @@ router.get('/search/:search', function (req, res) {
     var sql;
     console.log('Search ='+ search);
     if (search == "none") {
-        sql = 'select * from team';
+        sql = 'select * from best_matching.team';
     }
     else {
-        sql = 'select * from team where team_name like ? or location like ?';
+        sql = 'select * from best_matching.team where team_name like ? or location like ?';
         search_data_array.push("%" + search + "%");
         search_data_array.push("%" + search + "%");
     }

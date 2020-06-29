@@ -10,12 +10,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class FutsalSearchListAdapter extends BaseAdapter {
+public class FutsalSearchListAdapter extends BaseAdapter implements View.OnClickListener {
 
     private TextView list_stadium_name;
     private TextView list_price;
@@ -80,7 +81,7 @@ public class FutsalSearchListAdapter extends BaseAdapter {
                 list_ground_id.setImageBitmap(bm1);
                 break;
             case 2:
-                Bitmap bm2 = BitmapFactory.decodeResource(convertView.getResources(), R.drawable.background);
+                Bitmap bm2 = BitmapFactory.decodeResource(convertView.getResources(), R.drawable.daegu);
                 list_ground_id.setImageBitmap(bm2);
                 break;
             default:
@@ -89,17 +90,7 @@ public class FutsalSearchListAdapter extends BaseAdapter {
                 break;
         }
 
-
-
-
         search_list_click = (LinearLayout)convertView.findViewById(R.id.search_list_click);
-        search_list_click.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*FutSalSearchListDetail f = new FutSalSearchListDetail();
-                ma.replaceFragment(FutSalSearchActivity.newInstance(), f);*/
-            }
-        });
 
         return convertView;
     }
@@ -116,4 +107,14 @@ public class FutsalSearchListAdapter extends BaseAdapter {
         listItems.add(searchListItems);
     }
 
+    @Override
+    public void onClick(View v) {
+        int a = v.getId();
+        switch(a) {
+            case R.id.search_list_click:
+                /*FutSalSearchListDetail f = new FutSalSearchListDetail();
+                ma.replaceFragment(FutSalSearchActivity.newInstance(), f);*/
+                break;
+        }
+    }
 }

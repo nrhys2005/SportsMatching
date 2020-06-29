@@ -62,7 +62,7 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
                 detail_ground.setImageBitmap(bm1);
                 break;
             case 2:
-                Bitmap bm2 = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+                Bitmap bm2 = BitmapFactory.decodeResource(getResources(), R.drawable.daegu);
                 detail_ground.setImageBitmap(bm2);
                 break;
         }

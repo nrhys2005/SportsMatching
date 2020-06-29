@@ -12,8 +12,6 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
 
     Button team_1;
     Button team_2;
-    Button team_3;
-
 
     public static FutSalTeamActivity newInstance() {
         return new FutSalTeamActivity();
@@ -25,11 +23,9 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
 
         team_1 = (Button)view.findViewById(R.id.team_1);
         team_2 = (Button)view.findViewById(R.id.team_2);
-        team_3 = (Button)view.findViewById(R.id.team_3);
 
         team_1.setOnClickListener(this);
         team_2.setOnClickListener(this);
-        team_3.setOnClickListener(this);
 
 
         return view;

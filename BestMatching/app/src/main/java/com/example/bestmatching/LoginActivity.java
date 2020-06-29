@@ -231,8 +231,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         int id = v.getId();
         switch (id) {
             case R.id.login_btn:
-                //new Post().execute(ip + "/login");
-                 login();
+                new Post().execute(ip + "/login");
+                 //login();
                 break;
             case R.id.sign_btn:
                 sign();

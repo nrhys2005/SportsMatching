@@ -41,9 +41,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
-                    android:background="@color/white"
+                    android:background="@drawable/corner_shape"
                     android:gravity="center"
                     android:hint="팀이름"
+                    android:textStyle="bold"
                     android:padding="10dp" />
             </LinearLayout>
 
@@ -66,22 +67,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@color/white"
+                    android:background="@drawable/corner_shape"
                     android:gravity="center"
                     android:hint="번호를 입력해주세요."
+                    android:textStyle="bold"
                     android:padding="10dp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="평균연령"
@@ -90,20 +90,24 @@
 
                 <TextView
                     android:id="@+id/age_avg"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:background="@color/white"
+                    android:background="@drawable/corner_shape"
                     android:gravity="center"
-                    android:hint="평균연령"
+                    android:hint="평균 연령 선택해주세요."
+                    android:textStyle="bold"
                     android:padding="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="팀수준"
@@ -112,15 +116,14 @@
 
                 <TextView
                     android:id="@+id/level"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:background="@color/white"
+                    android:background="@drawable/corner_shape"
                     android:gravity="center"
-                    android:hint="팀수준"
+                    android:hint="팀 수준 선택해주세요."
+                    android:textStyle="bold"
                     android:padding="10dp" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -142,9 +145,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
-                    android:background="@color/white"
+                    android:background="@drawable/corner_shape"
                     android:gravity="center"
                     android:hint="활동지역을 선택해주세요."
+                    android:textStyle="bold"
                     android:padding="10dp" />
             </LinearLayout>
 
@@ -167,9 +171,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@color/white"
+                    android:background="@drawable/corner_shape"
                     android:gravity="center"
                     android:hint="활동요일 선택해주세요."
+                    android:textStyle="bold"
                     android:padding="10dp" />
             </LinearLayout>
 
@@ -192,9 +197,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginBottom="10dp"
-                    android:background="@color/white"
+                    android:background="@drawable/corner_shape"
                     android:gravity="center"
                     android:hint="팀소개 해주세요."
+                    android:textStyle="bold"
                     android:padding="10dp" />
             </LinearLayout>
 
@@ -214,6 +220,7 @@
             <Button
                 android:id="@+id/team_regist"
                 android:layout_width="wrap_content"
+                android:background="@drawable/button_shape"
                 android:layout_height="50dp"
                 android:layout_weight="0.5"
                 android:text="팀등록" />

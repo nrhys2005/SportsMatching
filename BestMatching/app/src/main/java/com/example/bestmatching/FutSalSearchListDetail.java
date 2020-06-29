@@ -53,7 +53,7 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
         //Toast.makeText(getActivity(),Integer.toString(a),Toast.LENGTH_SHORT).show();
 
         detail_name.setText(name);
-        detail_price.setText(price);
+        detail_price.setText(price + "원");
 
         int id = getArguments().getInt("id");
         switch (id) {

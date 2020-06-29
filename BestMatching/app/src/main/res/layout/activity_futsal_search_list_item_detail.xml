@@ -46,7 +46,7 @@
                         android:id="@+id/detail_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@color/colorAccent" />
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -60,12 +60,13 @@
                         android:layout_height="wrap_content"
                         android:src="@color/colorAccent"
                         android:textStyle="bold"
-                        android:text="가격" />
+                        android:text="시간당가격" />
 
                     <TextView
                         android:id="@+id/detail_price"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:textStyle="bold"
                         android:gravity="left" />
                 </LinearLayout>
 

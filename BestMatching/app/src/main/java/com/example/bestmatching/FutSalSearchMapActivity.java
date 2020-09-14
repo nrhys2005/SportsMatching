@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -70,20 +72,32 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
         View view = inflater.inflate(R.layout.activity_futsal_search_map, container, false);
 
         context = container.getContext();
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[] {
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-            }, PERMISSION_REQUEST_CODE);
-
+//        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(getActivity(), new String[] {
+//                    Manifest.permission.ACCESS_FINE_LOCATION,
+//                    Manifest.permission.ACCESS_COARSE_LOCATION
+//            }, PERMISSION_REQUEST_CODE);
+//
+//    }
+        if ( Build.VERSION.SDK_INT >= 23 &&
+                ContextCompat.checkSelfPermission( context, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
+            ActivityCompat.requestPermissions( getActivity(), new String[] {  android.Manifest.permission.ACCESS_FINE_LOCATION  },
+                    1 );
         }
-        lm = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
-        myLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-/*       lat.add(36.378633);
-        lat.add(35.88812);
+        else {
+            lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            myLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        }
 
-        lon.add(128.148226);
-        lon.add(128.606546);*/
+
+//        if ( ContextCompat.checkSelfPermission( context, Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
+//
+//            ActivityCompat.requestPermissions( this, new String[] {  Manifest.permission.ACCESS_COARSE_LOCATION  },
+//                    LocationService.MY_PERMISSION_ACCESS_COURSE_LOCATION );
+//        }
+
+
+
         Log.i("현재 위치1", myLocation.getLongitude()+","+myLocation.getLatitude());
         //new Get().execute(ip + "/ground");
 

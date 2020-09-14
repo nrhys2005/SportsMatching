@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button login_btn;
 
     public String ip = "http://192.168.0.8:3000";
+    public String Myid="";
     public HttpURLConnection con = null;
     public BufferedReader reader = null;
 
@@ -210,7 +211,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         Intent intent = new Intent(LoginActivity.this, LoginResultActivity.class);
         startActivity(intent);
-
+        Myid=TextInputEditText_id.toString();
         /*if (id.equals("1")&&password.equals("1")) {
                     Intent intent = new Intent(LoginActivity.this, LoginResultActivity.class);
                     intent.putExtra("id", id);

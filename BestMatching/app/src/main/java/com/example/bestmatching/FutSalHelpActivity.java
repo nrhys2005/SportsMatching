@@ -4,11 +4,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
-public class FutSalHelpActivity extends Fragment {
+public class FutSalHelpActivity extends Fragment implements View.OnClickListener{
 
+    Button Myinfo;
+    Button Notice;
+    Button Inquiry;
+    Button Report;
     public static FutSalHelpActivity newInstance() {
         return new FutSalHelpActivity();
     }
@@ -16,25 +21,41 @@ public class FutSalHelpActivity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
         View view = inflater.inflate(R.layout.activity_futsal_help_main, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
-       /* Button map = (Button)view.findViewById(R.id.map);
-        Button list =(Button)view.findViewById(R.id.list);
+        Myinfo = (Button)view.findViewById(R.id.Myinfo);
+        Notice = (Button)view.findViewById(R.id.Notice);
+        Inquiry = (Button)view.findViewById(R.id.Inquiry);
+        Report = (Button)view.findViewById(R.id.Report);
 
-        map.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // getActivity()로 MainActivity의 replaceFragment를 불러옵니다.
-                ((MainActivity)getActivity()).replaceFragment(FutSalSearchMapActivity.newInstance());    // 새로 불러올 Fragment의 Instance를 Main으로 전달
-            }
-        });
 
-        list.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((MainActivity)getActivity()).replaceFragment(FutSalSearchListActivity.newInstance());
-            }
-        });*/
+        Myinfo.setOnClickListener(this);
+        Notice.setOnClickListener(this);
+        Inquiry.setOnClickListener(this);
+        Report.setOnClickListener(this);
+
+
+
 
         return view;
     }
 
+    @Override
+    public void onClick(View v) {
+
+        int a = v.getId();
+
+        switch (a){
+            case R.id.Myinfo:
+                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamRegisterActivity.newInstance());
+                break;
+            case R.id.Notice:
+                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamSearchActivity.newInstance());
+                break;
+            case R.id.Inquiry:
+                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamRegisterActivity.newInstance());
+                break;
+            case R.id.Report:
+                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamSearchActivity.newInstance());
+                break;
+        }
+    }
 }

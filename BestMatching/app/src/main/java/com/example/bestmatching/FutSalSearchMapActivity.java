@@ -72,38 +72,25 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
         View view = inflater.inflate(R.layout.activity_futsal_search_map, container, false);
 
         context = container.getContext();
-//        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(getActivity(), new String[] {
-//                    Manifest.permission.ACCESS_FINE_LOCATION,
-//                    Manifest.permission.ACCESS_COARSE_LOCATION
-//            }, PERMISSION_REQUEST_CODE);
-//
-//    }
-        if ( Build.VERSION.SDK_INT >= 23 &&
-                ContextCompat.checkSelfPermission( context, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
-            ActivityCompat.requestPermissions( getActivity(), new String[] {  android.Manifest.permission.ACCESS_FINE_LOCATION  },
-                    1 );
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(getActivity(), new String[] {
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+            }, PERMISSION_REQUEST_CODE);
         }
-        else {
-            lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
             myLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        }
 
 
-//        if ( ContextCompat.checkSelfPermission( context, Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
-//
-//            ActivityCompat.requestPermissions( this, new String[] {  Manifest.permission.ACCESS_COARSE_LOCATION  },
-//                    LocationService.MY_PERMISSION_ACCESS_COURSE_LOCATION );
-//        }
-
-
-
-        Log.i("현재 위치1", myLocation.getLongitude()+","+myLocation.getLatitude());
+//        Log.i("현재 위치1", myLocation.getLongitude()+","+myLocation.getLatitude());
         //new Get().execute(ip + "/ground");
 
         mapView = (MapView) view.findViewById(R.id.mapsearch);
         mapView.getMapAsync(this);
-        new Get().execute(ip + "/ground/search?"+"latitude="+myLocation.getLatitude()+"&"+"longtitude="+myLocation.getLongitude());
+   //     new Get().execute(ip + "/ground/search?"+"latitude="+myLocation.getLatitude()+"&"+"longtitude="+myLocation.getLongitude());
         return view;
 
     }
@@ -173,15 +160,15 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        Log.i("현재 위치23", myLocation.getLongitude()+","+myLocation.getLatitude());
+    //    Log.i("현재 위치23", myLocation.getLongitude()+","+myLocation.getLatitude());
         LatLng SANGJU = new LatLng(36.378399, 128.147967);
         /*MarkerOptions markerOptions = new MarkerOptions();
         markerOptions
                 .position(SANGJU)
                 .title(stadium_name.get(0).toString());
         googleMap.addMarker(markerOptions);*/
-        mMap.setMyLocationEnabled(true);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(myLocation.getLatitude(),myLocation.getLongitude())));
+    //    mMap.setMyLocationEnabled(true);
+   ///     mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(myLocation.getLatitude(),myLocation.getLongitude())));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
         MarkerOptions markerOptions = new MarkerOptions();
 

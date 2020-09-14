@@ -210,7 +210,12 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
         //Toast.makeText(context, marker.getId().substring(1)+1,Toast.LENGTH_SHORT).show();
         bundle.putInt("id", Integer.valueOf(marker.getId().substring(1))+1);
         bundle.putString("name", marker.getTitle());
-        bundle.putString("price", marker.getSnippet());
+
+        //마지막 "원" 이라는 문자열 지우기위함//
+        String p = marker.getSnippet();
+        p = p.substring(0,p.length()-1);
+        bundle.putString("price", p);
+
         FutSalSearchListDetail f = new FutSalSearchListDetail();
         f.setArguments(bundle);
         ((MainActivity)getActivity()).replaceFragment(FutSalSearchActivity.newInstance(), f);

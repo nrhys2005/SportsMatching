@@ -22,8 +22,8 @@ router.post('/signup', function (req, res) {
             //crypto.pbkdf2(inputData.pw, buf.toString('base64'), 9000, 64, 'sha512', (err, key) => {
                 input_data_array.push(buf.toString('base64')); //salt
                 input_data_array.push(key.toString('base64')); //pwd
-                console.log("buf = " +buf.toString('base64')); 
-                console.log("key = " +key.toString('base64')); // 'dWhPkH6c4X1Y71A/DrAHhML3DyKQdEkUOIaSmYCI7xZkD5bLZhPF0dOSs2YZA/Y4B8XNfWd3DHIqR5234RtHzw=='
+               // console.log("buf = " +buf.toString('base64')); 
+               // console.log("key = " +key.toString('base64')); // 'dWhPkH6c4X1Y71A/DrAHhML3DyKQdEkUOIaSmYCI7xZkD5bLZhPF0dOSs2YZA/Y4B8XNfWd3DHIqR5234RtHzw=='
                 //buffer = buf.toString('base64');
                 // pw = buf.toString('base64')+key.toString('base64');
                 

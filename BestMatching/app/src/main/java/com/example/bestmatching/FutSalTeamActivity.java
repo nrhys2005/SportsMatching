@@ -12,8 +12,6 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
 
     Button team_1;
     Button team_2;
-    Button team_3;
-
 
     public static FutSalTeamActivity newInstance() {
         return new FutSalTeamActivity();
@@ -21,15 +19,14 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
+
         View view = inflater.inflate(R.layout.activity_futsal_team_main, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         team_1 = (Button)view.findViewById(R.id.team_1);
         team_2 = (Button)view.findViewById(R.id.team_2);
-        team_3 = (Button)view.findViewById(R.id.team_3);
 
         team_1.setOnClickListener(this);
         team_2.setOnClickListener(this);
-        team_3.setOnClickListener(this);
 
 
         return view;
@@ -45,7 +42,8 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
                 ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamRegisterActivity.newInstance());
                 break;
             case R.id.team_2:
-                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalMatchSearchActivity.newInstance());
+                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamSearchActivity.newInstance());
+                //new Get();
                 break;
         }
 

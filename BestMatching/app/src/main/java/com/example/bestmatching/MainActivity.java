@@ -11,8 +11,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-/*    FragmentManager manager = getSupportFragmentManager();
-    FragmentTransaction ft = manager.beginTransaction();*/
     Button search_place;
     Button match;
     Button team;
@@ -48,6 +46,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ft.replace(R.id.fragment_container1, fragment1);
         ft.replace(R.id.fragment_container2, fragment2);
         ft.commit();
+        //ft.commitAllowingStateLoss();
+    }
+
+    //뒤로가기 함수
+    public void backFragment(Fragment fragment1, Fragment fragment2) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction ft = manager.beginTransaction();
+        ft.replace(R.id.fragment_container1, fragment1);
+        ft.replace(R.id.fragment_container2, fragment2);
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
     @Override
@@ -65,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamRegisterActivity.newInstance());
                 break;
             case R.id.help:
-                replaceFragment(FutSalHelpActivity.newInstance(), FutSalSearchMapActivity.newInstance());
+                replaceFragment(FutSalHelpActivity.newInstance(), FutSalHelp_MyinfoFragment.newInstance());
                 break;
         }
     }

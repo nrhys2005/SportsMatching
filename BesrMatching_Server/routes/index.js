@@ -19,6 +19,7 @@ router.use('/team',  require('./team'));
 router.use('/match',  require('./match'));
 router.use('/ground',  require('./ground'));
 
+router.use('/Help',  require('./Help'));
 //모듈에 등록해야 web.js에서 app.use 함수를 통해서 사용 가능
 
 

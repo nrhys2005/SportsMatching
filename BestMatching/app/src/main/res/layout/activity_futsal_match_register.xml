@@ -33,13 +33,17 @@
              android:padding="10dp"/>
 
          <EditText
+             android:id="@+id/match_title"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginBottom="10dp"
-             android:background="@color/white"
+             android:background="@drawable/corner_shape"
              android:gravity="center"
              android:hint="제목을 입력해주세요."
-             android:padding="10dp" />
+             android:textStyle="bold"
+             android:padding="10dp"
+             android:singleLine = "true"
+             android:lines = "1"/>
       </LinearLayout>
 
       <LinearLayout
@@ -61,10 +65,13 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginBottom="10dp"
-             android:background="@color/white"
+             android:background="@drawable/corner_shape"
              android:gravity="center"
              android:hint="구장을 선택해주세요."
-             android:padding="10dp" />
+             android:textStyle="bold"
+             android:padding="10dp"
+             android:singleLine = "true"
+             android:lines = "1"/>
       </LinearLayout>
 
       <LinearLayout
@@ -81,14 +88,18 @@
              android:textStyle="bold"
              android:padding="10dp"/>
 
-         <EditText
+         <TextView
+             android:id="@+id/match_date"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginBottom="10dp"
-             android:background="@color/white"
+             android:background="@drawable/corner_shape"
              android:gravity="center"
              android:hint="날짜를 선택해주세요."
-             android:padding="10dp" />
+             android:textStyle="bold"
+             android:padding="10dp"
+             android:singleLine = "true"
+             android:lines = "1"/>
       </LinearLayout>
 
       <LinearLayout
@@ -104,15 +115,19 @@
              android:gravity="center"
              android:text="시간"
              android:textStyle="bold"
-             android:padding="10dp"/>
+             android:padding="10dp"
+             android:singleLine = "true"
+             android:lines = "1"/>
 
-         <EditText
+         <TextView
+             android:id="@+id/match_start_time"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_marginBottom="10dp"
-             android:background="@color/white"
+             android:background="@drawable/corner_shape"
              android:gravity="center"
              android:hint="시작시간"
+             android:textStyle="bold"
              android:layout_weight="0.5"
              android:padding="10dp" />
 
@@ -124,15 +139,19 @@
              android:gravity="center"
              android:text="~"
              android:textStyle="bold"
-             android:padding="10dp"/>
+             android:padding="10dp"
+             android:singleLine = "true"
+             android:lines = "1"/>
 
-         <EditText
+         <TextView
+             android:id="@+id/match_end_time"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_marginBottom="10dp"
-             android:background="@color/white"
+             android:background="@drawable/corner_shape"
              android:gravity="center"
              android:hint="종료시간"
+             android:textStyle="bold"
              android:layout_weight="0.5"
              android:padding="10dp" />
       </LinearLayout>
@@ -149,15 +168,19 @@
              android:gravity="center"
              android:text="요금"
              android:textStyle="bold"
-             android:padding="10dp"/>
+             android:padding="10dp"
+             android:singleLine = "true"
+             android:lines = "1"/>
 
          <EditText
+             android:id="@+id/match_cost"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginBottom="10dp"
-             android:background="@color/white"
+             android:background="@drawable/corner_shape"
              android:gravity="center"
              android:hint="요금"
+             android:textStyle="bold"
              android:padding="10dp" />
       </LinearLayout>
 
@@ -178,14 +201,8 @@
           android:id="@+id/match_register"
           android:layout_width="wrap_content"
           android:layout_height="50dp"
+          android:background="@drawable/button_shape"
           android:text="매칭등록"
-          android:layout_weight="0.5"
-          />
-      <Button
-          android:id="@+id/match_cancel"
-          android:layout_width="wrap_content"
-          android:layout_height="50dp"
-          android:text="취소"
           android:layout_weight="0.5"
           />
 

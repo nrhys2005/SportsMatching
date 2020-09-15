@@ -28,8 +28,10 @@ import java.util.ArrayList;
 
 public class SignActivity extends AppCompatActivity implements View.OnClickListener {
 
+    Button id_check;
     Button finshsign_btn;
     Button back_btn;
+
     EditText id;
     EditText pw;
     EditText pw_check;
@@ -41,12 +43,16 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
     ArrayList<String> nameList = new ArrayList<>();
     ArrayList<String> emailList = new ArrayList<>();
 
+    LoginActivity lg = new LoginActivity();
+
+    String ip = lg.ip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign);
 
+        id_check = findViewById(R.id.id_check);
         finshsign_btn = findViewById(R.id.finshsign_btn);
         back_btn = findViewById(R.id.back_btn);
 
@@ -56,6 +62,7 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
 
+        id_check.setOnClickListener(this);
         finshsign_btn.setOnClickListener(this);
         back_btn.setOnClickListener(this);
     }
@@ -141,22 +148,6 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
                 e.printStackTrace();
             }*/
 
-
-            /*try {
-                //JSONObject jsonObject = new JSONObject("http://localhost:3000/users");
-                JSONArray jsonArray = new JSONArray(testget.getText().toString());
-                for (int i = 0; i < jsonArray.length(); i++)
-                {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    idList.add(jsonObject.getString("id"));
-                    nameList.add(jsonObject.getString("name"));
-                }
-                testpost.setText(idList+" "+nameList);
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }*/
         }
 
     }
@@ -169,8 +160,6 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
             try {
                 //JSONObject를 만들고 key value 형식으로 값을 저장해준다.
                 JSONObject jsonObject = new JSONObject();
-                //jsonObject.put("user_id", "androidTest");
-                //jsonObject.put("name", "yun");
 
                 jsonObject.put("id", id.getText().toString());
                 jsonObject.put("pw", pw.getText().toString());
@@ -254,10 +243,105 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
                 else {
                     Toast.makeText(getApplicationContext(),"회원가입 실패",Toast.LENGTH_SHORT).show();
                 }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+    }
 
+    // 중복체크
+    public class CheckPost extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+            try {
+                //JSONObject를 만들고 key value 형식으로 값을 저장해준다.
+                JSONObject jsonObject = new JSONObject();
+
+                jsonObject.put("id", id.getText().toString());
+
+                HttpURLConnection con = null;
+                BufferedReader reader = null;
+
+                try{
+                    //URL url = new URL("http://192.168.25.16:3000/users");
+                    URL url = new URL(urls[0]);
+                    //연결을 함
+                    con = (HttpURLConnection) url.openConnection();
+
+                    con.setRequestMethod("POST");//POST방식으로 보냄
+                    con.setRequestProperty("Cache-Control", "no-cache");//캐시 설정
+                    con.setRequestProperty("Content-Type", "application/json");//application JSON 형식으로 전송
+                    con.setRequestProperty("Accept", "text/html");//서버에 response 데이터를 html로 받음
+                    con.setDoOutput(true);//Outstream으로 post 데이터를 넘겨주겠다는 의미
+                    con.setDoInput(true);//Inputstream으로 서버로부터 응답을 받겠다는 의미
+                    con.connect();
+
+                    //서버로 보내기위해서 스트림 만듬
+                    OutputStream outStream = con.getOutputStream();
+                    //버퍼를 생성하고 넣음
+                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outStream));
+                    writer.write(jsonObject.toString());
+                    writer.flush();
+                    writer.close();//버퍼를 받아줌
+
+                    //서버로 부터 데이터를 받음
+                    InputStream stream = con.getInputStream();
+
+                    reader = new BufferedReader(new InputStreamReader(stream));
+
+                    StringBuffer buffer = new StringBuffer();
+
+                    String line = "";
+                    while((line = reader.readLine()) != null){
+                        buffer.append(line);
+                    }
+
+                    return buffer.toString();//서버로 부터 받은 값을 리턴해줌 아마 OK!!가 들어올것임
+
+                } catch (MalformedURLException e){
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if(con != null){
+                        con.disconnect();
+                    }
+                    try {
+                        if(reader != null){
+                            reader.close();//버퍼를 닫아줌
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                String msg = jsonObject.getString("result");
+
+                if(msg.equals("duplication")) {
+                    Toast.makeText(getApplicationContext(),"아이디 중복",Toast.LENGTH_SHORT).show();
+                }
+
+                else {
+                    Toast.makeText(getApplicationContext(),"사용할수 있는 아이디 입니다.",Toast.LENGTH_SHORT).show();
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -266,18 +350,28 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         int a = v.getId();
         switch (a) {
-            case R.id.finshsign_btn:
 
-                if (pw.getText().toString().equals(pw_check.getText().toString())) {
-                    new Post().execute("http://59.151.245.196:3000/signup/signup");
-                    //new JSONTask().execute("http://192.168.0.7:3000/users");
-                    //new Get().execute("http://59.151.245.176:3000/users");
+                //중복검사
+            case R.id.id_check:
+                new CheckPost().execute(ip + "/signup/check");
+                break;
+
+                //회원가입 완료버튼
+            case R.id.finshsign_btn:
+                if( id.length() == 0 || pw.length() == 0) {
+                    Toast.makeText(getApplicationContext(), "아이디와 비밀번호는 필수입력사항 입니다.", Toast.LENGTH_SHORT).show();
+                    return;
                 }
                 else {
-                    Toast.makeText(getApplicationContext(),"비밀번호를 확인하세요",Toast.LENGTH_SHORT).show();
+                    if (pw.getText().toString().equals(pw_check.getText().toString())) {
+                        new Post().execute(ip + "/signup/signup");
+                    } else {
+                        Toast.makeText(getApplicationContext(), "비밀번호를 확인하세요", Toast.LENGTH_SHORT).show();
+                    }
                 }
-
                 break;
+
+                //취소버튼
             case R.id.back_btn:
                 finish();
                 break;

@@ -1,8 +1,10 @@
 package com.example.bestmatching;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -28,6 +30,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -36,6 +39,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     Button sign_btn;
     Button login_btn;
+
+    public String ip = "http://114.129.224.92:3000";
+    public static String Myid="";
+    public HttpURLConnection con = null;
+    public BufferedReader reader = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +78,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 jsonObject.put("id", id);
                 jsonObject.put("pw", password);
 
-                HttpURLConnection con = null;
-                BufferedReader reader = null;
 
                 try{
                     //URL url = new URL("http://192.168.25.16:3000/users");
@@ -136,13 +142,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             //test1.setText(result);//서버로 부터 받은 값을 출력해주는 부분
-
             try {
                 JSONObject jsonObject = new JSONObject(result);
                 String msg = jsonObject.getString("result");
-
                 if ( msg.equals("Success")){
                     Toast.makeText(getApplicationContext(),"로그인 성공",Toast.LENGTH_SHORT).show();
+                    Myid=TextInputEditText_id.getText().toString();
                     login();
                 }
                 else {
@@ -181,8 +186,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         int id = v.getId();
         switch (id) {
             case R.id.login_btn:
-                new Post().execute("http://59.151.245.196:3000/login");
-                //login();
+                 new Post().execute(ip + "/login");
+                 //login();
                 break;
             case R.id.sign_btn:
                 sign();

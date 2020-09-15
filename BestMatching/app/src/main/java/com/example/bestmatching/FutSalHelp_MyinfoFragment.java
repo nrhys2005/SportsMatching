@@ -254,17 +254,17 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            if(e_phone.equals(""))
+            if(e_phone.equals("null"))
                 phone.setHint("번호를 입력하세요");
             else
                 phone.setText(e_phone);
 
-            if(e_location.equals(""))
+            if(e_location.equals("null"))
                 location.setHint("지역을 입력하세요");
             else
                 location.setText(e_location);
 
-            if(e_position.equals(""))
+            if(e_position.equals("null"))
                 position.setHint("포지션을 입력하세요");
             else
                 position.setText(e_position);

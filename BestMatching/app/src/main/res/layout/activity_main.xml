@@ -39,7 +39,7 @@
             android:layout_weight="0.25"
             android:gravity="center"
             android:background="@android:color/transparent"
-            android:text="매칭 찾기"/>
+            android:text="매칭"/>
 
         <Button
             android:id="@+id/team"
@@ -48,7 +48,7 @@
             android:layout_weight="0.25"
             android:gravity="center"
             android:background="@android:color/transparent"
-            android:text="팀 찾기"/>
+            android:text="팀"/>
 
         <Button
             android:id="@+id/help"

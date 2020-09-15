@@ -14,14 +14,21 @@
        android:background="@color/blue"
        android:gravity="center">
       <Button
-          android:id="@+id/team_1"
+          android:id="@+id/team_info"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:background="@android:color/transparent"
+          android:text="팀 정보"
+          />
+      <Button
+          android:id="@+id/team_create"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:background="@android:color/transparent"
           android:text="팀등록"
           />
       <Button
-          android:id="@+id/team_2"
+          android:id="@+id/team_search"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:background="@android:color/transparent"

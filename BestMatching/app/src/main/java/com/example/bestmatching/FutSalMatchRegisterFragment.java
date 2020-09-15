@@ -33,7 +33,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class FutSalMatchRegisterActivity extends Fragment implements View.OnClickListener {
+public class FutSalMatchRegisterFragment extends Fragment implements View.OnClickListener {
 
     private Context context;
     LoginActivity lg = new LoginActivity();
@@ -53,8 +53,8 @@ public class FutSalMatchRegisterActivity extends Fragment implements View.OnClic
 
     Button match_register;
 
-    public static FutSalMatchRegisterActivity newInstance() {
-        return new FutSalMatchRegisterActivity();
+    public static FutSalMatchRegisterFragment newInstance() {
+        return new FutSalMatchRegisterFragment();
     }
 
     @Override

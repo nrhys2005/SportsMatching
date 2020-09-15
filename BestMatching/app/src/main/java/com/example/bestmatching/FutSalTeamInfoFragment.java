@@ -1,23 +1,22 @@
 package com.example.bestmatching;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
-import com.google.android.material.textfield.TextInputEditText;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -29,36 +28,61 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class FutSalTeamInfoFragment extends Fragment implements View.OnClickListener {
 
-    TextInputEditText TextInputEditText_id;
-    TextInputEditText TextInputEditText_password;
+    private Context context;
 
-    Button sign_btn;
-    Button login_btn;
+    TextView team_name;
+    TextView master_id;
+    TextView phonenumber;
+    TextView age_avg;
+    TextView level;
+    TextView location;
+    TextView week;
+    TextView comment;
+    LoginActivity lg = new LoginActivity();
+    String ip = lg.ip;
 
-    public static String ip = "http://192.168.0.8:3000";
-    public static String Myid="";
-    public HttpURLConnection con = null;
-    public BufferedReader reader = null;
+    //private Spinner spinner_location;
+
+    AlertDialog.Builder builder;
+    AlertDialog dialog;
+    HttpURLConnection con = lg.con;
+    BufferedReader reader = lg.reader;
+    Button team_member;
+    Button team_leave;
+    public static FutSalTeamInfoFragment newInstance() {
+        return new FutSalTeamInfoFragment();
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
+        View view = inflater.inflate(R.layout.activity_futsal_team_info, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
-        TextInputEditText_id = findViewById(R.id.TextInputEditText_id);
-        TextInputEditText_password = findViewById(R.id.TextInputEditText_password);
+        context = container.getContext();
 
-        sign_btn = findViewById(R.id.sign_btn);
-        login_btn = findViewById(R.id.login_btn);
+        team_name = (TextView) view.findViewById(R.id.team_name);
+        phonenumber = (TextView) view.findViewById(R.id.phonenumber);
+        age_avg = (TextView) view.findViewById(R.id.age_avg);
+        level = (TextView) view.findViewById(R.id.level);
+        location = (TextView) view.findViewById(R.id.location);
+        week = (TextView) view.findViewById(R.id.week);
+        comment = (TextView) view.findViewById(R.id.comment);
 
-        sign_btn.setOnClickListener(this);
-        login_btn.setOnClickListener(this);
+        team_member = (Button)view.findViewById(R.id.team_member);
+        team_leave = (Button)view.findViewById(R.id.team_leave);
 
+        /*final String[] location = {"10대", "20대", "30대", "40대", "50대"};
+        spinner_location = (Spinner)view.findViewById(R.id.location);
+        ArrayAdapter spinnerAdaptor;
+        spinnerAdaptor = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item,location);
+        spinner_location.setAdapter(spinnerAdaptor);*/
+
+        team_member.setOnClickListener(this);
+        team_leave.setOnClickListener(this);
+
+        return view;
     }
 
     // 안스에서 노드js로 데이터 보내는 부분
@@ -71,15 +95,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 JSONObject jsonObject = new JSONObject();
                 //jsonObject.put("user_id", "androidTest");
                 //jsonObject.put("name", "yun");
+                jsonObject.put("id", lg.Myid);
+                jsonObject.put("team_name", team_name.getText().toString());
+                jsonObject.put("phonenumber", phonenumber.getText().toString());
+                jsonObject.put("age_avg", age_avg.getText().toString());
+                jsonObject.put("level", level.getText().toString());
+                jsonObject.put("location", location.getText().toString());
+                jsonObject.put("week", week.getText().toString());
+                jsonObject.put("comment", comment.getText().toString());
 
-                String id = TextInputEditText_id.getText().toString();
-                String password = TextInputEditText_password.getText().toString();
-
-                jsonObject.put("id", id);
-                jsonObject.put("pw", password);
 
 
-                try{
+
+                try {
                     //URL url = new URL("http://192.168.25.16:3000/users");
                     URL url = new URL(urls[0]);
                     //연결을 함
@@ -91,6 +119,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     con.setRequestProperty("Accept", "text/html");//서버에 response 데이터를 html로 받음
                     con.setDoOutput(true);//Outstream으로 post 데이터를 넘겨주겠다는 의미
                     con.setDoInput(true);//Inputstream으로 서버로부터 응답을 받겠다는 의미
+
                     con.connect();
 
                     //서버로 보내기위해서 스트림 만듬
@@ -109,22 +138,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     StringBuffer buffer = new StringBuffer();
 
                     String line = "";
-                    while((line = reader.readLine()) != null){
+                    while ((line = reader.readLine()) != null) {
                         buffer.append(line);
                     }
 
                     return buffer.toString();//서버로 부터 받은 값을 리턴해줌 아마 OK!!가 들어올것임
 
-                } catch (MalformedURLException e){
+                } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 } finally {
-                    if(con != null){
+                    if (con != null) {
                         con.disconnect();
                     }
                     try {
-                        if(reader != null){
+                        if (reader != null) {
                             reader.close();//버퍼를 닫아줌
                         }
                     } catch (IOException e) {
@@ -141,17 +170,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            //test1.setText(result);//서버로 부터 받은 값을 출력해주는 부분
+
             try {
                 JSONObject jsonObject = new JSONObject(result);
                 String msg = jsonObject.getString("result");
+
                 if ( msg.equals("Success")){
-                    Toast.makeText(getApplicationContext(),"로그인 성공",Toast.LENGTH_SHORT).show();
-                    Myid=TextInputEditText_id.getText().toString();
-                    login();
+                    Toast.makeText(context.getApplicationContext(),"팀등록 성공",Toast.LENGTH_SHORT).show();
+
                 }
                 else {
-                    Toast.makeText(getApplicationContext(),"로그인 실패",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(),"팀등록 실패",Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -160,41 +189,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////
-    public void login(){
 
-        Intent intent = new Intent(LoginActivity.this, LoginResultActivity.class);
-        startActivity(intent);
-
-        /*if (id.equals("1")&&password.equals("1")) {
-                    Intent intent = new Intent(LoginActivity.this, LoginResultActivity.class);
-                    intent.putExtra("id", id);
-                    intent.putExtra("password", password);
-                    startActivity(intent);
-                }*/
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////
-    public void sign() {
-        Intent intent = new Intent(LoginActivity.this, SignActivity.class);
-        startActivity(intent);
-    }
 
     @Override
     public void onClick(View v) {
+        int a = v.getId();
 
-        int id = v.getId();
-        switch (id) {
-            case R.id.login_btn:
-                 new Post().execute(ip + "/login");
-                 //login();
+        switch (a) {
+            case R.id.team_member:
+                new Post().execute(ip + "team/myteam_list");
                 break;
-            case R.id.sign_btn:
-                sign();
-                break;
-
+            case R.id.team_leave:
+                new Post().execute(ip + "team/myteam_drop");
         }
     }
-
-
 }

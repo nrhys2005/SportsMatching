@@ -11,16 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +29,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class FutSalSearchListActivity extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class FutSalSearchListFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private static final int PERMISSION_REQUEST_CODE = 1;
     private ListView futsal_search_list;
@@ -55,8 +51,8 @@ public class FutSalSearchListActivity extends Fragment implements View.OnClickLi
     LocationManager lm;
     Location myLocation;
 
-    public static FutSalSearchListActivity newInstance() {
-        return new FutSalSearchListActivity();
+    public static FutSalSearchListFragment newInstance() {
+        return new FutSalSearchListFragment();
     }
 
     @Nullable

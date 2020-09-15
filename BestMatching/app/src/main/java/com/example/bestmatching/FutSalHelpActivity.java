@@ -54,7 +54,7 @@ public class FutSalHelpActivity extends Fragment implements View.OnClickListener
                 ((MainActivity)getActivity()).replaceFragment(FutSalHelpActivity.newInstance(), FutSalHelp_MyinfoFragment.newInstance());
                 break;
             case R.id.Report:
-                ((MainActivity)getActivity()).replaceFragment(FutSalHelpActivity.newInstance(), FutSalTeamSearchActivity.newInstance());
+                ((MainActivity)getActivity()).replaceFragment(FutSalHelpActivity.newInstance(), FutSalTeamSearchFragment.newInstance());
                 break;
         }
     }

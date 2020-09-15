@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,7 +27,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class FutSalMatchSearchActivity extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class FutSalMatchSearchFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private Context context;
     private ListView futsal_match_search;
@@ -53,8 +52,8 @@ public class FutSalMatchSearchActivity extends Fragment implements View.OnClickL
     ArrayList<String> match_search_end_time = new ArrayList<>();
     ArrayList<String> match_cost = new ArrayList<>();
 
-    public static FutSalMatchSearchActivity newInstance() {
-        return new FutSalMatchSearchActivity();
+    public static FutSalMatchSearchFragment newInstance() {
+        return new FutSalMatchSearchFragment();
     }
 
     @Nullable

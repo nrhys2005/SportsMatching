@@ -80,7 +80,7 @@ public class FutSalTeamSearchDetail extends Fragment implements View.OnClickList
         int a = v.getId();
         switch (a) {
             case R.id.back_btn:
-                ((MainActivity) getActivity()).backFragment(FutSalTeamActivity.newInstance(), FutSalTeamSearchActivity.newInstance());
+                ((MainActivity) getActivity()).backFragment(FutSalTeamActivity.newInstance(), FutSalTeamSearchFragment.newInstance());
                 break;
 
         }

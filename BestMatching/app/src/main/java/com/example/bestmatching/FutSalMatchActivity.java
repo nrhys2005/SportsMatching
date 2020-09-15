@@ -36,10 +36,10 @@ public class FutSalMatchActivity extends Fragment implements View.OnClickListene
         int a = v.getId();
         switch (a){
             case R.id.match_1:
-                ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalMatchRegisterActivity.newInstance());
+                ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalMatchRegisterFragment.newInstance());
                 break;
             case R.id.match_2:
-                ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalMatchSearchActivity.newInstance());
+                ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalMatchSearchFragment.newInstance());
                 break;
         }
     }

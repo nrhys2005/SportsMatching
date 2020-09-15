@@ -25,7 +25,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class FutSalTeamSearchActivity extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class FutSalTeamSearchFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private Context context;
     private ListView futsal_team_search;
@@ -50,8 +50,8 @@ public class FutSalTeamSearchActivity extends Fragment implements View.OnClickLi
     ArrayList<String> team_search_age = new ArrayList<>();
     ArrayList<String> team_search_comment = new ArrayList<>();
 
-    public static FutSalTeamSearchActivity newInstance() {
-        return new FutSalTeamSearchActivity();
+    public static FutSalTeamSearchFragment newInstance() {
+        return new FutSalTeamSearchFragment();
     }
 
     @Override

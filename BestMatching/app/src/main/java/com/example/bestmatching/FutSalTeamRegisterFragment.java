@@ -3,17 +3,13 @@ package com.example.bestmatching;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,9 +28,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
-public class FutSalTeamRegisterActivity extends Fragment implements View.OnClickListener {
+public class FutSalTeamRegisterFragment extends Fragment implements View.OnClickListener {
 
     private Context context;
 
@@ -56,8 +51,8 @@ public class FutSalTeamRegisterActivity extends Fragment implements View.OnClick
     BufferedReader reader = lg.reader;
     Button team_regist;
 
-    public static FutSalTeamRegisterActivity newInstance() {
-        return new FutSalTeamRegisterActivity();
+    public static FutSalTeamRegisterFragment newInstance() {
+        return new FutSalTeamRegisterFragment();
     }
 
     @Override
@@ -111,8 +106,8 @@ public class FutSalTeamRegisterActivity extends Fragment implements View.OnClick
                 JSONObject jsonObject = new JSONObject();
                 //jsonObject.put("user_id", "androidTest");
                 //jsonObject.put("name", "yun");
-                jsonObject.put("id", lg.Myid);
                 jsonObject.put("team_name", team_name.getText().toString());
+                jsonObject.put("id", lg.Myid);
                 jsonObject.put("phonenumber", phonenumber.getText().toString());
                 jsonObject.put("age_avg", age_avg.getText().toString());
                 jsonObject.put("level", level.getText().toString());

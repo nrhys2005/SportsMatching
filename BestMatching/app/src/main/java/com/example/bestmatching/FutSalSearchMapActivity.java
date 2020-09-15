@@ -84,12 +84,12 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
 
         lon.add(128.148226);
         lon.add(128.606546);*/
-        Log.i("현재 위치1", myLocation.getLongitude()+","+myLocation.getLatitude());
+//        Log.i("현재 위치1", myLocation.getLongitude()+","+myLocation.getLatitude());
         //new Get().execute(ip + "/ground");
 
         mapView = (MapView) view.findViewById(R.id.mapsearch);
         mapView.getMapAsync(this);
-        new Get().execute(ip + "/ground/search?"+"latitude="+myLocation.getLatitude()+"&"+"longtitude="+myLocation.getLongitude());
+//        new Get().execute(ip + "/ground/search?"+"latitude="+myLocation.getLatitude()+"&"+"longtitude="+myLocation.getLongitude());
         return view;
 
     }
@@ -159,7 +159,7 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        Log.i("현재 위치23", myLocation.getLongitude()+","+myLocation.getLatitude());
+//        Log.i("현재 위치23", myLocation.getLongitude()+","+myLocation.getLatitude());
         LatLng SANGJU = new LatLng(36.378399, 128.147967);
         /*MarkerOptions markerOptions = new MarkerOptions();
         markerOptions
@@ -167,7 +167,7 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
                 .title(stadium_name.get(0).toString());
         googleMap.addMarker(markerOptions);*/
         mMap.setMyLocationEnabled(true);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(myLocation.getLatitude(),myLocation.getLongitude())));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(myLocation.getLatitude(),myLocation.getLongitude())));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
         MarkerOptions markerOptions = new MarkerOptions();
 
@@ -210,7 +210,12 @@ public class FutSalSearchMapActivity extends Fragment implements OnMapReadyCallb
         //Toast.makeText(context, marker.getId().substring(1)+1,Toast.LENGTH_SHORT).show();
         bundle.putInt("id", Integer.valueOf(marker.getId().substring(1))+1);
         bundle.putString("name", marker.getTitle());
-        bundle.putString("price", marker.getSnippet());
+
+        //마지막 "원" 이라는 문자열 지우기위함//
+        String p = marker.getSnippet();
+        p = p.substring(0,p.length()-1);
+        bundle.putString("price", p);
+
         FutSalSearchListDetail f = new FutSalSearchListDetail();
         f.setArguments(bundle);
         ((MainActivity)getActivity()).replaceFragment(FutSalSearchActivity.newInstance(), f);

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -24,7 +25,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class FutSalTeamSearchActivity extends Fragment implements View.OnClickListener {
+public class FutSalTeamSearchActivity extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private Context context;
     private ListView futsal_team_search;
@@ -37,6 +38,8 @@ public class FutSalTeamSearchActivity extends Fragment implements View.OnClickLi
 
     String ip = lg.ip;
 
+    private int pos;
+
     //팀 개수
     private int teamSize;
 
@@ -44,6 +47,8 @@ public class FutSalTeamSearchActivity extends Fragment implements View.OnClickLi
     ArrayList<String> team_search_phone = new ArrayList<>();
     ArrayList<String> team_search_loaction = new ArrayList<>();
     ArrayList<String> team_search_week = new ArrayList<>();
+    ArrayList<String> team_search_age = new ArrayList<>();
+    ArrayList<String> team_search_comment = new ArrayList<>();
 
     public static FutSalTeamSearchActivity newInstance() {
         return new FutSalTeamSearchActivity();
@@ -66,8 +71,27 @@ public class FutSalTeamSearchActivity extends Fragment implements View.OnClickLi
         new Get().execute(ip + "/team/search/none");
 
         teamsearch_btn.setOnClickListener(this);
+        futsal_team_search.setOnItemClickListener(this);
 
         return view;
+    }
+
+    //아이템값 가져오기 및 화면전환
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //Toast.makeText(view.getContext(), stadium_name.get(position), Toast.LENGTH_SHORT).show();
+        pos = position;
+        //Toast.makeText(view.getContext(), Integer.toString(pos), Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putString("team_name", team_search_name.get(pos));
+        bundle.putString("phonenumber", team_search_phone.get(pos));
+        bundle.putString("location", team_search_loaction.get(pos));
+        bundle.putString("week", team_search_week.get(pos));
+        bundle.putString("avg_age", team_search_age.get(pos));
+        bundle.putString("comment", team_search_comment.get(pos));
+        FutSalTeamSearchDetail f = new FutSalTeamSearchDetail();
+        f.setArguments(bundle);
+        ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), f);
     }
 
     // 노드js에서 안스로 데이터 받는 부분
@@ -105,6 +129,8 @@ public class FutSalTeamSearchActivity extends Fragment implements View.OnClickLi
                             team_search_phone.add(js.getString("phonenumber"));
                             team_search_loaction.add(js.getString("location"));
                             team_search_week.add(js.getString("week"));
+                            team_search_age.add(js.getString("age_avg"));
+                            team_search_comment.add(js.getString("comment"));
                         }
                     }
 
@@ -154,6 +180,8 @@ public class FutSalTeamSearchActivity extends Fragment implements View.OnClickLi
         team_search_phone.clear();
         team_search_loaction.clear();
         team_search_week.clear();
+        team_search_age.clear();
+        team_search_comment.clear();
         futsalTeamSearchAdapter.clearItem();
         futsalTeamSearchAdapter.notifyDataSetChanged();
     }

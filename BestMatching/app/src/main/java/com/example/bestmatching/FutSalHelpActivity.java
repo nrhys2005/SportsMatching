@@ -45,13 +45,13 @@ public class FutSalHelpActivity extends Fragment implements View.OnClickListener
 
         switch (a){
             case R.id.Myinfo:
-                ((MainActivity)getActivity()).replaceFragment(FutSalHelpActivity.newInstance(), FutSalHelp_MyinfoActivity.newInstance());
+                ((MainActivity)getActivity()).replaceFragment(FutSalHelpActivity.newInstance(), FutSalHelp_MyinfoFragment.newInstance());
                 break;
             case R.id.Notice:
-                ((MainActivity)getActivity()).replaceFragment(FutSalHelpActivity.newInstance(), FutSalTeamSearchActivity.newInstance());
+                ((MainActivity)getActivity()).replaceFragment(FutSalHelpActivity.newInstance(), FutSalHelp_NoticeFragment.newInstance());
                 break;
             case R.id.Inquiry:
-                ((MainActivity)getActivity()).replaceFragment(FutSalHelpActivity.newInstance(), FutSalHelp_MyinfoActivity.newInstance());
+                ((MainActivity)getActivity()).replaceFragment(FutSalHelpActivity.newInstance(), FutSalHelp_MyinfoFragment.newInstance());
                 break;
             case R.id.Report:
                 ((MainActivity)getActivity()).replaceFragment(FutSalHelpActivity.newInstance(), FutSalTeamSearchActivity.newInstance());

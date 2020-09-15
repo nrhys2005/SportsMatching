@@ -69,22 +69,12 @@ router.get('/Myinfo', function (req, res) {
 router.get('/Notice', function (req, res) {
     console.log('<<Help/Notice_Get>>');
     
-    var user_id = req.query.id;
-    
-    var data_array = [];
-    
-    //var Data = JSON.parse(data); // JSON data 받음
-    var sql;
-    
-    sql = 'select id, name, team_name, email, phone, location, position from best_matching.user where id= ?';
-    console.log('id = '+ user_id);
-    data_array.push(user_id);
-   
-    dbconn.query(sql, data_array, function (err, rows, fields) {//DB connect
+    var sql = 'select category, title, content, id from best_matching.notice';
+    dbconn.query(sql, function (err, rows, fields) {//DB connect
         if (!err) {
             console.log('Query Select Success(result: Success)');
             console.log(rows);
-            res.json({ "result": "Success", Myinfo : rows});
+            res.json({ "result": "Success", notice_info : rows});
         } else {
             console.log('Query Select Error : ' + err);
             res.json({ "result": err });

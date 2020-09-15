@@ -1,16 +1,12 @@
 package com.example.bestmatching;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -20,41 +16,44 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
+import java.util.ArrayList;
 
-public class FutSalHelp_NoticeActivity extends Fragment implements View.OnClickListener{
+public class FutSalHelp_NoticeFragment extends Fragment implements View.OnClickListener{
 
     LoginActivity lg = new LoginActivity();
     String ip = lg.ip;
 
-
+    private ListView notice;
+    private FutsalHelp_NoticeAdapter noticeAdapter;
     HttpURLConnection con = lg.con;
     BufferedReader reader = lg.reader;
 
     private Context context;
+    private int noticeSize;
+    ArrayList<String> notice_category = new ArrayList<>();
+    ArrayList<String> notice_title = new ArrayList<>();
+  //  ArrayList<String> notice_content = new ArrayList<>();
+    ArrayList<Integer> notice_id = new ArrayList<>();
 
 
-
-
-    public static FutSalHelp_NoticeActivity newInstance() {
-        return new FutSalHelp_NoticeActivity();
+    public static FutSalHelp_NoticeFragment newInstance() {
+        return new FutSalHelp_NoticeFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
-        View view = inflater.inflate(R.layout.activity_futsal_help_myinfo, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
+        View view = inflater.inflate(R.layout.activity_futsal_help_notice, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         context = container.getContext();
 
+        noticeAdapter = new FutsalHelp_NoticeAdapter();
+        notice = (ListView) view.findViewById(R.id.futsal_help_notice);
+        notice.setAdapter(noticeAdapter);
         new Get().execute(ip + "/Help/Notice");
 
         return view;
@@ -95,18 +94,23 @@ public class FutSalHelp_NoticeActivity extends Fragment implements View.OnClickL
                     String msg = jsonObject.getString("result");
 
                     if (msg.equals("Success")) {
+                        String notice_info = jsonObject.getString("notice_info");
+                        JSONArray jsonArray = new JSONArray(notice_info);
 
-                        String userinfo = jsonObject.getString("Myinfo");
-                        JSONArray jsonArray = new JSONArray(userinfo);
+                        noticeSize = jsonArray.length();
 
-                        JSONObject js = jsonArray.getJSONObject(0);
-                        id.setText(js.getString("id"));
+                        for (int i = 0; i < noticeSize; i++) {
+                            JSONObject js = jsonArray.getJSONObject(i);
+                            notice_category.add(js.getString("category"));
+                            notice_title.add(js.getString("title"));
+                           // notice_content.add(js.getString("content"));
+                            notice_id.add(js.getInt("id"));
 
-
-                    }
-
-                    else {
-                        Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
+                        }
+                    } else if (msg.equals("no find")) {
+                        noticeSize = 0;
+                    } else {
+                        //Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -127,8 +131,14 @@ public class FutSalHelp_NoticeActivity extends Fragment implements View.OnClickL
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             //TODO 겟 처리 후 결과
-
-            System.out.println(result);
+            if (noticeSize != 0) {
+                for (int i = 0; i < noticeSize; i++) {
+                    noticeAdapter.addItem(notice_category.get(i), notice_title.get(i),notice_id.get(i));
+                }
+                noticeAdapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(getActivity(), "공지사항이 없습니다.", Toast.LENGTH_SHORT).show();
+            }
 
 
 

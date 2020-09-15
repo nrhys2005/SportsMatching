@@ -31,7 +31,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-public class FutSalHelp_MyinfoActivity extends Fragment implements View.OnClickListener{
+public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickListener{
 
     LoginActivity lg = new LoginActivity();
     String ip = lg.ip;
@@ -55,8 +55,8 @@ public class FutSalHelp_MyinfoActivity extends Fragment implements View.OnClickL
     public String e_location="";
     public String e_position="";
 
-    public static FutSalHelp_MyinfoActivity newInstance() {
-        return new FutSalHelp_MyinfoActivity();
+    public static FutSalHelp_MyinfoFragment newInstance() {
+        return new FutSalHelp_MyinfoFragment();
     }
 
     @Override

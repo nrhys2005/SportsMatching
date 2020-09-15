@@ -14,6 +14,7 @@ router.post('/create', function (req, res) {
         console.log('input_data : ' + inputData); 
 
         input_data_array.push(inputData.team_name);// json->array
+        input_data_array.push(inputData.master_id);// json->array
         input_data_array.push(inputData.phonenumber);
         input_data_array.push(inputData.age_avg);
         input_data_array.push(inputData.level);
@@ -23,7 +24,7 @@ router.post('/create', function (req, res) {
 
         console.log('input_data : ' + input_data_array); 
         
-        var sql_insert = 'INSERT INTO best_matching.team (team_name, phonenumber, age_avg, level, location,week,comment) VALUES(?, ?, ?, ?, ?, ?, ?)';
+        var sql_insert = 'INSERT INTO best_matching.team (team_name,master_id, phonenumber, age_avg, level, location,week,comment) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
         dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
             if (!err) {
                 console.log('Query insert success');

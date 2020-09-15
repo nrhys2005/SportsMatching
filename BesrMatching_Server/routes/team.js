@@ -92,7 +92,7 @@ router.post('/signup', function (req, res) {
         var Data = JSON.parse(data); // JSON data 받음
         var sql = 'update user set team name = ? where user.id == ? ';
         update_data_array.push(Data.team_name);
-        update_data_array.push(req.session.user.user_id);
+        update_data_array.push(Data.id);
 
         dbconn.query(sql, update_data_array, function (err, rows, fields) {//DB connect
             if (!err) {

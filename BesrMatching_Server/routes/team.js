@@ -12,7 +12,9 @@ router.post('/create', function (req, res) {
         var input_data_array= [];
         var inputData = JSON.parse(data); // JSON data 받음
         console.log('input_data : ' + inputData); 
+
         input_data_array.push(inputData.team_name);// json->array
+        input_data_array.push(inputData.master_id);// json->array
         input_data_array.push(inputData.phonenumber);
         input_data_array.push(inputData.age_avg);
         input_data_array.push(inputData.level);
@@ -21,9 +23,8 @@ router.post('/create', function (req, res) {
         input_data_array.push(inputData.comment);
 
         console.log('input_data : ' + input_data_array); 
-        console.log("팀 세션 "+ req.session.id)
-        console.log("세션 아이디"+req.session.user.user_id);
-        var sql_insert = 'INSERT INTO best_matching.team (team_name, phonenumber, age_avg, level, location,week,comment) VALUES(?, ?, ?, ?, ?, ?, ?)';
+        
+        var sql_insert = 'INSERT INTO best_matching.team (team_name,master_id, phonenumber, age_avg, level, location,week,comment) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
         dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
             if (!err) {
                 console.log('Query insert success');
@@ -31,10 +32,11 @@ router.post('/create', function (req, res) {
                 console.log('Query Error : ' + err);
             }
         });
+        
         var sql_update = 'update user set team_name = ? where id = ? ';
         var update_data_array = [];
         update_data_array.push(inputData.team_name);
-        update_data_array.push(req.session.user.user_id);
+        update_data_array.push(inputData.id);
         dbconn.query(sql_update, update_data_array, function (err, rows, fields) {//DB connect
             if (!err) {
                 console.log('Query Update Success');
@@ -84,13 +86,11 @@ router.get('/search/:search', function (req, res) {
 });
 
 router.post('/signup', function (req, res) {
-
     console.log('<<Team/signup>>');
-
     req.on('data', (data) => {
         var update_data_array= [];
         var Data = JSON.parse(data); // JSON data 받음
-        var sql = 'update user set team name = ? where user.id == ? ';
+        var sql = 'update user set team name = ? where user.id == ?';
         update_data_array.push(Data.team_name);
         update_data_array.push(Data.id);
 

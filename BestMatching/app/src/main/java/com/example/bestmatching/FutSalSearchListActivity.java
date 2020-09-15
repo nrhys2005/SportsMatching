@@ -135,7 +135,7 @@ public class FutSalSearchListActivity extends Fragment implements View.OnClickLi
                         stadiumSize = jsonArray.length();
 
                         for (int i = 0; i < stadiumSize; i++) {
-                            JSONObject js = jsonArray.getJSONObject(i);
+                                JSONObject js = jsonArray.getJSONObject(i);
                             ground_id.add(js.getInt("id"));
                             stadium_name.add(js.getString("name"));
                             price.add(js.getString("price"));

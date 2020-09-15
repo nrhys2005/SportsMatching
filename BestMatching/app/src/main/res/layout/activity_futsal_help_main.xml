@@ -13,6 +13,7 @@
        android:orientation="horizontal"
        android:gravity="center">
       <Button
+          android:id="@+id/Myinfo"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:background="@android:color/transparent"
@@ -20,6 +21,7 @@
           />
 
       <Button
+          android:id="@+id/Notice"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:background="@android:color/transparent"
@@ -27,6 +29,7 @@
           />
 
       <Button
+          android:id="@+id/Inquiry"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:background="@android:color/transparent"
@@ -34,6 +37,7 @@
           />
 
       <Button
+          android:id="@+id/Report"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:background="@android:color/transparent"

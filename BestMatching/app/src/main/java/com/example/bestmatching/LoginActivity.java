@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button login_btn;
 
     public String ip = "http://192.168.0.8:3000";
+    public static String Myid="";
     public HttpURLConnection con = null;
     public BufferedReader reader = null;
 
@@ -111,6 +112,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     while((line = reader.readLine()) != null){
                         buffer.append(line);
                     }
+
                     return buffer.toString();//서버로 부터 받은 값을 리턴해줌 아마 OK!!가 들어올것임
 
                 } catch (MalformedURLException e){
@@ -140,13 +142,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             //test1.setText(result);//서버로 부터 받은 값을 출력해주는 부분
-
             try {
                 JSONObject jsonObject = new JSONObject(result);
                 String msg = jsonObject.getString("result");
-
                 if ( msg.equals("Success")){
                     Toast.makeText(getApplicationContext(),"로그인 성공",Toast.LENGTH_SHORT).show();
+                    Myid=TextInputEditText_id.getText().toString();
                     login();
                 }
                 else {

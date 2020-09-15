@@ -122,7 +122,7 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
                     con.setRequestProperty("Accept", "text/html");//서버에 response 데이터를 html로 받음
                     con.setDoOutput(true);//Outstream으로 post 데이터를 넘겨주겠다는 의미
                     con.setDoInput(true);//Inputstream으로 서버로부터 응답을 받겠다는 의미
-                    setCookieHeader();
+
                     con.connect();
 
                     //서버로 보내기위해서 스트림 만듬
@@ -144,7 +144,7 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
                     while ((line = reader.readLine()) != null) {
                         buffer.append(line);
                     }
-                    getCookieHeader();
+
                     return buffer.toString();//서버로 부터 받은 값을 리턴해줌 아마 OK!!가 들어올것임
 
                 } catch (MalformedURLException e) {
@@ -229,12 +229,10 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
                         team.setText(js.getString("team_name"));
                         mail.setText(js.getString("email"));
                         e_phone=js.getString("phone");
-
                         e_location = js.getString("location");
                         e_position = js.getString("position");
 
                     }
-
                     else {
                         Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
                     }
@@ -272,52 +270,8 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
                 position.setText(e_position);
 
             System.out.println(result);
-
-
-
-
         }
 
-    }
-    private void getCookieHeader(){//Set-Cookie에 배열로 돼있는 쿠키들을 스트링 한줄로 변환
-        List<String> cookies = con.getHeaderFields().get("Set-Cookie");
-        //cookies -> [JSESSIONID=D3F829CE262BC65853F851F6549C7F3E; Path=/smartudy; HttpOnly] -> []가 쿠키1개임.
-        //Path -> 쿠키가 유효한 경로 ,/smartudy의 하위 경로에 위의 쿠키를 사용 가능.
-        if (cookies != null) {
-            for (String cookie : cookies) {
-                String sessionid = cookie.split(";\\s*")[0];
-                //JSESSIONID=FB42C80FC3428ABBEF185C24DBBF6C40를 얻음.
-                //세션아이디가 포함된 쿠키를 얻었음.
-                setSessionIdInSharedPref(sessionid);
-
-            }
-        }
-        Log.d("LOG","쿠키를 얻음");
-
-    }
-
-
-    private void setSessionIdInSharedPref(String sessionid){
-        SharedPreferences pref = context.getSharedPreferences("sessionCookie",context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = pref.edit();
-        if(pref.getString("sessionid",null) == null){ //처음 로그인하여 세션아이디를 받은 경우
-            Log.d("LOG","처음 로그인하여 세션 아이디를 pref에 넣었습니다."+sessionid);
-        }else if(!pref.getString("sessionid",null).equals(sessionid)){ //서버의 세션 아이디 만료 후 갱신된 아이디가 수신된경우
-            Log.d("LOG","기존의 세션 아이디"+pref.getString("sessionid",null)+"가 만료 되어서 "
-                    +"서버의 세션 아이디 "+sessionid+" 로 교체 되었습니다.");
-        }
-        edit.putString("sessionid",sessionid);
-        edit.apply(); //비동기 처리
-    }
-
-
-    private void setCookieHeader(){
-        SharedPreferences pref = context.getSharedPreferences("sessionCookie",context.MODE_PRIVATE);
-        String sessionid = pref.getString("sessionid",null);
-        if(sessionid!=null) {
-            Log.d("LOG","세션 아이디"+sessionid+"가 요청 헤더에 포함 되었습니다.");
-            con.setRequestProperty("Cookie", sessionid);
-        }
     }
 
 }

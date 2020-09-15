@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +23,8 @@ public class FutSalMatchSearchDetail extends Fragment implements View.OnClickLis
     TextView detail_match_start_time;
     TextView detail_match_end_time;
     TextView detail_match_cost;
+
+    Button back_btn;
 
     public static FutSalMatchSearchDetail newInstance() {
         return new FutSalMatchSearchDetail();
@@ -66,12 +69,21 @@ public class FutSalMatchSearchDetail extends Fragment implements View.OnClickLis
                 break;
         }*/
 
+        back_btn = (Button)view.findViewById(R.id.back_btn);
+
+        back_btn.setOnClickListener(this);
 
         return view;
     }
 
     @Override
     public void onClick(View v) {
+        int a = v.getId();
+        switch (a) {
+            case R.id.back_btn:
+                ((MainActivity) getActivity()).backFragment(FutSalMatchActivity.newInstance(), FutSalMatchSearchActivity.newInstance());
+                break;
+        }
 
     }
 }

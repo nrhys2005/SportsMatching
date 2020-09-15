@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,8 @@ public class FutSalTeamSearchDetail extends Fragment implements View.OnClickList
     TextView detail_team_week;
     TextView detail_team_age;
     TextView detail_team_comment;
+
+    Button back_btn;
 
     public static FutSalTeamSearchDetail newInstance() {
         return new FutSalTeamSearchDetail();
@@ -64,12 +67,22 @@ public class FutSalTeamSearchDetail extends Fragment implements View.OnClickList
                 break;
         }*/
 
+        back_btn = (Button)view.findViewById(R.id.back_btn);
+
+        back_btn.setOnClickListener(this);
+
 
         return view;
     }
 
     @Override
     public void onClick(View v) {
+        int a = v.getId();
+        switch (a) {
+            case R.id.back_btn:
+                ((MainActivity) getActivity()).backFragment(FutSalTeamActivity.newInstance(), FutSalTeamSearchActivity.newInstance());
+                break;
 
+        }
     }
 }

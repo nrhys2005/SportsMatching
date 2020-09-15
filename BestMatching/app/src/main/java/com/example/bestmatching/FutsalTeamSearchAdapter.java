@@ -18,6 +18,8 @@ public class FutsalTeamSearchAdapter extends BaseAdapter {
     private TextView team_search_location;
     private TextView team_search_week;
 
+    public LinearLayout team_list_click;
+
     private ArrayList<FutSalTeamSearchItems> teamItems = new ArrayList<FutSalTeamSearchItems>();
 
     public FutsalTeamSearchAdapter() {
@@ -69,13 +71,7 @@ public class FutsalTeamSearchAdapter extends BaseAdapter {
         team_search_location.setText(futSalTeamSearchItems.getLocation());
         team_search_week.setText(futSalTeamSearchItems.getWeek());
 
-        LinearLayout layoutClick = (LinearLayout)convertView.findViewById(R.id.layoutClick);
-        layoutClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*Toast.makeText(v.getContext(), teamItems.get(pos).getText(), Toast.LENGTH_SHORT).show();*/
-            }
-        });
+        team_list_click = (LinearLayout)convertView.findViewById(R.id.team_list_click);
 
         return convertView;
     }

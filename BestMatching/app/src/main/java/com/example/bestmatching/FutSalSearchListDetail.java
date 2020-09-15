@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,8 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
     TextView detail_name;
     TextView detail_price;
     ImageView detail_ground;
+
+    Button back_btn;
 
     public static FutSalSearchListDetail newInstance() {
         return new FutSalSearchListDetail();
@@ -67,12 +70,21 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
                 break;
         }
 
+        back_btn = (Button)view.findViewById(R.id.back_btn);
+
+        back_btn.setOnClickListener(this);
 
         return view;
     }
 
     @Override
     public void onClick(View v) {
+        int a = v.getId();
+        switch (a) {
+            case R.id.back_btn:
+                ((MainActivity)getActivity()).backFragment(FutSalSearchActivity.newInstance(), FutSalSearchListActivity.newInstance());
+                break;
+        }
 
     }
 }

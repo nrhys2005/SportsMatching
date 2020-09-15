@@ -17,7 +17,6 @@
         android:paddingBottom="10dp">
 
         <LinearLayout
-            android:id="@+id/team_list_click"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -40,15 +39,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:src="@color/grey"
-                        android:textStyle="bold"
-                        android:text="팀이름" />
+                        android:text="팀이름"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/team_search_name"
+                        android:id="@+id/detail_team_name"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:src="@color/colorAccent"
-                        android:paddingLeft="45dp"/>
+                        android:paddingLeft="40dp"
+                        android:src="@color/colorAccent" />
 
                 </LinearLayout>
 
@@ -61,64 +60,123 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:src="@color/colorAccent"
-                        android:textStyle="bold"
-                        android:text="대표번호" />
+                        android:text="대표번호"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/team_search_phone"
+                        android:id="@+id/detail_team_number"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:paddingLeft="35dp" />
+                        android:paddingLeft="30dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/corner_shape"
-                    >
+                    android:background="@drawable/corner_shape">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:src="@color/colorAccent"
-                        android:textStyle="bold"
-                        android:text="활동지역" />
+                        android:text="활동지역"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/team_search_loacation"
+                        android:id="@+id/detail_team_locaion"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:src="@color/colorAccent"
-                        android:paddingLeft="35dp"/>
+                        android:paddingLeft="30dp"
+                        android:src="@color/colorAccent" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/corner_shape"
-                    >
+                    android:background="@drawable/corner_shape">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:src="@color/colorAccent"
-                        android:textStyle="bold"
-                        android:text="활동요일" />
+                        android:text="활동요일"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/team_search_week"
+                        android:id="@+id/detail_team_week"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
-                        android:paddingLeft="35dp" />
-
+                        android:paddingLeft="30dp" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/corner_shape">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@color/colorAccent"
+                        android:text="평균연령"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/detail_team_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:paddingLeft="30dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/corner_shape">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@color/colorAccent"
+                        android:text="팀소개"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/detail_team_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="100dp"
+                        android:gravity="left"
+                        android:paddingLeft="40dp" />
+                </LinearLayout>
+
 
             </LinearLayout>
 
-
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="이전" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="가입신청" />
+        </LinearLayout>
+
+
     </LinearLayout>
 </LinearLayout>

@@ -20,6 +20,8 @@ public class FutsalMatchSearchAdapter extends BaseAdapter {
     private TextView match_search_start_time;
     private TextView match_search_end_time;
 
+    public LinearLayout match_list_click;
+
     private ArrayList<FutSalMatchSearchItems> matchItems = new ArrayList<FutSalMatchSearchItems>();
 
     public FutsalMatchSearchAdapter() {
@@ -73,13 +75,7 @@ public class FutsalMatchSearchAdapter extends BaseAdapter {
         match_search_start_time.setText(futSalMatchSearchItems.getStartTime());
         match_search_end_time.setText(futSalMatchSearchItems.getEndTime());
 
-        LinearLayout layoutClick = (LinearLayout)convertView.findViewById(R.id.layoutClick);
-        layoutClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Toast.makeText(v.getContext(), matchItems.get(pos).getText(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        match_list_click = (LinearLayout)convertView.findViewById(R.id.match_list_click);
 
         return convertView;
     }

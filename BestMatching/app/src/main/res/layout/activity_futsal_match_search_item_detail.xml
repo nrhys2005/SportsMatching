@@ -16,7 +16,6 @@
         android:paddingBottom="10dp">
 
         <LinearLayout
-            android:id="@+id/match_list_click"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -44,7 +43,7 @@
                         android:text="매칭제목" />
 
                     <TextView
-                        android:id="@+id/match_search_title"
+                        android:id="@+id/detail_match_title"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
@@ -65,7 +64,7 @@
                         android:text="구장" />
 
                     <TextView
-                        android:id="@+id/match_search_ground"
+                        android:id="@+id/detail_match_ground_name"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
@@ -87,7 +86,7 @@
                         android:text="날짜" />
 
                     <TextView
-                        android:id="@+id/match_search_date"
+                        android:id="@+id/detail_match_date"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
@@ -108,7 +107,7 @@
                         android:text="시간" />
 
                     <TextView
-                        android:id="@+id/match_search_start_time"
+                        android:id="@+id/detail_match_start_time"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
@@ -122,15 +121,57 @@
                         android:text="~" />
 
                     <TextView
-                        android:id="@+id/match_search_end_time"
+                        android:id="@+id/detail_match_end_time"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
                         android:paddingLeft="30dp"/>
                 </LinearLayout>
 
-            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/corner_shape"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:text="요금" />
+
+                    <TextView
+                        android:id="@+id/detail_match_cost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:paddingLeft="55dp"
+                        android:text="" />
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="이전" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="매칭신청" />
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

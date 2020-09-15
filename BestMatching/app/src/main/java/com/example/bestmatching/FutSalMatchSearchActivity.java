@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import org.json.JSONArray;
@@ -25,7 +28,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class FutSalMatchSearchActivity extends Fragment implements View.OnClickListener {
+public class FutSalMatchSearchActivity extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private Context context;
     private ListView futsal_match_search;
@@ -38,6 +41,8 @@ public class FutSalMatchSearchActivity extends Fragment implements View.OnClickL
 
     String ip = lg.ip;
 
+    private int pos;
+
     //팀 개수
     private int matchSize;
 
@@ -46,14 +51,16 @@ public class FutSalMatchSearchActivity extends Fragment implements View.OnClickL
     ArrayList<String> match_search_date = new ArrayList<>();
     ArrayList<String> match_search_start_time = new ArrayList<>();
     ArrayList<String> match_search_end_time = new ArrayList<>();
+    ArrayList<String> match_cost = new ArrayList<>();
 
     public static FutSalMatchSearchActivity newInstance() {
         return new FutSalMatchSearchActivity();
     }
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
-        View view = inflater.inflate(R.layout.activity_futsal_match_search, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_futsal_match_search, container, false); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         context = container.getContext();
         matchsearch_text = (EditText) view.findViewById(R.id.matchsearch_text);
@@ -69,8 +76,27 @@ public class FutSalMatchSearchActivity extends Fragment implements View.OnClickL
         futsalMatchSearchAdapter.notifyDataSetChanged();
 
         matchsearch_btn.setOnClickListener(this);
+        futsal_match_search.setOnItemClickListener(this);
 
         return view;
+    }
+
+    //아이템값 가져오기 및 화면전환
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //Toast.makeText(view.getContext(), stadium_name.get(position), Toast.LENGTH_SHORT).show();
+        pos = position;
+        //Toast.makeText(view.getContext(), Integer.toString(pos), Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putString("title", match_search_title.get(pos));
+        bundle.putString("ground_name", match_search_ground.get(pos));
+        bundle.putString("date", match_search_date.get(pos));
+        bundle.putString("start_time", match_search_start_time.get(pos));
+        bundle.putString("end_time", match_search_end_time.get(pos));
+        bundle.putString("cost", match_cost.get(pos));
+        FutSalMatchSearchDetail f = new FutSalMatchSearchDetail();
+        f.setArguments(bundle);
+        ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), f);
     }
 
     // 노드js에서 안스로 데이터 받는 부분
@@ -109,6 +135,7 @@ public class FutSalMatchSearchActivity extends Fragment implements View.OnClickL
                             match_search_date.add(js.getString("date"));
                             match_search_start_time.add(js.getString("start_time"));
                             match_search_end_time.add(js.getString("end_time"));
+                            match_cost.add(js.getString("cost"));
                         }
                     } else if (msg.equals("no find")) {
                         matchSize = 0;
@@ -155,6 +182,7 @@ public class FutSalMatchSearchActivity extends Fragment implements View.OnClickL
         match_search_date.clear();
         match_search_start_time.clear();
         match_search_end_time.clear();
+        match_cost.clear();
         futsalMatchSearchAdapter.clearItem();
         futsalMatchSearchAdapter.notifyDataSetChanged();
     }

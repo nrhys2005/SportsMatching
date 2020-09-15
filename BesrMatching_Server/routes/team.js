@@ -21,7 +21,7 @@ router.post('/create', function (req, res) {
         input_data_array.push(inputData.comment);
 
         console.log('input_data : ' + input_data_array); 
-        console.log("팀 세션 "+ req.session.id)
+        console.log("팀 세션 "+ req.session.id);
         console.log("세션 아이디"+req.session.user.user_id);
         var sql_insert = 'INSERT INTO best_matching.team (team_name, phonenumber, age_avg, level, location,week,comment) VALUES(?, ?, ?, ?, ?, ?, ?)';
         dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect

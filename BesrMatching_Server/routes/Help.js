@@ -6,7 +6,7 @@ const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태
 router.get('/', function (req, res) {
     console.log('<<Help>>');
 });
-
+//내정보------------------------------------------
 router.post('/Myinfo', function (req, res) {
     
     console.log('<<Help/Myinfo_Post>>');
@@ -24,10 +24,11 @@ router.post('/Myinfo', function (req, res) {
 
         console.log('input_data : ' + input_data_array); 
 
-        var sql_insert = 'UPDATE best_matching.user SET mail=?, phone=?, location=?, position=? WHERE id=? ';
+        var sql_insert = 'UPDATE best_matching.user SET email=?, phone=?, location=?, position=? WHERE id=? ';
         dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
             if (!err) {
                 console.log('Query Update success');
+                console.log(rows);
                 res.json({ "result": "Success" });
             } else {
                 console.log('Query Error : ' + err);
@@ -37,19 +38,24 @@ router.post('/Myinfo', function (req, res) {
     });
 });
 
-router.get('/Myinfo/:id', function (req, res) {
+router.get('/Myinfo', function (req, res) {
     console.log('<<Help/Myinfo_Get>>');
-    var Mid = req.params.id;
-    var search_data_array = [];
+    
+    var user_id = req.query.id;
+    
+    var data_array = [];
+    
     //var Data = JSON.parse(data); // JSON data 받음
     var sql;
-    console.log('id = '+ Mid);
-    sql = 'select id, name, team, email, phone, location, position from best_matching.user where id= ?';
-    search_data_array.push(Mid);
-
-    dbconn.query(sql, search_data_array, function (err, rows, fields) {//DB connect
+    
+    sql = 'select id, name, team_name, email, phone, location, position from best_matching.user where id= ?';
+    console.log('id = '+ user_id);
+    data_array.push(user_id);
+   
+    dbconn.query(sql, data_array, function (err, rows, fields) {//DB connect
         if (!err) {
-            console.log('Query Select Success(result": "Success)');
+            console.log('Query Select Success(result: Success)');
+            console.log(rows);
             res.json({ "result": "Success", Myinfo : rows});
         } else {
             console.log('Query Select Error : ' + err);
@@ -58,5 +64,32 @@ router.get('/Myinfo/:id', function (req, res) {
     });
 });
 
+
+//공지사항--------------------------------------- 
+router.get('/Notice', function (req, res) {
+    console.log('<<Help/Notice_Get>>');
+    
+    var user_id = req.query.id;
+    
+    var data_array = [];
+    
+    //var Data = JSON.parse(data); // JSON data 받음
+    var sql;
+    
+    sql = 'select id, name, team_name, email, phone, location, position from best_matching.user where id= ?';
+    console.log('id = '+ user_id);
+    data_array.push(user_id);
+   
+    dbconn.query(sql, data_array, function (err, rows, fields) {//DB connect
+        if (!err) {
+            console.log('Query Select Success(result: Success)');
+            console.log(rows);
+            res.json({ "result": "Success", Myinfo : rows});
+        } else {
+            console.log('Query Select Error : ' + err);
+            res.json({ "result": err });
+        }
+    });
+});
 
 module.exports = router;

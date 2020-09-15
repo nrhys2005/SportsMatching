@@ -80,7 +80,7 @@
              android:text="E_mail"
              android:textStyle="bold"
              android:padding="10dp"/>
-         <EditText
+         <TextView
              android:id="@+id/Myinfo_mail"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"

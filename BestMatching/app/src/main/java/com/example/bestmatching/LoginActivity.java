@@ -61,7 +61,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     // 안스에서 노드js로 데이터 보내는 부분
     public class Post extends AsyncTask<String, String, String> {
-
         @Override
         protected String doInBackground(String... urls) {
             try {
@@ -75,7 +74,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 jsonObject.put("id", id);
                 jsonObject.put("pw", password);
-
 
                 try{
                     //URL url = new URL("http://192.168.25.16:3000/users");

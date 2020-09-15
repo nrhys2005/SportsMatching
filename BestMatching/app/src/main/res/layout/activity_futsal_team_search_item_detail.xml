@@ -18,7 +18,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/corner_shape"
             android:gravity="top"
@@ -31,73 +31,141 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:background="@drawable/corner_shape">
 
                     <TextView
-                        android:layout_width="65dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:src="@color/grey"
                         android:textStyle="bold"
                         android:text="팀이름" />
 
                     <TextView
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
-                        android:src="@color/colorAccent" />
+                        android:id="@+id/detail_team_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@color/colorAccent"
+                        android:paddingLeft="40dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/corner_shape">
 
                     <TextView
-                        android:layout_width="65dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:src="@color/colorAccent"
                         android:textStyle="bold"
                         android:text="대표번호" />
 
                     <TextView
-                        android:layout_width="75sp"
+                        android:id="@+id/detail_team_number"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:textSize="8sp"
-                        android:paddingLeft="10dp" />
+                        android:paddingLeft="30dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:background="@drawable/corner_shape"
                     >
 
                     <TextView
-                        android:layout_width="65dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:src="@color/colorAccent"
                         android:textStyle="bold"
                         android:text="활동지역" />
 
                     <TextView
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
-                        android:src="@color/colorAccent" />
+                        android:id="@+id/detail_team_locaion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@color/colorAccent"
+                        android:paddingLeft="30dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/corner_shape"
+                    >
 
                     <TextView
-                        android:layout_width="65dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:src="@color/colorAccent"
                         android:textStyle="bold"
                         android:text="활동요일" />
 
                     <TextView
-                        android:layout_width="75sp"
+                        android:id="@+id/detail_team_week"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
-                        android:paddingLeft="10dp" />
-
+                        android:paddingLeft="30dp" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/corner_shape"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:text="평균연령" />
+
+                    <TextView
+                        android:id="@+id/detail_team_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:paddingLeft="30dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/corner_shape"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:text="팀소개" />
+
+                    <TextView
+                        android:id="@+id/detail_team_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="100dp"
+                        android:gravity="left"
+                        android:paddingLeft="40dp" />
+                </LinearLayout>
+
 
             </LinearLayout>
 
-
         </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="가입신청"/>
+
     </LinearLayout>
 </LinearLayout>

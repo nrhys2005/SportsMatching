@@ -13,7 +13,12 @@ public class FutSalTeamSearchDetail extends Fragment implements View.OnClickList
 
     private Context context;
 
-    TextView detail_match_title;
+    TextView detail_team_name;
+    TextView detail_team_number;
+    TextView detail_team_location;
+    TextView detail_team_week;
+    TextView detail_team_age;
+    TextView detail_team_comment;
 
     public static FutSalTeamSearchDetail newInstance() {
         return new FutSalTeamSearchDetail();
@@ -25,12 +30,27 @@ public class FutSalTeamSearchDetail extends Fragment implements View.OnClickList
 
         context = container.getContext();
 
-        detail_match_title = (TextView)view.findViewById(R.id.detail_match_title);
+        detail_team_name = (TextView)view.findViewById(R.id.detail_team_name);
+        detail_team_number = (TextView)view.findViewById(R.id.detail_team_number);
+        detail_team_location = (TextView)view.findViewById(R.id.detail_team_locaion);
+        detail_team_week = (TextView)view.findViewById(R.id.detail_team_week);
+        detail_team_age = (TextView)view.findViewById(R.id.detail_team_age);
+        detail_team_comment = (TextView)view.findViewById(R.id.detail_team_comment);
 
-        String name = getArguments().getString("team_name");
+        String team_name = getArguments().getString("team_name");
+        String team_number = getArguments().getString("phonenumber");
+        String team_location = getArguments().getString("location");
+        String team_week = getArguments().getString("week");
+        String team_age= getArguments().getString("avg_age");
+        String team_comment = getArguments().getString("comment");
         //Toast.makeText(getActivity(),Integer.toString(a),Toast.LENGTH_SHORT).show();
 
-        detail_match_title.setText(name);
+        detail_team_name.setText(team_name);
+        detail_team_number.setText(team_number);
+        detail_team_location.setText(team_location);
+        detail_team_week.setText(team_week);
+        detail_team_age.setText(team_age);
+        detail_team_comment.setText(team_comment);
 
         /*int id = getArguments().getInt("id");
         switch (id) {

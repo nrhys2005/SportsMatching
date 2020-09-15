@@ -47,6 +47,8 @@ public class FutSalTeamSearchActivity extends Fragment implements View.OnClickLi
     ArrayList<String> team_search_phone = new ArrayList<>();
     ArrayList<String> team_search_loaction = new ArrayList<>();
     ArrayList<String> team_search_week = new ArrayList<>();
+    ArrayList<String> team_search_age = new ArrayList<>();
+    ArrayList<String> team_search_comment = new ArrayList<>();
 
     public static FutSalTeamSearchActivity newInstance() {
         return new FutSalTeamSearchActivity();
@@ -82,6 +84,11 @@ public class FutSalTeamSearchActivity extends Fragment implements View.OnClickLi
         //Toast.makeText(view.getContext(), Integer.toString(pos), Toast.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
         bundle.putString("team_name", team_search_name.get(pos));
+        bundle.putString("phonenumber", team_search_phone.get(pos));
+        bundle.putString("location", team_search_loaction.get(pos));
+        bundle.putString("week", team_search_week.get(pos));
+        bundle.putString("avg_age", team_search_age.get(pos));
+        bundle.putString("comment", team_search_comment.get(pos));
         FutSalTeamSearchDetail f = new FutSalTeamSearchDetail();
         f.setArguments(bundle);
         ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), f);
@@ -122,6 +129,8 @@ public class FutSalTeamSearchActivity extends Fragment implements View.OnClickLi
                             team_search_phone.add(js.getString("phonenumber"));
                             team_search_loaction.add(js.getString("location"));
                             team_search_week.add(js.getString("week"));
+                            team_search_age.add(js.getString("age_avg"));
+                            team_search_comment.add(js.getString("comment"));
                         }
                     }
 
@@ -171,6 +180,8 @@ public class FutSalTeamSearchActivity extends Fragment implements View.OnClickLi
         team_search_phone.clear();
         team_search_loaction.clear();
         team_search_week.clear();
+        team_search_age.clear();
+        team_search_comment.clear();
         futsalTeamSearchAdapter.clearItem();
         futsalTeamSearchAdapter.notifyDataSetChanged();
     }

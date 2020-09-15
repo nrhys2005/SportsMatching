@@ -43,6 +43,8 @@ router.post('/', function (req, res) {
                     //console.log('row_pw ' + rows[i].pw);
                     var pw = rows[0].pw;
                     // var code;
+                    //let hashPassword = crypto.createHash("sha512").update(login_pw + salt).digest("hex");
+                    
                     crypto.randomBytes(64, (err, buf) => {
                         crypto.pbkdf2(login_pw, salt, 100000, 64, 'sha512', (err, key) => {
                             //crypto.pbkdf2(inputData.pw, buf.toString('base64'), 9000, 64, 'sha512', (err, key) => {
@@ -53,6 +55,9 @@ router.post('/', function (req, res) {
                                 //console.log(salt);
                                 //console.log(pw);
                                 console.log('로그인 성공! ' + login_id + '님 환영합니다!');
+
+
+
                                 req.session.user =
                                 {
                                     user_id: login_id,
@@ -62,6 +67,11 @@ router.post('/', function (req, res) {
                                 var session_id = req.session.id
                                 console.log("세션 "+ req.session.id)
                                 console.log("세션 아이디"+req.session.user.user_id);
+
+
+                                req.session.id = login_id;
+
+
                                 var select_sql = 'select * FROM session WHERE user_id = ?';
                                 dbconn.query(select_sql, login_id, function (err, rows, fields) {
                                     if (!err) {

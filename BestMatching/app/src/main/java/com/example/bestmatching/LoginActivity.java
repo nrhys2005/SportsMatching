@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button sign_btn;
     Button login_btn;
 
-    public String ip = "http://192.168.0.3:3000";
+    public String ip = "http://114.129.224.92:3000";
     public HttpURLConnection con = null;
     public BufferedReader reader = null;
 

@@ -54,6 +54,7 @@ router.get('/search/:search', function (req, res) {
     var search_data_array = [];
     //var Data = JSON.parse(data); // JSON data 받음
     var sql;
+    console.log("session~~~~~~~~~~~~~~~~~~~~~~~~~"+req.session.id);
     console.log('Search ='+ search);
     if (search == "none") {
         sql = 'select * from best_matching.team';

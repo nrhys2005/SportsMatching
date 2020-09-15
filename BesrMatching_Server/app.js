@@ -10,12 +10,23 @@ app.set('port', process.env.PORT || PORT);
 
 app.use(cookieParser())
 app.use(session({
+    key: 'sid',
     secret: 'knucoin',
     resave: false,
     saveUninitialized: true,
     //store: new FileStore()
 }))
-//서버 생성
+
+// app.get('/', (req, res, next) => {  // 3
+//     console.log(req.session);
+//     if(!req.session.num){
+//       req.session.num = 1;
+//     } else {
+//       req.session.num = req.session.num + 1;
+//     }
+//     res.send(`Number : ${req.session.num}`);
+//   });
+// //서버 생성
 // http.createServer(app).listen(app.get('port'), function(){
 //     console.log('Express server listening on port ' + app.get('port'));
 // });

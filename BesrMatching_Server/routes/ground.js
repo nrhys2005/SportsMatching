@@ -8,9 +8,9 @@ router.get('/', function (req, res) {
     var sql = 'select * from ground';
     dbconn.query(sql, function (err, rows, fields) {//DB connect
         var List = new Array();
+      
         if (!err) {
             console.log('Query Select Success');
-            console.log("팀 세션 "+ req.session.id)
             for (var i = 0; i < rows.length; i++) {
                 var data = new Object();
                 data.name = rows[i].name;
@@ -56,8 +56,6 @@ router.get('/search', function (req, res) {
         console.log('search(latitude, longtitude) : ' +latitude +longtitude );
     }
     console.log('search(latitude, longtitude) : ' + search_data_array);
-    console.log("구장 세션 "+ req.session.id)
-    //console.log("세션 아이디"+req.session.user.user_id);
     dbconn.query(sql, search_data_array, function (err, rows, fields) {//DB connect
         if (!err) {
             if (rows.length == 0) {

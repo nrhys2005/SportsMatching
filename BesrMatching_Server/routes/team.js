@@ -21,8 +21,8 @@ router.post('/create', function (req, res) {
         input_data_array.push(inputData.comment);
 
         console.log('input_data : ' + input_data_array); 
-        console.log("팀 세션 "+ req.session.id)
-        console.log("세션 아이디"+req.session.user.user_id);
+        //console.log("팀 세션 "+ req.session.id)
+       // console.log("세션 아이디"+req.session.user.user_id);
         var sql_insert = 'INSERT INTO best_matching.team (team_name, phonenumber, age_avg, level, location,week,comment) VALUES(?, ?, ?, ?, ?, ?, ?)';
         dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
             if (!err) {
@@ -34,7 +34,7 @@ router.post('/create', function (req, res) {
         var sql_update = 'update user set team_name = ? where id = ? ';
         var update_data_array = [];
         update_data_array.push(inputData.team_name);
-        update_data_array.push(req.session.user.user_id);
+        update_data_array.push(inputData.id);
         dbconn.query(sql_update, update_data_array, function (err, rows, fields) {//DB connect
             if (!err) {
                 console.log('Query Update Success');
@@ -54,7 +54,7 @@ router.get('/search/:search', function (req, res) {
     var search_data_array = [];
     //var Data = JSON.parse(data); // JSON data 받음
     var sql;
-    console.log("session~~~~~~~~~~~~~~~~~~~~~~~~~"+req.session.id);
+    //console.log("session~~~~~~~~~~~~~~~~~~~~~~~~~"+req.session.id);
     console.log('Search ='+ search);
     if (search == "none") {
         sql = 'select * from best_matching.team';

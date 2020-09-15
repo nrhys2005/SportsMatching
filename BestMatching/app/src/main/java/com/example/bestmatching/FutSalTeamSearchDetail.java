@@ -21,7 +21,7 @@ public class FutSalTeamSearchDetail extends Fragment implements View.OnClickList
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
-        View view = inflater.inflate(R.layout.activity_futsal_match_search_item_detail, null);
+        View view = inflater.inflate(R.layout.activity_futsal_team_search_item_detail, null);
 
         context = container.getContext();
 

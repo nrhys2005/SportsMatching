@@ -17,6 +17,11 @@ public class FutSalMatchSearchDetail extends Fragment implements View.OnClickLis
     private Context context;
 
     TextView detail_match_title;
+    TextView detail_match_ground_name;
+    TextView detail_match_date;
+    TextView detail_match_start_time;
+    TextView detail_match_end_time;
+    TextView detail_match_cost;
 
     public static FutSalMatchSearchDetail newInstance() {
         return new FutSalMatchSearchDetail();
@@ -29,11 +34,25 @@ public class FutSalMatchSearchDetail extends Fragment implements View.OnClickLis
         context = container.getContext();
 
         detail_match_title = (TextView)view.findViewById(R.id.detail_match_title);
+        detail_match_ground_name = (TextView)view.findViewById(R.id.detail_match_ground_name);
+        detail_match_date = (TextView)view.findViewById(R.id.detail_match_date);
+        detail_match_start_time = (TextView)view.findViewById(R.id.detail_match_start_time);
+        detail_match_end_time = (TextView)view.findViewById(R.id.detail_match_end_time);
+        detail_match_cost = (TextView)view.findViewById(R.id.detail_match_cost);
 
-        String name = getArguments().getString("title");
-        //Toast.makeText(getActivity(),Integer.toString(a),Toast.LENGTH_SHORT).show();
+        String title = getArguments().getString("title");
+        String ground_name = getArguments().getString("ground_name");
+        String date = getArguments().getString("date");
+        String start_time = getArguments().getString("start_time");
+        String end_time = getArguments().getString("end_time");
+        String cost = getArguments().getString("cost");
 
-        detail_match_title.setText(name);
+        detail_match_title.setText(title);
+        detail_match_ground_name.setText(ground_name);
+        detail_match_date.setText(date);
+        detail_match_start_time.setText(start_time);
+        detail_match_end_time.setText(end_time);
+        detail_match_cost.setText(cost + "원");
 
         /*int id = getArguments().getInt("id");
         switch (id) {

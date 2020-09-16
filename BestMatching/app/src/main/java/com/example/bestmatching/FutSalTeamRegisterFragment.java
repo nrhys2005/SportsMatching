@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,6 +61,9 @@ public class FutSalTeamRegisterFragment extends Fragment implements View.OnClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
         View view = inflater.inflate(R.layout.activity_futsal_team_register, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
+
+
+
         context = container.getContext();
 
         team_name = (EditText) view.findViewById(R.id.team_name);
@@ -85,6 +90,7 @@ public class FutSalTeamRegisterFragment extends Fragment implements View.OnClick
         return view;
     }
 
+
     public void reset()
     {
         team_name.setText("");
@@ -107,16 +113,13 @@ public class FutSalTeamRegisterFragment extends Fragment implements View.OnClick
                 //jsonObject.put("user_id", "androidTest");
                 //jsonObject.put("name", "yun");
                 jsonObject.put("team_name", team_name.getText().toString());
-                jsonObject.put("id", lg.Myid);
+                jsonObject.put("master_id", lg.Myid);
                 jsonObject.put("phonenumber", phonenumber.getText().toString());
                 jsonObject.put("age_avg", age_avg.getText().toString());
                 jsonObject.put("level", level.getText().toString());
                 jsonObject.put("location", location.getText().toString());
                 jsonObject.put("week", week.getText().toString());
                 jsonObject.put("comment", comment.getText().toString());
-
-
-
 
                 try {
                     //URL url = new URL("http://192.168.25.16:3000/users");
@@ -329,6 +332,7 @@ public class FutSalTeamRegisterFragment extends Fragment implements View.OnClick
 
             case R.id.team_regist:
                 new Post().execute(ip + "/team/create");
+                //((MainActivity)getActivity()).replaceFragment(this,FutSalTeamSearchFragment.newInstance());
                 break;
         }
     }

@@ -32,8 +32,16 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
     Button team_info;
     Button team_create;
     Button team_search;
-    public String team_name="";
+
+    public static String team_name="";
+    public static String get_master_id="";
+    public static String get_id="";
+
+    //팀에 소속되었는지 판단
     private static int in_team=0;
+    //팀장인지 판단
+    public static int Team_Master=0;
+
     public static FutSalTeamActivity newInstance() {
         return new FutSalTeamActivity();
     }
@@ -51,7 +59,7 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
         team_create.setOnClickListener(this);
         team_search.setOnClickListener(this);
 
-        new Get().execute(ip + "/team/myteam?id="+send_id);
+        new Get().execute(ip + "/team/team?id="+send_id);
 
         return view;
     }
@@ -60,7 +68,7 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
     public void onClick(View v) {
 
         int a = v.getId();
-
+        System.out.println("팀이냐?"+in_team+"팀장이냐?"+Team_Master);
         switch (a){
             case R.id.team_info:
                 switch (in_team){
@@ -68,14 +76,28 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
                         Toast.makeText(context.getApplicationContext(), "소속된 팀이 없습니다.", Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
-
                         Toast.makeText(context.getApplicationContext(), "소속된 팀이 있습니다.", Toast.LENGTH_SHORT).show();
-                        ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamInfoFragment.newInstance());
+                        switch (Team_Master){
+                            case 0://팀원
+                                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamInfoFragment.newInstance());
+                                break;
+                            case 1://팀장
+                                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamInfoFragment_Master.newInstance());
+                                break;
+                        }
+
                         break;
                 }
                 break;
             case R.id.team_create:
-                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamRegisterFragment.newInstance());
+                switch (in_team) {
+                    case 0:
+                        ((MainActivity) getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamRegisterFragment.newInstance());
+                        break;
+                    case 1:
+                        Toast.makeText(context.getApplicationContext(), "이미 소속된 팀이 있습니다.", Toast.LENGTH_SHORT).show();
+                        break;
+                }
                 break;
             case R.id.team_search:
                 ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamSearchFragment.newInstance());
@@ -105,10 +127,13 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
                     JSONObject jsonObject = new JSONObject(receiveMsg);
                     String msg = jsonObject.getString("result");
                     if (msg.equals("Success")) {
-                        String team_info = jsonObject.getString("myteam_info");
-                        JSONArray jsarr = new JSONArray(team_info);
+                        String team_main = jsonObject.getString("team_main");
+                        JSONArray jsarr = new JSONArray(team_main);
                         JSONObject js = jsarr.getJSONObject(0);
+
+                        get_id=js.getString("id");
                         team_name=js.getString("team_name");
+                        get_master_id=js.getString("master_id");
                     }
                      else {
                         Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
@@ -133,12 +158,20 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
             super.onPostExecute(result);
             //TODO 겟 처리 후 결과
 
-            if(team_name.equals(""))
+            if(team_name.equals("")||team_name.equals("null"))
                 in_team=0;
             else
                 in_team=1;
 
+            System.out.println("id"+get_id+"master_id"+get_master_id);
+            if(get_id.equals(get_master_id)) {
+                System.out.println("엇 씨발 이놈 팀장이다");
+                Team_Master = 1;
+            }
+            else
+                Team_Master=0;
 
+            System.out.println("제발 받아와져라 id="+get_id+", master_id="+get_master_id);
 
 
         }

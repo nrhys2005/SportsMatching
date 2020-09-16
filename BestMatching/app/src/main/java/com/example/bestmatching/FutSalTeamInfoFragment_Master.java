@@ -30,24 +30,25 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class FutSalTeamInfoFragment extends Fragment implements View.OnClickListener {
+public class FutSalTeamInfoFragment_Master extends Fragment implements View.OnClickListener {
 
     private Context context;
 
     LoginActivity lg = new LoginActivity();
-    FutSalTeamActivity ta = new FutSalTeamActivity();
+    FutSalTeamActivity  ta = new FutSalTeamActivity();
     String send_teamname=ta.team_name;
+    int tm = ta.Team_Master;
     String ip = lg.ip;
     String send_id=lg.Myid;
 
     TextView team_name;
     TextView master_id;
-    TextView phonenumber;
+    EditText phonenumber;
     TextView age_avg;
     TextView level;
     TextView location;
     TextView week;
-    TextView comment;
+    EditText comment;
 
     public String team_namestr;
     public String master_idstr;
@@ -58,7 +59,7 @@ public class FutSalTeamInfoFragment extends Fragment implements View.OnClickList
     public String weekstr;
     public String commentstr;
 
-
+    public static int Team_Master=0;
     //private Spinner spinner_location;
 
     AlertDialog.Builder builder;
@@ -66,30 +67,30 @@ public class FutSalTeamInfoFragment extends Fragment implements View.OnClickList
     HttpURLConnection con = lg.con;
     BufferedReader reader = lg.reader;
     Button team_member;
-    Button team_leave;
-    public static FutSalTeamInfoFragment newInstance() {
-        return new FutSalTeamInfoFragment();
+    Button team_update;
+    public static FutSalTeamInfoFragment_Master newInstance() {
+        return new FutSalTeamInfoFragment_Master();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
-        View view = inflater.inflate(R.layout.activity_futsal_team_info, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
+        View view = inflater.inflate(R.layout.activity_futsal_team_info_master, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         context = container.getContext();
         new Get().execute(ip + "/team/myteam?team_name="+send_teamname);
         team_name = (TextView) view.findViewById(R.id.team_name);
         master_id = (TextView)view.findViewById(R.id.master_id);
-        phonenumber = (TextView) view.findViewById(R.id.phonenumber);
+        phonenumber = (EditText) view.findViewById(R.id.phonenumber);
         age_avg = (TextView) view.findViewById(R.id.age_avg);
         level = (TextView) view.findViewById(R.id.level);
         location = (TextView) view.findViewById(R.id.location);
         week = (TextView) view.findViewById(R.id.week);
-        comment = (TextView) view.findViewById(R.id.comment);
+        comment = (EditText) view.findViewById(R.id.comment);
         team_member = (Button)view.findViewById(R.id.team_member);
-        team_leave = (Button)view.findViewById(R.id.team_leave);
+        team_update = (Button)view.findViewById(R.id.team_update);
 
         team_member.setOnClickListener(this);
-        team_leave.setOnClickListener(this);
+        team_update.setOnClickListener(this);
 
         return view;
     }
@@ -101,14 +102,14 @@ public class FutSalTeamInfoFragment extends Fragment implements View.OnClickList
         protected String doInBackground(String... urls) {
             try {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("id", lg.Myid);
-                jsonObject.put("team_name", team_name.getText().toString());
+
                 jsonObject.put("phonenumber", phonenumber.getText().toString());
                 jsonObject.put("age_avg", age_avg.getText().toString());
                 jsonObject.put("level", level.getText().toString());
                 jsonObject.put("location", location.getText().toString());
                 jsonObject.put("week", week.getText().toString());
                 jsonObject.put("comment", comment.getText().toString());
+                jsonObject.put("team_name", team_name.getText().toString());
 
                 try {
                     //URL url = new URL("http://192.168.25.16:3000/users");
@@ -173,17 +174,16 @@ public class FutSalTeamInfoFragment extends Fragment implements View.OnClickList
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
             try {
                 JSONObject jsonObject = new JSONObject(result);
                 String msg = jsonObject.getString("result");
 
                 if ( msg.equals("Success")){
-                    Toast.makeText(context.getApplicationContext(),"팀등록 성공",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(),"팀수정 성공",Toast.LENGTH_SHORT).show();
 
                 }
                 else {
-                    Toast.makeText(context.getApplicationContext(),"팀등록 실패",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(),"팀수정 실패",Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -267,11 +267,132 @@ public class FutSalTeamInfoFragment extends Fragment implements View.OnClickList
         int a = v.getId();
 
         switch (a) {
-            case R.id.team_member:
-                //new Post().execute(ip + "team/myteam_list");
+            case R.id.age_avg:
+                final String[] ages = {"10대", "20대", "30대", "40대", "50대"};
+
+                builder = new AlertDialog.Builder(context);
+
+                builder.setTitle("선택하세요")
+                        .setSingleChoiceItems(ages, -1, new DialogInterface.OnClickListener(){
+
+                            public void onClick(DialogInterface dialog, int index){
+                                /*Toast.makeText(context, items[index], Toast.LENGTH_SHORT).show();*/
+                                age_avg.setText(ages[index]);
+                            }
+                        })
+
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+
+                        .setNeutralButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });;
+                dialog = builder.create();
+                dialog.show();
                 break;
-            case R.id.team_leave:
-             //   new Post().execute(ip + "team/myteam_drop");
+
+            //팀수준 버튼
+            case R.id.level:
+                final String[] levels = {"상", "중", "하"};
+
+                builder = new AlertDialog.Builder(context);
+
+                builder.setTitle("선택하세요")
+                        .setSingleChoiceItems(levels, -1, new DialogInterface.OnClickListener(){
+
+                            public void onClick(DialogInterface dialog, int index){
+                                /*Toast.makeText(context, items[index], Toast.LENGTH_SHORT).show();*/
+                                level.setText(levels[index]);
+                            }
+                        })
+
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+
+                        .setNeutralButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });;
+                dialog = builder.create();
+                dialog.show();
+                break;
+
+            //활동지역 버튼
+            case R.id.location:
+                final String[] locations = {"경기도", "경상도", "강원도", "전라도"};
+
+                builder = new AlertDialog.Builder(context);
+
+                builder.setTitle("선택하세요")
+                        .setSingleChoiceItems(locations, -1, new DialogInterface.OnClickListener(){
+
+                            public void onClick(DialogInterface dialog, int index){
+                                /*Toast.makeText(context, items[index], Toast.LENGTH_SHORT).show();*/
+                                location.setText(locations[index]);
+                            }
+                        })
+
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+
+                        .setNeutralButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });;
+                dialog = builder.create();
+                dialog.show();
+                break;
+
+            //활동요일 버튼
+            case R.id.week:
+                final String[] weeks = {"월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"};
+
+                builder = new AlertDialog.Builder(context);
+
+                builder.setTitle("선택하세요")
+                        .setSingleChoiceItems(weeks, -1, new DialogInterface.OnClickListener(){
+
+                            public void onClick(DialogInterface dialog, int index){
+                                /*Toast.makeText(context, items[index], Toast.LENGTH_SHORT).show();*/
+                                week.setText(weeks[index]);
+                            }
+                        })
+
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+
+                        .setNeutralButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });;
+                dialog = builder.create();
+                dialog.show();
+                break;
+
+            case R.id.team_member://팀장이 인원 조회 눌렀을 때
+
+                break;
+            case R.id.team_update: {
+                System.out.println("업데이트버튼누름");
+                new Post().execute(ip + "/team/team_update");
+            }
         }
     }
 }

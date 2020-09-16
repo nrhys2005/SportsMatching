@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class FutsalTeamSearchAdapter extends BaseAdapter {
 
     private TextView team_search_name;
+    private TextView team_search_master;
     private TextView team_search_phone;
     private TextView team_search_location;
     private TextView team_search_week;
@@ -60,6 +61,7 @@ public class FutsalTeamSearchAdapter extends BaseAdapter {
         }
 
         team_search_name = (TextView) convertView.findViewById(R.id.team_search_name);
+        team_search_master = (TextView) convertView.findViewById(R.id.team_search_master);
         team_search_phone = (TextView) convertView.findViewById(R.id.team_search_phone);
         team_search_location = (TextView) convertView.findViewById(R.id.team_search_loacation);
         team_search_week = (TextView) convertView.findViewById(R.id.team_search_week);
@@ -67,6 +69,7 @@ public class FutsalTeamSearchAdapter extends BaseAdapter {
         FutSalTeamSearchItems futSalTeamSearchItems = teamItems.get(position);
 
         team_search_name.setText(futSalTeamSearchItems.getTitle());
+        team_search_master.setText(futSalTeamSearchItems.getMaster());
         team_search_phone.setText(futSalTeamSearchItems.getPhone());
         team_search_location.setText(futSalTeamSearchItems.getLocation());
         team_search_week.setText(futSalTeamSearchItems.getWeek());
@@ -78,10 +81,11 @@ public class FutsalTeamSearchAdapter extends BaseAdapter {
 
 
     //아이템 데이터 추가를 위한 함수
-    public void addItem(String title, String phone, String location, String week){
+    public void addItem(String title, String master,String phone, String location, String week){
         FutSalTeamSearchItems teamSearchItems = new FutSalTeamSearchItems();
 
         teamSearchItems.setTitle(title);
+        teamSearchItems.setMaster(master);
         teamSearchItems.setPhone(phone);
         teamSearchItems.setLocation(location);
         teamSearchItems.setWeek(week);

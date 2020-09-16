@@ -44,6 +44,7 @@ public class FutSalTeamSearchFragment extends Fragment implements View.OnClickLi
     private int teamSize;
 
     ArrayList<String> team_search_name = new ArrayList<>();
+    ArrayList<String> team_search_master = new ArrayList<>();
     ArrayList<String> team_search_phone = new ArrayList<>();
     ArrayList<String> team_search_loaction = new ArrayList<>();
     ArrayList<String> team_search_week = new ArrayList<>();
@@ -84,6 +85,7 @@ public class FutSalTeamSearchFragment extends Fragment implements View.OnClickLi
         //Toast.makeText(view.getContext(), Integer.toString(pos), Toast.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
         bundle.putString("team_name", team_search_name.get(pos));
+        bundle.putString("team_master", team_search_master.get(pos));
         bundle.putString("phonenumber", team_search_phone.get(pos));
         bundle.putString("location", team_search_loaction.get(pos));
         bundle.putString("week", team_search_week.get(pos));
@@ -126,6 +128,7 @@ public class FutSalTeamSearchFragment extends Fragment implements View.OnClickLi
                         for (int i = 0; i < teamSize; i++) {
                             JSONObject js = jsonArray.getJSONObject(i);
                             team_search_name.add(js.getString("team_name"));
+                            team_search_master.add(js.getString("master_id"));
                             team_search_phone.add(js.getString("phonenumber"));
                             team_search_loaction.add(js.getString("location"));
                             team_search_week.add(js.getString("week"));
@@ -162,7 +165,7 @@ public class FutSalTeamSearchFragment extends Fragment implements View.OnClickLi
 
             if (teamSize != 0) {
                 for (int i = 0; i < teamSize; i++) {
-                    futsalTeamSearchAdapter.addItem(team_search_name.get(i).toString(), team_search_phone.get(i).toString(), team_search_loaction.get(i).toString(), team_search_week.get(i).toString());
+                    futsalTeamSearchAdapter.addItem(team_search_name.get(i),team_search_master.get(i), team_search_phone.get(i), team_search_loaction.get(i), team_search_week.get(i));
                 }
                 futsalTeamSearchAdapter.notifyDataSetChanged();
             }

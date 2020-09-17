@@ -3,16 +3,13 @@ package com.example.bestmatching;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -62,7 +59,7 @@ public class FutsalSearchListAdapter extends BaseAdapter implements View.OnClick
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.activity_futsal_search_list_item, parent, false);
+            convertView = inflater.inflate(R.layout.fragment_futsal_search_list_item, parent, false);
         }
 
         list_stadium_name = (TextView) convertView.findViewById(R.id.list_stadium_name);

@@ -33,7 +33,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class FutSalMatchRegisterActivity extends Fragment implements View.OnClickListener {
+public class FutSalMatchRegisterFragment extends Fragment implements View.OnClickListener {
 
     private Context context;
     LoginActivity lg = new LoginActivity();
@@ -53,13 +53,13 @@ public class FutSalMatchRegisterActivity extends Fragment implements View.OnClic
 
     Button match_register;
 
-    public static FutSalMatchRegisterActivity newInstance() {
-        return new FutSalMatchRegisterActivity();
+    public static FutSalMatchRegisterFragment newInstance() {
+        return new FutSalMatchRegisterFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
-        View view = inflater.inflate(R.layout.activity_futsal_match_register, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
+        View view = inflater.inflate(R.layout.fragment_futsal_match_register, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         context = container.getContext();
 

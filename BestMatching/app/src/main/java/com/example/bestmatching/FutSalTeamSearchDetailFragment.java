@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-public class FutSalTeamSearchDetail extends Fragment implements View.OnClickListener {
+public class FutSalTeamSearchDetailFragment extends Fragment implements View.OnClickListener {
 
     private Context context;
 
@@ -23,13 +23,13 @@ public class FutSalTeamSearchDetail extends Fragment implements View.OnClickList
 
     Button back_btn;
 
-    public static FutSalTeamSearchDetail newInstance() {
-        return new FutSalTeamSearchDetail();
+    public static FutSalTeamSearchDetailFragment newInstance() {
+        return new FutSalTeamSearchDetailFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
-        View view = inflater.inflate(R.layout.activity_futsal_team_search_item_detail, null);
+        View view = inflater.inflate(R.layout.fragment_futsal_team_search_item_detail, null);
 
         context = container.getContext();
 
@@ -80,7 +80,7 @@ public class FutSalTeamSearchDetail extends Fragment implements View.OnClickList
         int a = v.getId();
         switch (a) {
             case R.id.back_btn:
-                ((MainActivity) getActivity()).backFragment(FutSalTeamActivity.newInstance(), FutSalTeamSearchActivity.newInstance());
+                ((MainActivity) getActivity()).backFragment(FutSalTeamActivity.newInstance(), FutSalTeamSearchFragment.newInstance());
                 break;
 
         }

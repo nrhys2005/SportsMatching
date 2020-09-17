@@ -1,13 +1,10 @@
 package com.example.bestmatching;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -59,7 +56,7 @@ public class FutsalHelp_NoticeAdapter extends BaseAdapter implements View.OnClic
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.activity_futsal_help_notice_item, parent, false);
+            convertView = inflater.inflate(R.layout.fragment_futsal_help_notice_item, parent, false);
         }
 
         category = (TextView) convertView.findViewById(R.id.category);

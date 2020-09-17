@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -56,7 +55,7 @@ public class FutsalTeamSearchAdapter extends BaseAdapter {
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.activity_futsal_team_search_item, parent, false);
+            convertView = inflater.inflate(R.layout.fragment_futsal_team_search_item, parent, false);
         }
 
         team_search_name = (TextView) convertView.findViewById(R.id.team_search_name);

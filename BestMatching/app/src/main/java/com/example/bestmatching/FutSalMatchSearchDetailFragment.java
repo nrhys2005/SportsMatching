@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +43,7 @@ public class FutSalMatchSearchDetailFragment extends Fragment implements View.On
     TextView detail_match_cost;
 
     Button back_btn;
-    Button match_enter;
+    Button match_join;
 
     public static FutSalMatchSearchDetailFragment newInstance() {
         return new FutSalMatchSearchDetailFragment();
@@ -67,6 +68,7 @@ public class FutSalMatchSearchDetailFragment extends Fragment implements View.On
         String start_time = getArguments().getString("start_time");
         String end_time = getArguments().getString("end_time");
         String cost = getArguments().getString("cost");
+        //String id = getArguments().getString("id");
 
         detail_match_title.setText(title);
         detail_match_ground_name.setText(ground_name);
@@ -76,10 +78,10 @@ public class FutSalMatchSearchDetailFragment extends Fragment implements View.On
         detail_match_cost.setText(cost + "원");
 
         back_btn = (Button)view.findViewById(R.id.back_btn);
-        match_enter = (Button)view.findViewById(R.id.match_enter);
+        match_join = (Button)view.findViewById(R.id.match_join);
 
         back_btn.setOnClickListener(this);
-        match_enter.setOnClickListener(this);
+        match_join.setOnClickListener(this);
 
         return view;
     }
@@ -93,8 +95,8 @@ public class FutSalMatchSearchDetailFragment extends Fragment implements View.On
                 //JSONObject를 만들고 key value 형식으로 값을 저장해준다.
                 JSONObject jsonObject = new JSONObject();
 
-                /*jsonObject.put("match_id", match_title.getText().toString());
-                jsonObject.put("match_user_id", now_id.getText().toString());*/
+                jsonObject.put("user_id", now_id);
+                jsonObject.put("match_id", getArguments().getString("id"));
 
                 HttpURLConnection con = null;
                 BufferedReader reader = null;
@@ -184,8 +186,8 @@ public class FutSalMatchSearchDetailFragment extends Fragment implements View.On
             case R.id.back_btn:
                 ((MainActivity) getActivity()).backFragment(FutSalMatchActivity.newInstance(), FutSalMatchSearchFragment.newInstance());
                 break;
-            case R.id.match_enter:
-                //new Post().execute(ip + "/match/create");
+            case R.id.match_join:
+                new Post().execute(ip + "/match/join");
                 break;
         }
 

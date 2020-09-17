@@ -93,8 +93,8 @@ public class FutSalMyMatchDetailFragment extends Fragment implements View.OnClic
                 //JSONObject를 만들고 key value 형식으로 값을 저장해준다.
                 JSONObject jsonObject = new JSONObject();
 
-                /*jsonObject.put("match_id", match_title.getText().toString());
-                jsonObject.put("match_user_id", now_id.getText().toString());*/
+                jsonObject.put("user_id", now_id);
+                jsonObject.put("match_id", getArguments().getString("id") );
 
                 HttpURLConnection con = null;
                 BufferedReader reader = null;
@@ -185,7 +185,7 @@ public class FutSalMyMatchDetailFragment extends Fragment implements View.OnClic
                 ((MainActivity) getActivity()).backFragment(FutSalMatchActivity.newInstance(), FutSalMatchSearchFragment.newInstance());
                 break;
             case R.id.match_cancel:
-                //new Post().execute(ip + "/match/create");
+                //new Post().execute(ip + "/match/mymatching_cancel");
                 break;
         }
 

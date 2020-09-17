@@ -39,6 +39,7 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
     Button my_match_search_btn;
 
     String ip = lg.ip;
+    private String now_id = lg.Myid;
 
     private int pos;
 
@@ -51,6 +52,7 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
     ArrayList<String> my_match_start_time = new ArrayList<>();
     ArrayList<String> my_match_end_time = new ArrayList<>();
     ArrayList<String> my_match_cost = new ArrayList<>();
+    ArrayList<String> my_match_id = new ArrayList<>();
 
     public static FutSalMyMatchFragment newInstance() {
         return new FutSalMyMatchFragment();
@@ -70,7 +72,7 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
         futsal_my_match = (ListView) view.findViewById(R.id.futsal_my_match);
         futsal_my_match.setAdapter(futsalMyMatchAdapter);
 
-        new Get().execute(ip + "/match/search/none");
+        new Get().execute(ip + "/match/mymatching_list/" + now_id);
 
         futsalMyMatchAdapter.notifyDataSetChanged();
 
@@ -93,7 +95,8 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
         bundle.putString("start_time", my_match_start_time.get(pos));
         bundle.putString("end_time", my_match_end_time.get(pos));
         bundle.putString("cost", my_match_cost.get(pos));
-        FutSalMatchSearchDetailFragment f = new FutSalMatchSearchDetailFragment();
+        bundle.putString("id", my_match_id.get(pos));
+        FutSalMyMatchDetailFragment f = new FutSalMyMatchDetailFragment();
         f.setArguments(bundle);
         ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), f);
     }
@@ -122,7 +125,7 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
                     String msg = jsonObject.getString("result");
 
                     if (msg.equals("Success")) {
-                        String item = jsonObject.getString("match_info");
+                        String item = jsonObject.getString("mymatch_list_info");
                         JSONArray jsonArray = new JSONArray(item);
 
                         mymatchSize = jsonArray.length();
@@ -135,6 +138,7 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
                             my_match_start_time.add(js.getString("start_time"));
                             my_match_end_time.add(js.getString("end_time"));
                             my_match_cost.add(js.getString("cost"));
+                            my_match_id.add(js.getString("id"));
                         }
                     } else if (msg.equals("no find")) {
                         mymatchSize = 0;
@@ -182,13 +186,14 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
         my_match_start_time.clear();
         my_match_end_time.clear();
         my_match_cost.clear();
+        my_match_id.clear();
         futsalMyMatchAdapter.clearItem();
         futsalMyMatchAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onClick(View v) {
-        int a = v.getId();
+     /*   int a = v.getId();
         switch (a) {
             case R.id.my_match_search_btn:
                 String text = my_match_search.getText().toString();
@@ -200,6 +205,6 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
                     Toast.makeText(getActivity(), "검색내용을 입력하세요.", Toast.LENGTH_SHORT).show();
                 }
                 break;
-        }
+        }*/
     }
 }

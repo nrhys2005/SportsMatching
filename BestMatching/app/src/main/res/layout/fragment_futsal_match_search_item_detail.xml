@@ -167,7 +167,7 @@
                 android:text="이전" />
 
             <Button
-                android:id="@+id/match_enter"
+                android:id="@+id/match_join"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

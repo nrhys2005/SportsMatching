@@ -51,6 +51,8 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
     ArrayList<String> match_search_start_time = new ArrayList<>();
     ArrayList<String> match_search_end_time = new ArrayList<>();
     ArrayList<String> match_cost = new ArrayList<>();
+    ArrayList<String> match_id = new ArrayList<>();
+
 
     public static FutSalMatchSearchFragment newInstance() {
         return new FutSalMatchSearchFragment();
@@ -93,6 +95,7 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
         bundle.putString("start_time", match_search_start_time.get(pos));
         bundle.putString("end_time", match_search_end_time.get(pos));
         bundle.putString("cost", match_cost.get(pos));
+        bundle.putString("id", match_id.get(pos));
         FutSalMatchSearchDetailFragment f = new FutSalMatchSearchDetailFragment();
         f.setArguments(bundle);
         ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), f);
@@ -135,6 +138,7 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
                             match_search_start_time.add(js.getString("start_time"));
                             match_search_end_time.add(js.getString("end_time"));
                             match_cost.add(js.getString("cost"));
+                            match_id.add(js.getString("id"));
                         }
                     } else if (msg.equals("no find")) {
                         matchSize = 0;
@@ -182,6 +186,7 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
         match_search_start_time.clear();
         match_search_end_time.clear();
         match_cost.clear();
+        match_id.clear();
         futsalMatchSearchAdapter.clearItem();
         futsalMatchSearchAdapter.notifyDataSetChanged();
     }

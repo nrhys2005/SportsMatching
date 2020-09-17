@@ -49,6 +49,7 @@ router.get('/myteam', function (req, res) {
     });
 
 });
+
 //팀 정보(수정) 프래그먼트 -------------------
 router.post('/team_update', function (req, res) {
 

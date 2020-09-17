@@ -102,14 +102,6 @@ public class FutSalTeamInfoFragment extends Fragment implements View.OnClickList
             try {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("id", lg.Myid);
-                jsonObject.put("team_name", team_name.getText().toString());
-                jsonObject.put("phonenumber", phonenumber.getText().toString());
-                jsonObject.put("age_avg", age_avg.getText().toString());
-                jsonObject.put("level", level.getText().toString());
-                jsonObject.put("location", location.getText().toString());
-                jsonObject.put("week", week.getText().toString());
-                jsonObject.put("comment", comment.getText().toString());
-
                 try {
                     //URL url = new URL("http://192.168.25.16:3000/users");
                     URL url = new URL(urls[0]);
@@ -179,11 +171,11 @@ public class FutSalTeamInfoFragment extends Fragment implements View.OnClickList
                 String msg = jsonObject.getString("result");
 
                 if ( msg.equals("Success")){
-                    Toast.makeText(context.getApplicationContext(),"팀등록 성공",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(),"팀 탈퇴 성공",Toast.LENGTH_SHORT).show();
 
                 }
                 else {
-                    Toast.makeText(context.getApplicationContext(),"팀등록 실패",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(),"팀 탈퇴 실패",Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -267,11 +259,12 @@ public class FutSalTeamInfoFragment extends Fragment implements View.OnClickList
         int a = v.getId();
 
         switch (a) {
-            case R.id.team_member:
-                //new Post().execute(ip + "team/myteam_list");
+            case R.id.team_member://팀원일때 팀 정보 눌르기
+                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeam_MemberFragment_member.newInstance());
                 break;
             case R.id.team_leave:
-             //   new Post().execute(ip + "team/myteam_drop");
+                new Post().execute(ip + "/team/myteam_drop");
+                break;
         }
     }
 }

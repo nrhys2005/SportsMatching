@@ -12,15 +12,21 @@ import java.util.ArrayList;
 
 public class FutsalTeam_MemberAdapter extends BaseAdapter implements View.OnClickListener {
 
-    private TextView category;
-    private TextView title;
+    private TextView mem_id;
+    private TextView mem_name;
+    private TextView mem_age;
+    private TextView mem_loc;
+    private TextView mem_phone;
+    private TextView mem_position;
+
+
     //private TextView content;
 
     public LinearLayout search_list_click;
 
     MainActivity ma = new MainActivity();
 
-    public ArrayList<FutSalHelp_NoticeItems> listItems = new ArrayList<FutSalHelp_NoticeItems>();
+    public ArrayList<FutsalTeam_MemberItems> listItems = new ArrayList<FutsalTeam_MemberItems>();
 
     public FutsalTeam_MemberAdapter() {
 
@@ -56,17 +62,37 @@ public class FutsalTeam_MemberAdapter extends BaseAdapter implements View.OnClic
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.activity_futsal_help_notice_item, parent, false);
+            convertView = inflater.inflate(R.layout.activity_futsal_team_member_item, parent, false);
         }
 
-        category = (TextView) convertView.findViewById(R.id.category);
-        title = (TextView) convertView.findViewById(R.id.title);
+        mem_id = (TextView) convertView.findViewById(R.id.m_id);
+        mem_name = (TextView) convertView.findViewById(R.id.m_name);
+        mem_age = (TextView) convertView.findViewById(R.id.m_age);
+        mem_loc = (TextView) convertView.findViewById(R.id.m_location);
+        mem_phone = (TextView) convertView.findViewById(R.id.m_phonenumber);
+        mem_position = (TextView) convertView.findViewById(R.id.m_position);
+
        // content = (TextView) convertView.findViewById(R.id.content);
 
-        FutSalHelp_NoticeItems futSalHelp_noticeItems = listItems.get(position);
+        FutsalTeam_MemberItems futsalTeamMemberItems = listItems.get(position);
 
-        category.setText(futSalHelp_noticeItems.getCategoryStr());
-        title.setText(futSalHelp_noticeItems.gettitleStr());
+        mem_id.setText(futsalTeamMemberItems.getId());
+        mem_name.setText(futsalTeamMemberItems.getName());
+        mem_age.setText(futsalTeamMemberItems.getAge());
+        mem_loc.setText(futsalTeamMemberItems.getLocation());
+        mem_phone.setText(futsalTeamMemberItems.getPhonenumberStr());
+        mem_position.setText(futsalTeamMemberItems.getPositionStr());
+
+        if(mem_age.getText().toString().equals("null")||mem_age.getText().toString().equals(""))
+            mem_age.setText("정보없음");
+        if(mem_loc.getText().toString().equals("null")||mem_loc.getText().toString().equals(""))
+            mem_loc.setText("정보없음");
+        if(mem_phone.getText().toString().equals("null")||mem_phone.getText().toString().equals(""))
+            mem_phone.setText("정보없음");
+        if(mem_position.getText().toString().equals("null")||mem_position.getText().toString().equals(""))
+            mem_position.setText("정보없음");
+
+
         //content.setText(futSalHelp_noticeItems.getContentStrt());
 
      //   search_list_click = (LinearLayout)convertView.findViewById(R.id.search_list_click);
@@ -76,15 +102,17 @@ public class FutsalTeam_MemberAdapter extends BaseAdapter implements View.OnClic
 
 
     //아이템 데이터 추가를 위한 함수
-    public void addItem(String category, String title, int id){
-        FutSalHelp_NoticeItems noticeItems = new FutSalHelp_NoticeItems();
+    public void addItem(String id,String name, String age, String location, String phonenumber, String position){
+        FutsalTeam_MemberItems memberItems = new FutsalTeam_MemberItems();
 
-        noticeItems.setCategory(category);
-        noticeItems.settitle(title);
-       // noticeItems.setcontent(content);
-        noticeItems.setId(id);
+        memberItems.setId(id);
+        memberItems.setName(name);
+        memberItems.setAge(age);
+        memberItems.setLocation(location);
+        memberItems.setPhonenumber(phonenumber);
+        memberItems.setPosition(position);
 
-        listItems.add(noticeItems);
+        listItems.add(memberItems);
     }
 
     @Override

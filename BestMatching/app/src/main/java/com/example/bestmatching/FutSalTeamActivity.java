@@ -68,7 +68,6 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
     public void onClick(View v) {
 
         int a = v.getId();
-        System.out.println("팀이냐?"+in_team+"팀장이냐?"+Team_Master);
         switch (a){
             case R.id.team_info:
                 switch (in_team){
@@ -163,15 +162,13 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
             else
                 in_team=1;
 
-            System.out.println("id"+get_id+"master_id"+get_master_id);
+            System.out.println("ttt"+team_name);
+
             if(get_id.equals(get_master_id)) {
-                System.out.println("엇 씨발 이놈 팀장이다");
                 Team_Master = 1;
             }
             else
                 Team_Master=0;
-
-            System.out.println("제발 받아와져라 id="+get_id+", master_id="+get_master_id);
 
 
         }

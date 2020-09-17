@@ -43,6 +43,7 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
 
     TextView id;
     TextView name;
+    EditText age;
     TextView team;
     TextView mail;
     EditText phone;
@@ -54,6 +55,8 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
     public String e_phone="";
     public String e_location="";
     public String e_position="";
+    public String e_age="";
+    public int e_age_temp;
 
     public static FutSalHelp_MyinfoFragment newInstance() {
         return new FutSalHelp_MyinfoFragment();
@@ -67,6 +70,7 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
 
         id = (TextView)view.findViewById(R.id.Myinfo_id);
         name = (TextView)view.findViewById(R.id.Myinfo_name);
+        age = (EditText)view.findViewById(R.id.Myinfo_age);
         team = (TextView)view.findViewById(R.id.Myinfo_team);
         mail = (TextView)view.findViewById(R.id.Myinfo_mail);
 
@@ -108,6 +112,7 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
                 jsonObject.put("mail", mail.getText().toString());
                 jsonObject.put("phone", phone.getText().toString());
                 jsonObject.put("location", location.getText().toString());
+                jsonObject.put("age", age.getText().toString());
                 jsonObject.put("position", position.getText().toString());
                 jsonObject.put("id", id.getText().toString());
                 try {
@@ -226,8 +231,10 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
                         JSONObject js = jsonArray.getJSONObject(0);
                         id.setText(js.getString("id"));
                         name.setText(js.getString("name"));
+
                         team.setText(js.getString("team_name"));
                         mail.setText(js.getString("email"));
+                        e_age_temp=js.getInt("age");
                         e_phone=js.getString("phone");
                         e_location = js.getString("location");
                         e_position = js.getString("position");
@@ -254,6 +261,7 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            e_age=Integer.toString(e_age_temp);
             if(e_phone.equals("null"))
                 phone.setHint("번호를 입력하세요");
             else
@@ -263,6 +271,11 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
                 location.setHint("지역을 입력하세요");
             else
                 location.setText(e_location);
+
+            if(e_age.equals("null"))
+                age.setHint("나이을 입력하세요");
+            else
+                age.setText(e_age);
 
             if(e_position.equals("null"))
                 position.setHint("포지션을 입력하세요");

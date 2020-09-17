@@ -9,7 +9,7 @@ router.get('/team', function (req, res) {
 
     var user_id = req.query.id;
     var data_array = [];
-    var sql = 'SELECT id,master_id,team.team_name FROM user, team where user.id=?';
+    var sql = 'SELECT id,master_id,user.team_name FROM user, team where user.id=?';
     console.log('id = '+ user_id);
     data_array.push(user_id);
    
@@ -83,6 +83,60 @@ router.post('/team_update', function (req, res) {
 
 //------------------------------------------
 
+//팀원 조회----------------------------------
+router.get('/myteam_list', function (req, res) {
+    console.log('<<Team/myteam_list_get>>');
+
+    var team_name = req.query.team_name;
+    
+    var data_array = [];
+    var sql=  'select id, name, age, location, phone, position from best_matching.user where team_name= ?';
+    console.log('team_name = '+ team_name);
+    data_array.push(team_name);
+
+    dbconn.query(sql, data_array, function (err, rows, fields) {//DB connect
+        if (!err) {
+            console.log('Query Select Success(result: Success)');
+            console.log(rows);
+            res.json({ "result": "Success", member_info : rows});
+        } else {
+            console.log('Query Select Error : ' + err);
+            res.json({ "result": err });
+        }
+    });
+
+});
+
+
+//------------------------------------------
+//팀 탈퇴 버튼 -------------------
+router.post('/myteam_drop', function (req, res) {
+
+    console.log('<<Team/myteam_drop>>');
+
+    req.on('data', (data) => {
+        var update_data_array = [];
+        var inputData = JSON.parse(data); // JSON data 받음
+        console.log('input_data : ' + inputData);
+        var sql_update = 'update user set team_name = null where id=?';
+
+        update_data_array.push(inputData.id);
+       
+        dbconn.query(sql_update, update_data_array, function (err, rows, fields) {//DB connect
+            if (!err) {
+                console.log('Query Update Success');
+                console.log(rows);
+                res.json( {"result": "Success"});
+                
+            } else {
+                console.log('Query Update Error : ' + err);
+                res.json({ "result": err });
+            }
+        });
+    });
+});
+
+//------------------------------------------
 //------------------------------------------
 router.post('/create', function (req, res) {
 

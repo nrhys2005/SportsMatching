@@ -268,6 +268,7 @@ public class FutSalTeamInfoFragment_Master extends Fragment implements View.OnCl
 
         switch (a) {
             case R.id.age_avg:
+                System.out.println("ZZZZ");
                 final String[] ages = {"10대", "20대", "30대", "40대", "50대"};
 
                 builder = new AlertDialog.Builder(context);
@@ -390,7 +391,6 @@ public class FutSalTeamInfoFragment_Master extends Fragment implements View.OnCl
 
                 break;
             case R.id.team_update: {
-                System.out.println("업데이트버튼누름");
                 new Post().execute(ip + "/team/team_update");
             }
         }

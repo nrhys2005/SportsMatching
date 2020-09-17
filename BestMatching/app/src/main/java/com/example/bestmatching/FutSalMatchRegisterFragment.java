@@ -111,8 +111,8 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
                 jsonObject.put("start_time", match_start_time.getText().toString());
                 jsonObject.put("end_time", match_end_time.getText().toString());
                 jsonObject.put("cost", match_cost.getText().toString());
-                /*jsonObject.put("max_user", match_max_user.getText().toString());
-                jsonObject.put("user_id", now_id.toString());*/
+                jsonObject.put("max_user", match_max_user.getText().toString());
+                jsonObject.put("user_id", now_id);
 
 
                 HttpURLConnection con = null;

@@ -26,7 +26,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class FutSalMatchSearchDetailFragment extends Fragment implements View.OnClickListener {
+public class FutSalMyMatchDetailFragment extends Fragment implements View.OnClickListener {
 
     private Context context;
 
@@ -34,32 +34,32 @@ public class FutSalMatchSearchDetailFragment extends Fragment implements View.On
     String ip = lg.ip;
     String now_id = lg.Myid;
 
-    TextView detail_match_title;
-    TextView detail_match_ground_name;
-    TextView detail_match_date;
-    TextView detail_match_start_time;
-    TextView detail_match_end_time;
-    TextView detail_match_cost;
+    TextView detail_my_match_title;
+    TextView detail_my_match_ground_name;
+    TextView detail_my_match_date;
+    TextView detail_my_match_start_time;
+    TextView detail_my_match_end_time;
+    TextView detail_my_match_cost;
 
     Button back_btn;
-    Button match_enter;
+    Button match_cancel;
 
-    public static FutSalMatchSearchDetailFragment newInstance() {
-        return new FutSalMatchSearchDetailFragment();
+    public static FutSalMyMatchDetailFragment newInstance() {
+        return new FutSalMyMatchDetailFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
-        View view = inflater.inflate(R.layout.fragment_futsal_match_search_item_detail, null);
+        View view = inflater.inflate(R.layout.fragment_futsal_my_match_item_detail, null);
 
         context = container.getContext();
 
-        detail_match_title = (TextView)view.findViewById(R.id.detail_match_title);
-        detail_match_ground_name = (TextView)view.findViewById(R.id.detail_match_ground_name);
-        detail_match_date = (TextView)view.findViewById(R.id.detail_match_date);
-        detail_match_start_time = (TextView)view.findViewById(R.id.detail_match_start_time);
-        detail_match_end_time = (TextView)view.findViewById(R.id.detail_match_end_time);
-        detail_match_cost = (TextView)view.findViewById(R.id.detail_match_cost);
+        detail_my_match_title = (TextView)view.findViewById(R.id.detail_my_match_title);
+        detail_my_match_ground_name = (TextView)view.findViewById(R.id.detail_my_match_ground_name);
+        detail_my_match_date = (TextView)view.findViewById(R.id.detail_my_match_date);
+        detail_my_match_start_time = (TextView)view.findViewById(R.id.detail_my_match_start_time);
+        detail_my_match_end_time = (TextView)view.findViewById(R.id.detail_my_match_end_time);
+        detail_my_match_cost = (TextView)view.findViewById(R.id.detail_my_match_cost);
 
         String title = getArguments().getString("title");
         String ground_name = getArguments().getString("ground_name");
@@ -68,18 +68,18 @@ public class FutSalMatchSearchDetailFragment extends Fragment implements View.On
         String end_time = getArguments().getString("end_time");
         String cost = getArguments().getString("cost");
 
-        detail_match_title.setText(title);
-        detail_match_ground_name.setText(ground_name);
-        detail_match_date.setText(date);
-        detail_match_start_time.setText(start_time);
-        detail_match_end_time.setText(end_time);
-        detail_match_cost.setText(cost + "원");
+        detail_my_match_title.setText(title);
+        detail_my_match_ground_name.setText(ground_name);
+        detail_my_match_date.setText(date);
+        detail_my_match_start_time.setText(start_time);
+        detail_my_match_end_time.setText(end_time);
+        detail_my_match_cost.setText(cost + "원");
 
         back_btn = (Button)view.findViewById(R.id.back_btn);
-        match_enter = (Button)view.findViewById(R.id.match_enter);
+        match_cancel = (Button)view.findViewById(R.id.match_cancel);
 
         back_btn.setOnClickListener(this);
-        match_enter.setOnClickListener(this);
+        match_cancel.setOnClickListener(this);
 
         return view;
     }
@@ -166,9 +166,9 @@ public class FutSalMatchSearchDetailFragment extends Fragment implements View.On
                 String msg = jsonObject.getString("result");
 
                 if (msg.equals("Success")) {
-                    Toast.makeText(context.getApplicationContext(), "매치참여 성공", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(), "매치취소 성공", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context.getApplicationContext(), "매치참여 실패", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(), "매치취소 실패", Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -184,7 +184,7 @@ public class FutSalMatchSearchDetailFragment extends Fragment implements View.On
             case R.id.back_btn:
                 ((MainActivity) getActivity()).backFragment(FutSalMatchActivity.newInstance(), FutSalMatchSearchFragment.newInstance());
                 break;
-            case R.id.match_enter:
+            case R.id.match_cancel:
                 //new Post().execute(ip + "/match/create");
                 break;
         }

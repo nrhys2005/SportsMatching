@@ -32,7 +32,7 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
 
     LoginActivity lg = new LoginActivity();
     String ip = lg.ip;
-    String send_id=lg.Myid;
+    String send_id = lg.Myid;
     HttpURLConnection con = lg.con;
     BufferedReader reader = lg.reader;
 

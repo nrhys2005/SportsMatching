@@ -147,7 +147,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String msg = jsonObject.getString("result");
                 if ( msg.equals("Success")){
                     Toast.makeText(getApplicationContext(),"로그인 성공",Toast.LENGTH_SHORT).show();
-                    Myid=TextInputEditText_id.getText().toString();
+                    Myid = TextInputEditText_id.getText().toString();
                     login();
                 }
                 else {

@@ -43,7 +43,7 @@
                         android:text="매칭제목" />
 
                     <TextView
-                        android:id="@+id/detail_match_title"
+                        android:id="@+id/detail_my_match_title"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
@@ -64,7 +64,7 @@
                         android:text="구장" />
 
                     <TextView
-                        android:id="@+id/detail_match_ground_name"
+                        android:id="@+id/detail_my_match_ground_name"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
@@ -86,7 +86,7 @@
                         android:text="날짜" />
 
                     <TextView
-                        android:id="@+id/detail_match_date"
+                        android:id="@+id/detail_my_match_date"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
@@ -107,7 +107,7 @@
                         android:text="시간" />
 
                     <TextView
-                        android:id="@+id/detail_match_start_time"
+                        android:id="@+id/detail_my_match_start_time"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
@@ -121,7 +121,7 @@
                         android:text="~" />
 
                     <TextView
-                        android:id="@+id/detail_match_end_time"
+                        android:id="@+id/detail_my_match_end_time"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
@@ -142,7 +142,7 @@
                         android:text="요금" />
 
                     <TextView
-                        android:id="@+id/detail_match_cost"
+                        android:id="@+id/detail_my_match_cost"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
@@ -167,11 +167,11 @@
                 android:text="이전" />
 
             <Button
-                android:id="@+id/match_enter"
+                android:id="@+id/match_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="매칭참여" />
+                android:text="매칭취소" />
         </LinearLayout>
 
     </LinearLayout>

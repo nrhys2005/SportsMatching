@@ -44,8 +44,10 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
     TextView match_start_time;
     TextView match_end_time;
     EditText match_cost;
+    EditText match_max_user;
 
     String ip = lg.ip;
+    String now_id = lg.Myid;
 
     private DatePickerDialog.OnDateSetListener callbackMethod;
     private TimePickerDialog.OnTimeSetListener start;
@@ -69,6 +71,7 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
         match_start_time = (TextView) view.findViewById(R.id.match_start_time);
         match_end_time = (TextView) view.findViewById(R.id.match_end_time);
         match_cost = (EditText) view.findViewById(R.id.match_cost);
+        match_max_user = (EditText) view.findViewById(R.id.match_max_user);
         match_register = (Button) view.findViewById(R.id.match_register);
 
 
@@ -88,6 +91,7 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
         match_start_time.setText("");
         match_end_time.setText("");
         match_cost.setText("");
+        match_max_user.setText("");
     }
 
     // 안스에서 노드js로 데이터 보내는 부분
@@ -107,6 +111,8 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
                 jsonObject.put("start_time", match_start_time.getText().toString());
                 jsonObject.put("end_time", match_end_time.getText().toString());
                 jsonObject.put("cost", match_cost.getText().toString());
+                /*jsonObject.put("max_user", match_max_user.getText().toString());
+                jsonObject.put("user_id", now_id.toString());*/
 
 
                 HttpURLConnection con = null;

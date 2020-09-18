@@ -53,7 +53,6 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
     ArrayList<String> match_cost = new ArrayList<>();
     ArrayList<String> match_id = new ArrayList<>();
 
-
     public static FutSalMatchSearchFragment newInstance() {
         return new FutSalMatchSearchFragment();
     }

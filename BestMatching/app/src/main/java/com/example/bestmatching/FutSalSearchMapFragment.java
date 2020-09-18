@@ -7,7 +7,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,12 +76,12 @@ public class FutSalSearchMapFragment extends Fragment implements OnMapReadyCallb
         lm = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
         myLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-        Log.i("현재 위치1", myLocation.getLongitude()+","+myLocation.getLatitude());
+     //   Log.i("현재 위치1", myLocation.getLongitude()+","+myLocation.getLatitude());
         new Get().execute(ip + "/ground");
 
         mapView = (MapView) view.findViewById(R.id.mapsearch);
         mapView.getMapAsync(this);
-        new Get().execute(ip + "/ground/search?"+"latitude="+myLocation.getLatitude()+"&"+"longtitude="+myLocation.getLongitude());
+      //  new Get().execute(ip + "/ground/search?"+"latitude="+myLocation.getLatitude()+"&"+"longtitude="+myLocation.getLongitude());
         return view;
 
     }
@@ -152,7 +151,7 @@ public class FutSalSearchMapFragment extends Fragment implements OnMapReadyCallb
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        Log.i("현재 위치23", myLocation.getLongitude()+","+myLocation.getLatitude());
+       // Log.i("현재 위치23", myLocation.getLongitude()+","+myLocation.getLatitude());
         LatLng SANGJU = new LatLng(36.378399, 128.147967);
         /*MarkerOptions markerOptions = new MarkerOptions();
         markerOptions
@@ -160,7 +159,7 @@ public class FutSalSearchMapFragment extends Fragment implements OnMapReadyCallb
                 .title(stadium_name.get(0).toString());
         googleMap.addMarker(markerOptions);*/
         mMap.setMyLocationEnabled(true);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(myLocation.getLatitude(),myLocation.getLongitude())));
+       // mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(myLocation.getLatitude(),myLocation.getLongitude())));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
         MarkerOptions markerOptions = new MarkerOptions();
 

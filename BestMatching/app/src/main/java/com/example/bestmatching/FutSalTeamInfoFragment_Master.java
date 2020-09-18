@@ -14,9 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,75 +30,69 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class FutSalTeamRegisterFragment extends Fragment implements View.OnClickListener {
+public class FutSalTeamInfoFragment_Master extends Fragment implements View.OnClickListener {
 
     private Context context;
 
-    EditText team_name;
+    LoginActivity lg = new LoginActivity();
+    FutSalTeamActivity  ta = new FutSalTeamActivity();
+    String send_teamname=ta.team_name;
+    int tm = ta.Team_Master;
+    String ip = lg.ip;
+    String send_id=lg.Myid;
+
+    TextView team_name;
+    TextView master_id;
     EditText phonenumber;
     TextView age_avg;
     TextView level;
     TextView location;
     TextView week;
     EditText comment;
-    LoginActivity lg = new LoginActivity();
-    String ip = lg.ip;
 
+    public String team_namestr;
+    public String master_idstr;
+    public String phonenumberstr;
+    public String age_avgstr;
+    public String levelstr;
+    public String locationstr;
+    public String weekstr;
+    public String commentstr;
+
+    public static int Team_Master=0;
     //private Spinner spinner_location;
 
     AlertDialog.Builder builder;
     AlertDialog dialog;
     HttpURLConnection con = lg.con;
     BufferedReader reader = lg.reader;
-    Button team_regist;
-
-    public static FutSalTeamRegisterFragment newInstance() {
-        return new FutSalTeamRegisterFragment();
+    Button team_member;
+    Button team_update;
+    public static FutSalTeamInfoFragment_Master newInstance() {
+        return new FutSalTeamInfoFragment_Master();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
-        View view = inflater.inflate(R.layout.fragment_futsal_team_register, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
-
-
-
+        View view = inflater.inflate(R.layout.activity_futsal_team_info_master, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         context = container.getContext();
-
-        team_name = (EditText) view.findViewById(R.id.team_name);
+        new Get().execute(ip + "/team/myteam?team_name="+send_teamname);
+        team_name = (TextView) view.findViewById(R.id.team_name);
+        master_id = (TextView)view.findViewById(R.id.master_id);
         phonenumber = (EditText) view.findViewById(R.id.phonenumber);
         age_avg = (TextView) view.findViewById(R.id.age_avg);
         level = (TextView) view.findViewById(R.id.level);
         location = (TextView) view.findViewById(R.id.location);
         week = (TextView) view.findViewById(R.id.week);
         comment = (EditText) view.findViewById(R.id.comment);
+        team_member = (Button)view.findViewById(R.id.team_member);
+        team_update = (Button)view.findViewById(R.id.team_update);
 
-        team_regist = (Button)view.findViewById(R.id.team_regist);
+        team_member.setOnClickListener(this);
+        team_update.setOnClickListener(this);
 
-        /*final String[] location = {"10대", "20대", "30대", "40대", "50대"};
-        spinner_location = (Spinner)view.findViewById(R.id.location);
-        ArrayAdapter spinnerAdaptor;
-        spinnerAdaptor = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item,location);
-        spinner_location.setAdapter(spinnerAdaptor);*/
-
-        age_avg.setOnClickListener(this);
-        level.setOnClickListener(this);
-        location.setOnClickListener(this);
-        week.setOnClickListener(this);
-        team_regist.setOnClickListener(this);
         return view;
-    }
-
-
-    public void reset()
-    {
-        team_name.setText("");
-        phonenumber.setText("");
-        age_avg.setText("");
-        level.setText("");
-        location.setText("");
-        week.setText("");
-        comment.setText("");
     }
 
     // 안스에서 노드js로 데이터 보내는 부분
@@ -108,18 +101,15 @@ public class FutSalTeamRegisterFragment extends Fragment implements View.OnClick
         @Override
         protected String doInBackground(String... urls) {
             try {
-                //JSONObject를 만들고 key value 형식으로 값을 저장해준다.
                 JSONObject jsonObject = new JSONObject();
-                //jsonObject.put("user_id", "androidTest");
-                //jsonObject.put("name", "yun");
-                jsonObject.put("team_name", team_name.getText().toString());
-                jsonObject.put("master_id", lg.Myid);
+
                 jsonObject.put("phonenumber", phonenumber.getText().toString());
                 jsonObject.put("age_avg", age_avg.getText().toString());
                 jsonObject.put("level", level.getText().toString());
                 jsonObject.put("location", location.getText().toString());
                 jsonObject.put("week", week.getText().toString());
                 jsonObject.put("comment", comment.getText().toString());
+                jsonObject.put("team_name", team_name.getText().toString());
 
                 try {
                     //URL url = new URL("http://192.168.25.16:3000/users");
@@ -184,17 +174,16 @@ public class FutSalTeamRegisterFragment extends Fragment implements View.OnClick
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
             try {
                 JSONObject jsonObject = new JSONObject(result);
                 String msg = jsonObject.getString("result");
 
                 if ( msg.equals("Success")){
-                    Toast.makeText(context.getApplicationContext(),"팀등록 성공",Toast.LENGTH_SHORT).show();
-                    reset();
+                    Toast.makeText(context.getApplicationContext(),"팀수정 성공",Toast.LENGTH_SHORT).show();
+
                 }
                 else {
-                    Toast.makeText(context.getApplicationContext(),"팀등록 실패",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(),"팀수정 실패",Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -203,15 +192,83 @@ public class FutSalTeamRegisterFragment extends Fragment implements View.OnClick
         }
     }
 
+    public class Get extends AsyncTask<String, String, String> {
 
+        @Override
+        protected String doInBackground(String... urls) {
+
+            InputStream is = null;
+            try {
+                is = new URL(urls[0]).openStream();
+                // System.out.println(urls[0]);
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+                String str;
+                StringBuffer buffer = new StringBuffer();
+                while ((str = rd.readLine()) != null) {
+                    buffer.append(str);
+                }
+                //URL 내용들
+                String receiveMsg = buffer.toString();
+                try {
+                    JSONObject jsonObject = new JSONObject(receiveMsg);
+                    String msg = jsonObject.getString("result");
+                    if (msg.equals("Success")) {
+                        String team_info = jsonObject.getString("myteam_info");
+                        JSONArray jsarr = new JSONArray(team_info);
+                        JSONObject js = jsarr.getJSONObject(0);
+                        team_namestr=js.getString("team_name");
+                        master_idstr=js.getString("master_id");
+                        phonenumberstr=js.getString("phonenumber");
+                        age_avgstr=js.getString("age_avg");
+                        levelstr=js.getString("level");
+                        locationstr=js.getString("location");
+                        weekstr=js.getString("week");
+                        commentstr=js.getString("comment");
+
+
+                    }
+                    else {
+                        Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+        //doInBackground메소드가 끝나면 여기로 와서 텍스트뷰의 값을 바꿔준다.
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            //TODO 겟 처리 후 결과
+            team_name.setText(team_namestr);
+            master_id.setText(master_idstr);
+            phonenumber.setText(phonenumberstr);
+            age_avg.setText(age_avgstr);
+            level.setText(levelstr);
+            location.setText(locationstr);
+            week.setText(weekstr);
+            comment.setText(commentstr);
+
+        }
+
+    }
 
     @Override
     public void onClick(View v) {
         int a = v.getId();
 
         switch (a) {
-            //평균연령 버튼
             case R.id.age_avg:
+                System.out.println("ZZZZ");
                 final String[] ages = {"10대", "20대", "30대", "40대", "50대"};
 
                 builder = new AlertDialog.Builder(context);
@@ -330,10 +387,12 @@ public class FutSalTeamRegisterFragment extends Fragment implements View.OnClick
                 dialog.show();
                 break;
 
-            case R.id.team_regist:
-                new Post().execute(ip + "/team/create");
-                //((MainActivity)getActivity()).replaceFragment(this,FutSalTeamSearchFragment.newInstance());
+            case R.id.team_member://팀장이 인원 조회 눌렀을 때
+
                 break;
+            case R.id.team_update: {
+                new Post().execute(ip + "/team/team_update");
+            }
         }
     }
 }

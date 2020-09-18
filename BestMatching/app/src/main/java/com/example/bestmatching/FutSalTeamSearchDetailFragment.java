@@ -15,6 +15,7 @@ public class FutSalTeamSearchDetailFragment extends Fragment implements View.OnC
     private Context context;
 
     TextView detail_team_name;
+    TextView detail_team_matser;
     TextView detail_team_number;
     TextView detail_team_location;
     TextView detail_team_week;
@@ -34,6 +35,7 @@ public class FutSalTeamSearchDetailFragment extends Fragment implements View.OnC
         context = container.getContext();
 
         detail_team_name = (TextView)view.findViewById(R.id.detail_team_name);
+        detail_team_matser = (TextView)view.findViewById(R.id.detail_master_id);
         detail_team_number = (TextView)view.findViewById(R.id.detail_team_number);
         detail_team_location = (TextView)view.findViewById(R.id.detail_team_locaion);
         detail_team_week = (TextView)view.findViewById(R.id.detail_team_week);
@@ -41,6 +43,7 @@ public class FutSalTeamSearchDetailFragment extends Fragment implements View.OnC
         detail_team_comment = (TextView)view.findViewById(R.id.detail_team_comment);
 
         String team_name = getArguments().getString("team_name");
+        String team_master = getArguments().getString("team_master");
         String team_number = getArguments().getString("phonenumber");
         String team_location = getArguments().getString("location");
         String team_week = getArguments().getString("week");
@@ -49,6 +52,7 @@ public class FutSalTeamSearchDetailFragment extends Fragment implements View.OnC
         //Toast.makeText(getActivity(),Integer.toString(a),Toast.LENGTH_SHORT).show();
 
         detail_team_name.setText(team_name);
+        detail_team_matser.setText(team_master);
         detail_team_number.setText(team_number);
         detail_team_location.setText(team_location);
         detail_team_week.setText(team_week);

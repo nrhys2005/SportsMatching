@@ -1,10 +1,8 @@
 package com.example.bestmatching;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,13 +27,12 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
 public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickListener{
 
     LoginActivity lg = new LoginActivity();
     String ip = lg.ip;
-    String send_id=lg.Myid;
+    String send_id = lg.Myid;
     HttpURLConnection con = lg.con;
     BufferedReader reader = lg.reader;
 
@@ -61,7 +58,7 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
-        View view = inflater.inflate(R.layout.activity_futsal_help_myinfo, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
+        View view = inflater.inflate(R.layout.fragment_futsal_help_myinfo, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         context = container.getContext();
 

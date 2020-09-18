@@ -3,17 +3,13 @@ package com.example.bestmatching;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,9 +28,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
-public class FutSalTeamRegisterActivity extends Fragment implements View.OnClickListener {
+public class FutSalTeamRegisterFragment extends Fragment implements View.OnClickListener {
 
     private Context context;
 
@@ -56,13 +51,13 @@ public class FutSalTeamRegisterActivity extends Fragment implements View.OnClick
     BufferedReader reader = lg.reader;
     Button team_regist;
 
-    public static FutSalTeamRegisterActivity newInstance() {
-        return new FutSalTeamRegisterActivity();
+    public static FutSalTeamRegisterFragment newInstance() {
+        return new FutSalTeamRegisterFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
-        View view = inflater.inflate(R.layout.activity_futsal_team_register, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
+        View view = inflater.inflate(R.layout.fragment_futsal_team_register, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         context = container.getContext();
 

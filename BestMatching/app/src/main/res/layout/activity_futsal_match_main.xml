@@ -18,14 +18,21 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:background="@android:color/transparent"
-          android:text="매치등록"
+          android:text="매칭등록"
           />
       <Button
           android:id="@+id/match_2"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:background="@android:color/transparent"
-          android:text="매치검색"
+          android:text="매칭검색"
+          />
+      <Button
+          android:id="@+id/match_3"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:background="@android:color/transparent"
+          android:text="마이매칭"
           />
 
    </LinearLayout>

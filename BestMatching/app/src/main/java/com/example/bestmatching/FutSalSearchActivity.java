@@ -1,6 +1,5 @@
 package com.example.bestmatching;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,10 +46,10 @@ public class FutSalSearchActivity extends Fragment implements View.OnClickListen
         int id = v.getId();
         switch (id) {
             case R.id.map:
-                ((MainActivity)getActivity()).replaceFragment(FutSalSearchActivity.newInstance(),FutSalSearchMapActivity.newInstance());
+                ((MainActivity)getActivity()).replaceFragment(FutSalSearchActivity.newInstance(), FutSalSearchMapFragment.newInstance());
                 break;
             case R.id.list:
-                ((MainActivity)getActivity()).replaceFragment(FutSalSearchActivity.newInstance(), FutSalSearchListActivity.newInstance());
+                ((MainActivity)getActivity()).replaceFragment(FutSalSearchActivity.newInstance(), FutSalSearchListFragment.newInstance());
                 break;
         }
     }

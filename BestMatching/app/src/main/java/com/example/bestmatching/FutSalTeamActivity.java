@@ -39,10 +39,10 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
 
         switch (a){
             case R.id.team_1:
-                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamRegisterActivity.newInstance());
+                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamRegisterFragment.newInstance());
                 break;
             case R.id.team_2:
-                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamSearchActivity.newInstance());
+                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamSearchFragment.newInstance());
                 //new Get();
                 break;
         }

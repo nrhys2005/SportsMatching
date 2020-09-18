@@ -12,6 +12,7 @@ public class FutSalMatchActivity extends Fragment implements View.OnClickListene
 
     Button match_1;
     Button match_2;
+    Button match_3;
 
 
     public static FutSalMatchActivity newInstance() {
@@ -24,9 +25,11 @@ public class FutSalMatchActivity extends Fragment implements View.OnClickListene
 
         match_1 = (Button)view.findViewById(R.id.match_1);
         match_2 =(Button)view.findViewById(R.id.match_2);
+        match_3 =(Button)view.findViewById(R.id.match_3);
 
         match_1.setOnClickListener(this);
         match_2.setOnClickListener(this);
+        match_3.setOnClickListener(this);
 
         return view;
     }
@@ -36,10 +39,13 @@ public class FutSalMatchActivity extends Fragment implements View.OnClickListene
         int a = v.getId();
         switch (a){
             case R.id.match_1:
-                ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalMatchRegisterActivity.newInstance());
+                ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalMatchRegisterFragment.newInstance());
                 break;
             case R.id.match_2:
-                ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalMatchSearchActivity.newInstance());
+                ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalMatchSearchFragment.newInstance());
+                break;
+            case R.id.match_3:
+                ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalMyMatchFragment.newInstance());
                 break;
         }
     }

@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,7 +27,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class FutSalMatchSearchActivity extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class FutSalMatchSearchFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private Context context;
     private ListView futsal_match_search;
@@ -52,15 +51,16 @@ public class FutSalMatchSearchActivity extends Fragment implements View.OnClickL
     ArrayList<String> match_search_start_time = new ArrayList<>();
     ArrayList<String> match_search_end_time = new ArrayList<>();
     ArrayList<String> match_cost = new ArrayList<>();
+    ArrayList<String> match_id = new ArrayList<>();
 
-    public static FutSalMatchSearchActivity newInstance() {
-        return new FutSalMatchSearchActivity();
+    public static FutSalMatchSearchFragment newInstance() {
+        return new FutSalMatchSearchFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_futsal_match_search, container, false); // Fragment로 불러올 xml파일을 view로 가져옵니다.
+        View view = inflater.inflate(R.layout.fragment_futsal_match_search, container, false); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         context = container.getContext();
         matchsearch_text = (EditText) view.findViewById(R.id.matchsearch_text);
@@ -94,7 +94,8 @@ public class FutSalMatchSearchActivity extends Fragment implements View.OnClickL
         bundle.putString("start_time", match_search_start_time.get(pos));
         bundle.putString("end_time", match_search_end_time.get(pos));
         bundle.putString("cost", match_cost.get(pos));
-        FutSalMatchSearchDetail f = new FutSalMatchSearchDetail();
+        bundle.putString("id", match_id.get(pos));
+        FutSalMatchSearchDetailFragment f = new FutSalMatchSearchDetailFragment();
         f.setArguments(bundle);
         ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), f);
     }
@@ -136,6 +137,7 @@ public class FutSalMatchSearchActivity extends Fragment implements View.OnClickL
                             match_search_start_time.add(js.getString("start_time"));
                             match_search_end_time.add(js.getString("end_time"));
                             match_cost.add(js.getString("cost"));
+                            match_id.add(js.getString("id"));
                         }
                     } else if (msg.equals("no find")) {
                         matchSize = 0;
@@ -183,6 +185,7 @@ public class FutSalMatchSearchActivity extends Fragment implements View.OnClickL
         match_search_start_time.clear();
         match_search_end_time.clear();
         match_cost.clear();
+        match_id.clear();
         futsalMatchSearchAdapter.clearItem();
         futsalMatchSearchAdapter.notifyDataSetChanged();
     }

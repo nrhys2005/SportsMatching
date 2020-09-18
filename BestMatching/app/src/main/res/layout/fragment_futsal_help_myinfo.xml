@@ -28,18 +28,66 @@
              android:layout_marginBottom="10dp"
              android:textSize="13sp"
              android:gravity="center"
-             android:text="매칭제목"
+             android:text="ID"
+             android:textStyle="bold"
+             android:padding="10dp"/>
+         <TextView
+             android:id="@+id/Myinfo_id"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:background="@drawable/corner_shape"
+             android:gravity="center"
+             android:textStyle="bold"
+             android:padding="10dp" />
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          >
+         <TextView
+             android:layout_width="70dp"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:textSize="15sp"
+             android:gravity="center"
+             android:text="이름"
+             android:textStyle="bold"
+             android:padding="10dp"/>
+
+         <TextView
+             android:id="@+id/Myinfo_name"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:background="@drawable/corner_shape"
+             android:gravity="center"
+             android:textStyle="bold"
+             android:padding="10dp" />
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          >
+         <TextView
+             android:layout_width="70dp"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:textSize="15sp"
+             android:gravity="center"
+             android:text="나이"
              android:textStyle="bold"
              android:padding="10dp"/>
 
          <EditText
-             android:id="@+id/match_title"
+             android:id="@+id/Myinfo_age"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginBottom="10dp"
              android:background="@drawable/corner_shape"
              android:gravity="center"
-             android:hint="제목을 입력해주세요."
              android:textStyle="bold"
              android:padding="10dp"
              android:singleLine = "true"
@@ -56,50 +104,18 @@
              android:layout_marginBottom="10dp"
              android:textSize="15sp"
              android:gravity="center"
-             android:text="구장"
+             android:text="E_mail"
              android:textStyle="bold"
              android:padding="10dp"/>
-
          <TextView
-             android:id="@+id/select_stadium"
+             android:id="@+id/Myinfo_mail"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginBottom="10dp"
              android:background="@drawable/corner_shape"
              android:gravity="center"
-             android:hint="구장을 선택해주세요."
              android:textStyle="bold"
-             android:padding="10dp"
-             android:singleLine = "true"
-             android:lines = "1"/>
-      </LinearLayout>
-
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          >
-         <TextView
-             android:layout_width="70dp"
-             android:layout_height="wrap_content"
-             android:layout_marginBottom="10dp"
-             android:textSize="15sp"
-             android:gravity="center"
-             android:text="날짜"
-             android:textStyle="bold"
-             android:padding="10dp"/>
-
-         <TextView
-             android:id="@+id/match_date"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginBottom="10dp"
-             android:background="@drawable/corner_shape"
-             android:gravity="center"
-             android:hint="날짜를 선택해주세요."
-             android:textStyle="bold"
-             android:padding="10dp"
-             android:singleLine = "true"
-             android:lines = "1"/>
+             android:padding="10dp" />
       </LinearLayout>
 
       <LinearLayout
@@ -113,47 +129,21 @@
              android:layout_marginBottom="10dp"
              android:textSize="15sp"
              android:gravity="center"
-             android:text="시간"
+             android:text="휴대폰"
              android:textStyle="bold"
-             android:padding="10dp"
-             android:singleLine = "true"
-             android:lines = "1"/>
-
-         <TextView
-             android:id="@+id/match_start_time"
+             android:padding="10dp"/>
+         <EditText
+             android:id="@+id/Myinfo_phone"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_marginBottom="10dp"
              android:background="@drawable/corner_shape"
              android:gravity="center"
-             android:hint="시작시간"
              android:textStyle="bold"
              android:layout_weight="0.5"
-             android:padding="10dp" />
-
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_marginBottom="10dp"
-             android:textSize="13sp"
-             android:gravity="center"
-             android:text="~"
-             android:textStyle="bold"
              android:padding="10dp"
              android:singleLine = "true"
              android:lines = "1"/>
-
-         <TextView
-             android:id="@+id/match_end_time"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_marginBottom="10dp"
-             android:background="@drawable/corner_shape"
-             android:gravity="center"
-             android:hint="종료시간"
-             android:textStyle="bold"
-             android:layout_weight="0.5"
-             android:padding="10dp" />
       </LinearLayout>
 
       <LinearLayout
@@ -166,20 +156,71 @@
              android:layout_marginBottom="10dp"
              android:textSize="15sp"
              android:gravity="center"
-             android:text="요금"
+             android:text="지역"
              android:textStyle="bold"
-             android:padding="10dp"
-             android:singleLine = "true"
-             android:lines = "1"/>
+             android:padding="10dp"/>
 
          <EditText
-             android:id="@+id/match_cost"
+             android:id="@+id/Myinfo_location"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginBottom="10dp"
              android:background="@drawable/corner_shape"
              android:gravity="center"
-             android:hint="요금"
+             android:textStyle="bold"
+             android:padding="10dp"
+             android:singleLine = "true"
+             android:lines = "1"/>
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          >
+         <TextView
+             android:layout_width="70dp"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:textSize="15sp"
+             android:gravity="center"
+             android:text="포지션"
+             android:textStyle="bold"
+             android:padding="10dp"/>
+
+         <EditText
+             android:id="@+id/Myinfo_position"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:background="@drawable/corner_shape"
+             android:gravity="center"
+             android:textStyle="bold"
+             android:padding="10dp"
+             android:singleLine = "true"
+             android:lines = "1"/>
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          >
+         <TextView
+             android:layout_width="70dp"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:textSize="15sp"
+             android:gravity="center"
+             android:text="팀"
+             android:textStyle="bold"
+             android:padding="10dp"/>
+
+         <TextView
+             android:id="@+id/Myinfo_team"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:background="@drawable/corner_shape"
+             android:gravity="center"
              android:textStyle="bold"
              android:padding="10dp" />
       </LinearLayout>
@@ -198,11 +239,11 @@
        android:weightSum="1">
 
       <Button
-          android:id="@+id/match_register"
+          android:id="@+id/Myinfo_change"
           android:layout_width="wrap_content"
           android:layout_height="50dp"
           android:background="@drawable/button_shape"
-          android:text="매칭등록"
+          android:text="수정"
           android:layout_weight="0.5"
           />
 

@@ -23,41 +23,44 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class FutSalHelp_NoticeFragment extends Fragment implements View.OnClickListener{
+public class FutSalTeam_MemberFragment_member extends Fragment implements View.OnClickListener{
 
     LoginActivity lg = new LoginActivity();
     String ip = lg.ip;
-
-    private ListView notice;
-    private FutsalHelp_NoticeAdapter noticeAdapter;
+    FutSalTeamActivity ta = new FutSalTeamActivity();
+    String send_teamname=ta.team_name;
+    private ListView member;
+    private FutsalTeam_MemberAdapter memberAdapter;
     HttpURLConnection con = lg.con;
     BufferedReader reader = lg.reader;
 
     private Context context;
-    private int noticeSize;
-    ArrayList<String> notice_category = new ArrayList<>();
-    ArrayList<String> notice_title = new ArrayList<>();
-  //  ArrayList<String> notice_content = new ArrayList<>();
-    ArrayList<Integer> notice_id = new ArrayList<>();
+    private int memberSize;
+    ArrayList<String> member_id = new ArrayList<>();
+    ArrayList<String> member_age = new ArrayList<>();
+    ArrayList<String> member_name = new ArrayList<>();
+    ArrayList<String> member_location = new ArrayList<>();
+    ArrayList<String> member_phonenumber = new ArrayList<>();
+    ArrayList<String> member_position = new ArrayList<>();
 
 
-    public static FutSalHelp_NoticeFragment newInstance() {
-        return new FutSalHelp_NoticeFragment();
+    public static FutSalTeam_MemberFragment_member newInstance() {
+        return new FutSalTeam_MemberFragment_member();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
-        View view = inflater.inflate(R.layout.fragment_futsal_help_notice, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
+        View view = inflater.inflate(R.layout.activity_futsal_team_member, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         context = container.getContext();
-
-        noticeAdapter = new FutsalHelp_NoticeAdapter();
-        notice = (ListView) view.findViewById(R.id.futsal_help_notice);
-        notice.setAdapter(noticeAdapter);
-        new Get().execute(ip + "/Help/Notice");
+        memberAdapter = new FutsalTeam_MemberAdapter();
+        member = (ListView) view.findViewById(R.id.futsal_team_member);
+        member.setAdapter(memberAdapter);
+        new Get().execute(ip + "/team/myteam_list?team_name="+send_teamname);
 
         return view;
     }
+
 
     @Override
     public void onClick(View v) {
@@ -94,23 +97,26 @@ public class FutSalHelp_NoticeFragment extends Fragment implements View.OnClickL
                     String msg = jsonObject.getString("result");
 
                     if (msg.equals("Success")) {
-                        String notice_info = jsonObject.getString("notice_info");
+                        String notice_info = jsonObject.getString("member_info");
                         JSONArray jsonArray = new JSONArray(notice_info);
 
-                        noticeSize = jsonArray.length();
+                        memberSize = jsonArray.length();
 
-                        for (int i = 0; i < noticeSize; i++) {
+                        for (int i = 0; i < memberSize; i++) {
                             JSONObject js = jsonArray.getJSONObject(i);
-                            notice_category.add(js.getString("category"));
-                            notice_title.add(js.getString("title"));
-                           // notice_content.add(js.getString("content"));
-                            notice_id.add(js.getInt("id"));
+                            member_id.add(js.getString("id"));
+                            member_name.add(js.getString("name"));
+                            member_age.add(js.getString("age"));
+                            member_location.add(js.getString("location"));
+                            member_phonenumber.add(js.getString("phone"));
+                            member_position.add(js.getString("position"));
+
 
                         }
                     } else if (msg.equals("no find")) {
-                        noticeSize = 0;
+                        memberSize = 0;//들어올릴 없음 왜냐하면 팀이 존재하면 팀원은 무조건 1명이상 존재
                     } else {
-                        //Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -131,13 +137,14 @@ public class FutSalHelp_NoticeFragment extends Fragment implements View.OnClickL
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             //TODO 겟 처리 후 결과
-            if (noticeSize != 0) {
-                for (int i = 0; i < noticeSize; i++) {
-                    noticeAdapter.addItem(notice_category.get(i), notice_title.get(i),notice_id.get(i));
+            Toast.makeText(getActivity(), "팀원을 성공적으로 불러왔습니다.", Toast.LENGTH_SHORT).show();
+            if (memberSize != 0) {
+                for (int i = 0; i < memberSize; i++) {
+                    memberAdapter.addItem(member_id.get(i), member_name.get(i),member_age.get(i),member_location.get(i),member_phonenumber.get(i),member_position.get(i));
                 }
-                noticeAdapter.notifyDataSetChanged();
+                memberAdapter.notifyDataSetChanged();
             } else {
-                Toast.makeText(getActivity(), "공지사항이 없습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "에러", Toast.LENGTH_SHORT).show();
             }
 
 

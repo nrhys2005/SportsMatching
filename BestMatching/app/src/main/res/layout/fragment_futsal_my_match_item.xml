@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -17,7 +16,7 @@
         android:paddingBottom="10dp">
 
         <LinearLayout
-            android:id="@+id/team_list_click"
+            android:id="@+id/my_match_list_click"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -33,91 +32,104 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/corner_shape">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:src="@color/grey"
-                        android:textStyle="bold"
-                        android:text="팀이름" />
-
-                    <TextView
-                        android:id="@+id/team_search_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:src="@color/colorAccent"
-                        android:paddingLeft="45dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/corner_shape">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:src="@color/colorAccent"
-                        android:textStyle="bold"
-                        android:text="대표번호" />
-
-                    <TextView
-                        android:id="@+id/team_search_phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:paddingLeft="35dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/corner_shape"
-                    >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:src="@color/colorAccent"
                         android:textStyle="bold"
-                        android:text="활동지역" />
+                        android:text="매칭제목" />
 
                     <TextView
-                        android:id="@+id/team_search_loacation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:src="@color/colorAccent"
-                        android:paddingLeft="35dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/corner_shape"
-                    >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:src="@color/colorAccent"
-                        android:textStyle="bold"
-                        android:text="활동요일" />
-
-                    <TextView
-                        android:id="@+id/team_search_week"
+                        android:id="@+id/my_match_title"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
-                        android:paddingLeft="35dp" />
+                        android:paddingLeft="30dp" />
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/corner_shape"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:text="구장" />
+
+                    <TextView
+                        android:id="@+id/my_match_ground"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:paddingLeft="55dp"
+                        android:text="" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/corner_shape"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:text="날짜" />
+
+                    <TextView
+                        android:id="@+id/my_match_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:paddingLeft="55dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/corner_shape"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:text="시간" />
+
+                    <TextView
+                        android:id="@+id/my_match_start_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:paddingLeft="55dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:paddingLeft="30dp"
+                        android:text="~" />
+
+                    <TextView
+                        android:id="@+id/my_match_end_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:paddingLeft="30dp"/>
                 </LinearLayout>
 
             </LinearLayout>
-
 
         </LinearLayout>
     </LinearLayout>

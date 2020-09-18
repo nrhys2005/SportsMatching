@@ -25,7 +25,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class FutSalTeamSearchActivity extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class FutSalTeamSearchFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private Context context;
     private ListView futsal_team_search;
@@ -44,19 +44,20 @@ public class FutSalTeamSearchActivity extends Fragment implements View.OnClickLi
     private int teamSize;
 
     ArrayList<String> team_search_name = new ArrayList<>();
+    ArrayList<String> team_search_master = new ArrayList<>();
     ArrayList<String> team_search_phone = new ArrayList<>();
     ArrayList<String> team_search_loaction = new ArrayList<>();
     ArrayList<String> team_search_week = new ArrayList<>();
     ArrayList<String> team_search_age = new ArrayList<>();
     ArrayList<String> team_search_comment = new ArrayList<>();
 
-    public static FutSalTeamSearchActivity newInstance() {
-        return new FutSalTeamSearchActivity();
+    public static FutSalTeamSearchFragment newInstance() {
+        return new FutSalTeamSearchFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
-        View view = inflater.inflate(R.layout.activity_futsal_team_search, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
+        View view = inflater.inflate(R.layout.fragment_futsal_team_search, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         context = container.getContext();
         teamsearch_text = (EditText) view.findViewById(R.id.teamsearch_text);
@@ -84,12 +85,13 @@ public class FutSalTeamSearchActivity extends Fragment implements View.OnClickLi
         //Toast.makeText(view.getContext(), Integer.toString(pos), Toast.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
         bundle.putString("team_name", team_search_name.get(pos));
+        bundle.putString("team_master", team_search_master.get(pos));
         bundle.putString("phonenumber", team_search_phone.get(pos));
         bundle.putString("location", team_search_loaction.get(pos));
         bundle.putString("week", team_search_week.get(pos));
         bundle.putString("avg_age", team_search_age.get(pos));
         bundle.putString("comment", team_search_comment.get(pos));
-        FutSalTeamSearchDetail f = new FutSalTeamSearchDetail();
+        FutSalTeamSearchDetailFragment f = new FutSalTeamSearchDetailFragment();
         f.setArguments(bundle);
         ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), f);
     }
@@ -126,6 +128,7 @@ public class FutSalTeamSearchActivity extends Fragment implements View.OnClickLi
                         for (int i = 0; i < teamSize; i++) {
                             JSONObject js = jsonArray.getJSONObject(i);
                             team_search_name.add(js.getString("team_name"));
+                            team_search_master.add(js.getString("master_id"));
                             team_search_phone.add(js.getString("phonenumber"));
                             team_search_loaction.add(js.getString("location"));
                             team_search_week.add(js.getString("week"));
@@ -162,7 +165,7 @@ public class FutSalTeamSearchActivity extends Fragment implements View.OnClickLi
 
             if (teamSize != 0) {
                 for (int i = 0; i < teamSize; i++) {
-                    futsalTeamSearchAdapter.addItem(team_search_name.get(i).toString(), team_search_phone.get(i).toString(), team_search_loaction.get(i).toString(), team_search_week.get(i).toString());
+                    futsalTeamSearchAdapter.addItem(team_search_name.get(i),team_search_master.get(i), team_search_phone.get(i), team_search_loaction.get(i), team_search_week.get(i));
                 }
                 futsalTeamSearchAdapter.notifyDataSetChanged();
             }

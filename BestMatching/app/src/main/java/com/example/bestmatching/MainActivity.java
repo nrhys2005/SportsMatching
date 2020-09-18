@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // 화면 전환 프래그먼트 선언 및 초기 화면 설정
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.fragment_container1, FutSalSearchActivity.newInstance());
-        ft.add(R.id.fragment_container2, FutSalSearchMapActivity.newInstance());
+        ft.add(R.id.fragment_container2, FutSalSearchMapFragment.newInstance());
         ft.commit();
 
         search_place=findViewById(R.id.search_place);
@@ -65,13 +65,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = v.getId();
         switch (id) {
             case R.id.search_place:
-                replaceFragment(FutSalSearchActivity.newInstance(), FutSalSearchMapActivity.newInstance());
+                replaceFragment(FutSalSearchActivity.newInstance(), FutSalSearchMapFragment.newInstance());
                 break;
             case R.id.match:
-                replaceFragment(FutSalMatchActivity.newInstance(), FutSalMatchRegisterActivity.newInstance());
+                replaceFragment(FutSalMatchActivity.newInstance(), FutSalMatchRegisterFragment.newInstance());
                 break;
             case R.id.team:
-                replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamRegisterActivity.newInstance());
+                replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamSearchFragment.newInstance());
                 break;
             case R.id.help:
                 replaceFragment(FutSalHelpActivity.newInstance(), FutSalHelp_MyinfoFragment.newInstance());

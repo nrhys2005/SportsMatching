@@ -5,10 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -58,7 +56,7 @@ public class FutsalMatchSearchAdapter extends BaseAdapter {
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.activity_futsal_match_search_item, parent, false);
+            convertView = inflater.inflate(R.layout.fragment_futsal_match_search_item, parent, false);
         }
 
         match_search_title = (TextView) convertView.findViewById(R.id.match_search_title);

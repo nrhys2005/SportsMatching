@@ -86,8 +86,8 @@ router.get('/search/:search', function (req, res) {
     });
 });
 
-router.post('/signup', function (req, res) {
-    console.log('<<Team/signup>>');
+router.post('/join', function (req, res) {
+    console.log('<<Team/join>>');
     req.on('data', (data) => {
         var update_data_array= [];
         var Data = JSON.parse(data); // JSON data 받음
@@ -108,4 +108,38 @@ router.post('/signup', function (req, res) {
     });
 });
 
+
+router.post('/join/agreement', function (req, res) {
+    console.log('<<Team/agreement>>');
+    req.on('data', (data) => {
+        var data_array= [];
+        var Data = JSON.parse(data); // JSON data 받음
+        var team_name =Data.team_name;
+        var user_id = Data.user_id;
+        var update_sql = 'update user set team name = ? where user.id == ?';
+        data_array.push(team_name);
+        data_array.push(user_id);
+
+        dbconn.query(update_sql, data_array, function (err, rows, fields) {//DB connect
+            if (!err) {
+                console.log('Query update success');
+                var delete_sql = 'DELETE from waiting where user_id = ?';
+                dbconn.query(delete_sql, data_array, function (err, rows, fields) {//DB connect
+                    if (!err) {
+                        console.log('Query delete success');
+                        res.json( {"result": "Success"});
+                        
+                    } else {
+                        console.log('Query Update Error : ' + err);
+                        res.json({ "result": err });
+                    }
+                });
+                
+            } else {
+                console.log('Query Update Error : ' + err);
+                res.json( {"result": err});
+            }
+        });
+    });
+});
 module.exports = router;

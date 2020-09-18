@@ -35,8 +35,8 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
 
     LoginActivity lg = new LoginActivity();
 
-    EditText my_match_search;
-    Button my_match_search_btn;
+    //EditText my_match_search;
+    //Button my_match_search_btn;
 
     String ip = lg.ip;
     private String now_id = lg.Myid;
@@ -64,8 +64,8 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
         View view = inflater.inflate(R.layout.fragment_futsal_my_match, container, false); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         context = container.getContext();
-        my_match_search = (EditText) view.findViewById(R.id.my_match_search);
-        my_match_search_btn = (Button) view.findViewById(R.id.my_match_search_btn);
+        //my_match_search = (EditText) view.findViewById(R.id.my_match_search);
+        //my_match_search_btn = (Button) view.findViewById(R.id.my_match_search_btn);
 
         futsalMyMatchAdapter = new FutsalMyMatchAdapter();
 
@@ -76,7 +76,7 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
 
         futsalMyMatchAdapter.notifyDataSetChanged();
 
-        my_match_search_btn.setOnClickListener(this);
+        //my_match_search_btn.setOnClickListener(this);
         futsal_my_match.setOnItemClickListener(this);
 
         return view;
@@ -179,7 +179,7 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
 
     }
 
-    public void clear() {
+/*    public void clear() {
         my_match_title.clear();
         my_match_ground.clear();
         my_match_date.clear();
@@ -189,12 +189,12 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
         my_match_id.clear();
         futsalMyMatchAdapter.clearItem();
         futsalMyMatchAdapter.notifyDataSetChanged();
-    }
+    }*/
 
     @Override
     public void onClick(View v) {
-     /*   int a = v.getId();
-        switch (a) {
+        int a = v.getId();
+       /* switch (a) {
             case R.id.my_match_search_btn:
                 String text = my_match_search.getText().toString();
 

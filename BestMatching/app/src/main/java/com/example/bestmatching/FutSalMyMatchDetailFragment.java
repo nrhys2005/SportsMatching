@@ -182,10 +182,10 @@ public class FutSalMyMatchDetailFragment extends Fragment implements View.OnClic
         int a = v.getId();
         switch (a) {
             case R.id.back_btn:
-                ((MainActivity) getActivity()).backFragment(FutSalMatchActivity.newInstance(), FutSalMatchSearchFragment.newInstance());
+                ((MainActivity) getActivity()).backFragment(FutSalMatchActivity.newInstance(), FutSalMyMatchFragment.newInstance());
                 break;
             case R.id.match_cancel:
-                //new Post().execute(ip + "/match/mymatching_cancel");
+                new Post().execute(ip + "/match/mymatching_cancel");
                 break;
         }
 

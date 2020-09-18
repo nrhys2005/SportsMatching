@@ -29,7 +29,7 @@ public class FutSalMatchSearchDetail extends Fragment implements View.OnClickLis
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
-        View view = inflater.inflate(R.layout.activity_futsal_match_search_item_detail, null);
+        View view = inflater.inflate(R.layout.fragment_futsal_match_search_item_detail, null);
 
         context = container.getContext();
 

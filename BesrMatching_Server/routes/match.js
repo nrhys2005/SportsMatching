@@ -137,10 +137,9 @@ router.post('/join', function (req, res) {
                     res.json({ "result": "no find" });
                 }
                 else {
-                    console.log('11111111111');
                     var max_user = rows[0].max_user;
-                    var count_sql = 'select count(*) as count from best_matching.match, best_matching.matching_user where matching_user.match_id =match.id and matching_user.user_id= ?';
-                    dbconn.query(count_sql, user_id, function (err, rows, fields) {//DB connect
+                    var count_sql = 'select count(*) as count from best_matching.match, best_matching.matching_user where matching_user.match_id =?';
+                    dbconn.query(count_sql, match_id, function (err, rows, fields) {//DB connect
                         if (!err) {
                             if (rows.length == 0) {
                                 console.log('Query Select Success("result": "no find")');
@@ -152,7 +151,6 @@ router.post('/join', function (req, res) {
                                     res.json({ "result": "full" });
                                 }
                                 else {
-                                    console.log('222222222');
                                     var insert_data_array = [];
                                     insert_data_array.push(user_id);
                                     insert_data_array.push(match_id);

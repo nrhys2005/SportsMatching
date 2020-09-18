@@ -186,6 +186,7 @@ public class FutSalMyMatchDetailFragment extends Fragment implements View.OnClic
                 break;
             case R.id.match_cancel:
                 new Post().execute(ip + "/match/mymatching_cancel");
+                ((MainActivity) getActivity()).backFragment(FutSalMatchActivity.newInstance(), FutSalMyMatchFragment.newInstance());
                 break;
         }
 

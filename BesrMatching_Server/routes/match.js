@@ -240,31 +240,34 @@ router.get('/mymatching/:match_id', function (req, res) {
     });
 });
 
-router.get('/mymatching_cancel', function (req, res) {
+router.post('/mymatching_cancel', function (req, res) {
     console.log('<<match/mymatching_cancel>>');
-    var user_id = req.query.user_id;
-    var match_id = req.query.match_id;
-    var delete_data_array = [];
-    delete_data_array.push(user_id);
-    delete_data_array.push(match_id);
-    console.log('cancel id, match_id= '+ user_id, match_id);
-    var sql = "DELETE FROM matching_user WHERE user_id = ? and match_id = ?";
+    req.on('data', (data) => {
+        var inputData = JSON.parse(data); // JSON data 받음
+        var user_id = inputData.user_id;
+        var match_id = inputData.match_id;
+        var delete_data_array = [];
+        delete_data_array.push(user_id);
+        delete_data_array.push(match_id);
+        console.log('cancel id, match_id= ' + user_id, match_id);
+        var sql = "DELETE FROM matching_user WHERE user_id = ? and match_id = ?";
 
-    dbconn.query(sql, delete_data_array, function (err, rows, fields) {//DB connect
-        if (!err) {
-            if (rows.length == 0) {
-                console.log('Query delete success("result": "no find")');
-                res.json({ "result": "no find" });
-            }
-            else {
-                console.log('Query delete success(result": "Success)');
-                res.json({ "result": "Success"});
-            }
+        dbconn.query(sql, delete_data_array, function (err, rows, fields) {//DB connect
+            if (!err) {
+                if (rows.length == 0) {
+                    console.log('Query delete success("result": "no find")');
+                    res.json({ "result": "no find" });
+                }
+                else {
+                    console.log('Query delete success(result": "Success)');
+                    res.json({ "result": "Success" });
+                }
 
-        } else {
-            console.log('Query delete error : ' + err);
-            res.json({ "result": err });
-        }
+            } else {
+                console.log('Query delete error : ' + err);
+                res.json({ "result": err });
+            }
+        });
     });
 });
 

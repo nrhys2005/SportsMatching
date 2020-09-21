@@ -22,13 +22,14 @@ router.post('/create', function (req, res) {
         input_data_array.push(inputData.end_time);
         input_data_array.push(inputData.cost);
         input_data_array.push(inputData.max_user);
+        input_data_array.push(0);
         let today = new Date();   
         input_data_array.push(today);
         var user_id =inputData.user_id;
 
         console.log('input_data : ' + input_data_array); 
 
-        var sql_insert = 'INSERT INTO best_matching.match (title, ground_name, date, start_time, end_time,cost,max_user,create_time) VALUES(?, ?, ?, ?, ?, ?,?,?)';
+        var sql_insert = 'INSERT INTO best_matching.match (title, ground_name, date, start_time, end_time,cost,max_user,create_time, participants) VALUES(?, ?, ?, ?, ?, ?,?,?,?)';
         dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
             if (!err) {
                 //console.log('Query insert success');
@@ -163,11 +164,27 @@ router.post('/join', function (req, res) {
                                             }
                                             else {
                                                 console.log('Query insert success(result": "Success)');
-                                                res.json({ "result": "Success" });
                                             }
 
                                         } else {
                                             console.log('Query insert error : ' + err);
+                                            res.json({ "result": err });
+                                        }
+                                    });
+                                    var update_sql = "UPDATE best_matching.match SET participants = participants + 1 where id = ?";
+                                    dbconn.query(update_sql, match_id, function (err, rows, fields) {//DB connect
+                                        if (!err) {
+                                            if (rows.length == 0) {
+                                                console.log('Query update success("result": "no find")');
+                                                res.json({ "result": "no find" });
+                                            }
+                                            else {
+                                                console.log('Query update success(result": "Success)');
+                                                res.json({ "result": "Success" });
+                                            }
+
+                                        } else {
+                                            console.log('Query update error : ' + err);
                                             res.json({ "result": err });
                                         }
                                     });
@@ -220,6 +237,29 @@ router.get('/mymatching/:match_id', function (req, res) {
     console.log('Search = '+ search_match_id);
     var sql = 'select * from best_matching.match where match.id = ?';
 
+    dbconn.query(sql, search_match_id, function (err, rows, fields) {//DB connect
+        if (!err) {
+            if (rows.length == 0) {
+                console.log('Query Select Success("result": "no find")');
+                res.json({ "result": "no find" });
+            }
+            else {
+                console.log('Query Select Success(result": "Success)');
+                res.json({ "result": "Success",mymatch_info : rows });
+            }
+
+        } else {
+            console.log('Query Select Error : ' + err);
+            res.json({ "result": err });
+        }
+    });
+});
+router.get('/match_participants_list/:match_id', function (req, res) {
+    console.log('<<match/match_participants_list>>');
+    var search_match_id = req.params.match_id;
+    //var Data = JSON.parse(data); // JSON data 받음
+    console.log('Search = '+ search_match_id);
+    var count_sql = 'select count(*) as count from best_matching.match, best_matching.matching_user where matching_user.match_id =?';
     dbconn.query(sql, search_match_id, function (err, rows, fields) {//DB connect
         if (!err) {
             if (rows.length == 0) {

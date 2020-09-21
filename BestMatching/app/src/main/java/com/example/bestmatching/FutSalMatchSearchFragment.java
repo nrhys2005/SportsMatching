@@ -51,6 +51,7 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
     ArrayList<String> match_search_start_time = new ArrayList<>();
     ArrayList<String> match_search_end_time = new ArrayList<>();
     ArrayList<String> match_cost = new ArrayList<>();
+   // ArrayList<String> match_search_participants = new ArrayList<>();
     ArrayList<String> match_search_max_user = new ArrayList<>();
     ArrayList<String> match_id = new ArrayList<>();
 
@@ -95,6 +96,7 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
         bundle.putString("start_time", match_search_start_time.get(pos));
         bundle.putString("end_time", match_search_end_time.get(pos));
         bundle.putString("cost", match_cost.get(pos));
+        //bundle.putString("participants", match_search_participants.get(pos));
         bundle.putString("max_user", match_search_max_user.get(pos));
         bundle.putString("id", match_id.get(pos));
         FutSalMatchSearchDetailFragment f = new FutSalMatchSearchDetailFragment();
@@ -138,8 +140,9 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
                             match_search_date.add(js.getString("date"));
                             match_search_start_time.add(js.getString("start_time"));
                             match_search_end_time.add(js.getString("end_time"));
-                            match_search_max_user.add(js.getString("max_user"));
                             match_cost.add(js.getString("cost"));
+                            //match_search_participants.add(js.getString("participants"));
+                            match_search_max_user.add(js.getString("max_user"));
                             match_id.add(js.getString("id"));
                         }
                     } else if (msg.equals("no find")) {
@@ -188,6 +191,7 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
         match_search_start_time.clear();
         match_search_end_time.clear();
         match_cost.clear();
+        //match_search_participants.clear();
         match_search_max_user.clear();
         match_id.clear();
         futsalMatchSearchAdapter.clearItem();

@@ -41,6 +41,7 @@ public class FutSalMatchSearchDetailFragment extends Fragment implements View.On
     TextView detail_match_start_time;
     TextView detail_match_end_time;
     TextView detail_match_cost;
+    //TextView detail_match_participants;
     TextView detail_match_max_user;
 
     Button back_btn;
@@ -62,6 +63,7 @@ public class FutSalMatchSearchDetailFragment extends Fragment implements View.On
         detail_match_start_time = (TextView)view.findViewById(R.id.detail_match_start_time);
         detail_match_end_time = (TextView)view.findViewById(R.id.detail_match_end_time);
         detail_match_cost = (TextView)view.findViewById(R.id.detail_match_cost);
+        //detail_match_participants = (TextView)view.findViewById(R.id.detail_match_participants);
         detail_match_max_user = (TextView)view.findViewById(R.id.detail_match_max_user);
 
         String title = getArguments().getString("title");
@@ -70,6 +72,7 @@ public class FutSalMatchSearchDetailFragment extends Fragment implements View.On
         String start_time = getArguments().getString("start_time");
         String end_time = getArguments().getString("end_time");
         String cost = getArguments().getString("cost");
+        //String participants = getArguments().getString("participants");
         String max_user = getArguments().getString("max_user");
         //String id = getArguments().getString("id");
 
@@ -79,6 +82,7 @@ public class FutSalMatchSearchDetailFragment extends Fragment implements View.On
         detail_match_start_time.setText(start_time);
         detail_match_end_time.setText(end_time);
         detail_match_cost.setText(cost + "원");
+        //detail_match_participants.setText(participants + "명");
         detail_match_max_user.setText(max_user + "명");
 
         back_btn = (Button)view.findViewById(R.id.back_btn);

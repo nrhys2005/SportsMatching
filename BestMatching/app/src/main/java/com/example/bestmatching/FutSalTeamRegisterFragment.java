@@ -192,6 +192,7 @@ public class FutSalTeamRegisterFragment extends Fragment implements View.OnClick
                 if ( msg.equals("Success")){
                     Toast.makeText(context.getApplicationContext(),"팀등록 성공",Toast.LENGTH_SHORT).show();
                     reset();
+                    ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(),FutSalTeamSearchFragment.newInstance());
                 }
                 else {
                     Toast.makeText(context.getApplicationContext(),"팀등록 실패",Toast.LENGTH_SHORT).show();

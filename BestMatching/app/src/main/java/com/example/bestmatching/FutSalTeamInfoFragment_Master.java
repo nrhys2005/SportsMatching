@@ -88,6 +88,10 @@ public class FutSalTeamInfoFragment_Master extends Fragment implements View.OnCl
         comment = (EditText) view.findViewById(R.id.comment);
         team_member = (Button)view.findViewById(R.id.team_member);
         team_update = (Button)view.findViewById(R.id.team_update);
+        age_avg.setOnClickListener(this);
+        level.setOnClickListener(this);
+        location.setOnClickListener(this);
+        week.setOnClickListener(this);
 
         team_member.setOnClickListener(this);
         team_update.setOnClickListener(this);
@@ -387,7 +391,8 @@ public class FutSalTeamInfoFragment_Master extends Fragment implements View.OnCl
                 dialog.show();
                 break;
 
-            case R.id.team_member://팀장이 인원 조회 눌렀을 때
+            case R.id.team_member://팀장이 팀원버튼 눌렀을 때
+                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(),FutSalTeam_MemberFragment_master.newInstance());
 
                 break;
             case R.id.team_update: {

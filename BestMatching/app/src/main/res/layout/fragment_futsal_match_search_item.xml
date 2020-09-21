@@ -143,11 +143,26 @@
                         android:text="인원" />
 
                     <TextView
+                        android:id="@+id/match_search_participants"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:text="0명"
+                        android:paddingLeft="55dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:paddingLeft="50dp"
+                        android:text="/" />
+
+                    <TextView
                         android:id="@+id/match_search_max_user"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
-                        android:paddingLeft="55dp" />
+                        android:paddingLeft="55dp"/>
                 </LinearLayout>
 
             </LinearLayout>

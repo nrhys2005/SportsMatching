@@ -40,6 +40,7 @@ public class FutSalMyMatchDetailFragment extends Fragment implements View.OnClic
     TextView detail_my_match_start_time;
     TextView detail_my_match_end_time;
     TextView detail_my_match_cost;
+    TextView detail_my_match_max_user;
 
     Button back_btn;
     Button match_cancel;
@@ -60,6 +61,7 @@ public class FutSalMyMatchDetailFragment extends Fragment implements View.OnClic
         detail_my_match_start_time = (TextView)view.findViewById(R.id.detail_my_match_start_time);
         detail_my_match_end_time = (TextView)view.findViewById(R.id.detail_my_match_end_time);
         detail_my_match_cost = (TextView)view.findViewById(R.id.detail_my_match_cost);
+        detail_my_match_max_user = (TextView)view.findViewById(R.id.detail_my_match_max_user);
 
         String title = getArguments().getString("title");
         String ground_name = getArguments().getString("ground_name");
@@ -67,6 +69,7 @@ public class FutSalMyMatchDetailFragment extends Fragment implements View.OnClic
         String start_time = getArguments().getString("start_time");
         String end_time = getArguments().getString("end_time");
         String cost = getArguments().getString("cost");
+        String max_user = getArguments().getString("max_user");
 
         detail_my_match_title.setText(title);
         detail_my_match_ground_name.setText(ground_name);
@@ -74,6 +77,7 @@ public class FutSalMyMatchDetailFragment extends Fragment implements View.OnClic
         detail_my_match_start_time.setText(start_time);
         detail_my_match_end_time.setText(end_time);
         detail_my_match_cost.setText(cost + "원");
+        detail_my_match_max_user.setText(max_user + "명");
 
         back_btn = (Button)view.findViewById(R.id.back_btn);
         match_cancel = (Button)view.findViewById(R.id.match_cancel);

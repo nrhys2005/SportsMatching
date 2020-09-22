@@ -281,7 +281,7 @@ router.post('/join/agreement', function (req, res) {
             if (!err) {
                 console.log('Query update success');
                 var delete_sql = 'DELETE from best_matching.team_waiting where user_id = ?';
-                dbconn.query(delete_sql, data_array, function (err, rows, fields) {//DB connect
+                dbconn.query(delete_sql,user_id, function (err, rows, fields) {//DB connect
                     if (!err) {
                         console.log('Query delete success');
                         res.json( {"result": "Success"});

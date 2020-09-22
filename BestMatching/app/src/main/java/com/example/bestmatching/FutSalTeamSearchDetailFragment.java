@@ -142,7 +142,7 @@ public class FutSalTeamSearchDetailFragment extends Fragment implements View.OnC
                 JSONObject jsonObject = new JSONObject();
                 //jsonObject.put("user_id", "androidTest");
                 //jsonObject.put("name", "yun");
-                jsonObject.put("waiting", detail_team_name.getText().toString()+"_waiting");
+                //jsonObject.put("waiting", detail_team_name.getText().toString()+"_waiting");
                 jsonObject.put("team_name", detail_team_name.getText().toString());
                 jsonObject.put("user_id", lg.Myid);
 

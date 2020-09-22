@@ -298,7 +298,23 @@ router.post('/mymatching_cancel', function (req, res) {
                 }
                 else {
                     console.log('Query delete success(result": "Success)');
-                    res.json({ "result": "Success" });
+                    var update_sql = "UPDATE best_matching.match SET participants = participants - 1 where id = ?";
+                    dbconn.query(update_sql, match_id, function (err, rows, fields) {//DB connect
+                        if (!err) {
+                            if (rows.length == 0) {
+                                console.log('Query update success("result": "no find")');
+                                res.json({ "result": "no find" });
+                            }
+                            else {
+                                console.log('Query update success(result": "Success)');
+                                res.json({ "result": "Success" });
+                            }
+
+                        } else {
+                            console.log('Query update error : ' + err);
+                            res.json({ "result": err });
+                        }
+                    });
                 }
 
             } else {

@@ -147,7 +147,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
-                        android:text="0명"
+                        android:text=""
                         android:paddingLeft="55dp"/>
 
                     <TextView

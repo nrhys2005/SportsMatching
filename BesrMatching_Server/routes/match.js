@@ -7,6 +7,7 @@ router.get('/', function (req, res) {
     console.log('<<Login>>');
 });
 
+
 router.post('/create', function (req, res) {
     
     console.log('<<match/create>>');
@@ -22,9 +23,9 @@ router.post('/create', function (req, res) {
         input_data_array.push(inputData.end_time);
         input_data_array.push(inputData.cost);
         input_data_array.push(inputData.max_user);
-        input_data_array.push(0);
         let today = new Date();   
         input_data_array.push(today);
+        input_data_array.push(0);
         var user_id =inputData.user_id;
 
         console.log('input_data : ' + input_data_array); 
@@ -221,6 +222,7 @@ router.get('/mymatching_list/:user_id', function (req, res) {
             }
             else {
                 console.log('Query Select Success(result": "Success)');
+                console.log(rows);
                 res.json({ "result": "Success",mymatch_list_info : rows });
             }
 
@@ -259,7 +261,7 @@ router.get('/match_participants_list/:match_id', function (req, res) {
     var match_id = req.params.match_id;
     //var Data = JSON.parse(data); // JSON data 받음
     console.log('Search = '+ match_id);
-    var count_sql = 'select * from best_matching.user, best_matching.matching_user where matching_user.match_id =?';
+    var sql = 'select * from best_matching.user, best_matching.matching_user where user.id = matching_user.user_id and matching_user.match_id =?';
     dbconn.query(sql, match_id, function (err, rows, fields) {//DB connect
         if (!err) {
             if (rows.length == 0) {
@@ -268,7 +270,8 @@ router.get('/match_participants_list/:match_id', function (req, res) {
             }
             else {
                 console.log('Query Select Success(result": "Success)');
-                res.json({ "result": 200,mymatch_info : rows });
+                console.log(rows);
+                res.json({ "result": "Success",mymatch_info : rows });
             }
 
         } else {
@@ -298,7 +301,23 @@ router.post('/mymatching_cancel', function (req, res) {
                 }
                 else {
                     console.log('Query delete success(result": "Success)');
-                    res.json({ "result": "Success" });
+                    var update_sql = "UPDATE best_matching.match SET participants = participants - 1 where id = ?";
+                    dbconn.query(update_sql, match_id, function (err, rows, fields) {//DB connect
+                        if (!err) {
+                            if (rows.length == 0) {
+                                console.log('Query update success("result": "no find")');
+                                res.json({ "result": "no find" });
+                            }
+                            else {
+                                console.log('Query update success(result": "Success)');
+                                res.json({ "result": "Success" });
+                            }
+
+                        } else {
+                            console.log('Query update error : ' + err);
+                            res.json({ "result": err });
+                        }
+                    });
                 }
 
             } else {

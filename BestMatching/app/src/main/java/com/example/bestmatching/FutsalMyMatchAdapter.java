@@ -17,6 +17,7 @@ public class FutsalMyMatchAdapter extends BaseAdapter {
     private TextView my_match_date;
     private TextView my_match_start_time;
     private TextView my_match_end_time;
+    private TextView my_match_part_user;
     private TextView my_match_max_user;
 
     public LinearLayout my_match_list_click;
@@ -65,6 +66,7 @@ public class FutsalMyMatchAdapter extends BaseAdapter {
         my_match_date = (TextView) convertView.findViewById(R.id.my_match_date);
         my_match_start_time = (TextView) convertView.findViewById(R.id.my_match_start_time);
         my_match_end_time = (TextView) convertView.findViewById(R.id.my_match_end_time);
+        my_match_part_user = (TextView) convertView.findViewById(R.id.my_match_part_user);
         my_match_max_user = (TextView) convertView.findViewById(R.id.my_match_max_user);
 
         FutSalMyMatchItems futSalMyMatchItems = mymatchItems.get(position);
@@ -74,6 +76,7 @@ public class FutsalMyMatchAdapter extends BaseAdapter {
         my_match_date.setText(futSalMyMatchItems.getDate());
         my_match_start_time.setText(futSalMyMatchItems.getStartTime());
         my_match_end_time.setText(futSalMyMatchItems.getEndTime());
+        my_match_part_user.setText(futSalMyMatchItems.getPartUser());
         my_match_max_user.setText(futSalMyMatchItems.getMaxUser());
 
         my_match_list_click = (LinearLayout)convertView.findViewById(R.id.my_match_list_click);
@@ -83,7 +86,7 @@ public class FutsalMyMatchAdapter extends BaseAdapter {
 
 
     //아이템 데이터 추가를 위한 함수
-    public void addItem(String title, String ground, String date, String start_time, String end_time, String max_user){
+    public void addItem(String title, String ground, String date, String start_time, String end_time, String part_user, String max_user){
         FutSalMyMatchItems mymatchSearchItems = new FutSalMyMatchItems();
 
         mymatchSearchItems.setTitle(title);
@@ -91,6 +94,7 @@ public class FutsalMyMatchAdapter extends BaseAdapter {
         mymatchSearchItems.setDate(date);
         mymatchSearchItems.setStartTime(start_time);
         mymatchSearchItems.setEndtime(end_time);
+        mymatchSearchItems.setPartUser(part_user);
         mymatchSearchItems.setMaxUser(max_user);
 
         mymatchItems.add(mymatchSearchItems);

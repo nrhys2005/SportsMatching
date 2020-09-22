@@ -7,6 +7,7 @@ public class FutSalMyMatchItems {
     private String dateStr;
     private String startTimeStr;
     private String endTimeStr;
+    private String partUserStr;
     private String maxUserStr;
 
     public void setTitle(String title) {
@@ -27,6 +28,10 @@ public class FutSalMyMatchItems {
 
     public void setEndtime(String end_time) {
         endTimeStr = end_time;
+    }
+
+    public void setPartUser(String part_user) {
+        partUserStr = part_user;
     }
 
     public void setMaxUser(String max_user) {
@@ -54,6 +59,10 @@ public class FutSalMyMatchItems {
 
     public String getEndTime() {
         return this.endTimeStr;
+    }
+
+    public String getPartUser() {
+        return this.partUserStr;
     }
 
     public String getMaxUser() {

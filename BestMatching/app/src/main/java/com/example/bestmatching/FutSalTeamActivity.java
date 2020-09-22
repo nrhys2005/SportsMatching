@@ -36,9 +36,11 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
     public static String team_name="";
     public static String get_master_id="";
     public static String get_id="";
-
+    public static String get_wait="";
     //팀에 소속되었는지 판단
-    private static int in_team=0;
+    public static int in_team=0;
+    //팀 가입신청 수락 대기중인지 판단
+    public static int wait_team=0;
     //팀장인지 판단
     public static int Team_Master=0;
 
@@ -75,12 +77,14 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
                         Toast.makeText(context.getApplicationContext(), "소속된 팀이 없습니다.", Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
+                        System.out.println(Team_Master);
                         Toast.makeText(context.getApplicationContext(), "소속된 팀이 있습니다.", Toast.LENGTH_SHORT).show();
                         switch (Team_Master){
                             case 0://팀원
                                 ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamInfoFragment.newInstance());
                                 break;
                             case 1://팀장
+
                                 ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamInfoFragment_Master.newInstance());
                                 break;
                         }
@@ -91,7 +95,14 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
             case R.id.team_create:
                 switch (in_team) {
                     case 0:
-                        ((MainActivity) getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamRegisterFragment.newInstance());
+                        switch (wait_team) {
+                            case 0://가입된 팀이 없고 수락 대기중이 아닐때
+                                ((MainActivity) getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamRegisterFragment.newInstance());
+                                break;
+                            case 1: //가입된 팀이 없고 수락 대기중일때
+                                Toast.makeText(context.getApplicationContext(), "가입 신청 대기중 입니다..", Toast.LENGTH_SHORT).show();
+                                break;
+                        }
                         break;
                     case 1:
                         Toast.makeText(context.getApplicationContext(), "이미 소속된 팀이 있습니다.", Toast.LENGTH_SHORT).show();
@@ -133,6 +144,9 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
                         get_id=js.getString("id");
                         team_name=js.getString("team_name");
                         get_master_id=js.getString("master_id");
+                        get_wait=js.getString("wait_state");
+
+
                     }
                      else {
                         Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
@@ -157,18 +171,27 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
             super.onPostExecute(result);
             //TODO 겟 처리 후 결과
 
+            //팀 가입신청 수락 대기중이면 1 아니면 0
+            if(get_wait.equals("")||get_wait.equals("null"))
+                wait_team=0;
+            else
+                wait_team=1;
+
+            //소속된 팀이 있으면 1 없으면 0
             if(team_name.equals("")||team_name.equals("null"))
                 in_team=0;
             else
                 in_team=1;
-
-            System.out.println("ttt"+team_name);
-
+            //소속된 팀의 팀장이면 1 팀원이면 0
+            System.out.println(get_id+","+get_master_id);
             if(get_id.equals(get_master_id)) {
+
                 Team_Master = 1;
             }
             else
                 Team_Master=0;
+
+
 
 
         }

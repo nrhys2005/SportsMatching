@@ -22,7 +22,6 @@ router.post('/create', function (req, res) {
         input_data_array.push(inputData.end_time);
         input_data_array.push(inputData.cost);
         input_data_array.push(inputData.max_user);
-        input_data_array.push(0);
         let today = new Date();   
         input_data_array.push(today);
         input_data_array.push(0);

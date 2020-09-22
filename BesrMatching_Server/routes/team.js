@@ -238,7 +238,7 @@ router.post('/join', function (req, res) {
                         console.log('Query update success(user_info)');
                     } else {
                         console.log('Query Update Error(user_info) : ' + err);
-                        res.json({ "result": 400 });
+                        //res.json({ "result": 400 });
                     }
                 });
                 if (rows.length== 0) {

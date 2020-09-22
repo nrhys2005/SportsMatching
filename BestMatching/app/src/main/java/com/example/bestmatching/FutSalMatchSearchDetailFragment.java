@@ -34,6 +34,7 @@ public class FutSalMatchSearchDetailFragment extends Fragment implements View.On
     LoginActivity lg = new LoginActivity();
     String ip = lg.ip;
     String now_id = lg.Myid;
+    String match_id;
 
     TextView detail_match_title;
     TextView detail_match_ground_name;
@@ -45,6 +46,7 @@ public class FutSalMatchSearchDetailFragment extends Fragment implements View.On
     TextView detail_match_max_user;
 
     Button back_btn;
+    Button match_participants;
     Button match_join;
 
     public static FutSalMatchSearchDetailFragment newInstance() {
@@ -74,7 +76,7 @@ public class FutSalMatchSearchDetailFragment extends Fragment implements View.On
         String cost = getArguments().getString("cost");
         //String participants = getArguments().getString("participants");
         String max_user = getArguments().getString("max_user");
-        //String id = getArguments().getString("id");
+        match_id = getArguments().getString("id");
 
         detail_match_title.setText(title);
         detail_match_ground_name.setText(ground_name);
@@ -86,9 +88,11 @@ public class FutSalMatchSearchDetailFragment extends Fragment implements View.On
         detail_match_max_user.setText(max_user + "명");
 
         back_btn = (Button)view.findViewById(R.id.back_btn);
+        match_participants = (Button)view.findViewById(R.id.match_participants);
         match_join = (Button)view.findViewById(R.id.match_join);
 
         back_btn.setOnClickListener(this);
+        match_participants.setOnClickListener(this);
         match_join.setOnClickListener(this);
 
         return view;
@@ -192,7 +196,14 @@ public class FutSalMatchSearchDetailFragment extends Fragment implements View.On
         int a = v.getId();
         switch (a) {
             case R.id.back_btn:
-                ((MainActivity) getActivity()).backFragment(FutSalMatchActivity.newInstance(), FutSalMatchSearchFragment.newInstance());
+                ((MainActivity)getActivity()).backFragment(FutSalMatchActivity.newInstance(), FutSalMatchSearchFragment.newInstance());
+                break;
+            case R.id.match_participants:
+                Bundle bundle = new Bundle();
+                bundle.putString("id", match_id);
+                FutSalMatchSearchPartFragment f = new FutSalMatchSearchPartFragment();
+                f.setArguments(bundle);
+                ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), f);
                 break;
             case R.id.match_join:
                 new Post().execute(ip + "/match/join");

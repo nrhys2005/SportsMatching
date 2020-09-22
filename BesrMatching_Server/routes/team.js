@@ -308,9 +308,9 @@ router.get('/team_waiting_list', function (req, res) {
     //console.log("session~~~~~~~~~~~~~~~~~~~~~~~~~"+req.session.id);
     console.log('Search ='+ search);
     
-    sql = 'select * from best_matching.user natural join best_matching.team_waiting ';
+    sql = 'select * from best_matching.user, best_matching.team_waiting where user.id=team_waiting.user_id and team_waiting.team_name=? ';
 
-    dbconn.query(sql, search_data_array, function (err, rows, fields) {//DB connect
+    dbconn.query(sql, search, function (err, rows, fields) {//DB connect
         if (!err) {
             if (rows.length == 0) {
                 console.log('Query Select Success("result": "no find")');

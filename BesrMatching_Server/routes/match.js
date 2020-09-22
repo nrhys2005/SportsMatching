@@ -24,7 +24,7 @@ router.post('/create', function (req, res) {
         input_data_array.push(inputData.max_user);
         let today = new Date();   
         input_data_array.push(today);
-        input_data_array.push(0);
+        input_data_array.push(1);
         var user_id =inputData.user_id;
 
         console.log('input_data : ' + input_data_array); 

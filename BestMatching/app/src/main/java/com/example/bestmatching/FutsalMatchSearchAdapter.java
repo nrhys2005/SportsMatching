@@ -17,6 +17,8 @@ public class FutsalMatchSearchAdapter extends BaseAdapter {
     private TextView match_search_date;
     private TextView match_search_start_time;
     private TextView match_search_end_time;
+    private TextView match_search_participants;
+    private TextView match_search_max_user;
 
     public LinearLayout match_list_click;
 
@@ -64,6 +66,8 @@ public class FutsalMatchSearchAdapter extends BaseAdapter {
         match_search_date = (TextView) convertView.findViewById(R.id.match_search_date);
         match_search_start_time = (TextView) convertView.findViewById(R.id.match_search_start_time);
         match_search_end_time = (TextView) convertView.findViewById(R.id.match_search_end_time);
+        match_search_participants = (TextView) convertView.findViewById(R.id.match_search_participants);
+        match_search_max_user = (TextView) convertView.findViewById(R.id.match_search_max_user);
 
         FutSalMatchSearchItems futSalMatchSearchItems = matchItems.get(position);
 
@@ -72,6 +76,8 @@ public class FutsalMatchSearchAdapter extends BaseAdapter {
         match_search_date.setText(futSalMatchSearchItems.getDate());
         match_search_start_time.setText(futSalMatchSearchItems.getStartTime());
         match_search_end_time.setText(futSalMatchSearchItems.getEndTime());
+        match_search_participants.setText(futSalMatchSearchItems.getParticipants());
+        match_search_max_user.setText(futSalMatchSearchItems.getMaxUser());
 
         match_list_click = (LinearLayout)convertView.findViewById(R.id.match_list_click);
 
@@ -80,7 +86,7 @@ public class FutsalMatchSearchAdapter extends BaseAdapter {
 
 
     //아이템 데이터 추가를 위한 함수
-    public void addItem(String title, String ground, String date, String start_time, String end_time){
+    public void addItem(String title, String ground, String date, String start_time, String end_time, String participants, String max_user){
         FutSalMatchSearchItems matchSearchItems = new FutSalMatchSearchItems();
 
         matchSearchItems.setTitle(title);
@@ -88,6 +94,8 @@ public class FutsalMatchSearchAdapter extends BaseAdapter {
         matchSearchItems.setDate(date);
         matchSearchItems.setStartTime(start_time);
         matchSearchItems.setEndtime(end_time);
+        matchSearchItems.setParticipants(participants);
+        matchSearchItems.setMaxUser(max_user);
 
         matchItems.add(matchSearchItems);
     }

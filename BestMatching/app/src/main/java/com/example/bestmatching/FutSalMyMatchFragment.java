@@ -52,6 +52,8 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
     ArrayList<String> my_match_start_time = new ArrayList<>();
     ArrayList<String> my_match_end_time = new ArrayList<>();
     ArrayList<String> my_match_cost = new ArrayList<>();
+    ArrayList<String> my_match_part_user = new ArrayList<>();
+    ArrayList<String> my_match_max_user = new ArrayList<>();
     ArrayList<String> my_match_id = new ArrayList<>();
 
     public static FutSalMyMatchFragment newInstance() {
@@ -95,6 +97,8 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
         bundle.putString("start_time", my_match_start_time.get(pos));
         bundle.putString("end_time", my_match_end_time.get(pos));
         bundle.putString("cost", my_match_cost.get(pos));
+        bundle.putString("part_user", my_match_part_user.get(pos));
+        bundle.putString("max_user", my_match_max_user.get(pos));
         bundle.putString("id", my_match_id.get(pos));
         FutSalMyMatchDetailFragment f = new FutSalMyMatchDetailFragment();
         f.setArguments(bundle);
@@ -138,6 +142,8 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
                             my_match_start_time.add(js.getString("start_time"));
                             my_match_end_time.add(js.getString("end_time"));
                             my_match_cost.add(js.getString("cost"));
+                            my_match_part_user.add(js.getString("participants"));
+                            my_match_max_user.add(js.getString("max_user"));
                             my_match_id.add(js.getString("id"));
                         }
                     } else if (msg.equals("no find")) {
@@ -166,8 +172,9 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
 
             if (mymatchSize != 0) {
                 for (int i = 0; i < mymatchSize; i++) {
-                    futsalMyMatchAdapter.addItem(my_match_title.get(i).toString(), my_match_ground.get(i).toString(), my_match_date.get(i).toString(),
-                            my_match_start_time.get(i).toString(), my_match_end_time.get(i).toString());
+                    futsalMyMatchAdapter.addItem(my_match_title.get(i), my_match_ground.get(i), my_match_date.get(i),
+                            my_match_start_time.get(i), my_match_end_time.get(i), my_match_part_user.get(i) + "명",
+                            my_match_max_user.get(i)+ "명");
                 }
                 futsalMyMatchAdapter.notifyDataSetChanged();
             } else {
@@ -185,6 +192,7 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
         my_match_date.clear();
         my_match_start_time.clear();
         my_match_end_time.clear();
+        my_match_max_user.clear();
         my_match_cost.clear();
         my_match_id.clear();
         futsalMyMatchAdapter.clearItem();

@@ -7,6 +7,7 @@ router.get('/', function (req, res) {
     console.log('<<Login>>');
 });
 
+
 router.post('/create', function (req, res) {
     
     console.log('<<match/create>>');
@@ -221,6 +222,7 @@ router.get('/mymatching_list/:user_id', function (req, res) {
             }
             else {
                 console.log('Query Select Success(result": "Success)');
+                console.log(rows);
                 res.json({ "result": "Success",mymatch_list_info : rows });
             }
 
@@ -259,7 +261,7 @@ router.get('/match_participants_list/:match_id', function (req, res) {
     var match_id = req.params.match_id;
     //var Data = JSON.parse(data); // JSON data 받음
     console.log('Search = '+ match_id);
-    var count_sql = 'select * from best_matching.user, best_matching.matching_user where matching_user.match_id =?';
+    var sql = 'select * from best_matching.user, best_matching.matching_user where user.id = matching_user.user_id and matching_user.match_id =?';
     dbconn.query(sql, match_id, function (err, rows, fields) {//DB connect
         if (!err) {
             if (rows.length == 0) {
@@ -268,7 +270,8 @@ router.get('/match_participants_list/:match_id', function (req, res) {
             }
             else {
                 console.log('Query Select Success(result": "Success)');
-                res.json({ "result": 200,mymatch_info : rows });
+                console.log(rows);
+                res.json({ "result": "Success",mymatch_info : rows });
             }
 
         } else {

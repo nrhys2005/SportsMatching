@@ -256,24 +256,24 @@ router.get('/mymatching/:match_id', function (req, res) {
 });
 router.get('/match_participants_list/:match_id', function (req, res) {
     console.log('<<match/match_participants_list>>');
-    var search_match_id = req.params.match_id;
+    var match_id = req.params.match_id;
     //var Data = JSON.parse(data); // JSON data 받음
-    console.log('Search = '+ search_match_id);
-    var count_sql = 'select count(*) as count from best_matching.match, best_matching.matching_user where matching_user.match_id =?';
-    dbconn.query(sql, search_match_id, function (err, rows, fields) {//DB connect
+    console.log('Search = '+ match_id);
+    var count_sql = 'select * from best_matching.user, best_matching.matching_user where matching_user.match_id =?';
+    dbconn.query(sql, match_id, function (err, rows, fields) {//DB connect
         if (!err) {
             if (rows.length == 0) {
                 console.log('Query Select Success("result": "no find")');
-                res.json({ "result": "no find" });
+                res.json({ "result": 404 });
             }
             else {
                 console.log('Query Select Success(result": "Success)');
-                res.json({ "result": "Success",mymatch_info : rows });
+                res.json({ "result": 200,mymatch_info : rows });
             }
 
         } else {
             console.log('Query Select Error : ' + err);
-            res.json({ "result": err });
+            res.json({ "result": 404,"err": err });
         }
     });
 });

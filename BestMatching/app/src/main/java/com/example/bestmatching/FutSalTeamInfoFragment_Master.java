@@ -68,6 +68,7 @@ public class FutSalTeamInfoFragment_Master extends Fragment implements View.OnCl
     BufferedReader reader = lg.reader;
     Button team_member;
     Button team_update;
+    Button team_waiting;
     public static FutSalTeamInfoFragment_Master newInstance() {
         return new FutSalTeamInfoFragment_Master();
     }
@@ -86,12 +87,19 @@ public class FutSalTeamInfoFragment_Master extends Fragment implements View.OnCl
         location = (TextView) view.findViewById(R.id.location);
         week = (TextView) view.findViewById(R.id.week);
         comment = (EditText) view.findViewById(R.id.comment);
+
         team_member = (Button)view.findViewById(R.id.team_member);
         team_update = (Button)view.findViewById(R.id.team_update);
+        team_waiting = (Button)view.findViewById(R.id.team_waiting);
+
+        age_avg.setOnClickListener(this);
+        level.setOnClickListener(this);
+        location.setOnClickListener(this);
+        week.setOnClickListener(this);
 
         team_member.setOnClickListener(this);
         team_update.setOnClickListener(this);
-
+        team_waiting.setOnClickListener(this);
         return view;
     }
 
@@ -268,7 +276,6 @@ public class FutSalTeamInfoFragment_Master extends Fragment implements View.OnCl
 
         switch (a) {
             case R.id.age_avg:
-                System.out.println("ZZZZ");
                 final String[] ages = {"10대", "20대", "30대", "40대", "50대"};
 
                 builder = new AlertDialog.Builder(context);
@@ -387,12 +394,19 @@ public class FutSalTeamInfoFragment_Master extends Fragment implements View.OnCl
                 dialog.show();
                 break;
 
-            case R.id.team_member://팀장이 인원 조회 눌렀을 때
+            case R.id.team_member://팀장이 팀원버튼 눌렀을 때
+                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(),FutSalTeam_MemberFragment_master.newInstance());
 
                 break;
-            case R.id.team_update: {
+            case R.id.team_update:
                 new Post().execute(ip + "/team/team_update");
-            }
+                break;
+
+            case R.id.team_waiting:
+                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(),FutSalTeam_Waiting_list_Fragment_master.newInstance());
+                break;
+
+
         }
     }
 }

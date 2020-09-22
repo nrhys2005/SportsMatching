@@ -245,10 +245,18 @@
                 android:layout_weight="0.5"
                 android:text="팀원 정보" />
             <Button
+                android:id="@+id/team_waiting"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/button_shape"
+                android:layout_height="50dp"
+                android:layout_weight="0.5"
+                android:text="가입 신청자 목록" />
+            <Button
                 android:id="@+id/team_update"
                 android:layout_width="wrap_content"
                 android:background="@drawable/button_shape"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="20dp"
                 android:layout_height="50dp"
                 android:layout_weight="0.5"
                 android:text="수정 하기" />

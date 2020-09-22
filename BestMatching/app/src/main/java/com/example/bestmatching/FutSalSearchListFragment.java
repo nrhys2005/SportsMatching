@@ -77,7 +77,7 @@ public class FutSalSearchListFragment extends Fragment implements View.OnClickLi
         lm = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
         myLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-        new Get().execute(ip + "/ground/search?"+"latitude="+myLocation.getLatitude()+"&"+"longtitude="+myLocation.getLongitude());
+//        new Get().execute(ip + "/ground/search?"+"latitude="+myLocation.getLatitude()+"&"+"longtitude="+myLocation.getLongitude());
         futsalSearchListAdapter.notifyDataSetChanged();
         futsal_search_list.setOnItemClickListener(this);
 

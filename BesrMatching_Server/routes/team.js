@@ -224,20 +224,42 @@ router.get('/search/:search', function (req, res) {
 router.post('/join', function (req, res) {
     console.log('<<Team/join>>');
     req.on('data', (data) => {
-        var update_data_array= [];
+        var check_data_array= [];
         var Data = JSON.parse(data); // JSON data 받음
-        var sql = 'update user set team_name = ? where user.id == ?';
-        update_data_array.push(Data.team_name);
-        update_data_array.push(Data.id);
-
-        dbconn.query(sql, update_data_array, function (err, rows, fields) {//DB connect
+        var user_id = Data.user_id;
+        check_data_array.push(Data.team_name);
+        check_data_array.push(Data.user_id);
+        var check_sql = 'select best_matching.team_waiting where team_name = ? and user_id = ?'
+        dbconn.query(check_sql, check_data_array, function (err, rows, fields) {//DB connect
             if (!err) {
-                console.log('Query Update Success');
-                res.json( {"result": "Success"});
-                
+                var update_sql = 'update best_matching.user set team name = "Waiting" where user.id = ?';
+                dbconn.query(update_sql, user_id, function (err, rows, fields) {//DB connect
+                    if (!err) {
+                        console.log('Query update success(user_info)');
+                    } else {
+                        console.log('Query Update Error(user_info) : ' + err);
+                        res.json({ "result": 200 });
+                    }
+                });
+                if (rows.length() == 0) {
+                    var sql = 'insert into best_matching.team_waiting(team_name,user_id) values(?,?)';
+                    dbconn.query(sql, check_data_array, function (err, rows, fields) {//DB connect
+                        if (!err) {
+                            console.log('Query insert success');
+                            res.json({ "result": 200 });
+                        } else {
+                            console.log('Query insert error : ' + err);
+                            res.json({ "result": 404,"err":err });
+                        }
+                    });
+                }
+                else{
+                    console.log('Query select success(Duplicate application)');
+                    res.json({ "result": 202 });
+                }
             } else {
-                console.log('Query Update Error : ' + err);
-                res.json({ "result": err });
+                console.log('Query update error : ' + err);
+                res.json({ "result": 404,"err":err });
             }
         });
     });
@@ -251,14 +273,14 @@ router.post('/join/agreement', function (req, res) {
         var Data = JSON.parse(data); // JSON data 받음
         var team_name =Data.team_name;
         var user_id = Data.user_id;
-        var update_sql = 'update user set team name = ? where user.id == ?';
+        var update_sql = 'update best_matching.user set team name = ? where user.id = ?';
         data_array.push(team_name);
         data_array.push(user_id);
 
         dbconn.query(update_sql, data_array, function (err, rows, fields) {//DB connect
             if (!err) {
                 console.log('Query update success');
-                var delete_sql = 'DELETE from waiting where user_id = ?';
+                var delete_sql = 'DELETE from best_matching.team_waiting where user_id = ?';
                 dbconn.query(delete_sql, data_array, function (err, rows, fields) {//DB connect
                     if (!err) {
                         console.log('Query delete success');
@@ -275,6 +297,35 @@ router.post('/join/agreement', function (req, res) {
                 res.json( {"result": err});
             }
         });
+    });
+});
+router.get('/team_waiting_list', function (req, res) {
+    console.log('<<Team/team_waiting_list>>');
+    var search = req.params.team_name;
+    var search_data_array = [];
+    //var Data = JSON.parse(data); // JSON data 받음
+    var sql;
+    //console.log("session~~~~~~~~~~~~~~~~~~~~~~~~~"+req.session.id);
+    console.log('Search ='+ search);
+    
+    sql = 'select * from best_matching.user natural join best_matching.team_waiting ';
+
+    dbconn.query(sql, search_data_array, function (err, rows, fields) {//DB connect
+        if (!err) {
+            if (rows.length == 0) {
+                console.log('Query Select Success("result": "no find")');
+                res.json({ "result": "no find" });
+            }
+            else {
+                console.log('Query Select Success(result": 200)');
+                console.log(rows);
+                res.json({ "result": 200 ,team_info : rows});
+            }
+
+        } else {
+            console.log('Query Select Error : ' + err);
+            res.json({ "result":404,"err" : err });
+        }
     });
 });
 

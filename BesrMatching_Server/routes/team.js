@@ -229,7 +229,7 @@ router.post('/join', function (req, res) {
         var user_id = Data.user_id;
         check_data_array.push(Data.team_name);
         check_data_array.push(Data.user_id);
-        var check_sql = 'select best_matching.team_waiting where team_name = ? and user_id = ?'
+        var check_sql = 'select * from best_matching.team_waiting where team_name = ? and user_id = ?'
         dbconn.query(check_sql, check_data_array, function (err, rows, fields) {//DB connect
             if (!err) {
                 var update_sql = 'update best_matching.user set team name = "Waiting" where user.id = ?';
@@ -241,7 +241,7 @@ router.post('/join', function (req, res) {
                         res.json({ "result": 400 });
                     }
                 });
-                if (rows.length() == 0) {
+                if (rows.length== 0) {
                     var sql = 'insert into best_matching.team_waiting(team_name,user_id) values(?,?)';
                     dbconn.query(sql, check_data_array, function (err, rows, fields) {//DB connect
                         if (!err) {

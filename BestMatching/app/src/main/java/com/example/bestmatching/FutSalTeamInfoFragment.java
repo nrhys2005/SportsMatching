@@ -264,6 +264,7 @@ public class FutSalTeamInfoFragment extends Fragment implements View.OnClickList
                 break;
             case R.id.team_leave:
                 new Post().execute(ip + "/team/myteam_drop");
+                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamSearchFragment.newInstance());
                 break;
         }
     }

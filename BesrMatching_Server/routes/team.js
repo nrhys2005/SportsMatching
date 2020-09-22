@@ -9,7 +9,7 @@ router.get('/team', function (req, res) {
 
     var user_id = req.query.id;
     var data_array = [];
-    var sql = 'SELECT id,master_id,user.team_name,wait_state FROM best_matching.user  join team using (team_name) where id =?';
+    var sql = 'SELECT id,master_id,user.team_name,wait_state FROM best_matching.user left join team using (team_name) where id =?';
     
     console.log('id = '+ user_id);
     data_array.push(user_id);
@@ -281,7 +281,7 @@ router.post('/join/agreement', function (req, res) {
         var team_name =Data.team_name;
         var nu=null;
         var user_id = Data.user_id;
-        var update_sql = 'update best_matchig.user set team_name = ?,wait_state = ? where user.id = ?';
+        var update_sql = 'update best_matching.user set team_name = ?,wait_state = ? where user.id = ?';
         console.log(team_name+','+user_id);
         data_array.push(team_name);
         data_array.push(nu);
@@ -378,35 +378,7 @@ router.post('/expulsion', function (req, res) {
         });
     });
 });
-router.get('/team_waiting_list', function (req, res) {
-    console.log('<<Team/team_waiting_list>>');
-    var search = req.params.team_name;
-    var search_data_array = [];
-    //var Data = JSON.parse(data); // JSON data 받음
-    var sql;
-    //console.log("session~~~~~~~~~~~~~~~~~~~~~~~~~"+req.session.id);
-    console.log('Search ='+ search);
-    
-    sql = 'select * from best_matching.user, best_matching.team_waiting where user.id=team_waiting.user_id and team_waiting.team_name=? ';
 
-    dbconn.query(sql, search, function (err, rows, fields) {//DB connect
-        if (!err) {
-            if (rows.length == 0) {
-                console.log('Query Select Success("result": "no find")');
-                res.json({ "result": "no find" });
-            }
-            else {
-                console.log('Query Select Success(result": 200)');
-                console.log(rows);
-                res.json({ "result": 200 ,team_info : rows});
-            }
-
-        } else {
-            console.log('Query Select Error : ' + err);
-            res.json({ "result":404,"err" : err });
-        }
-    });
-});
 
 //-------------------------------
 module.exports = router;

@@ -142,11 +142,11 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
                         JSONObject js = jsarr.getJSONObject(0);
 
                         get_id=js.getString("id");
-                        team_name=js.getString("team_name");
                         get_master_id=js.getString("master_id");
+                        team_name=js.getString("team_name");
                         get_wait=js.getString("wait_state");
 
-
+                        System.out.println("wait"+get_wait);
                     }
                      else {
                         Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
@@ -171,6 +171,7 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
             super.onPostExecute(result);
             //TODO 겟 처리 후 결과
 
+
             //팀 가입신청 수락 대기중이면 1 아니면 0
             if(get_wait.equals("")||get_wait.equals("null"))
                 wait_team=0;
@@ -183,7 +184,7 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
             else
                 in_team=1;
             //소속된 팀의 팀장이면 1 팀원이면 0
-            System.out.println(get_id+","+get_master_id);
+           // System.out.println(get_id+","+get_master_id);
             if(get_id.equals(get_master_id)) {
 
                 Team_Master = 1;

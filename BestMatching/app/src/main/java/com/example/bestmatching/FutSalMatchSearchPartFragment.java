@@ -44,6 +44,8 @@ public class FutSalMatchSearchPartFragment extends Fragment implements View.OnCl
 
     ArrayList<String> part_name = new ArrayList<>();
     ArrayList<String> part_age = new ArrayList<>();
+    ArrayList<String> part_location = new ArrayList<>();
+    ArrayList<String> part_pos = new ArrayList<>();
     ArrayList<String> part_email = new ArrayList<>();
     ArrayList<String> part_phone = new ArrayList<>();
 
@@ -106,6 +108,8 @@ public class FutSalMatchSearchPartFragment extends Fragment implements View.OnCl
                             JSONObject js = jsonArray.getJSONObject(i);
                             part_name.add(js.getString("name"));
                             part_age.add(js.getString("age"));
+                            part_location.add(js.getString("location"));
+                            part_pos.add(js.getString("position"));
                             part_email.add(js.getString("email"));
                             part_phone.add(js.getString("phone"));
                         }
@@ -135,7 +139,8 @@ public class FutSalMatchSearchPartFragment extends Fragment implements View.OnCl
 
             if (matchPartSize != 0) {
                 for (int i = 0; i < matchPartSize; i++) {
-                    futsalMatchSearchPartAdapter.addItem(part_name.get(i), part_age.get(i), part_email.get(i), part_phone.get(i));
+                    futsalMatchSearchPartAdapter.addItem(part_name.get(i), part_age.get(i), part_location.get(i), part_pos.get(i),
+                            part_email.get(i), part_phone.get(i));
                 }
                 futsalMatchSearchPartAdapter.notifyDataSetChanged();
             } else {

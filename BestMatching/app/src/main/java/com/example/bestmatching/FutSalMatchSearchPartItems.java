@@ -4,6 +4,8 @@ public class FutSalMatchSearchPartItems {
 
     private String nameStr;
     private String ageStr;
+    private String locationStr;
+    private String posStr;
     private String emailStr;
     private String phoneStr;
 
@@ -13,6 +15,14 @@ public class FutSalMatchSearchPartItems {
 
     public void setAge(String age) {
         ageStr = age;
+    }
+
+    public void setLoc(String location) {
+        locationStr = location;
+    }
+
+    public void setPos(String pos) {
+        posStr = pos;
     }
 
     public void setEmail(String email) {
@@ -33,6 +43,14 @@ public class FutSalMatchSearchPartItems {
 
     public String getAge() {
         return this.ageStr;
+    }
+
+    public String getLoc() {
+        return this.locationStr;
+    }
+
+    public String getPos() {
+        return this.posStr;
     }
 
     public String getEmail() {

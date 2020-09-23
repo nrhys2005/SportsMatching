@@ -203,6 +203,13 @@
                 android:text="이전" />
 
             <Button
+                android:id="@+id/my_match_participants"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="팀원보기" />
+
+            <Button
                 android:id="@+id/match_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

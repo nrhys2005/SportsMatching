@@ -10,8 +10,12 @@ router.get('/', function (req, res) {
 router.post('/Myinfo', function (req, res) {
     console.log('<<Help/Myinfo_Post>>');
     req.on('data', (data) => {
+        
+        var result_code=404;
+
         var input_data_array= [];
         var inputData = JSON.parse(data); // JSON data 받음
+
         input_data_array.push(inputData.mail);
         input_data_array.push(inputData.phone);
         input_data_array.push(inputData.location);
@@ -26,10 +30,12 @@ router.post('/Myinfo', function (req, res) {
             if (!err) {
                 console.log('Query Update success');
                 console.log(rows);
-                res.json({ "result": "Success" });
+                result_code=200;
+                res.json({ "result": result_code});
             } else {
                 console.log('Query Error : ' + err);
-                res.json({ "result": err });
+                result_code=404;
+                res.json({ "result": result_code });
             }
         });
     });
@@ -42,10 +48,10 @@ router.get('/Myinfo', function (req, res) {
     
     var data_array = [];
     
-    //var Data = JSON.parse(data); // JSON data 받음
-    var sql;
+    var result_code=404;
     
-    sql = 'select id, name, team_name, email, phone, location, age, position from best_matching.user where id= ?';
+    
+    var sql = 'select id, name, team_name, email, phone, location, age, position from best_matching.user where id= ?';
     console.log('id = '+ user_id);
     data_array.push(user_id);
    
@@ -53,10 +59,12 @@ router.get('/Myinfo', function (req, res) {
         if (!err) {
             console.log('Query Select Success(result: Success)');
             console.log(rows);
-            res.json({ "result": "Success", Myinfo : rows});
+            result_code=200;
+            res.json({ "result": result_code, Myinfo : rows});
         } else {
             console.log('Query Select Error : ' + err);
-            res.json({ "result": err });
+            result_code=404;
+            res.json({ "result": result_code });
         }
     });
 });

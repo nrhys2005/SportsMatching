@@ -12,7 +12,7 @@ public class FutSalHelpActivity extends Fragment implements View.OnClickListener
 
     Button Myinfo;
     Button Notice;
-    Button Inquiry;
+    Button Question;
     Button Report;
     public static FutSalHelpActivity newInstance() {
         return new FutSalHelpActivity();
@@ -23,13 +23,13 @@ public class FutSalHelpActivity extends Fragment implements View.OnClickListener
         View view = inflater.inflate(R.layout.activity_futsal_help_main, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
         Myinfo = (Button)view.findViewById(R.id.Myinfo);
         Notice = (Button)view.findViewById(R.id.Notice);
-        Inquiry = (Button)view.findViewById(R.id.Inquiry);
+        Question = (Button)view.findViewById(R.id.Question);
         Report = (Button)view.findViewById(R.id.Report);
 
 
         Myinfo.setOnClickListener(this);
         Notice.setOnClickListener(this);
-        Inquiry.setOnClickListener(this);
+        Question.setOnClickListener(this);
         Report.setOnClickListener(this);
 
         return view;
@@ -47,8 +47,8 @@ public class FutSalHelpActivity extends Fragment implements View.OnClickListener
             case R.id.Notice:
                 ((MainActivity)getActivity()).replaceFragment(FutSalHelpActivity.newInstance(), FutSalHelp_NoticeFragment.newInstance());
                 break;
-            case R.id.Inquiry:
-                ((MainActivity)getActivity()).replaceFragment(FutSalHelpActivity.newInstance(), FutSalHelp_MyinfoFragment.newInstance());
+            case R.id.Question:
+                ((MainActivity)getActivity()).replaceFragment(FutSalHelpActivity.newInstance(), FutSalHelp_QuestionFragment.newInstance());
                 break;
             case R.id.Report:
                 ((MainActivity)getActivity()).replaceFragment(FutSalHelpActivity.newInstance(), FutSalTeamSearchFragment.newInstance());

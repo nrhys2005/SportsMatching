@@ -225,7 +225,8 @@ router.get('/search/:search', function (req, res) {
         if (!err) {
             if (rows.length == 0) {
                 console.log('Query Select Success("result": "no find")');
-                res.json({ "result": "no find" });
+                result_code=202;
+                res.json({ "result": result_code });
             }
             else {
                 console.log('Query Select Success(result": "Success)');

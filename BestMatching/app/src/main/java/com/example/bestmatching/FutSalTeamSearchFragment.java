@@ -119,7 +119,7 @@ public class FutSalTeamSearchFragment extends Fragment implements View.OnClickLi
                     JSONObject jsonObject = new JSONObject(receiveMsg);
                     String msg = jsonObject.getString("result");
 
-                    if (msg.equals("Success")) {
+                    if (msg.equals("200")) {
                         String item = jsonObject.getString("team_info");
                         JSONArray jsonArray = new JSONArray(item);
 
@@ -137,7 +137,7 @@ public class FutSalTeamSearchFragment extends Fragment implements View.OnClickLi
                         }
                     }
 
-                    else if (msg.equals("no find")){
+                    else if (msg.equals("202")){
                         teamSize = 0;
                     }
 

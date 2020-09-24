@@ -186,7 +186,7 @@ public class FutSalTeamInfoFragment_Master extends Fragment implements View.OnCl
                 JSONObject jsonObject = new JSONObject(result);
                 String msg = jsonObject.getString("result");
 
-                if ( msg.equals("Success")){
+                if ( msg.equals("200")){
                     Toast.makeText(context.getApplicationContext(),"팀수정 성공",Toast.LENGTH_SHORT).show();
 
                 }
@@ -220,7 +220,7 @@ public class FutSalTeamInfoFragment_Master extends Fragment implements View.OnCl
                 try {
                     JSONObject jsonObject = new JSONObject(receiveMsg);
                     String msg = jsonObject.getString("result");
-                    if (msg.equals("Success")) {
+                    if (msg.equals("200")) {
                         String team_info = jsonObject.getString("myteam_info");
                         JSONArray jsarr = new JSONArray(team_info);
                         JSONObject js = jsarr.getJSONObject(0);

@@ -98,7 +98,7 @@ public class FutSalTeam_MemberFragment_master extends Fragment implements View.O
                     JSONObject jsonObject = new JSONObject(receiveMsg);
                     String msg = jsonObject.getString("result");
 
-                    if (msg.equals("Success")) {
+                    if (msg.equals("200")) {
                         String notice_info = jsonObject.getString("member_info");
                         JSONArray jsonArray = new JSONArray(notice_info);
 

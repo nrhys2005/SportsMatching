@@ -243,7 +243,7 @@ public class FutsalTeam_MemberAdapter_master extends BaseAdapter{
                 JSONObject jsonObject = new JSONObject(result);
                 String msg = jsonObject.getString("result");
 
-                if (msg.equals("Success")) {
+                if (msg.equals("200")) {
                     Toast.makeText(context.getApplicationContext(), "회원 추방 완료", Toast.LENGTH_SHORT).show();
 
 

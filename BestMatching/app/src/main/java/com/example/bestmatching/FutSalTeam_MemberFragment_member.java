@@ -96,7 +96,7 @@ public class FutSalTeam_MemberFragment_member extends Fragment implements View.O
                     JSONObject jsonObject = new JSONObject(receiveMsg);
                     String msg = jsonObject.getString("result");
 
-                    if (msg.equals("Success")) {
+                    if (msg.equals("200")) {
                         String notice_info = jsonObject.getString("member_info");
                         JSONArray jsonArray = new JSONArray(notice_info);
 
@@ -113,7 +113,7 @@ public class FutSalTeam_MemberFragment_member extends Fragment implements View.O
 
 
                         }
-                    } else if (msg.equals("no find")) {
+                    } else if (msg.equals("202")) {
                         memberSize = 0;//들어올릴 없음 왜냐하면 팀이 존재하면 팀원은 무조건 1명이상 존재
                     } else {
                         Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();

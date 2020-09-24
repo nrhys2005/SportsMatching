@@ -136,7 +136,7 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
                 try {
                     JSONObject jsonObject = new JSONObject(receiveMsg);
                     String msg = jsonObject.getString("result");
-                    if (msg.equals("Success")) {
+                    if (msg.equals("200")) {
                         String team_main = jsonObject.getString("team_main");
                         JSONArray jsarr = new JSONArray(team_main);
                         JSONObject js = jsarr.getJSONObject(0);

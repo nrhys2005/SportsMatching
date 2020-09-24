@@ -66,15 +66,18 @@ router.get('/Myinfo', function (req, res) {
 router.get('/Notice', function (req, res) {
     console.log('<<Help/Notice_Get>>');
     
-    var sql = 'select category, title, content, id from best_matching.notice';
+    var sql = 'select title,create_time, content from best_matching.notice';
+    var result_code=404;
     dbconn.query(sql, function (err, rows, fields) {//DB connect
         if (!err) {
             console.log('Query Select Success(result: Success)');
             console.log(rows);
-            res.json({ "result": "Success", notice_info : rows});
+            result_code=200;
+            res.json({ "result": result_code, notice_info : rows});
         } else {
             console.log('Query Select Error : ' + err);
-            res.json({ "result": err });
+            result_code=404;
+            res.json({ "result": result_code });
         }
     });
 });

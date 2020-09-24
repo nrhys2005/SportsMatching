@@ -52,7 +52,7 @@ public class FutSalTeam_MemberFragment_master extends Fragment implements View.O
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
-        View view = inflater.inflate(R.layout.activity_futsal_team_member_master, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
+        View view = inflater.inflate(R.layout.fragment_futsal_team_member_master, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         context = container.getContext();
         memberAdapter_master = new FutsalTeam_MemberAdapter_master();

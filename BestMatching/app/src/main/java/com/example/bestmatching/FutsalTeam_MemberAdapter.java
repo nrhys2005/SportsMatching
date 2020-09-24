@@ -62,7 +62,7 @@ public class FutsalTeam_MemberAdapter extends BaseAdapter implements View.OnClic
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.activity_futsal_team_member_item, parent, false);
+            convertView = inflater.inflate(R.layout.fragment_futsal_team_member_item, parent, false);
         }
 
         mem_id = (TextView) convertView.findViewById(R.id.m_id);

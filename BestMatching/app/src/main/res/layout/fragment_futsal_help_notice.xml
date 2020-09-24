@@ -7,27 +7,34 @@
     android:orientation="vertical"
     android:gravity="center"
     >
+   <ScrollView
+       android:id="@+id/main_box_scrollview"
+       android:layout_width="fill_parent"
+       android:layout_height="0dp"
+       android:layout_weight="1"
+       android:background="#e9edee"
+       android:visibility="visible"
+       android:scrollbars="none"
+       android:fillViewport="true">
 
-   <LinearLayout
+      <LinearLayout
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical" >
+         <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:id="@+id/futsal_help_notice"
+             android:layout_width="match_parent"
+             android:layout_height="500dp"></ListView>
+      </LinearLayout>
+   </ScrollView>
+         <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:gravity="center"
        android:orientation="horizontal">
-<!--      <TextView-->
 
-<!--          android:id="@+id/matchsearch_btn"-->
-<!--          android:layout_width="wrap_content"-->
-<!--          android:layout_height="wrap_content"-->
-<!--          android:background="@android:color/transparent"-->
-<!--          android:textSize="60dp"-->
-<!--          android:textStyle="bold"-->
-<!--          android:text="공지사항" />-->
    </LinearLayout>
-   <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-       xmlns:app="http://schemas.android.com/apk/res-auto"
-       xmlns:tools="http://schemas.android.com/tools"
-       android:id="@+id/futsal_help_notice"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"></ListView>
 
 </LinearLayout>

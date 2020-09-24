@@ -1,14 +1,12 @@
 package com.example.bestmatching;
 
 import android.app.AlertDialog;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -93,7 +91,7 @@ public class FutsalTeam_MemberAdapter_master extends BaseAdapter{
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.activity_futsal_team_member_item_master, parent, false);
+            convertView = inflater.inflate(R.layout.fragment_futsal_team_member_item_master, parent, false);
         }
 
         mem_id = (TextView) convertView.findViewById(R.id.m_id);

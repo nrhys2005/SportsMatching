@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -23,11 +24,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class FutSalHelp_NoticeFragment extends Fragment implements View.OnClickListener{
+public class FutSalHelp_NoticeFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener{
 
     LoginActivity lg = new LoginActivity();
     String ip = lg.ip;
-
+    private int pos;
     private ListView notice;
     private FutsalHelp_NoticeAdapter noticeAdapter;
     HttpURLConnection con = lg.con;
@@ -35,10 +36,12 @@ public class FutSalHelp_NoticeFragment extends Fragment implements View.OnClickL
 
     private Context context;
     private int noticeSize;
-    ArrayList<String> notice_category = new ArrayList<>();
+
     ArrayList<String> notice_title = new ArrayList<>();
-  //  ArrayList<String> notice_content = new ArrayList<>();
-    ArrayList<Integer> notice_id = new ArrayList<>();
+    ArrayList<String> notice_create_time = new ArrayList<>();
+    ArrayList<String> notice_content = new ArrayList<>();
+
+
 
 
     public static FutSalHelp_NoticeFragment newInstance() {
@@ -56,6 +59,8 @@ public class FutSalHelp_NoticeFragment extends Fragment implements View.OnClickL
         notice.setAdapter(noticeAdapter);
         new Get().execute(ip + "/Help/Notice");
 
+        notice.setOnItemClickListener(this);
+
         return view;
     }
 
@@ -64,6 +69,21 @@ public class FutSalHelp_NoticeFragment extends Fragment implements View.OnClickL
         int a = v.getId();
 
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        pos = position;
+        //Toast.makeText(view.getContext(), Integer.toString(pos), Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putString("notice_title", notice_title.get(pos));
+        bundle.putString("notice_create_time", notice_create_time.get(pos));
+        bundle.putString("notice_content", notice_content.get(pos));
+
+        FutSalHelp_NoticeDetailFragment f = new FutSalHelp_NoticeDetailFragment();
+        f.setArguments(bundle);
+        ((MainActivity)getActivity()).replaceFragment(FutSalHelpActivity.newInstance(), f);
     }
 
     public class Get extends AsyncTask<String, String, String> {
@@ -93,7 +113,7 @@ public class FutSalHelp_NoticeFragment extends Fragment implements View.OnClickL
                     JSONObject jsonObject = new JSONObject(receiveMsg);
                     String msg = jsonObject.getString("result");
 
-                    if (msg.equals("Success")) {
+                    if (msg.equals("200")) {
                         String notice_info = jsonObject.getString("notice_info");
                         JSONArray jsonArray = new JSONArray(notice_info);
 
@@ -101,10 +121,11 @@ public class FutSalHelp_NoticeFragment extends Fragment implements View.OnClickL
 
                         for (int i = 0; i < noticeSize; i++) {
                             JSONObject js = jsonArray.getJSONObject(i);
-                            notice_category.add(js.getString("category"));
+
                             notice_title.add(js.getString("title"));
-                           // notice_content.add(js.getString("content"));
-                            notice_id.add(js.getInt("id"));
+                            notice_create_time.add(js.getString("create_time"));
+                            notice_content.add(js.getString("content"));
+
 
                         }
                     } else if (msg.equals("no find")) {
@@ -133,7 +154,7 @@ public class FutSalHelp_NoticeFragment extends Fragment implements View.OnClickL
             //TODO 겟 처리 후 결과
             if (noticeSize != 0) {
                 for (int i = 0; i < noticeSize; i++) {
-                    noticeAdapter.addItem(notice_category.get(i), notice_title.get(i),notice_id.get(i));
+                    noticeAdapter.addItem(notice_title.get(i),notice_create_time.get(i),notice_content.get(i));
                 }
                 noticeAdapter.notifyDataSetChanged();
             } else {

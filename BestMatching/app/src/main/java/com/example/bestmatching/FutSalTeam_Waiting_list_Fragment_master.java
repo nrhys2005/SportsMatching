@@ -51,7 +51,7 @@ public class FutSalTeam_Waiting_list_Fragment_master extends Fragment implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
-        View view = inflater.inflate(R.layout.activity_futsal_team_waiting_list_master, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
+        View view = inflater.inflate(R.layout.fragment_futsal_team_waiting_list_master, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         context = container.getContext();
         waiting_list_adapter_master = new FutsalTeam_Waiting_list_Adapter_master();

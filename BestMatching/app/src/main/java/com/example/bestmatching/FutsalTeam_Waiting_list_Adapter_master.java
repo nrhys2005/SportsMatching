@@ -92,7 +92,7 @@ public class FutsalTeam_Waiting_list_Adapter_master extends BaseAdapter{
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.activity_futsal_team_waiting_list_item_master, parent, false);
+            convertView = inflater.inflate(R.layout.fragment_futsal_team_waiting_list_item_master, parent, false);
         }
 
         mem_id = (TextView) convertView.findViewById(R.id.m_id);

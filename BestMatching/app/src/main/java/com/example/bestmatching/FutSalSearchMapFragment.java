@@ -82,7 +82,7 @@ public class FutSalSearchMapFragment extends Fragment implements OnMapReadyCallb
 
         mapView = (MapView) view.findViewById(R.id.mapsearch);
         mapView.getMapAsync(this);
-  //      new Get().execute(ip + "/ground/search?"+"latitude="+myLocation.getLatitude()+"&"+"longtitude="+myLocation.getLongitude());
+        new Get().execute(ip + "/ground/search?"+"latitude="+myLocation.getLatitude()+"&"+"longtitude="+myLocation.getLongitude());
         return view;
 
     }

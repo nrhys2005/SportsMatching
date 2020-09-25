@@ -74,21 +74,26 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
             case R.id.team_info:
                 switch (in_team){
                     case 0:
-                        Toast.makeText(context.getApplicationContext(), "소속된 팀이 없습니다.", Toast.LENGTH_SHORT).show();
+                        switch (wait_team) {
+                            case 0://가입된 팀이 없고 수락 대기중이 아닐때
+                                Toast.makeText(context.getApplicationContext(), "소속된 팀이 없습니다.", Toast.LENGTH_SHORT).show();
+                                break;
+                            case 1: //가입된 팀이 없고 수락 대기중일때
+                                Toast.makeText(context.getApplicationContext(), "가입 신청 대기중 입니다.", Toast.LENGTH_SHORT).show();
+                                break;
+                        }
                         break;
                     case 1:
-                        System.out.println(Team_Master);
+                     //   System.out.println(Team_Master);
                         Toast.makeText(context.getApplicationContext(), "소속된 팀이 있습니다.", Toast.LENGTH_SHORT).show();
                         switch (Team_Master){
                             case 0://팀원
                                 ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamInfoFragment.newInstance());
                                 break;
                             case 1://팀장
-
                                 ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamInfoFragment_Master.newInstance());
                                 break;
                         }
-
                         break;
                 }
                 break;
@@ -100,7 +105,7 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
                                 ((MainActivity) getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamRegisterFragment.newInstance());
                                 break;
                             case 1: //가입된 팀이 없고 수락 대기중일때
-                                Toast.makeText(context.getApplicationContext(), "가입 신청 대기중 입니다..", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context.getApplicationContext(), "가입 신청 대기중 입니다.", Toast.LENGTH_SHORT).show();
                                 break;
                         }
                         break;
@@ -136,7 +141,7 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
                 try {
                     JSONObject jsonObject = new JSONObject(receiveMsg);
                     String msg = jsonObject.getString("result");
-                    if (msg.equals("Success")) {
+                    if (msg.equals("200")) {
                         String team_main = jsonObject.getString("team_main");
                         JSONArray jsarr = new JSONArray(team_main);
                         JSONObject js = jsarr.getJSONObject(0);

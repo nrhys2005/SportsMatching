@@ -6,7 +6,7 @@ const dbconnInfo = {
 		host: 'localhost',
 		port: '3306',
 		user: 'root',
-		password: '129129',
+		password: 'root',
 		database: 'best_matching', 
 		multipleStatements : true
 	}//,
@@ -23,7 +23,7 @@ const dbconnInfo = {
 const dbconnection = {
 	init : function(){
 		var hostname = os.hostname();
-		if(hostname === 'LAPTOP-JS'){
+		if(hostname === 'SANGHUN'){
 			return mysql.createConnection(dbconnInfo.dev);	//로컬개발환경
         }
         // else{

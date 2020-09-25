@@ -29,6 +29,7 @@ public class FutSalTeam_MemberFragment_master extends Fragment implements View.O
     String ip = lg.ip;
     FutSalTeamActivity ta = new FutSalTeamActivity();
     String send_teamname=ta.team_name;
+    String master_id=ta.get_master_id;
     private ListView member;
     private FutsalTeam_MemberAdapter_master memberAdapter_master;
     HttpURLConnection con = lg.con;
@@ -51,7 +52,7 @@ public class FutSalTeam_MemberFragment_master extends Fragment implements View.O
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
-        View view = inflater.inflate(R.layout.activity_futsal_team_member_master, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
+        View view = inflater.inflate(R.layout.fragment_futsal_team_member_master, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         context = container.getContext();
         memberAdapter_master = new FutsalTeam_MemberAdapter_master();
@@ -97,7 +98,7 @@ public class FutSalTeam_MemberFragment_master extends Fragment implements View.O
                     JSONObject jsonObject = new JSONObject(receiveMsg);
                     String msg = jsonObject.getString("result");
 
-                    if (msg.equals("Success")) {
+                    if (msg.equals("200")) {
                         String notice_info = jsonObject.getString("member_info");
                         JSONArray jsonArray = new JSONArray(notice_info);
 
@@ -105,6 +106,8 @@ public class FutSalTeam_MemberFragment_master extends Fragment implements View.O
 
                         for (int i = 0; i < memberSize; i++) {
                             JSONObject js = jsonArray.getJSONObject(i);
+                            if(js.getString("id").equals(master_id))
+                                continue;
                             member_id.add(js.getString("id"));
                             member_name.add(js.getString("name"));
                             member_age.add(js.getString("age"));
@@ -140,7 +143,7 @@ public class FutSalTeam_MemberFragment_master extends Fragment implements View.O
             //TODO 겟 처리 후 결과
             Toast.makeText(getActivity(), "팀원을 성공적으로 불러왔습니다.", Toast.LENGTH_SHORT).show();
             if (memberSize != 0) {
-                for (int i = 0; i < memberSize; i++) {
+                for (int i = 0; i < memberSize-1; i++) {
                     memberAdapter_master.addItem(member_id.get(i), member_name.get(i),member_age.get(i),member_location.get(i),member_phonenumber.get(i),member_position.get(i));
                 }
 

@@ -10,20 +10,18 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class FutsalHelp_NoticeAdapter extends BaseAdapter implements View.OnClickListener {
+public class FutsalHelp_QuestionAdapter extends BaseAdapter implements View.OnClickListener {
 
-
+    private TextView category;
     private TextView title;
-    private TextView create_time;
-    private TextView content;
 
     public LinearLayout search_list_click;
 
     MainActivity ma = new MainActivity();
 
-    public ArrayList<FutSalHelp_NoticeItems> listItems = new ArrayList<FutSalHelp_NoticeItems>();
+    public ArrayList<FutSalHelp_QuestionItems> listItems = new ArrayList<FutSalHelp_QuestionItems>();
 
-    public FutsalHelp_NoticeAdapter() {
+    public FutsalHelp_QuestionAdapter() {
 
     }
 
@@ -57,18 +55,19 @@ public class FutsalHelp_NoticeAdapter extends BaseAdapter implements View.OnClic
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.fragment_futsal_help_notice_item, parent, false);
+            convertView = inflater.inflate(R.layout.fragment_futsal_help_question_item, parent, false);
         }
 
+        category = (TextView) convertView.findViewById(R.id.category);
         title = (TextView) convertView.findViewById(R.id.title);
-       // create_time = (TextView) convertView.findViewById(R.id.create_time);
-      //  content = (TextView) convertView.findViewById(R.id.content);
+       // content = (TextView) convertView.findViewById(R.id.content);
 
-        FutSalHelp_NoticeItems futSalHelp_noticeItems = listItems.get(position);
+        FutSalHelp_QuestionItems futSalHelp_questionItems = listItems.get(position);
 
-        title.setText(futSalHelp_noticeItems.gettitleStr());
-     //   category.setText(futSalHelp_noticeItems.getCategoryStr());
+        category.setText(futSalHelp_questionItems.getCategoryStr());
+        title.setText(futSalHelp_questionItems.gettitleStr());
         //content.setText(futSalHelp_noticeItems.getContentStrt());
+
      //   search_list_click = (LinearLayout)convertView.findViewById(R.id.search_list_click);
 
         return convertView;
@@ -76,15 +75,15 @@ public class FutsalHelp_NoticeAdapter extends BaseAdapter implements View.OnClic
 
 
     //아이템 데이터 추가를 위한 함수
-    public void addItem( String title ,String create_time,String content){
-        FutSalHelp_NoticeItems noticeItems = new FutSalHelp_NoticeItems();
+    public void addItem(String category, String title, String id,String content){
+        FutSalHelp_QuestionItems questionItems = new FutSalHelp_QuestionItems();
 
-        noticeItems.settitle(title);
-        noticeItems.setCreate_time(create_time);
-        noticeItems.setcontent(content);
+        questionItems.setCategory(category);
+        questionItems.settitle(title);
+        questionItems.setcontent(content);
+        questionItems.setId(id);
 
-
-        listItems.add(noticeItems);
+        listItems.add(questionItems);
     }
 
     @Override

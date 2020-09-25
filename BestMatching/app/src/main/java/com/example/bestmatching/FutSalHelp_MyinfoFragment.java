@@ -180,7 +180,7 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
                 JSONObject jsonObject = new JSONObject(result);
                 String msg = jsonObject.getString("result");
 
-                if ( msg.equals("Success")){
+                if ( msg.equals("200")){
                     Toast.makeText(context.getApplicationContext(),"정보수정 완료",Toast.LENGTH_SHORT).show();
 
                 }
@@ -220,7 +220,7 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
                     JSONObject jsonObject = new JSONObject(receiveMsg);
                     String msg = jsonObject.getString("result");
 
-                    if (msg.equals("Success")) {
+                    if (msg.equals("200")) {
 
                         String userinfo = jsonObject.getString("Myinfo");
                         JSONArray jsonArray = new JSONArray(userinfo);

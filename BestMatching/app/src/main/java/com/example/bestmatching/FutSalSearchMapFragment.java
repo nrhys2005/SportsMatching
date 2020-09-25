@@ -72,7 +72,6 @@ public class FutSalSearchMapFragment extends Fragment implements OnMapReadyCallb
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION
             }, PERMISSION_REQUEST_CODE);
-
         }
         lm = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
         myLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);

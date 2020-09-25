@@ -15,78 +15,95 @@ router.post('/create', function (req, res) {
     req.on('data', (data) => {
         var input_data_array= [];
         var inputData = JSON.parse(data); // JSON data 받음
-
+        let start_time = new Date((inputData.date+ " " +inputData.start_time+":00"));
+        let end_time = new Date(inputData.date+ " " +inputData.end_time+":00");
+        let today = new Date();
+        var user_id =inputData.user_id;
         input_data_array.push(inputData.title);// json->array
         input_data_array.push(inputData.ground_name);
-        input_data_array.push(inputData.date);
-        input_data_array.push(inputData.start_time);
-        input_data_array.push(inputData.end_time);
+        input_data_array.push(start_time);
+        input_data_array.push(end_time);
         input_data_array.push(inputData.cost);
         input_data_array.push(inputData.max_user);
-        let today = new Date();   
         input_data_array.push(today);
         input_data_array.push(1);
-        var user_id =inputData.user_id;
-
-        console.log('input_data : ' + input_data_array); 
-
-        var sql_insert = 'INSERT INTO best_matching.match (title, ground_name, date, start_time, end_time,cost,max_user,create_time, participants) VALUES(?, ?, ?, ?, ?, ?,?,?,?)';
-        dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
+        var check_sql = 'select * from best_matching.match where ground_name = ? order by end_time DESC';
+        
+        dbconn.query(check_sql,inputData.ground_name, function (err, rows, fields) {//DB connect
             if (!err) {
-                //console.log('Query insert success');
-                //res.json({ "result": "Success" });
-                //console.log(rows);
-
-                var match_sql = 'select * from best_matching.match order by create_time DESC limit 1';
-
-                dbconn.query(match_sql,"", function (err, rows, fields) {//DB connect
-                    if (!err) {
-                        if (rows.length == 0) {
-                            console.log('Query Select Success("result": "no find")');
-                            res.json({ "result": "no find" });
+                var check = true;
+                if (rows.length == 0) {
+                    console.log('Query Select Success("result": "no find")');
+                }
+                else {
+                    for(var i=0;i<rows.length;i++){
+                       if(rows[i].end_time.getTime()>=start_time.getTime() && end_time.getTime()>=rows[i].start_time.getTime()){
+                            check = false;
+                            break;
                         }
-                        else {
-                            //console.log('Query Select Success(result": "Success)');
-                            var match_user_array= [];
-                            match_user_array.push(user_id);
-                            match_user_array.push(rows[0].id);
-                            console.log("matching_user("+user_id + ", "+ rows[0].id+")");
-                            var insert_sql = "INSERT INTO best_matching.matching_user(user_id,match_id) values(?,?)";
-                            dbconn.query(insert_sql, match_user_array, function (err, rows, fields) {//DB connect
+                    }
+                }
+                if (!check) {
+                    res.json({ "result": "duplicate" });
+                    console.log('Match overlap');
+                }
+                else {
+                    var sql_insert = 'INSERT INTO best_matching.match (title, ground_name, start_time, end_time,cost,max_user,create_time, participants) VALUES(?, ?, ?, ?, ?,?,?,?)';
+                    dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
+                        if (!err) {
+                            //console.log('Query insert success');
+                            //res.json({ "result": "Success" });
+                            //console.log(rows);
+
+                            var match_sql = 'select * from best_matching.match order by create_time DESC limit 1';
+
+                            dbconn.query(match_sql, "", function (err, rows, fields) {//DB connect
                                 if (!err) {
                                     if (rows.length == 0) {
-                                        console.log('Query insert success("result": "no find")');
+                                        console.log('Query Select Success("result": "no find")');
                                         res.json({ "result": "no find" });
                                     }
                                     else {
-                                        console.log('Query insert success(result": "Success)');
-                                        res.json({ "result": "Success" });
+                                        //console.log('Query Select Success(result": "Success)');
+                                        var match_user_array = [];
+                                        match_user_array.push(user_id);
+                                        match_user_array.push(rows[0].id);
+                                        console.log("matching_user(" + user_id + ", " + rows[0].id + ")");
+                                        var insert_sql = "INSERT INTO best_matching.matching_user(user_id,match_id) values(?,?)";
+                                        dbconn.query(insert_sql, match_user_array, function (err, rows, fields) {//DB connect
+                                            if (!err) {
+                                                if (rows.length == 0) {
+                                                    console.log('Query insert success("result": "no find")');
+                                                    res.json({ "result": "no find" });
+                                                }
+                                                else {
+                                                    console.log('Query insert success(result": "Success)');
+                                                    res.json({ "result": "Success" });
+                                                }
+
+                                            } else {
+                                                console.log('Query insert error : ' + err);
+                                                res.json({ "result": err });
+                                            }
+                                        });
                                     }
 
                                 } else {
-                                    console.log('Query insert error : ' + err);
+                                    console.log('Query Select Error : ' + err);
                                     res.json({ "result": err });
                                 }
                             });
+
+                        } else {
+                            console.log('Query Error : ' + err);
+                            res.json({ "result": err });
                         }
-
-                    } else {
-                        console.log('Query Select Error : ' + err);
-                        res.json({ "result": err });
-                    }
-                });
-
-
-                // var insert_data_array = [];
-                // insert_data_array.push(inputData.user_id);
-                // insert_data_array.push(match_id);
-                
+                    });
+                }
             } else {
-                console.log('Query Error : ' + err);
-                res.json({ "result": err });
+                console.log('' + err);
             }
         });
-        
     });
 });
 
@@ -94,17 +111,18 @@ router.get('/search/:search', function (req, res) {
     console.log('<<match/search>>');
     var search = req.params.search;
     var search_data_array = [];
+    let today = new Date(new Date().toISOString(). replace(/T/, ' ').replace(/\..+/, ''));
+    
     //var Data = JSON.parse(data); // JSON data 받음
     var sql;
     console.log('Search = '+ search);
     if (search == "none") {
-        sql = 'select * from best_matching.match';
+        sql = 'select * from best_matching.match where match.end_time>=NOW()';
     }
     else {
-        sql = 'select * from best_matching.match where match.title like ?';
+        sql = 'select * from best_matching.match where match.end_time>=NOW() and match.title like ?';
         search_data_array.push('%' + search + '%');
     }
-
     dbconn.query(sql, search_data_array, function (err, rows, fields) {//DB connect
         if (!err) {
             if (rows.length == 0) {

@@ -1,41 +1,45 @@
 package com.example.bestmatching;
 
-public class FutSalHelp_NoticeItems {
+public class FutSalHelp_QuestionItems {
 
-
+    private String categoryStr;
     private String titleStr;
-    private String create_timeStr;
     private String contentStr;
+    private String questionid;
 
-
+    public void setCategory(String category) {
+        categoryStr ="["+ category+ "]";
+    }
 
     public void settitle(String title) {
-        titleStr="[공지사항]  "+title;
-    }
-    public void setCreate_time(String create_time) {
-        create_timeStr=create_time;
+        titleStr=title;
     }
 
     public void setcontent(String content) {
         contentStr=content;
     }
 
-
+    public void setId(String id) {
+        questionid = id;
+    }
 
     ////////////////////////////////////////////
 
 
-
+    public String getCategoryStr() {
+        return this.categoryStr;
+    }
 
     public String gettitleStr() {
         return this.titleStr;
     }
-    public String getCreate_timeStr(){return this.create_timeStr; }
     public String getContentStrt() {
         return this.contentStr;
     }
 
-
+    public String getId() {
+        return this.questionid;
+    }
 
 }
 

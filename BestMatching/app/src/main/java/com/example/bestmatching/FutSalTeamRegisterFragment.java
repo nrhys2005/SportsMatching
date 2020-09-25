@@ -189,7 +189,7 @@ public class FutSalTeamRegisterFragment extends Fragment implements View.OnClick
                 JSONObject jsonObject = new JSONObject(result);
                 String msg = jsonObject.getString("result");
 
-                if ( msg.equals("Success")){
+                if ( msg.equals("200")){
                     Toast.makeText(context.getApplicationContext(),"팀등록 성공",Toast.LENGTH_SHORT).show();
                     reset();
                     ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(),FutSalTeamSearchFragment.newInstance());

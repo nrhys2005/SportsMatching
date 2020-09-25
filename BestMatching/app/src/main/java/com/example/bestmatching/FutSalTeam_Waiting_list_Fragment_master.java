@@ -51,7 +51,7 @@ public class FutSalTeam_Waiting_list_Fragment_master extends Fragment implements
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
-        View view = inflater.inflate(R.layout.activity_futsal_team_waiting_list_master, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
+        View view = inflater.inflate(R.layout.fragment_futsal_team_waiting_list_master, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         context = container.getContext();
         waiting_list_adapter_master = new FutsalTeam_Waiting_list_Adapter_master();
@@ -114,7 +114,7 @@ public class FutSalTeam_Waiting_list_Fragment_master extends Fragment implements
 
 
                         }
-                    } else if (msg.equals("no find")) {
+                    } else if (msg.equals("202")) {
                         waiting_list_Size = 0;//들어올릴 없음 왜냐하면 팀이 존재하면 팀원은 무조건 1명이상 존재
                     } else {
                         Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
@@ -138,15 +138,14 @@ public class FutSalTeam_Waiting_list_Fragment_master extends Fragment implements
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             //TODO 겟 처리 후 결과
-            Toast.makeText(getActivity(), "승인 대기자들을 성공적으로 불러왔습니다.", Toast.LENGTH_SHORT).show();
             if (waiting_list_Size != 0) {
+                Toast.makeText(getActivity(), "승인 대기자들을 성공적으로 불러왔습니다.", Toast.LENGTH_SHORT).show();
                 for (int i = 0; i < waiting_list_Size; i++) {
                     waiting_list_adapter_master.addItem(member_id.get(i), member_name.get(i),member_age.get(i),member_location.get(i),member_phonenumber.get(i),member_position.get(i));
                 }
-
                 waiting_list_adapter_master.notifyDataSetChanged();
             } else {
-                Toast.makeText(getActivity(), "에러", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "승인 대기자가 없습니다.", Toast.LENGTH_SHORT).show();
             }
 
 

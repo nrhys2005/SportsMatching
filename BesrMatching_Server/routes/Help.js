@@ -143,4 +143,36 @@ router.post('/Question_Regist', function (req, res) {
     });
 });
 
+//신고하기----------------------------------------
+router.post('/Report', function (req, res) {
+    console.log('<<Help/Report>>');
+    req.on('data', (data) => {
+        var input_data_array= [];
+        var inputData = JSON.parse(data); // JSON data 받음
+
+        var result_code =404;
+        input_data_array.push(inputData.report_title);
+        input_data_array.push(inputData.report_id);
+        input_data_array.push(inputData.report_category);
+        input_data_array.push(inputData.report_target);
+        input_data_array.push(inputData.report_content);
+
+        console.log('input_data : ' + input_data_array); 
+
+        var sql_insert = 'INSERT INTO best_matching.report ( title, user_id, category,target_id, content) values(?,?,?,?)';
+        dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
+            if (!err) {
+                console.log('Query Insert success');
+                console.log(rows);
+                result_code=200;
+                res.json({ "result": result_code });
+            } else {
+                console.log('Query Error : ' + err);
+                result_code=404;
+                res.json({ "result": result_code });
+            }
+        });
+    });
+});
+
 module.exports = router;

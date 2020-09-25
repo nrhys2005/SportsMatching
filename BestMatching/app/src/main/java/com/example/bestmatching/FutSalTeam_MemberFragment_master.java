@@ -106,7 +106,7 @@ public class FutSalTeam_MemberFragment_master extends Fragment implements View.O
 
                         for (int i = 0; i < memberSize; i++) {
                             JSONObject js = jsonArray.getJSONObject(i);
-                            if(js.getString("id").toString().equals(master_id))
+                            if(js.getString("id").equals(master_id))
                                 continue;
                             member_id.add(js.getString("id"));
                             member_name.add(js.getString("name"));

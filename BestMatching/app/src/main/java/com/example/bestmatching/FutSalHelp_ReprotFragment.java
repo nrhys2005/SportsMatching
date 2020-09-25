@@ -175,7 +175,7 @@ public class FutSalHelp_ReprotFragment extends Fragment implements View.OnClickL
                 if ( msg.equals("200")){
                     Toast.makeText(context.getApplicationContext(),"신고 완료",Toast.LENGTH_SHORT).show();
                     reset();
-                    ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(),FutSalTeamSearchFragment.newInstance());
+
                 }
                 else {
                     Toast.makeText(context.getApplicationContext(),"신고 실패",Toast.LENGTH_SHORT).show();

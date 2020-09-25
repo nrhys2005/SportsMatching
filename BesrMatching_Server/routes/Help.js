@@ -159,7 +159,7 @@ router.post('/Report', function (req, res) {
 
         console.log('input_data : ' + input_data_array); 
 
-        var sql_insert = 'INSERT INTO best_matching.report ( title, user_id, category,target_id, content) values(?,?,?,?)';
+        var sql_insert = 'INSERT INTO best_matching.report ( title, user_id, category,target_id, content) values(?,?,?,?,?)';
         dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
             if (!err) {
                 console.log('Query Insert success');

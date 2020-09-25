@@ -171,13 +171,20 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
 
             if (matchSize != 0) {
                 for (int i = 0; i < matchSize; i++) {
-                    futsalMatchSearchAdapter.addItem(match_search_title.get(i).toString(), match_search_ground.get(i).toString(), match_search_date.get(i).toString(),
-                            match_search_start_time.get(i).toString(), match_search_end_time.get(i).toString(), match_search_participants.get(i) + "명", match_search_max_user.get(i) + "명");
+                    futsalMatchSearchAdapter.addItem(match_search_title.get(i), match_search_ground.get(i), match_search_date.get(i),
+                            match_search_start_time.get(i), match_search_end_time.get(i), match_search_participants.get(i) + "명", match_search_max_user.get(i) + "명");
                 }
                 futsalMatchSearchAdapter.notifyDataSetChanged();
             } else {
                 Toast.makeText(getActivity(), "검색결과 없습니다.", Toast.LENGTH_SHORT).show();
             }
+
+
+            /*for (int i=0; i<matchSize; i++) {
+                if (match_search_participants.get(i).equals("0")) {
+                    clear(i);
+                }
+            }*/
 
 
         }
@@ -195,6 +202,20 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
         match_search_max_user.clear();
         match_id.clear();
         futsalMatchSearchAdapter.clearItem();
+        futsalMatchSearchAdapter.notifyDataSetChanged();
+    }
+
+    public void clear(int i) {
+        match_search_title.remove(i);
+        match_search_ground.remove(i);
+        match_search_date.remove(i);
+        match_search_start_time.remove(i);
+        match_search_end_time.remove(i);
+        match_cost.remove(i);
+        match_search_participants.remove(i);
+        match_search_max_user.remove(i);
+        match_id.remove(i);
+        futsalMatchSearchAdapter.clearItem(i);
         futsalMatchSearchAdapter.notifyDataSetChanged();
     }
 

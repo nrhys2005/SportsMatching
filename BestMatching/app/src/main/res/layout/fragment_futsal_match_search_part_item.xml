@@ -47,7 +47,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
-                        android:paddingLeft="55dp" />
+                        android:paddingLeft="36dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:text="나이"
+                        android:paddingLeft="60dp"/>
+
+                    <TextView
+                        android:id="@+id/part_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:text=""
+                        android:paddingLeft="36dp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -61,15 +77,35 @@
                         android:layout_height="wrap_content"
                         android:src="@color/colorAccent"
                         android:textStyle="bold"
-                        android:text="나이" />
+                        android:text="지역" />
 
                     <TextView
-                        android:id="@+id/part_age"
+                        android:id="@+id/part_location"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
-                        android:paddingLeft="55dp"
-                        android:text="" />
+                        android:paddingLeft="36dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/corner_shape"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:text="포지션" />
+
+                    <TextView
+                        android:id="@+id/part_pos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:paddingLeft="25dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -90,7 +126,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
-                        android:paddingLeft="40dp" />
+                        android:paddingLeft="25dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -111,7 +147,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
-                        android:paddingLeft="30dp"
+                        android:paddingLeft="15dp"
                         android:text="" />
                 </LinearLayout>
 
@@ -123,13 +159,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/back_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="이전" />
         </LinearLayout>
 
     </LinearLayout>

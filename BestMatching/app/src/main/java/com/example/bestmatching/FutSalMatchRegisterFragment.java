@@ -242,7 +242,7 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
                 callbackMethod = new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        match_date.setText(year + "년 " + month + "월 " + dayOfMonth + "일");
+                        match_date.setText(String.format("%d", year) + "-" + String.format("%02d", month) + "-" + String.format("%02d", dayOfMonth));
                     }
                 };
 
@@ -255,7 +255,7 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
                 start = new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        match_start_time.setText(String.format("%02d",hourOfDay) + " : " + String.format("%02d",minute));
+                        match_start_time.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
                     }
                 };
 
@@ -269,7 +269,7 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
                 end = new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        match_end_time.setText(String.format("%02d",hourOfDay) + " : " + String.format("%02d",minute));
+                        match_end_time.setText(String.format("%02d",hourOfDay) + ":" + String.format("%02d",minute));
                     }
                 };
 

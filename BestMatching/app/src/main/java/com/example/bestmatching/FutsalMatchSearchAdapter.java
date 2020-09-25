@@ -104,5 +104,7 @@ public class FutsalMatchSearchAdapter extends BaseAdapter {
         matchItems.clear();
     }
 
+    public void clearItem(int i) { matchItems.remove(i); }
+
 
 }

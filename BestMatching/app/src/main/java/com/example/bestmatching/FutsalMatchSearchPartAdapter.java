@@ -14,6 +14,8 @@ public class FutsalMatchSearchPartAdapter extends BaseAdapter {
 
     private TextView part_name;
     private TextView part_age;
+    private TextView part_location;
+    private TextView part_pos;
     private TextView part_email;
     private TextView part_phone;
 
@@ -58,6 +60,8 @@ public class FutsalMatchSearchPartAdapter extends BaseAdapter {
 
         part_name = (TextView) convertView.findViewById(R.id.part_name);
         part_age = (TextView) convertView.findViewById(R.id.part_age);
+        part_location = (TextView) convertView.findViewById(R.id.part_location);
+        part_pos = (TextView) convertView.findViewById(R.id.part_pos);
         part_email = (TextView) convertView.findViewById(R.id.part_email);
         part_phone = (TextView) convertView.findViewById(R.id.part_phone);
 
@@ -65,19 +69,41 @@ public class FutsalMatchSearchPartAdapter extends BaseAdapter {
 
         part_name.setText(futSalMatchSearchPartItems.getName());
         part_age.setText(futSalMatchSearchPartItems.getAge());
+        part_location.setText(futSalMatchSearchPartItems.getLoc());
+        part_pos.setText(futSalMatchSearchPartItems.getPos());
         part_email.setText(futSalMatchSearchPartItems.getEmail());
         part_phone.setText(futSalMatchSearchPartItems.getPhone());
+
+        if (part_name.getText().toString().equals("null") || part_name.getText().toString().equals(""))
+            part_name.setText("정보없음");
+
+        if (part_age.getText().toString().equals("null") || part_age.getText().toString().equals(""))
+            part_age.setText("정보없음");
+
+        if (part_location.getText().toString().equals("null") || part_location.getText().toString().equals(""))
+            part_location.setText("정보없음");
+
+        if (part_pos.getText().toString().equals("null") || part_pos.getText().toString().equals(""))
+            part_pos.setText("정보없음");
+
+        if (part_email.getText().toString().equals("null") || part_email.getText().toString().equals(""))
+            part_email.setText("정보없음");
+
+        if (part_phone.getText().toString().equals("null") || part_phone.getText().toString().equals(""))
+            part_phone.setText("정보없음");
 
         return convertView;
     }
 
 
     //아이템 데이터 추가를 위한 함수
-    public void addItem(String name, String age, String email, String phone){
+    public void addItem(String name, String age, String location, String pos, String email, String phone){
         FutSalMatchSearchPartItems matchSearchPartItems = new FutSalMatchSearchPartItems();
 
         matchSearchPartItems.setName(name);
         matchSearchPartItems.setAge(age);
+        matchSearchPartItems.setLoc(location);
+        matchSearchPartItems.setPos(pos);
         matchSearchPartItems.setEmail(email);
         matchSearchPartItems.setPhone(phone);
 

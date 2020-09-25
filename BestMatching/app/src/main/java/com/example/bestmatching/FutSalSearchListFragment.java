@@ -77,7 +77,7 @@ public class FutSalSearchListFragment extends Fragment implements View.OnClickLi
         lm = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
         myLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-//        new Get().execute(ip + "/ground/search?"+"latitude="+myLocation.getLatitude()+"&"+"longtitude="+myLocation.getLongitude());
+        new Get().execute(ip + "/ground/search?"+"latitude="+myLocation.getLatitude()+"&"+"longtitude="+myLocation.getLongitude());
         futsalSearchListAdapter.notifyDataSetChanged();
         futsal_search_list.setOnItemClickListener(this);
 
@@ -131,7 +131,7 @@ public class FutSalSearchListFragment extends Fragment implements View.OnClickLi
                         stadiumSize = jsonArray.length();
 
                         for (int i = 0; i < stadiumSize; i++) {
-                                JSONObject js = jsonArray.getJSONObject(i);
+                            JSONObject js = jsonArray.getJSONObject(i);
                             ground_id.add(js.getInt("id"));
                             stadium_name.add(js.getString("name"));
                             price.add(js.getString("price"));

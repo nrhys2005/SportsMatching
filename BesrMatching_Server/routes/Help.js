@@ -73,8 +73,9 @@ router.get('/Myinfo', function (req, res) {
 //공지사항--------------------------------------- 
 router.get('/Notice', function (req, res) {
     console.log('<<Help/Notice_Get>>');
-    
+
     var sql = 'select title,create_time, content from best_matching.notice';
+    
     var result_code=404;
     dbconn.query(sql, function (err, rows, fields) {//DB connect
         if (!err) {

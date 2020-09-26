@@ -68,20 +68,20 @@ public class FutSalSearchMapFragment extends Fragment implements OnMapReadyCallb
 
         context = container.getContext();
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[] {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION
             }, PERMISSION_REQUEST_CODE);
         }
-        lm = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+        lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         myLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-        Log.i("현재 위치1", myLocation.getLongitude()+","+myLocation.getLatitude());
+     //   Log.i("현재 위치1", myLocation.getLongitude() + "," + myLocation.getLatitude());
         new Get().execute(ip + "/ground");
 
         mapView = (MapView) view.findViewById(R.id.mapsearch);
         mapView.getMapAsync(this);
-        new Get().execute(ip + "/ground/search?"+"latitude="+myLocation.getLatitude()+"&"+"longtitude="+myLocation.getLongitude());
+      //  new Get().execute(ip + "/ground/search?" + "latitude=" + myLocation.getLatitude() + "&" + "longtitude=" + myLocation.getLongitude());
         return view;
 
     }
@@ -137,46 +137,51 @@ public class FutSalSearchMapFragment extends Fragment implements OnMapReadyCallb
             mapView.onCreate(savedInstanceState);
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 }
                 break;
         }
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        Log.i("현재 위치23", myLocation.getLongitude()+","+myLocation.getLatitude());
+
+       // Log.i("현재 위치23", myLocation.getLongitude() + "," + myLocation.getLatitude());
         LatLng SANGJU = new LatLng(36.378399, 128.147967);
         /*MarkerOptions markerOptions = new MarkerOptions();
         markerOptions
                 .position(SANGJU)
                 .title(stadium_name.get(0).toString());
         googleMap.addMarker(markerOptions);*/
+        GpsTracker gpsTracker = new GpsTracker(context);
+
         mMap.setMyLocationEnabled(true);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(myLocation.getLatitude(),myLocation.getLongitude())));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(gpsTracker.getLatitude(),gpsTracker.getLongitude())));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
         MarkerOptions markerOptions = new MarkerOptions();
 
-        for (int i=0; i<groundSize; i++) {
-            googleMap.addMarker(markerOptions
-                    .title(stadium_name.get(i))
-                    //.position(SANGJU)
-                    .position(new LatLng(lat.get(i),lon.get(i)))
-                    .snippet(price.get(i) + "원"));
-        }
+//        for (int i=0; i<groundSize; i++) {
+//            googleMap.addMarker(markerOptions
+//                    .title(stadium_name.get(i))
+//                    //.position(SANGJU)
+//                    .position(new LatLng(lat.get(i),lon.get(i)))
+//                    .snippet(price.get(i) + "원"));
+//        }
 
 
-        if (groundSize>0) {
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(lat.get(0),lon.get(0))));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat.get(0),lon.get(0)), 16));
-            googleMap.animateCamera(CameraUpdateFactory.zoomTo(16));
-        }
+//        if (groundSize>0) {
+//            googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(lat.get(0),lon.get(0))));
+//            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat.get(0),lon.get(0)), 16));
+//            googleMap.animateCamera(CameraUpdateFactory.zoomTo(16));
+//        }
 
         //mMap.setOnMarkerClickListener(this);
         mMap.setOnInfoWindowClickListener(this);

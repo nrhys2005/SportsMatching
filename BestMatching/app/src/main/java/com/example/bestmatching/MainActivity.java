@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(this.getApplicationContext(), "뒤로가기 버튼", Toast.LENGTH_SHORT).show();
+       //  Toast.makeText(this.getApplicationContext(), "뒤로가기 버튼", Toast.LENGTH_SHORT).show();
         // 코드 작성
     }
     //프레그먼트 교체 함수

@@ -45,6 +45,7 @@ public class FutSalSearchMapFragment extends Fragment implements OnMapReadyCallb
 
     private Context context;
     private GoogleMap mMap;
+    private GpsTracker gpsTracker;
     private int groundSize;
 
 
@@ -75,13 +76,13 @@ public class FutSalSearchMapFragment extends Fragment implements OnMapReadyCallb
         }
         lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         myLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
+        gpsTracker = new GpsTracker(context);
      //   Log.i("현재 위치1", myLocation.getLongitude() + "," + myLocation.getLatitude());
         new Get().execute(ip + "/ground");
 
         mapView = (MapView) view.findViewById(R.id.mapsearch);
         mapView.getMapAsync(this);
-      //  new Get().execute(ip + "/ground/search?" + "latitude=" + myLocation.getLatitude() + "&" + "longtitude=" + myLocation.getLongitude());
+        new Get().execute(ip + "/ground/search?" + "latitude=" + gpsTracker.getLatitude() + "&" + "longtitude=" + gpsTracker.getLongitude());
         return view;
 
     }
@@ -161,27 +162,27 @@ public class FutSalSearchMapFragment extends Fragment implements OnMapReadyCallb
                 .position(SANGJU)
                 .title(stadium_name.get(0).toString());
         googleMap.addMarker(markerOptions);*/
-        GpsTracker gpsTracker = new GpsTracker(context);
+
 
         mMap.setMyLocationEnabled(true);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(gpsTracker.getLatitude(),gpsTracker.getLongitude())));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
         MarkerOptions markerOptions = new MarkerOptions();
 
-//        for (int i=0; i<groundSize; i++) {
-//            googleMap.addMarker(markerOptions
-//                    .title(stadium_name.get(i))
-//                    //.position(SANGJU)
-//                    .position(new LatLng(lat.get(i),lon.get(i)))
-//                    .snippet(price.get(i) + "원"));
-//        }
+        for (int i=0; i<groundSize; i++) {
+            googleMap.addMarker(markerOptions
+                    .title(stadium_name.get(i))
+                    //.position(SANGJU)
+                    .position(new LatLng(lat.get(i),lon.get(i)))
+                    .snippet(price.get(i) + "원"));
+        }
 
 
-//        if (groundSize>0) {
-//            googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(lat.get(0),lon.get(0))));
-//            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat.get(0),lon.get(0)), 16));
-//            googleMap.animateCamera(CameraUpdateFactory.zoomTo(16));
-//        }
+        if (groundSize>0) {
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(lat.get(0),lon.get(0))));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat.get(0),lon.get(0)), 16));
+            googleMap.animateCamera(CameraUpdateFactory.zoomTo(16));
+        }
 
         //mMap.setOnMarkerClickListener(this);
         mMap.setOnInfoWindowClickListener(this);

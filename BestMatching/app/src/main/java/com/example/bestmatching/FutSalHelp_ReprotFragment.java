@@ -226,9 +226,16 @@ public class FutSalHelp_ReprotFragment extends Fragment implements View.OnClickL
 
 
             case R.id.report_regist:
-                new Post().execute(ip + "/Help/Report");
+
+                if(report_title.getText().toString().equals("")||report_content.getText().toString().equals("")||report_target.getText().toString().equals("")||report_category.getText().toString().equals(""))
+                {
+                    Toast.makeText(context.getApplicationContext(),"정보를 모두 입력해 주세요.",Toast.LENGTH_SHORT).show();
+                }
+                else
+                    new Post().execute(ip + "/Help/Report");
                 //((MainActivity)getActivity()).replaceFragment(this,FutSalTeamSearchFragment.newInstance());
                 break;
+
         }
     }
 }

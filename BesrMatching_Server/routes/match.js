@@ -19,6 +19,7 @@ router.post('/create', function (req, res) {
         let end_time = new Date(inputData.date+ " " +inputData.end_time+":00");
         let today = new Date();
         var user_id =inputData.user_id;
+
         input_data_array.push(inputData.title);// json->array
         input_data_array.push(inputData.ground_name);
         input_data_array.push(start_time);
@@ -51,10 +52,6 @@ router.post('/create', function (req, res) {
                     var sql_insert = 'INSERT INTO best_matching.match (title, ground_name, start_time, end_time,cost,max_user,create_time, participants) VALUES(?, ?, ?, ?, ?,?,?,?)';
                     dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
                         if (!err) {
-                            //console.log('Query insert success');
-                            //res.json({ "result": "Success" });
-                            //console.log(rows);
-
                             var match_sql = 'select * from best_matching.match order by create_time DESC limit 1';
 
                             dbconn.query(match_sql, "", function (err, rows, fields) {//DB connect
@@ -120,7 +117,7 @@ router.get('/search/:search', function (req, res) {
         sql = 'select * from best_matching.match where match.end_time>=NOW()';
     }
     else {
-        sql = 'select * from best_matching.match where match.end_time>=NOW() and match.title like ?';
+        sql = 'select * from best_matching.match where match.end_time >= NOW() and match.max_user <> match.participants and match.participants <> 0 and match.title like ?';
         search_data_array.push('%' + search + '%');
     }
     dbconn.query(sql, search_data_array, function (err, rows, fields) {//DB connect

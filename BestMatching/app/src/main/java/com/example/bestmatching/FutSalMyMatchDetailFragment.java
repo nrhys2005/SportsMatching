@@ -37,7 +37,6 @@ public class FutSalMyMatchDetailFragment extends Fragment implements View.OnClic
 
     TextView detail_my_match_title;
     TextView detail_my_match_ground_name;
-    TextView detail_my_match_date;
     TextView detail_my_match_start_time;
     TextView detail_my_match_end_time;
     TextView detail_my_match_cost;
@@ -60,7 +59,6 @@ public class FutSalMyMatchDetailFragment extends Fragment implements View.OnClic
 
         detail_my_match_title = (TextView)view.findViewById(R.id.detail_my_match_title);
         detail_my_match_ground_name = (TextView)view.findViewById(R.id.detail_my_match_ground_name);
-        detail_my_match_date = (TextView)view.findViewById(R.id.detail_my_match_date);
         detail_my_match_start_time = (TextView)view.findViewById(R.id.detail_my_match_start_time);
         detail_my_match_end_time = (TextView)view.findViewById(R.id.detail_my_match_end_time);
         detail_my_match_cost = (TextView)view.findViewById(R.id.detail_my_match_cost);
@@ -69,7 +67,6 @@ public class FutSalMyMatchDetailFragment extends Fragment implements View.OnClic
 
         String title = getArguments().getString("title");
         String ground_name = getArguments().getString("ground_name");
-        String date = getArguments().getString("date");
         String start_time = getArguments().getString("start_time");
         String end_time = getArguments().getString("end_time");
         String cost = getArguments().getString("cost");
@@ -78,11 +75,15 @@ public class FutSalMyMatchDetailFragment extends Fragment implements View.OnClic
 
         my_match_id = getArguments().getString("id");
 
+        String start1 = start_time.substring(0,10);
+        String start2 = start_time.substring(11,16);
+        String end1 = end_time.substring(0,10);
+        String end2 = end_time.substring(11,16);
+
         detail_my_match_title.setText(title);
         detail_my_match_ground_name.setText(ground_name);
-        detail_my_match_date.setText(date);
-        detail_my_match_start_time.setText(start_time);
-        detail_my_match_end_time.setText(end_time);
+        detail_my_match_start_time.setText(start1 + "   " + start2);
+        detail_my_match_end_time.setText(end1 + "   " + end2);
         detail_my_match_cost.setText(cost + "원");
         detail_my_match_part_user.setText(part_user + "명");
         detail_my_match_max_user.setText(max_user + "명");

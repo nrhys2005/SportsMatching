@@ -48,7 +48,6 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
 
     ArrayList<String> my_match_title = new ArrayList<>();
     ArrayList<String> my_match_ground = new ArrayList<>();
-    ArrayList<String> my_match_date = new ArrayList<>();
     ArrayList<String> my_match_start_time = new ArrayList<>();
     ArrayList<String> my_match_end_time = new ArrayList<>();
     ArrayList<String> my_match_cost = new ArrayList<>();
@@ -66,8 +65,6 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
         View view = inflater.inflate(R.layout.fragment_futsal_my_match, container, false); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         context = container.getContext();
-        //my_match_search = (EditText) view.findViewById(R.id.my_match_search);
-        //my_match_search_btn = (Button) view.findViewById(R.id.my_match_search_btn);
 
         futsalMyMatchAdapter = new FutsalMyMatchAdapter();
 
@@ -78,7 +75,6 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
 
         futsalMyMatchAdapter.notifyDataSetChanged();
 
-        //my_match_search_btn.setOnClickListener(this);
         futsal_my_match.setOnItemClickListener(this);
 
         return view;
@@ -93,7 +89,6 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
         Bundle bundle = new Bundle();
         bundle.putString("title", my_match_title.get(pos));
         bundle.putString("ground_name", my_match_ground.get(pos));
-        bundle.putString("date", my_match_date.get(pos));
         bundle.putString("start_time", my_match_start_time.get(pos));
         bundle.putString("end_time", my_match_end_time.get(pos));
         bundle.putString("cost", my_match_cost.get(pos));
@@ -138,7 +133,6 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
                             JSONObject js = jsonArray.getJSONObject(i);
                             my_match_title.add(js.getString("title"));
                             my_match_ground.add(js.getString("ground_name"));
-                            my_match_date.add(js.getString("date"));
                             my_match_start_time.add(js.getString("start_time"));
                             my_match_end_time.add(js.getString("end_time"));
                             my_match_cost.add(js.getString("cost"));
@@ -172,9 +166,16 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
 
             if (mymatchSize != 0) {
                 for (int i = 0; i < mymatchSize; i++) {
-                    futsalMyMatchAdapter.addItem(my_match_title.get(i), my_match_ground.get(i), my_match_date.get(i),
-                            my_match_start_time.get(i), my_match_end_time.get(i), my_match_part_user.get(i) + "명",
-                            my_match_max_user.get(i)+ "명");
+
+                    String start1 = my_match_start_time.get(i).substring(0,10);
+                    String start2 = my_match_start_time.get(i).substring(11,16);
+
+                    String end1 = my_match_end_time.get(i).substring(0,10);
+                    String end2 = my_match_end_time.get(i).substring(11,16);
+
+                    futsalMyMatchAdapter.addItem(my_match_title.get(i), my_match_ground.get(i),
+                            start1 + "   " + start2, end1 + "   " + end2,
+                            my_match_part_user.get(i) + "명", my_match_max_user.get(i)+ "명");
                 }
                 futsalMyMatchAdapter.notifyDataSetChanged();
             } else {
@@ -186,33 +187,10 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
 
     }
 
-/*    public void clear() {
-        my_match_title.clear();
-        my_match_ground.clear();
-        my_match_date.clear();
-        my_match_start_time.clear();
-        my_match_end_time.clear();
-        my_match_max_user.clear();
-        my_match_cost.clear();
-        my_match_id.clear();
-        futsalMyMatchAdapter.clearItem();
-        futsalMyMatchAdapter.notifyDataSetChanged();
-    }*/
 
     @Override
     public void onClick(View v) {
         int a = v.getId();
-       /* switch (a) {
-            case R.id.my_match_search_btn:
-                String text = my_match_search.getText().toString();
 
-                if (text.length() > 0) {
-                    clear();
-                    new Get().execute(ip + "/match/search/" + text);
-                } else {
-                    Toast.makeText(getActivity(), "검색내용을 입력하세요.", Toast.LENGTH_SHORT).show();
-                }
-                break;
-        }*/
     }
 }

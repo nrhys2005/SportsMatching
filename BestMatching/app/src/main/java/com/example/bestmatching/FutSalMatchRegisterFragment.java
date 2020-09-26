@@ -242,7 +242,7 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
                 callbackMethod = new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        match_date.setText(String.format("%d", year) + "-" + String.format("%02d", month) + "-" + String.format("%02d", dayOfMonth));
+                        match_date.setText(String.format("%d", year) + "-" + String.format("%02d", month + 1) + "-" + String.format("%02d", dayOfMonth));
                     }
                 };
 

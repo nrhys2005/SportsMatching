@@ -4,7 +4,6 @@ public class FutSalMatchSearchItems {
 
     private String titleStr;
     private String groundStr;
-    private String dateStr;
     private String startTimeStr;
     private String endTimeStr;
     private String participantsStr;
@@ -18,9 +17,6 @@ public class FutSalMatchSearchItems {
         groundStr = ground;
     }
 
-    public void setDate(String date) {
-        dateStr = date;
-    }
 
     public void setStartTime(String start_time) {
         startTimeStr = start_time;
@@ -47,10 +43,6 @@ public class FutSalMatchSearchItems {
 
     public String getGround() {
         return this.groundStr;
-    }
-
-    public String getDate() {
-        return this.dateStr;
     }
 
     public String getStartTime() {

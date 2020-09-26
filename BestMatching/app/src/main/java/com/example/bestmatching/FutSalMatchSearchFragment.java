@@ -47,7 +47,6 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
 
     ArrayList<String> match_search_title = new ArrayList<>();
     ArrayList<String> match_search_ground = new ArrayList<>();
-    ArrayList<String> match_search_date = new ArrayList<>();
     ArrayList<String> match_search_start_time = new ArrayList<>();
     ArrayList<String> match_search_end_time = new ArrayList<>();
     ArrayList<String> match_cost = new ArrayList<>();
@@ -92,7 +91,6 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
         Bundle bundle = new Bundle();
         bundle.putString("title", match_search_title.get(pos));
         bundle.putString("ground_name", match_search_ground.get(pos));
-        bundle.putString("date", match_search_date.get(pos));
         bundle.putString("start_time", match_search_start_time.get(pos));
         bundle.putString("end_time", match_search_end_time.get(pos));
         bundle.putString("cost", match_cost.get(pos));
@@ -137,7 +135,6 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
                             JSONObject js = jsonArray.getJSONObject(i);
                             match_search_title.add(js.getString("title"));
                             match_search_ground.add(js.getString("ground_name"));
-                            match_search_date.add(js.getString("date"));
                             match_search_start_time.add(js.getString("start_time"));
                             match_search_end_time.add(js.getString("end_time"));
                             match_cost.add(js.getString("cost"));
@@ -171,8 +168,15 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
 
             if (matchSize != 0) {
                 for (int i = 0; i < matchSize; i++) {
-                    futsalMatchSearchAdapter.addItem(match_search_title.get(i), match_search_ground.get(i), match_search_date.get(i),
-                            match_search_start_time.get(i), match_search_end_time.get(i), match_search_participants.get(i) + "명", match_search_max_user.get(i) + "명");
+                    String start1 = match_search_start_time.get(i).substring(0,10);
+                    String start2 = match_search_start_time.get(i).substring(11,16);
+
+                    String end1 = match_search_end_time.get(i).substring(0,10);
+                    String end2 = match_search_end_time.get(i).substring(11,16);
+
+                    futsalMatchSearchAdapter.addItem(match_search_title.get(i), match_search_ground.get(i),
+                            start1 + "   " + start2, end1 + "   " + end2,
+                            match_search_participants.get(i) + "명", match_search_max_user.get(i) + "명");
                 }
                 futsalMatchSearchAdapter.notifyDataSetChanged();
             } else {
@@ -194,7 +198,6 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
     public void clear() {
         match_search_title.clear();
         match_search_ground.clear();
-        match_search_date.clear();
         match_search_start_time.clear();
         match_search_end_time.clear();
         match_cost.clear();
@@ -208,7 +211,6 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
     public void clear(int i) {
         match_search_title.remove(i);
         match_search_ground.remove(i);
-        match_search_date.remove(i);
         match_search_start_time.remove(i);
         match_search_end_time.remove(i);
         match_cost.remove(i);

@@ -155,7 +155,7 @@ router.post('/join', function (req, res) {
                 }
                 else {
                     var max_user = rows[0].max_user;
-                    var count_sql = 'select count(*) as count from best_matching.match, best_matching.matching_user where matching_user.match_id =?';
+                    var count_sql = 'select * from best_matching.match where match.id =?';
                     dbconn.query(count_sql, match_id, function (err, rows, fields) {//DB connect
                         if (!err) {
                             if (rows.length == 0) {
@@ -163,7 +163,7 @@ router.post('/join', function (req, res) {
                                 res.json({ "result": "no find" });
                             }
                             else {
-                                if (rows[0].count >= max_user) {
+                                if (rows[0].participants >= max_user) {
                                     console.log('Query Select Success(result": "matching is full")');
                                     res.json({ "result": "full" });
                                 }

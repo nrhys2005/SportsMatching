@@ -128,7 +128,9 @@
                     android:hint="신고 대상을 입력해 주세요."
                     android:textStyle="bold"
                     android:textSize="15dp"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:singleLine = "true"
+                    android:lines = "1"/>
             </LinearLayout>
 
             <LinearLayout
@@ -156,6 +158,8 @@
                     android:textStyle="bold"
                     android:textSize="15dp"
                     android:padding="10dp"
+                    android:singleLine = "true"
+                    android:lines = "1"
                     />
             </LinearLayout>
 
@@ -172,13 +176,7 @@
             android:paddingRight="20dp"
 
             android:weightSum="1">
-            <Button
-                android:id="@+id/back_btn"
-                android:layout_width="wrap_content"
-                android:background="@drawable/button_shape"
-                android:layout_height="50dp"
-                android:layout_weight="0.5"
-                android:text="돌아가기" />
+
             <Button
                 android:id="@+id/report_regist"
                 android:layout_width="wrap_content"

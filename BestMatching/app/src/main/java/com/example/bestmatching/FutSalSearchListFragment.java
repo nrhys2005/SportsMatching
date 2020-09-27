@@ -39,7 +39,7 @@ public class FutSalSearchListFragment extends Fragment implements View.OnClickLi
     String ip = lg.ip;
 
     public static Context context;
-
+    private GpsTracker gpsTracker;
     private int pos;
 
     //구장 개수
@@ -73,11 +73,11 @@ public class FutSalSearchListFragment extends Fragment implements View.OnClickLi
             }, PERMISSION_REQUEST_CODE);
 
         }
-
+        gpsTracker = new GpsTracker(context);
         lm = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
         myLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-        new Get().execute(ip + "/ground/search?"+"latitude="+myLocation.getLatitude()+"&"+"longtitude="+myLocation.getLongitude());
+        new Get().execute(ip + "/ground/search?"+"latitude="+gpsTracker.getLatitude()+"&"+"longtitude="+gpsTracker.getLongitude());
         futsalSearchListAdapter.notifyDataSetChanged();
         futsal_search_list.setOnItemClickListener(this);
 

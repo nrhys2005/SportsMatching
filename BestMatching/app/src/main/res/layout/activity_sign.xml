@@ -30,8 +30,9 @@
                 android:layout_weight="2.5"
                 android:textStyle="bold"
                 android:hint="아이디를 입력하세요"
-                android:inputType="text"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:singleLine = "true"
+                android:lines = "1"/>
 
             <Button
                 android:id="@+id/id_check"
@@ -52,7 +53,9 @@
             android:hint="이름을 입력하세요"
             android:inputType="text"
             android:textStyle="bold"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:singleLine = "true"
+            android:lines = "1"/>
 
         <EditText
             android:id="@+id/pw"
@@ -62,7 +65,9 @@
             android:hint="비밀번호를 입력하세요"
             android:inputType="textPassword"
             android:textStyle="bold"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:singleLine = "true"
+            android:lines = "1"/>
 
         <EditText
             android:id="@+id/pw_check"
@@ -72,7 +77,9 @@
             android:hint="비밀번호 재확인"
             android:inputType="textPassword"
             android:textStyle="bold"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:singleLine = "true"
+            android:lines = "1"/>
 
         <EditText
             android:id="@+id/email"
@@ -82,7 +89,9 @@
             android:hint="E_mail 입력하세요"
             android:inputType="text"
             android:textStyle="bold"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:singleLine = "true"
+            android:lines = "1"/>
     </LinearLayout>
 
     <LinearLayout

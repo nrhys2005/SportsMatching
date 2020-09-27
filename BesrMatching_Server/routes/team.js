@@ -54,7 +54,6 @@ router.get('/myteam', function (req, res) {
             res.json({ "result": result_code });
         }
     });
-
 });
 
 //팀 정보(수정) 프래그먼트 -------------------

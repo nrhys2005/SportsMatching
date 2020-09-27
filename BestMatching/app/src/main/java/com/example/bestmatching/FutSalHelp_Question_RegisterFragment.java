@@ -45,7 +45,7 @@ public class FutSalHelp_Question_RegisterFragment extends Fragment implements Vi
     TextView question_content;
 
     Button question_regist;
-
+    Button back_btn;
     //private Spinner spinner_location;
     AlertDialog.Builder builder;
     AlertDialog dialog;
@@ -68,10 +68,10 @@ public class FutSalHelp_Question_RegisterFragment extends Fragment implements Vi
         question_content = (TextView) view.findViewById(R.id.question_content);
 
         question_regist = (Button)view.findViewById(R.id.question_regist);
-
+        back_btn = (Button)view.findViewById(R.id.back_btn);
         question_category.setOnClickListener(this);
         question_regist.setOnClickListener(this);
-
+        back_btn.setOnClickListener(this);
         question_id.setText(send_id);
 
         return view;
@@ -209,6 +209,10 @@ public class FutSalHelp_Question_RegisterFragment extends Fragment implements Vi
                 dialog = builder.create();
                 dialog.show();
                 break;
+            case R.id.back_btn:
+                ((MainActivity)getActivity()).replaceFragment(FutSalHelpActivity.newInstance(), FutSalHelp_QuestionFragment.newInstance());
+                break;
+
         }
     }
 }

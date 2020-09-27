@@ -122,7 +122,9 @@
                     android:background="@drawable/corner_shape"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:singleLine = "true"
+                    android:lines = "1"/>
             </LinearLayout>
 
             <LinearLayout
@@ -146,7 +148,9 @@
                     android:background="@drawable/corner_shape"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:singleLine = "true"
+                    android:lines = "1"/>
             </LinearLayout>
 
             <LinearLayout
@@ -171,7 +175,9 @@
                     android:background="@drawable/corner_shape"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:singleLine = "true"
+                    android:lines = "1"/>
             </LinearLayout>
 
             <LinearLayout
@@ -218,7 +224,6 @@
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/corner_shape"
                     android:gravity="center"
-
                     android:textStyle="bold"
                     android:padding="10dp"
                     />

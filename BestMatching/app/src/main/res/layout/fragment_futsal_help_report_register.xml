@@ -128,7 +128,9 @@
                     android:hint="신고 대상을 입력해 주세요."
                     android:textStyle="bold"
                     android:textSize="15dp"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:singleLine = "true"
+                    android:lines = "1"/>
             </LinearLayout>
 
             <LinearLayout
@@ -156,6 +158,8 @@
                     android:textStyle="bold"
                     android:textSize="15dp"
                     android:padding="10dp"
+                    android:singleLine = "true"
+                    android:lines = "1"
                     />
             </LinearLayout>
 

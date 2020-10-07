@@ -101,7 +101,9 @@
                     android:gravity="center"
                     android:hint="평균 연령 선택해주세요."
                     android:textStyle="bold"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:singleLine = "true"
+                    android:lines = "1"/>
             </LinearLayout>
 
             <LinearLayout
@@ -127,7 +129,9 @@
                     android:gravity="center"
                     android:hint="팀 수준 선택해주세요."
                     android:textStyle="bold"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:singleLine = "true"
+                    android:lines = "1"/>
             </LinearLayout>
 
             <LinearLayout
@@ -153,7 +157,9 @@
                     android:gravity="center"
                     android:hint="활동지역을 선택해주세요."
                     android:textStyle="bold"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:singleLine = "true"
+                    android:lines = "1"/>
             </LinearLayout>
 
             <LinearLayout
@@ -179,7 +185,9 @@
                     android:gravity="center"
                     android:hint="활동요일 선택해주세요."
                     android:textStyle="bold"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:singleLine = "true"
+                    android:lines = "1"/>
             </LinearLayout>
 
             <LinearLayout

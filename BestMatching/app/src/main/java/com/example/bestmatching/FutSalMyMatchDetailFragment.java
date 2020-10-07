@@ -33,15 +33,18 @@ public class FutSalMyMatchDetailFragment extends Fragment implements View.OnClic
     LoginActivity lg = new LoginActivity();
     String ip = lg.ip;
     String now_id = lg.Myid;
+    String my_match_id;
 
     TextView detail_my_match_title;
     TextView detail_my_match_ground_name;
-    TextView detail_my_match_date;
     TextView detail_my_match_start_time;
     TextView detail_my_match_end_time;
     TextView detail_my_match_cost;
+    TextView detail_my_match_part_user;
+    TextView detail_my_match_max_user;
 
     Button back_btn;
+    Button my_match_participants;
     Button match_cancel;
 
     public static FutSalMyMatchDetailFragment newInstance() {
@@ -56,29 +59,41 @@ public class FutSalMyMatchDetailFragment extends Fragment implements View.OnClic
 
         detail_my_match_title = (TextView)view.findViewById(R.id.detail_my_match_title);
         detail_my_match_ground_name = (TextView)view.findViewById(R.id.detail_my_match_ground_name);
-        detail_my_match_date = (TextView)view.findViewById(R.id.detail_my_match_date);
         detail_my_match_start_time = (TextView)view.findViewById(R.id.detail_my_match_start_time);
         detail_my_match_end_time = (TextView)view.findViewById(R.id.detail_my_match_end_time);
         detail_my_match_cost = (TextView)view.findViewById(R.id.detail_my_match_cost);
+        detail_my_match_part_user = (TextView)view.findViewById(R.id.detail_my_match_part_user);
+        detail_my_match_max_user = (TextView)view.findViewById(R.id.detail_my_match_max_user);
 
         String title = getArguments().getString("title");
         String ground_name = getArguments().getString("ground_name");
-        String date = getArguments().getString("date");
         String start_time = getArguments().getString("start_time");
         String end_time = getArguments().getString("end_time");
         String cost = getArguments().getString("cost");
+        String part_user = getArguments().getString("part_user");
+        String max_user = getArguments().getString("max_user");
+
+        my_match_id = getArguments().getString("id");
+
+        String start1 = start_time.substring(0,10);
+        String start2 = start_time.substring(11,16);
+        String end1 = end_time.substring(0,10);
+        String end2 = end_time.substring(11,16);
 
         detail_my_match_title.setText(title);
         detail_my_match_ground_name.setText(ground_name);
-        detail_my_match_date.setText(date);
-        detail_my_match_start_time.setText(start_time);
-        detail_my_match_end_time.setText(end_time);
+        detail_my_match_start_time.setText(start1 + "   " + start2);
+        detail_my_match_end_time.setText(end1 + "   " + end2);
         detail_my_match_cost.setText(cost + "원");
+        detail_my_match_part_user.setText(part_user + "명");
+        detail_my_match_max_user.setText(max_user + "명");
 
         back_btn = (Button)view.findViewById(R.id.back_btn);
+        my_match_participants = (Button)view.findViewById(R.id.my_match_participants);
         match_cancel = (Button)view.findViewById(R.id.match_cancel);
 
         back_btn.setOnClickListener(this);
+        my_match_participants.setOnClickListener(this);
         match_cancel.setOnClickListener(this);
 
         return view;
@@ -94,7 +109,7 @@ public class FutSalMyMatchDetailFragment extends Fragment implements View.OnClic
                 JSONObject jsonObject = new JSONObject();
 
                 jsonObject.put("user_id", now_id);
-                jsonObject.put("match_id", getArguments().getString("id") );
+                jsonObject.put("match_id", my_match_id );
 
                 HttpURLConnection con = null;
                 BufferedReader reader = null;
@@ -183,6 +198,13 @@ public class FutSalMyMatchDetailFragment extends Fragment implements View.OnClic
         switch (a) {
             case R.id.back_btn:
                 ((MainActivity) getActivity()).backFragment(FutSalMatchActivity.newInstance(), FutSalMyMatchFragment.newInstance());
+                break;
+            case R.id.my_match_participants:
+                Bundle bundle = new Bundle();
+                bundle.putString("id", my_match_id);
+                FutSalMatchSearchPartFragment f = new FutSalMatchSearchPartFragment();
+                f.setArguments(bundle);
+                ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), f);
                 break;
             case R.id.match_cancel:
                 new Post().execute(ip + "/match/mymatching_cancel");

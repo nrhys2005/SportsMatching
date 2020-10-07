@@ -47,10 +47,11 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
 
     ArrayList<String> match_search_title = new ArrayList<>();
     ArrayList<String> match_search_ground = new ArrayList<>();
-    ArrayList<String> match_search_date = new ArrayList<>();
     ArrayList<String> match_search_start_time = new ArrayList<>();
     ArrayList<String> match_search_end_time = new ArrayList<>();
     ArrayList<String> match_cost = new ArrayList<>();
+    ArrayList<String> match_search_participants = new ArrayList<>();
+    ArrayList<String> match_search_max_user = new ArrayList<>();
     ArrayList<String> match_id = new ArrayList<>();
 
     public static FutSalMatchSearchFragment newInstance() {
@@ -90,10 +91,11 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
         Bundle bundle = new Bundle();
         bundle.putString("title", match_search_title.get(pos));
         bundle.putString("ground_name", match_search_ground.get(pos));
-        bundle.putString("date", match_search_date.get(pos));
         bundle.putString("start_time", match_search_start_time.get(pos));
         bundle.putString("end_time", match_search_end_time.get(pos));
         bundle.putString("cost", match_cost.get(pos));
+        bundle.putString("participants", match_search_participants.get(pos));
+        bundle.putString("max_user", match_search_max_user.get(pos));
         bundle.putString("id", match_id.get(pos));
         FutSalMatchSearchDetailFragment f = new FutSalMatchSearchDetailFragment();
         f.setArguments(bundle);
@@ -133,10 +135,11 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
                             JSONObject js = jsonArray.getJSONObject(i);
                             match_search_title.add(js.getString("title"));
                             match_search_ground.add(js.getString("ground_name"));
-                            match_search_date.add(js.getString("date"));
                             match_search_start_time.add(js.getString("start_time"));
                             match_search_end_time.add(js.getString("end_time"));
                             match_cost.add(js.getString("cost"));
+                            match_search_participants.add(js.getString("participants"));
+                            match_search_max_user.add(js.getString("max_user"));
                             match_id.add(js.getString("id"));
                         }
                     } else if (msg.equals("no find")) {
@@ -165,13 +168,27 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
 
             if (matchSize != 0) {
                 for (int i = 0; i < matchSize; i++) {
-                    futsalMatchSearchAdapter.addItem(match_search_title.get(i).toString(), match_search_ground.get(i).toString(), match_search_date.get(i).toString(),
-                            match_search_start_time.get(i).toString(), match_search_end_time.get(i).toString());
+                    String start1 = match_search_start_time.get(i).substring(0,10);
+                    String start2 = match_search_start_time.get(i).substring(11,16);
+
+                    String end1 = match_search_end_time.get(i).substring(0,10);
+                    String end2 = match_search_end_time.get(i).substring(11,16);
+
+                    futsalMatchSearchAdapter.addItem(match_search_title.get(i), match_search_ground.get(i),
+                            start1 + "   " + start2, end1 + "   " + end2,
+                            match_search_participants.get(i) + "명", match_search_max_user.get(i) + "명");
                 }
                 futsalMatchSearchAdapter.notifyDataSetChanged();
             } else {
                 Toast.makeText(getActivity(), "검색결과 없습니다.", Toast.LENGTH_SHORT).show();
             }
+
+
+            /*for (int i=0; i<matchSize; i++) {
+                if (match_search_participants.get(i).equals("0")) {
+                    clear(i);
+                }
+            }*/
 
 
         }
@@ -181,12 +198,26 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
     public void clear() {
         match_search_title.clear();
         match_search_ground.clear();
-        match_search_date.clear();
         match_search_start_time.clear();
         match_search_end_time.clear();
         match_cost.clear();
+        match_search_participants.clear();
+        match_search_max_user.clear();
         match_id.clear();
         futsalMatchSearchAdapter.clearItem();
+        futsalMatchSearchAdapter.notifyDataSetChanged();
+    }
+
+    public void clear(int i) {
+        match_search_title.remove(i);
+        match_search_ground.remove(i);
+        match_search_start_time.remove(i);
+        match_search_end_time.remove(i);
+        match_cost.remove(i);
+        match_search_participants.remove(i);
+        match_search_max_user.remove(i);
+        match_id.remove(i);
+        futsalMatchSearchAdapter.clearItem(i);
         futsalMatchSearchAdapter.notifyDataSetChanged();
     }
 

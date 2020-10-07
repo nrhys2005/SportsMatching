@@ -2,14 +2,12 @@ package com.example.bestmatching;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,7 +71,7 @@ public class FutSalTeamInfoFragment extends Fragment implements View.OnClickList
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
-        View view = inflater.inflate(R.layout.activity_futsal_team_info, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
+        View view = inflater.inflate(R.layout.fragment_futsal_team_info, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         context = container.getContext();
         new Get().execute(ip + "/team/myteam?team_name="+send_teamname);
@@ -170,7 +168,7 @@ public class FutSalTeamInfoFragment extends Fragment implements View.OnClickList
                 JSONObject jsonObject = new JSONObject(result);
                 String msg = jsonObject.getString("result");
 
-                if ( msg.equals("Success")){
+                if ( msg.equals("200")){
                     Toast.makeText(context.getApplicationContext(),"팀 탈퇴 성공",Toast.LENGTH_SHORT).show();
 
                 }
@@ -204,7 +202,7 @@ public class FutSalTeamInfoFragment extends Fragment implements View.OnClickList
                 try {
                     JSONObject jsonObject = new JSONObject(receiveMsg);
                     String msg = jsonObject.getString("result");
-                    if (msg.equals("Success")) {
+                    if (msg.equals("200")) {
                         String team_info = jsonObject.getString("myteam_info");
                         JSONArray jsarr = new JSONArray(team_info);
                         JSONObject js = jsarr.getJSONObject(0);
@@ -264,6 +262,7 @@ public class FutSalTeamInfoFragment extends Fragment implements View.OnClickList
                 break;
             case R.id.team_leave:
                 new Post().execute(ip + "/team/myteam_drop");
+                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamSearchFragment.newInstance());
                 break;
         }
     }

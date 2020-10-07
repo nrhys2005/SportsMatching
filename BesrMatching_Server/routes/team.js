@@ -6,10 +6,12 @@ const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태
 //팀 메인 프래그먼트------------------
 router.get('/team', function (req, res) {
     console.log('<<Team/team_get>>');
+    var result_code = 404;
 
     var user_id = req.query.id;
     var data_array = [];
-    var sql = 'SELECT id,master_id,user.team_name FROM user, team where user.id=?';
+    var sql = 'SELECT id,master_id,user.team_name,wait_state FROM best_matching.user left join team using (team_name) where id =?';
+    
     console.log('id = '+ user_id);
     data_array.push(user_id);
    
@@ -17,10 +19,12 @@ router.get('/team', function (req, res) {
         if (!err) {
             console.log('Query Select Success(result: Success)');
             console.log(rows);
-            res.json({ "result": "Success", team_main : rows});
+            result_code=200;
+            res.json({ "result": result_code, team_main : rows});
         } else {
             console.log('Query Select Error : ' + err);
-            res.json({ "result": err });
+            result_code=404;
+            res.json({ "result": result_code });
         }
     });
 
@@ -31,6 +35,7 @@ router.get('/team', function (req, res) {
 router.get('/myteam', function (req, res) {
     console.log('<<Team/myteam_get>>');
 
+    var result_code = 404;
     var team_name = req.query.team_name;
     var data_array = [];
     var sql=  'select * from best_matching.team where team_name= ?';
@@ -41,13 +46,14 @@ router.get('/myteam', function (req, res) {
         if (!err) {
             console.log('Query Select Success(result: Success)');
             console.log(rows);
-            res.json({ "result": "Success", myteam_info : rows});
+            result_code=200;
+            res.json({ "result": result_code, myteam_info : rows});
         } else {
             console.log('Query Select Error : ' + err);
-            res.json({ "result": err });
+            result_code=404;
+            res.json({ "result": result_code });
         }
     });
-
 });
 
 //팀 정보(수정) 프래그먼트 -------------------
@@ -56,6 +62,7 @@ router.post('/team_update', function (req, res) {
     console.log('<<Team/myteam_update>>');
 
     req.on('data', (data) => {
+        var result_code=404;
         var update_data_array = [];
         var inputData = JSON.parse(data); // JSON data 받음
         console.log('input_data : ' + inputData);
@@ -71,11 +78,13 @@ router.post('/team_update', function (req, res) {
             if (!err) {
                 console.log('Query Update Success');
                 console.log(rows);
-                res.json( {"result": "Success"});
+                result_code=200;
+                res.json( {"result": result_code});
                 
             } else {
                 console.log('Query Update Error : ' + err);
-                res.json({ "result": err });
+                result_code=404;
+                res.json({ "result": result_code });
             }
         });
     });
@@ -87,6 +96,7 @@ router.post('/team_update', function (req, res) {
 router.get('/myteam_list', function (req, res) {
     console.log('<<Team/myteam_list_get>>');
 
+    var result_code = 404;
     var team_name = req.query.team_name;
     
     var data_array = [];
@@ -98,10 +108,12 @@ router.get('/myteam_list', function (req, res) {
         if (!err) {
             console.log('Query Select Success(result: Success)');
             console.log(rows);
-            res.json({ "result": "Success", member_info : rows});
+            result_code=200;
+            res.json({ "result": result_code, member_info : rows});
         } else {
             console.log('Query Select Error : ' + err);
-            res.json({ "result": err });
+            result_code=404;
+            res.json({ "result": result_code });
         }
     });
 
@@ -115,10 +127,11 @@ router.post('/myteam_drop', function (req, res) {
     console.log('<<Team/myteam_drop>>');
 
     req.on('data', (data) => {
+        var result_code=404;
         var update_data_array = [];
         var inputData = JSON.parse(data); // JSON data 받음
         console.log('input_data : ' + inputData);
-        var sql_update = 'update user set team_name = null where id=?';
+        var sql_update = 'update best_matching.user set team_name = null where id=?';
 
         update_data_array.push(inputData.id);
        
@@ -126,11 +139,13 @@ router.post('/myteam_drop', function (req, res) {
             if (!err) {
                 console.log('Query Update Success');
                 console.log(rows);
-                res.json( {"result": "Success"});
+                result_code=200;
+                res.json( {"result": result_code});
                 
             } else {
                 console.log('Query Update Error : ' + err);
-                res.json({ "result": err });
+                result_code=404;
+                res.json({ "result": result_code });
             }
         });
     });
@@ -141,7 +156,7 @@ router.post('/myteam_drop', function (req, res) {
 router.post('/create', function (req, res) {
 
     console.log('<<Team/create>>');
-
+    var result_code = 404;
     req.on('data', (data) => {
         var input_data_array= [];
         var inputData = JSON.parse(data); // JSON data 받음
@@ -175,11 +190,13 @@ router.post('/create', function (req, res) {
             if (!err) {
                 console.log('Query Update Success');
                 console.log(rows);
-                res.json( {"result": "Success"});
+                result_code=200;
+                res.json( {"result": result_code});
                 
             } else {
                 console.log('Query Update Error : ' + err);
-                res.json({ "result": err });
+                result_code=404;
+                res.json({ "result": result_code });
             }
         });
     });
@@ -187,6 +204,7 @@ router.post('/create', function (req, res) {
 
 router.get('/search/:search', function (req, res) {
     console.log('<<Team/search>>');
+    var result_code = 404;
     var search = req.params.search;
     var search_data_array = [];
     //var Data = JSON.parse(data); // JSON data 받음
@@ -206,38 +224,76 @@ router.get('/search/:search', function (req, res) {
         if (!err) {
             if (rows.length == 0) {
                 console.log('Query Select Success("result": "no find")');
-                res.json({ "result": "no find" });
+                result_code=202;
+                res.json({ "result": result_code });
             }
             else {
                 console.log('Query Select Success(result": "Success)');
                 console.log(rows);
-                res.json({ "result": "Success" ,team_info : rows});
+                result_code=200;
+                res.json({ "result": result_code ,team_info : rows});
             }
 
         } else {
             console.log('Query Select Error : ' + err);
-            res.json({ "result": err });
+            result_code=404;
+            res.json({ "result": result_code });
         }
     });
 });
 
+
 router.post('/join', function (req, res) {
     console.log('<<Team/join>>');
     req.on('data', (data) => {
-        var update_data_array= [];
-        var Data = JSON.parse(data); // JSON data 받음
-        var sql = 'update user set team_name = ? where user.id == ?';
-        update_data_array.push(Data.team_name);
-        update_data_array.push(Data.id);
+        
+        var result_code=404;
 
-        dbconn.query(sql, update_data_array, function (err, rows, fields) {//DB connect
+        var check_data_array= [];
+        var data_array= [];
+        var Data = JSON.parse(data); // JSON data 받음
+      
+        
+        check_data_array.push(Data.team_name);
+        check_data_array.push(Data.user_id);
+        
+        data_array.push("Waiting");
+        data_array.push(Data.user_id);
+        var check_sql = 'select * from best_matching.team_waiting where team_name = ? and user_id = ?'
+        dbconn.query(check_sql, check_data_array, function (err, rows, fields) {//DB connect
             if (!err) {
-                console.log('Query Update Success');
-                res.json( {"result": "Success"});
-                
+                var update_sql = 'update best_matching.user set wait_state = ? where id = ?';
+                dbconn.query(update_sql,data_array, function (err, rows, fields) {//DB connect
+                    if (!err) {
+                        console.log('Query update success(user_info)');
+                    } else {
+                        console.log('Query Update Error(user_info) : ' + err);
+                        //res.json({ "result": 400 });
+                    }
+                });
+                if (rows.length== 0) {
+                    var sql = 'insert into best_matching.team_waiting(team_name,user_id) values(?,?)';
+                    dbconn.query(sql, check_data_array, function (err, rows, fields) {//DB connect
+                        if (!err) {
+                            console.log('Query insert success');
+                            result_code=200;
+                            res.json({ "result": result_code });
+                        } else {
+                            console.log('Query insert error : ' + err);
+                            result_code=404;
+                            res.json({ "result": result_code,"err":err });
+                        }
+                    });
+                }
+                else{
+                    console.log('Query select success(Duplicate application)');
+                    result_code=202;
+                    res.json({ "result": result_code });
+                }
             } else {
-                console.log('Query Update Error : ' + err);
-                res.json({ "result": err });
+                console.log('Query update error : ' + err);
+                result_code=404;
+                res.json({ "result": result_code,"err":err });
             }
         });
     });
@@ -247,35 +303,122 @@ router.post('/join', function (req, res) {
 router.post('/join/agreement', function (req, res) {
     console.log('<<Team/agreement>>');
     req.on('data', (data) => {
+        var result_code=404;
         var data_array= [];
         var Data = JSON.parse(data); // JSON data 받음
         var team_name =Data.team_name;
+        var nu=null;
         var user_id = Data.user_id;
-        var update_sql = 'update user set team name = ? where user.id == ?';
+        var update_sql = 'update best_matching.user set team_name = ?,wait_state = ? where user.id = ?';
+        console.log(team_name+','+user_id);
         data_array.push(team_name);
+        data_array.push(nu);
         data_array.push(user_id);
 
         dbconn.query(update_sql, data_array, function (err, rows, fields) {//DB connect
             if (!err) {
                 console.log('Query update success');
-                var delete_sql = 'DELETE from waiting where user_id = ?';
-                dbconn.query(delete_sql, data_array, function (err, rows, fields) {//DB connect
+                var delete_sql = 'DELETE from team_waiting where user_id = ?';
+                dbconn.query(delete_sql, user_id, function (err, rows, fields) {//DB connect
                     if (!err) {
                         console.log('Query delete success');
-                        res.json( {"result": "Success"});
+                        result_code=200;
+                        res.json( {"result": result_code});
                         
                     } else {
                         console.log('Query Update Error : ' + err);
-                        res.json({ "result": err });
+                        result_code=404;
+                        res.json({ "result": result_code });
                     }
                 });
                 
             } else {
                 console.log('Query Update Error : ' + err);
-                res.json( {"result": err});
+                result_code=404;
+                res.json( {"result": result_code});
             }
         });
     });
 });
 
+router.get('/team_waiting_list', function (req, res) {
+    console.log('<<Team/team_waiting_list>>');
+    var result_code=404;
+    var team_name = req.query.team_name;
+    var data_array = [];
+    
+    var sql;
+    
+    data_array.push(team_name);
+    
+    sql ='select user_id, name, age, location, phone, position from best_matching.user, best_matching.team_waiting where user.id=team_waiting.user_id and team_waiting.team_name=?';
+
+    dbconn.query(sql, data_array, function (err, rows, fields) {//DB connect
+        if (!err) {
+            if (rows.length == 0) {
+                console.log('Query Select Success("result": "no find")');
+                result_code=202;
+                res.json({ "result": result_code });
+            }
+            else {
+                console.log('Query Select Success(result": 200)');
+                console.log(rows);
+                result_code=200;
+                res.json({ "result": result_code ,agree_info : rows});
+            }
+
+        } else {
+            console.log('Query Select Error : ' + err);
+            result_code=404;
+            res.json({ "result":result_code,"err" : err });
+        }
+    });
+});
+
+
+
+//팀 추방 ------------------------
+router.post('/expulsion', function (req, res) {
+    console.log('<<Team/agreement>>');
+    req.on('data', (data) => {
+
+        var result_code =404;
+        var data_array= [];
+        var Data = JSON.parse(data); // JSON data 받음
+        var user_id = Data.id;
+        var nu1=null;
+        var nu2=null;
+        var update_sql = 'update best_matching.user set team_name = ?, wait_state= ?  where user.id = ?';
+        data_array.push(nu1);
+        data_array.push(nu2);
+        data_array.push(user_id);
+
+        dbconn.query(update_sql, data_array, function (err, rows, fields) {//DB connect
+            if (!err) {
+                console.log('Query update success');
+                var delete_sql = 'DELETE from best_matching.team_waiting where user_id = ?';
+                dbconn.query(delete_sql,user_id, function (err, rows, fields) {//DB connect
+                    if (!err) {
+                        console.log('Query delete success');
+                        result_code=200;
+                        res.json( {"result": result_code});
+                        
+                    } else {
+                        console.log('Query Update Error : ' + err);
+                        result_code=404;
+                        res.json({ "result": result_code });
+                    }
+                });
+                
+            } else {
+                console.log('Query Update Error : ' + err);
+                result_code=404;
+                res.json( {"result": result_code});
+            }
+        });
+    });
+});
+
+
+//-------------------------------
 module.exports = router;

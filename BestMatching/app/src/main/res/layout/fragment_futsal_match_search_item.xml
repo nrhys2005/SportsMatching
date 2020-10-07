@@ -84,14 +84,14 @@
                         android:layout_height="wrap_content"
                         android:src="@color/colorAccent"
                         android:textStyle="bold"
-                        android:text="날짜" />
+                        android:text="시작시간" />
 
                     <TextView
-                        android:id="@+id/match_search_date"
+                        android:id="@+id/match_search_start_time"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
-                        android:paddingLeft="55dp" />
+                        android:paddingLeft="30dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -105,21 +105,7 @@
                         android:layout_height="wrap_content"
                         android:src="@color/colorAccent"
                         android:textStyle="bold"
-                        android:text="시간" />
-
-                    <TextView
-                        android:id="@+id/match_search_start_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="left"
-                        android:paddingLeft="55dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="left"
-                        android:paddingLeft="30dp"
-                        android:text="~" />
+                        android:text="종료시간" />
 
                     <TextView
                         android:id="@+id/match_search_end_time"
@@ -127,6 +113,42 @@
                         android:layout_height="match_parent"
                         android:gravity="left"
                         android:paddingLeft="30dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/corner_shape"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:text="인원" />
+
+                    <TextView
+                        android:id="@+id/match_search_participants"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:text=""
+                        android:paddingLeft="55dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:paddingLeft="50dp"
+                        android:text="/" />
+
+                    <TextView
+                        android:id="@+id/match_search_max_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:paddingLeft="55dp"/>
                 </LinearLayout>
 
             </LinearLayout>

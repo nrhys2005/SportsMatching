@@ -3,6 +3,7 @@ package com.example.bestmatching;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ft.add(R.id.fragment_container2, FutSalSearchMapFragment.newInstance());
         ft.commit();
 
-        search_place=findViewById(R.id.search_place);
+        search_place = findViewById(R.id.search_place);
         match = findViewById(R.id.match);
         team = findViewById(R.id.team);
         help = findViewById(R.id.help);
@@ -39,6 +40,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         help.setOnClickListener(this);
     }
 
+    @Override
+    public void onBackPressed() {
+       //  Toast.makeText(this.getApplicationContext(), "뒤로가기 버튼", Toast.LENGTH_SHORT).show();
+        // 코드 작성
+    }
     //프레그먼트 교체 함수
     public void replaceFragment(Fragment fragment1, Fragment fragment2) {
         FragmentManager manager = getSupportFragmentManager();

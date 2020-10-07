@@ -12,9 +12,10 @@ import java.util.ArrayList;
 
 public class FutsalHelp_NoticeAdapter extends BaseAdapter implements View.OnClickListener {
 
-    private TextView category;
+
     private TextView title;
-    //private TextView content;
+    private TextView create_time;
+    private TextView content;
 
     public LinearLayout search_list_click;
 
@@ -59,16 +60,15 @@ public class FutsalHelp_NoticeAdapter extends BaseAdapter implements View.OnClic
             convertView = inflater.inflate(R.layout.fragment_futsal_help_notice_item, parent, false);
         }
 
-        category = (TextView) convertView.findViewById(R.id.category);
         title = (TextView) convertView.findViewById(R.id.title);
-       // content = (TextView) convertView.findViewById(R.id.content);
+       // create_time = (TextView) convertView.findViewById(R.id.create_time);
+      //  content = (TextView) convertView.findViewById(R.id.content);
 
         FutSalHelp_NoticeItems futSalHelp_noticeItems = listItems.get(position);
 
-        category.setText(futSalHelp_noticeItems.getCategoryStr());
         title.setText(futSalHelp_noticeItems.gettitleStr());
+     //   category.setText(futSalHelp_noticeItems.getCategoryStr());
         //content.setText(futSalHelp_noticeItems.getContentStrt());
-
      //   search_list_click = (LinearLayout)convertView.findViewById(R.id.search_list_click);
 
         return convertView;
@@ -76,13 +76,13 @@ public class FutsalHelp_NoticeAdapter extends BaseAdapter implements View.OnClic
 
 
     //아이템 데이터 추가를 위한 함수
-    public void addItem(String category, String title, int id){
+    public void addItem( String title ,String create_time,String content){
         FutSalHelp_NoticeItems noticeItems = new FutSalHelp_NoticeItems();
 
-        noticeItems.setCategory(category);
         noticeItems.settitle(title);
-       // noticeItems.setcontent(content);
-        noticeItems.setId(id);
+        noticeItems.setCreate_time(create_time);
+        noticeItems.setcontent(content);
+
 
         listItems.add(noticeItems);
     }

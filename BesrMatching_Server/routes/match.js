@@ -145,15 +145,11 @@ router.post('/join', function (req, res) {
         var match_id = inputData.match_id;
 
         console.log("cancel id, match_id= " + user_id+ match_id);
-        var sql = 'select * from best_matching.match where id = ?';
+        var sql = 'select * from  best_matching.matching_user where user_id = ? and match_id= ?';
 
         dbconn.query(sql, match_id, function (err, rows, fields) {//DB connect
             if (!err) {
                 if (rows.length == 0) {
-                    console.log('Query Select Success("result": "no find")');
-                    res.json({ "result": "no find" });
-                }
-                else {
                     var max_user = rows[0].max_user;
                     var count_sql = 'select * from best_matching.match where match.id =?';
                     dbconn.query(count_sql, match_id, function (err, rows, fields) {//DB connect
@@ -212,6 +208,10 @@ router.post('/join', function (req, res) {
                             res.json({ "result": err });
                         }
                     });
+                }
+                else {
+                    console.log('Query Select Success("result": "Already participating")');
+                    res.json({ "result": "Already participating"});
                 }
 
             } else {

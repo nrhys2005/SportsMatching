@@ -143,14 +143,12 @@ router.post('/join', function (req, res) {
         var inputData = JSON.parse(data); // JSON data 받음
         var user_id = inputData.user_id;
         var match_id = inputData.match_id;
-
         console.log("cancel id, match_id= " + user_id+ match_id);
         var sql = 'select * from  best_matching.matching_user where user_id = ? and match_id= ?';
-
-        dbconn.query(sql, match_id, function (err, rows, fields) {//DB connect
+        var params = [ user_id,match_id]
+        dbconn.query(sql, params, function (err, rows, fields) {//DB connect
             if (!err) {
                 if (rows.length == 0) {
-                    var max_user = rows[0].max_user;
                     var count_sql = 'select * from best_matching.match where match.id =?';
                     dbconn.query(count_sql, match_id, function (err, rows, fields) {//DB connect
                         if (!err) {
@@ -159,6 +157,7 @@ router.post('/join', function (req, res) {
                                 res.json({ "result": "no find" });
                             }
                             else {
+                                var max_user = rows[0].max_user;
                                 if (rows[0].participants >= max_user) {
                                     console.log('Query Select Success(result": "matching is full")');
                                     res.json({ "result": "full" });

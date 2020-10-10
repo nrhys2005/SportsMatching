@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/corner_shape"
+            android:background="@drawable/corner_black"
             android:gravity="top"
             android:orientation="horizontal">
 
@@ -32,7 +32,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/match"
                     android:orientation="horizontal">
 
                     <TextView
@@ -40,6 +40,7 @@
                         android:layout_height="wrap_content"
                         android:src="@color/colorAccent"
                         android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:text="이름" />
 
                     <TextView
@@ -47,29 +48,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
+                        android:textColor="@color/black"
                         android:paddingLeft="36dp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@color/colorAccent"
-                        android:textStyle="bold"
-                        android:text="나이"
-                        android:paddingLeft="60dp"/>
-
-                    <TextView
-                        android:id="@+id/part_age"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="left"
-                        android:text=""
-                        android:paddingLeft="36dp"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/match"
                     android:orientation="horizontal">
 
                     <TextView
@@ -77,6 +64,30 @@
                         android:layout_height="wrap_content"
                         android:src="@color/colorAccent"
                         android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:text="나이" />
+
+                    <TextView
+                        android:id="@+id/part_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:textColor="@color/black"
+                        android:paddingLeft="36dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/match"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:text="지역" />
 
                     <TextView
@@ -84,13 +95,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
+                        android:textColor="@color/black"
                         android:paddingLeft="36dp"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/match"
                     android:orientation="horizontal">
 
                     <TextView
@@ -98,6 +110,7 @@
                         android:layout_height="wrap_content"
                         android:src="@color/colorAccent"
                         android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:text="포지션" />
 
                     <TextView
@@ -105,13 +118,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
+                        android:textColor="@color/black"
                         android:paddingLeft="25dp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/match"
                     android:orientation="horizontal">
 
                     <TextView
@@ -119,6 +133,7 @@
                         android:layout_height="wrap_content"
                         android:src="@color/colorAccent"
                         android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:text="이메일" />
 
                     <TextView
@@ -126,13 +141,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
+                        android:textColor="@color/black"
                         android:paddingLeft="25dp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/match"
                     android:orientation="horizontal">
 
                     <TextView
@@ -140,6 +156,7 @@
                         android:layout_height="wrap_content"
                         android:src="@color/colorAccent"
                         android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:text="전화번호" />
 
                     <TextView
@@ -147,18 +164,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
+                        android:textColor="@color/black"
                         android:paddingLeft="15dp"
                         android:text="" />
                 </LinearLayout>
 
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
         </LinearLayout>
 
     </LinearLayout>

@@ -5,26 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background2"
     android:gravity="center"
     >
-   <ScrollView
-       android:id="@+id/main_box_scrollview"
-       android:layout_width="fill_parent"
-       android:layout_height="0dp"
-       android:layout_weight="1"
-       android:background="#e9edee"
-       android:visibility="visible"
-       android:scrollbars="none"
-       android:fillViewport="true">
+
    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:layout_gravity="center"
        android:orientation="vertical"
-       android:layout_marginTop="10dp"
+       android:layout_marginTop="20dp"
        android:paddingLeft="20dp"
        android:paddingRight="20dp">
-
 
       <LinearLayout
           android:layout_width="match_parent"
@@ -34,9 +26,10 @@
              android:layout_width="70dp"
              android:layout_height="wrap_content"
              android:layout_marginBottom="10dp"
-             android:textSize="13sp"
+             android:textSize="15sp"
              android:gravity="center"
              android:text="ID"
+             android:textColor="@color/black"
              android:textStyle="bold"
              android:padding="10dp"/>
          <TextView
@@ -44,8 +37,9 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginBottom="10dp"
-             android:background="@drawable/corner_shape"
+             android:background="@drawable/corner_black"
              android:gravity="center"
+             android:textColor="@color/black"
              android:textStyle="bold"
              android:padding="10dp" />
       </LinearLayout>
@@ -60,6 +54,7 @@
              android:layout_marginBottom="10dp"
              android:textSize="15sp"
              android:gravity="center"
+             android:textColor="@color/black"
              android:text="이름"
              android:textStyle="bold"
              android:padding="10dp"/>
@@ -69,9 +64,10 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginBottom="10dp"
-             android:background="@drawable/corner_shape"
+             android:background="@drawable/corner_black"
              android:gravity="center"
              android:textStyle="bold"
+             android:textColor="@color/black"
              android:padding="10dp" />
       </LinearLayout>
 
@@ -87,6 +83,7 @@
              android:gravity="center"
              android:text="나이"
              android:textStyle="bold"
+             android:textColor="@color/black"
              android:padding="10dp"/>
 
          <EditText
@@ -94,9 +91,10 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginBottom="10dp"
-             android:background="@drawable/corner_shape"
+             android:background="@drawable/corner_black"
              android:gravity="center"
              android:textStyle="bold"
+             android:textColor="@color/black"
              android:padding="10dp"
              android:singleLine = "true"
              android:lines = "1"/>
@@ -114,15 +112,17 @@
              android:gravity="center"
              android:text="E_mail"
              android:textStyle="bold"
+             android:textColor="@color/black"
              android:padding="10dp"/>
          <TextView
              android:id="@+id/Myinfo_mail"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginBottom="10dp"
-             android:background="@drawable/corner_shape"
+             android:background="@drawable/corner_black"
              android:gravity="center"
              android:textStyle="bold"
+             android:textColor="@color/black"
              android:padding="10dp" />
       </LinearLayout>
 
@@ -139,18 +139,20 @@
              android:gravity="center"
              android:text="휴대폰"
              android:textStyle="bold"
+             android:textColor="@color/black"
              android:padding="10dp"/>
          <EditText
              android:id="@+id/Myinfo_phone"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_marginBottom="10dp"
-             android:background="@drawable/corner_shape"
+             android:background="@drawable/corner_black"
              android:gravity="center"
              android:textStyle="bold"
              android:layout_weight="0.5"
              android:padding="10dp"
              android:singleLine = "true"
+             android:textColor="@color/black"
              android:lines = "1"/>
       </LinearLayout>
 
@@ -166,6 +168,7 @@
              android:gravity="center"
              android:text="지역"
              android:textStyle="bold"
+             android:textColor="@color/black"
              android:padding="10dp"/>
 
          <EditText
@@ -173,9 +176,10 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginBottom="10dp"
-             android:background="@drawable/corner_shape"
+             android:background="@drawable/corner_black"
              android:gravity="center"
              android:textStyle="bold"
+             android:textColor="@color/black"
              android:padding="10dp"
              android:singleLine = "true"
              android:lines = "1"/>
@@ -193,6 +197,7 @@
              android:gravity="center"
              android:text="포지션"
              android:textStyle="bold"
+             android:textColor="@color/black"
              android:padding="10dp"/>
 
          <EditText
@@ -200,9 +205,10 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginBottom="10dp"
-             android:background="@drawable/corner_shape"
+             android:background="@drawable/corner_black"
              android:gravity="center"
              android:textStyle="bold"
+             android:textColor="@color/black"
              android:padding="10dp"
              android:singleLine = "true"
              android:lines = "1"/>
@@ -220,6 +226,7 @@
              android:gravity="center"
              android:text="팀"
              android:textStyle="bold"
+             android:textColor="@color/black"
              android:padding="10dp"/>
 
          <TextView
@@ -227,32 +234,35 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginBottom="10dp"
-             android:background="@drawable/corner_shape"
+             android:background="@drawable/corner_black"
              android:gravity="center"
              android:textStyle="bold"
+             android:textColor="@color/black"
              android:padding="10dp" />
       </LinearLayout>
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          android:layout_gravity="center"
-          android:gravity="center"
-          android:layout_marginTop="10dp"
-          android:paddingLeft="20dp"
-          android:paddingRight="20dp"
-          android:weightSum="1">
-
-         <Button
-             android:id="@+id/Myinfo_change"
-             android:layout_width="wrap_content"
-             android:layout_height="50dp"
-             android:background="@drawable/button_shape"
-             android:text="수정"
-             android:layout_weight="0.5"
-             />
-      </LinearLayout>
    </LinearLayout>
-   </ScrollView>
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_gravity="center"
+       android:gravity="center"
+       android:layout_marginTop="10dp"
+       android:paddingLeft="20dp"
+       android:paddingRight="20dp"
+       android:weightSum="1">
+
+      <Button
+          android:id="@+id/Myinfo_change"
+          android:layout_width="wrap_content"
+          android:layout_height="50dp"
+          android:background="@drawable/button_shape"
+          android:text="수정"
+          android:textStyle="bold"
+          android:textColor="@color/black"
+          android:layout_weight="0.5"
+          />
+   </LinearLayout>
 
 </LinearLayout>

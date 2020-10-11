@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView"
+    android:background="@drawable/background2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,7 +22,6 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -33,6 +33,7 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="팀 이름"
+                    android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -41,8 +42,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/corner_black"
                     android:gravity="center"
+                    android:textColor="@color/black"
                     android:hint="팀이름"
                     android:textStyle="bold"
                     android:padding="10dp"
@@ -61,6 +63,7 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="대표번호"
+                    android:textColor="@color/black"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -69,9 +72,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/corner_black"
                     android:gravity="center"
                     android:hint="번호를 입력해주세요."
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     android:padding="10dp"
                     android:singleLine = "true"
@@ -89,6 +93,7 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="평균연령"
+                    android:textColor="@color/black"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -97,9 +102,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/corner_black"
                     android:gravity="center"
                     android:hint="평균 연령 선택해주세요."
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     android:padding="10dp"
                     android:singleLine = "true"
@@ -117,6 +123,7 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="팀수준"
+                    android:textColor="@color/black"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -125,9 +132,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/corner_black"
                     android:gravity="center"
                     android:hint="팀 수준 선택해주세요."
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     android:padding="10dp"
                     android:singleLine = "true"
@@ -145,6 +153,7 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="활동지역"
+                    android:textColor="@color/black"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -153,9 +162,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/corner_black"
                     android:gravity="center"
                     android:hint="활동지역을 선택해주세요."
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     android:padding="10dp"
                     android:singleLine = "true"
@@ -173,6 +183,7 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="활동요일"
+                    android:textColor="@color/black"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -181,9 +192,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/corner_black"
                     android:gravity="center"
                     android:hint="활동요일 선택해주세요."
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     android:padding="10dp"
                     android:singleLine = "true"
@@ -201,6 +213,7 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="팀소개"
+                    android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -209,9 +222,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/corner_black"
                     android:gravity="center"
                     android:hint="팀소개 해주세요."
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     android:padding="10dp"
                     />
@@ -228,6 +242,7 @@
             android:orientation="horizontal"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
+            android:layout_marginBottom="10dp"
             android:weightSum="1">
 
             <Button

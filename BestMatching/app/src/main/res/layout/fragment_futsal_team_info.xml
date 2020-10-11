@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView"
+    android:background="@drawable/background2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,7 +22,6 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -33,6 +33,7 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="팀 이름"
+                    android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
                 <TextView
@@ -40,13 +41,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/corner_black"
+                    android:textColor="@color/black"
                     android:gravity="center"
                     android:textStyle="bold"
                     android:padding="10dp"
                     android:singleLine = "true"
                     android:lines = "1"/>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -58,14 +61,16 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="팀장 ID"
+                    android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/master_id"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/corner_black"
                     android:gravity="center"
                     android:textStyle="bold"
                     android:padding="10dp"
@@ -84,6 +89,7 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="대표번호"
+                    android:textColor="@color/black"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -92,9 +98,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/corner_black"
                     android:gravity="center"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:padding="10dp"
                     android:singleLine = "true"
                     android:lines = "1"/>
@@ -111,6 +118,7 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="평균연령"
+                    android:textColor="@color/black"
                     android:textSize="13sp"
                     android:textStyle="bold" />
                 <TextView
@@ -118,9 +126,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/corner_black"
                     android:gravity="center"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:padding="10dp" />
             </LinearLayout>
 
@@ -135,6 +144,7 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="팀수준"
+                    android:textColor="@color/black"
                     android:textSize="13sp"
                     android:textStyle="bold" />
                 <TextView
@@ -142,9 +152,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/corner_black"
                     android:gravity="center"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:padding="10dp" />
             </LinearLayout>
 
@@ -159,6 +170,7 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="활동지역"
+                    android:textColor="@color/black"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -167,9 +179,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/corner_black"
                     android:gravity="center"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:padding="10dp" />
             </LinearLayout>
 
@@ -184,6 +197,7 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="활동요일"
+                    android:textColor="@color/black"
                     android:textSize="13sp"
                     android:textStyle="bold" />
                 <TextView
@@ -191,9 +205,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/corner_black"
                     android:gravity="center"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:padding="10dp" />
             </LinearLayout>
 
@@ -208,6 +223,7 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="팀소개"
+                    android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
                 <TextView
@@ -215,9 +231,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/corner_black"
                     android:gravity="center"
-
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     android:padding="10dp"
                     />
@@ -233,23 +249,23 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:weightSum="1">
+            android:paddingRight="20dp">
 
             <Button
                 android:id="@+id/team_member"
                 android:layout_width="wrap_content"
                 android:background="@drawable/button_shape"
                 android:layout_height="50dp"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
                 android:text="팀원 정보" />
             <Button
                 android:id="@+id/team_leave"
                 android:layout_width="wrap_content"
                 android:background="@drawable/button_shape"
-                android:layout_marginLeft="50dp"
                 android:layout_height="50dp"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
                 android:text="탈퇴 하기" />
         </LinearLayout>
 

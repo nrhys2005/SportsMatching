@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/corner_shape"
+            android:background="@drawable/corner_black"
             android:gravity="top"
             android:orientation="horizontal">
 
@@ -34,13 +34,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/corner_shape">
+                    android:background="@drawable/corner_trans">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:src="@color/grey"
                         android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:text="팀이름" />
 
                     <TextView
@@ -48,6 +49,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:src="@color/colorAccent"
+                        android:textColor="@color/black"
                         android:paddingLeft="45dp"/>
 
                 </LinearLayout>
@@ -55,13 +57,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/corner_shape">
+                    android:background="@drawable/corner_trans">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:src="@color/grey"
                         android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:text="대표ID" />
 
                     <TextView
@@ -69,6 +72,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:src="@color/colorAccent"
+                        android:textColor="@color/black"
                         android:paddingLeft="45dp"/>
 
                 </LinearLayout>
@@ -76,19 +80,21 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/corner_shape">
+                    android:background="@drawable/corner_trans">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:src="@color/colorAccent"
                         android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:text="대표번호" />
 
                     <TextView
                         android:id="@+id/team_search_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:textColor="@color/black"
                         android:paddingLeft="35dp" />
 
                 </LinearLayout>
@@ -96,7 +102,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/corner_trans"
                     >
 
                     <TextView
@@ -104,6 +110,7 @@
                         android:layout_height="match_parent"
                         android:src="@color/colorAccent"
                         android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:text="활동지역" />
 
                     <TextView
@@ -111,6 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:src="@color/colorAccent"
+                        android:textColor="@color/black"
                         android:paddingLeft="35dp"/>
 
                 </LinearLayout>
@@ -118,7 +126,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/corner_shape"
+                    android:background="@drawable/corner_trans"
                     >
 
                     <TextView
@@ -126,6 +134,7 @@
                         android:layout_height="match_parent"
                         android:src="@color/colorAccent"
                         android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:text="활동요일" />
 
                     <TextView
@@ -133,6 +142,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
+                        android:textColor="@color/black"
                         android:paddingLeft="35dp" />
 
                 </LinearLayout>

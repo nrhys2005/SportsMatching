@@ -21,6 +21,4 @@ router.use('/match_participants_list',  require('./match_participants_list'));
 //팀 버튼
 router.use('/mymatching',  require('./mymatching'));
 
-
-
 module.exports = router;

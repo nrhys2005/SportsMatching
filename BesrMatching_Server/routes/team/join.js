@@ -101,3 +101,4 @@ router.post('/agreement', function (req, res) {
         });
     });
 });
+module.exports = router;

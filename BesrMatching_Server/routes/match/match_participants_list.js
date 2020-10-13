@@ -28,3 +28,4 @@ router.get('/:match_id', function (req, res) {
         }
     });
 });
+module.exports = router;

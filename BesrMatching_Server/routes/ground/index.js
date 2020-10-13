@@ -7,9 +7,9 @@ router.get('/', function(req, res, next) {
 });
 
 //??
-router.use('/',  require('./ground'));
+router.use('/', require('./ground'));
 //구장 검색(가까운거리 순)
-router.use('/search',  require('./search'));
+router.use('/search', require('./search'));
 //구장 등록
-router.use('/create',  require('./create'));
+router.use('/create', require('./create'));
 module.exports = router;

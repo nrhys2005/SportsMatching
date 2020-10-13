@@ -8,10 +8,10 @@ router.get('/', function(req, res, next) {
 
 //유저 라우팅
 router.use('/user', require('./user/index'));
-//팀 라우팅
-router.use('/team',  require('./team/index'));
 //매치 라우팅
 router.use('/match',  require('./match/index'));
+//팀 라우팅
+router.use('/team',  require('./team/index'));
 //구장 라우팅
 router.use('/ground',  require('./ground/index'));
 //고객게시판 라우팅

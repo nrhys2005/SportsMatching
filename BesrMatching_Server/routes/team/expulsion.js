@@ -44,3 +44,4 @@ router.post('/expulsion', function (req, res) {
         });
     });
 });
+module.exports = router;

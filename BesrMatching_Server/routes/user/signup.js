@@ -5,9 +5,9 @@ const dbConObj = require('../../config/db_info');   //디비 정보 import
 const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태)에 저장)
 
 
-router.post('/signup', function (req, res) {
+router.post('/', function (req, res) {
     
-    console.log('<<Signup/signup>>');
+    console.log('<<signup>>');
 
     
     req.on('data', (data) => {

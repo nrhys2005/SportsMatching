@@ -1,0 +1,39 @@
+const express = require('express');
+const router = express.Router();
+const dbConObj = require('../../config/db_info');   //디비 정보 import
+const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태)에 저장)
+ 
+//매치 검색
+router.get('/:search', function (req, res) {
+    console.log('<<match/search>>');
+    var search = req.params.search;
+    var search_data_array = [];
+    let today = new Date(new Date().toISOString(). replace(/T/, ' ').replace(/\..+/, ''));
+    
+    //var Data = JSON.parse(data); // JSON data 받음
+    var sql;
+    console.log('Search = '+ search);
+    if (search == "none") {
+        sql = 'select * from best_matching.match where match.end_time>=NOW()';
+    }
+    else {
+        sql = 'select * from best_matching.match where match.end_time >= NOW() and match.max_user <> match.participants and match.participants <> 0 and match.title like ?';
+        search_data_array.push('%' + search + '%');
+    }
+    dbconn.query(sql, search_data_array, function (err, rows, fields) {//DB connect
+        if (!err) {
+            if (rows.length == 0) {
+                console.log('Query Select Success("result": "no find")');
+                res.json({ "result": "no find" });
+            }
+            else {
+                console.log('Query Select Success(result": "Success)');
+                res.json({ "result": "Success",match_info : rows });
+            }
+
+        } else {
+            console.log('Query Select Error : ' + err);
+            res.json({ "result": err });
+        }
+    });
+});

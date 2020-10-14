@@ -353,7 +353,7 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
 
                 //중복검사
             case R.id.id_check:
-                new CheckPost().execute(ip + "/signup/check");
+                new CheckPost().execute(ip + "/user/signup/check");
                 break;
 
                 //회원가입 완료버튼
@@ -364,7 +364,7 @@ public class SignActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 else {
                     if (pw.getText().toString().equals(pw_check.getText().toString())) {
-                        new Post().execute(ip + "/signup/signup");
+                        new Post().execute(ip + "/user/signup");
                     } else {
                         Toast.makeText(getApplicationContext(), "비밀번호를 확인하세요", Toast.LENGTH_SHORT).show();
                     }

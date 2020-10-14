@@ -6,7 +6,7 @@ router.get('/', function(req, res, next) {
     res.send('index page');
 });
 
-//??
+//안쓰는듯
 router.use('/', require('./ground'));
 //구장 검색(가까운거리 순)
 router.use('/search', require('./search'));

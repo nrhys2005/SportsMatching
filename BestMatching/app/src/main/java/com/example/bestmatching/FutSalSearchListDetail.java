@@ -97,7 +97,7 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
         int a = v.getId();
         switch (a) {
             case R.id.back_btn:
-                ((MainActivity)getActivity()).backFragment(FutSalSearchActivity.newInstance(), FutSalSearchMapFragment.newInstance());
+                ((MainActivity)getActivity()).backFragment(FutSalSearchActivity.newInstance(), FutSalSearchListFragment.newInstance());
                 break;
             case R.id.book_btn:
                 BootUser bootUser = new BootUser().setPhone("010-1234-5678");

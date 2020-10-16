@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/background2"
-    android:gravity="center"
     >
 
    <LinearLayout
@@ -14,13 +13,13 @@
        android:layout_height="wrap_content"
        android:layout_gravity="center"
        android:orientation="vertical"
-       android:paddingLeft="20dp"
-       android:paddingRight="20dp">
-
+       android:background="@drawable/corner_black"
+       android:layout_margin="5dp">
 
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
           android:layout_marginBottom="10dp"
           >
          <TextView

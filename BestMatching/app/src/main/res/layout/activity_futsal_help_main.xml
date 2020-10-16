@@ -13,6 +13,7 @@
        android:orientation="horizontal"
        android:background="@color/blue"
        android:gravity="center">
+
       <Button
           android:id="@+id/Myinfo"
           android:layout_width="wrap_content"
@@ -44,7 +45,6 @@
           android:background="@android:color/transparent"
           android:text="신고"
           />
-
 
    </LinearLayout>
 

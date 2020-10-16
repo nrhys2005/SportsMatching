@@ -14,14 +14,14 @@
        android:layout_height="wrap_content"
        android:layout_gravity="center"
        android:orientation="vertical"
-       android:layout_marginTop="20dp"
-       android:paddingLeft="20dp"
-       android:paddingRight="20dp">
+       android:background="@drawable/corner_black"
+       android:layout_margin="5dp">
 
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          >
+          android:layout_marginTop="10dp">
+
          <TextView
              android:layout_width="70dp"
              android:layout_height="wrap_content"
@@ -32,6 +32,7 @@
              android:textColor="@color/black"
              android:textStyle="bold"
              android:padding="10dp"/>
+
          <TextView
              android:id="@+id/Myinfo_id"
              android:layout_width="match_parent"
@@ -42,6 +43,7 @@
              android:textColor="@color/black"
              android:textStyle="bold"
              android:padding="10dp" />
+
       </LinearLayout>
 
       <LinearLayout
@@ -217,7 +219,7 @@
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          >
+          android:layout_marginBottom="10dp">
          <TextView
              android:layout_width="70dp"
              android:layout_height="wrap_content"
@@ -240,6 +242,7 @@
              android:textColor="@color/black"
              android:padding="10dp" />
       </LinearLayout>
+
    </LinearLayout>
 
    <LinearLayout
@@ -260,6 +263,7 @@
           android:background="@drawable/button_shape"
           android:text="수정"
           android:textStyle="bold"
+          android:textSize="18sp"
           android:textColor="@color/black"
           android:layout_weight="0.5"
           />

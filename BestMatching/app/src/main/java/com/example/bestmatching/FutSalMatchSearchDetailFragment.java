@@ -182,6 +182,7 @@ public class FutSalMatchSearchDetailFragment extends Fragment implements View.On
 
                 if (msg.equals("Success")) {
                     Toast.makeText(context.getApplicationContext(), "매치참여 성공", Toast.LENGTH_SHORT).show();
+                    ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalMyMatchFragment.newInstance());
                 } else {
                     Toast.makeText(context.getApplicationContext(), "매치참여 실패", Toast.LENGTH_SHORT).show();
                 }

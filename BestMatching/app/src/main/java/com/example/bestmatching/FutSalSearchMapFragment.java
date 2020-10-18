@@ -78,7 +78,7 @@ public class FutSalSearchMapFragment extends Fragment implements OnMapReadyCallb
         myLocation = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         gpsTracker = new GpsTracker(context);
      //   Log.i("현재 위치1", myLocation.getLongitude() + "," + myLocation.getLatitude());
-        new Get().execute(ip + "/ground");
+//        new Get().execute(ip + "/ground");
 
         mapView = (MapView) view.findViewById(R.id.mapsearch);
         mapView.getMapAsync(this);
@@ -168,7 +168,7 @@ public class FutSalSearchMapFragment extends Fragment implements OnMapReadyCallb
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(gpsTracker.getLatitude(),gpsTracker.getLongitude())));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(16));
         MarkerOptions markerOptions = new MarkerOptions();
-
+//구장이 없을때를 생각하고 구장관리가자 구장 등록하는 부분 구현필요
         for (int i=0; i<groundSize; i++) {
             googleMap.addMarker(markerOptions
                     .title(stadium_name.get(i))

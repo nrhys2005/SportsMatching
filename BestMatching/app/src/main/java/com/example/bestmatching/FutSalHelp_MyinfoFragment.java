@@ -259,22 +259,22 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             e_age=Integer.toString(e_age_temp);
-            if(e_phone.equals("null"))
+            if(e_phone.equals("null") || e_phone.equals(""))
                 phone.setHint("번호를 입력하세요");
             else
                 phone.setText(e_phone);
 
-            if(e_location.equals("null"))
+            if(e_location.equals("null") || e_location.equals(""))
                 location.setHint("지역을 입력하세요");
             else
                 location.setText(e_location);
 
-            if(e_age.equals("null"))
+            if(e_age.equals("null") || e_age.equals(""))
                 age.setHint("나이을 입력하세요");
             else
                 age.setText(e_age);
 
-            if(e_position.equals("null"))
+            if(e_position.equals("null") || e_position.equals(""))
                 position.setHint("포지션을 입력하세요");
             else
                 position.setText(e_position);

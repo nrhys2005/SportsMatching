@@ -6,21 +6,15 @@ router.get('/', function(req, res, next) {
     res.send('index page');
 });
 
-
-//회원가입 라우팅
-router.use('/signup', require('./signup/signup'));
-
-//로그인 라우팅
-router.use('/login',  require('./login'));
-
-
-router.use('/team',  require('./team'));
-
-router.use('/match',  require('./match'));
-router.use('/ground',  require('./ground'));
-
-router.use('/Help',  require('./Help'));
-//모듈에 등록해야 web.js에서 app.use 함수를 통해서 사용 가능
-
+//유저 라우팅
+router.use('/user', require('./user/index'));
+//매치 라우팅
+router.use('/match',  require('./match/index'));
+//팀 라우팅
+router.use('/team',  require('./team/index'));
+//구장 라우팅
+router.use('/ground',  require('./ground/index'));
+//고객게시판 라우팅
+router.use('/Help',  require('./Help/index'));
 
 module.exports = router;

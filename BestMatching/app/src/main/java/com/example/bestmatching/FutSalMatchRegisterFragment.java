@@ -246,7 +246,7 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
                     }
                 };
 
-                DatePickerDialog d = new DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, callbackMethod, 2020, 06, 13);
+                DatePickerDialog d = new DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, callbackMethod, 2020, 9, 1);
                 d.show();
                 break;
 

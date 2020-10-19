@@ -6,6 +6,9 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.strictmode.IntentReceiverLeakedViolation;
@@ -15,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -62,6 +66,8 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
     TextView book_end_time;
     ImageView detail_ground;
 
+    HorizontalScrollView book_time_view;
+
     Button back_btn;
     Button book_btn;
 
@@ -78,6 +84,8 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
         return new FutSalSearchListDetail();
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
         View view = inflater.inflate(R.layout.fragment_futsal_search_list_item_detail, null);
@@ -91,12 +99,18 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
         book_end_time = (TextView)view.findViewById(R.id.book_end_time);
         detail_ground = (ImageView)view.findViewById(R.id.detail_ground);
 
+        book_time_view = (HorizontalScrollView)view.findViewById(R.id.book_time_view);
+
+
         name = getArguments().getString("name");
         price = getArguments().getString("price");
         //Toast.makeText(getActivity(),Integer.toString(a),Toast.LENGTH_SHORT).show();
 
+
+
         detail_name.setText(name);
         detail_price.setText(price + "원");
+
 
         int id = getArguments().getInt("id");
         switch (id) {
@@ -119,11 +133,43 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
         back_btn.setOnClickListener(this);
         book_btn.setOnClickListener(this);
 
+        book_time_view.addView(new ColorView(context));
+        book_time_view.setRight(500);
+
         BootpayAnalytics.init(context, "5f6c1743878a56001dffad61");
 
         return view;
     }
+    class ColorView extends View {
+        public ColorView(Context context){
+            super(context);
+        }
 
+        public void onDraw(Canvas canvas){ // 캔버스는 뷰의 그리기 표면이며 이 위에 그림을 그린다.
+            Paint Pnt = new Paint();
+
+            for(int x=0; x<2500; x+=60){
+                Pnt.setStyle(Paint.Style.STROKE); //선만있는 사각형 // Paint 객체 생성
+                Pnt.setARGB(255, 0, 0, 0);  // 색상 정하기
+                RectF rect=new RectF(x,0,x+50,100); //(시작X,시작Y,끝X,끝y)
+                if(x>300 && x<430)
+                {
+                    Pnt.setARGB(255, 128, 128, 128);  // 색상 정하기
+                    Pnt.setStyle(Paint.Style.FILL); //선만있는 사각형 // Paint 객체 생성
+                }
+                if(x>500 && x<560) {
+                    Pnt.setARGB(255, 0, 255, 0);  // 색상 정하기
+                    Pnt.setStyle(Paint.Style.FILL); //선만있는 사각형 // Paint 객체 생성
+                }
+                canvas.drawRect(rect, Pnt);     // 모서리둥근사각형메서드 그리기 ( 사각형 좌표,가로둥글기,세로둥글기,paint ) ;
+            }
+        }
+
+        protected void onMeasure (int widthMeasureSpec, int heightMeasureSpec){
+            setMeasuredDimension(2560, 120);  // 뷰의 크기를 폭 2560, 높이 2560으로 강제로 지정
+        }
+
+    }
     // 안스에서 노드js로 데이터 보내는 부분
     public class Post extends AsyncTask<String, String, String> {
 
@@ -317,6 +363,7 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
 
                 TimePickerDialog t1 = new TimePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT, start, 12,00, true);
                 t1.setTitle("시작시간");
+                System.out.println("g");
                 t1.show();
                 break;
 

@@ -53,7 +53,7 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
     public String e_location="";
     public String e_position="";
     public String e_age="";
-    public int e_age_temp;
+    public String e_team="";
 
     public static FutSalHelp_MyinfoFragment newInstance() {
         return new FutSalHelp_MyinfoFragment();
@@ -228,10 +228,9 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
                         JSONObject js = jsonArray.getJSONObject(0);
                         id.setText(js.getString("id"));
                         name.setText(js.getString("name"));
-
                         team.setText(js.getString("team_name"));
                         mail.setText(js.getString("email"));
-                        e_age_temp=js.getInt("age");
+                        e_age=js.getString("age");
                         e_phone=js.getString("phone");
                         e_location = js.getString("location");
                         e_position = js.getString("position");
@@ -258,7 +257,12 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            e_age=Integer.toString(e_age_temp);
+
+            if(e_age.equals("null") || e_age.equals(""))
+                age.setHint("나이를 입력하세요");
+            else
+                phone.setText(e_phone);
+
             if(e_phone.equals("null") || e_phone.equals(""))
                 phone.setHint("번호를 입력하세요");
             else
@@ -278,6 +282,9 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
                 position.setHint("포지션을 입력하세요");
             else
                 position.setText(e_position);
+
+            if(team.getText().equals("null") || team.getText().equals(""))
+                team.setText("팀을 선택하세요");
 
             System.out.println(result);
         }

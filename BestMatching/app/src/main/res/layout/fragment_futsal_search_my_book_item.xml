@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background2"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -18,9 +17,10 @@
         android:paddingBottom="10dp">
 
         <LinearLayout
+            android:id="@+id/search_list_click"
+            android:background="@drawable/search_futsal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/search_futsal"
             android:gravity="top"
             android:orientation="horizontal">
 
@@ -38,14 +38,13 @@
                     <TextView
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
                         android:src="@color/colorAccent"
                         android:text="구장이름"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/detail_name"
+                        android:id="@+id/my_ground_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -61,45 +60,18 @@
                     <TextView
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
                         android:src="@color/colorAccent"
                         android:text="시간당가격"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/detail_price"
+                        android:id="@+id/my_price"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="left"
+                        android:textStyle="bold"
                         android:textColor="@color/black"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/corner_trans">
-
-                    <TextView
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:src="@color/colorAccent"
-                        android:text="날짜"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/book_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="left"
-                        android:hint="날짜를 선택해주세요."
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
+                        android:gravity="left" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -110,92 +82,51 @@
                     <TextView
                         android:layout_width="75dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
                         android:src="@color/colorAccent"
-                        android:text="시간"
+                        android:text="시작시간"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/book_start_time"
+                        android:id="@+id/my_start_time"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:gravity="left"
-                        android:hint="시작시간"
+                        android:layout_height="match_parent"
+                        android:textStyle="bold"
                         android:textColor="@color/black"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:gravity="left"
-                        android:hint="~"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/book_end_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:hint="종료시간"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-
+                        android:gravity="left" />
                 </LinearLayout>
-                <HorizontalScrollView
-                    android:id="@+id/book_time_view"
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="@drawable/corner_trans"
-                    android:scrollbars="none">
-                    <!--                    <com.example.bestmatching.FutSalGround_book_View-->
-                    <!--                        android:id="@+id/customView"-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="wrap_content"/>-->
-                </HorizontalScrollView>
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/corner_trans">
+
+                    <TextView
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:src="@color/colorAccent"
+                        android:text="종료시간"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/my_end_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:gravity="left" />
+                </LinearLayout>
+
                 <ImageView
-                    android:id="@+id/detail_ground"
+                    android:id="@+id/list_ground_id"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="10dp"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"/>
             </LinearLayout>
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/back_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:background="@drawable/button_shape"
-                android:text="이전"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/book_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:background="@drawable/button_shape"
-                android:text="예약하기"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-        </LinearLayout>
-
     </LinearLayout>
 </LinearLayout>

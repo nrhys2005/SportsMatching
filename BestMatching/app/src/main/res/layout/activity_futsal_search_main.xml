@@ -18,14 +18,21 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:background="@android:color/transparent"
-          android:text="지도로 보기"
+          android:text="지도예약"
           />
       <Button
           android:id="@+id/list"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:background="@android:color/transparent"
-          android:text="리스트로 보기"
+          android:text="리스트예약"
+          />
+      <Button
+          android:id="@+id/book"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:background="@android:color/transparent"
+          android:text="나의예약"
           />
 
    </LinearLayout>

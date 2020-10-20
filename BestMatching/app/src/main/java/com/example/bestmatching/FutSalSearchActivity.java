@@ -19,6 +19,7 @@ public class FutSalSearchActivity extends Fragment implements View.OnClickListen
         View view = inflater.inflate(R.layout.activity_futsal_search_main, null);
         Button map = (Button)view.findViewById(R.id.map);
         Button list =(Button)view.findViewById(R.id.list);
+        Button book = (Button)view.findViewById(R.id.book);
 
        /* map.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +38,7 @@ public class FutSalSearchActivity extends Fragment implements View.OnClickListen
 
        map.setOnClickListener(this);
        list.setOnClickListener(this);
+       book.setOnClickListener(this);
 
         return view;
     }
@@ -50,6 +52,9 @@ public class FutSalSearchActivity extends Fragment implements View.OnClickListen
                 break;
             case R.id.list:
                 ((MainActivity)getActivity()).replaceFragment(FutSalSearchActivity.newInstance(), FutSalSearchListFragment.newInstance());
+                break;
+            case R.id.book:
+                ((MainActivity)getActivity()).replaceFragment(FutSalSearchActivity.newInstance(), FutSalSearchBookFragment.newInstance());
                 break;
         }
     }

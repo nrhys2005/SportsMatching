@@ -8,7 +8,7 @@ const dbconnInfo = {
 		user: 'root',
 		password: 'root',
 		database: 'best_matching', 
-		multipleStatements : true
+		multipleStatements : true,
 	}//,
 	// real:{
 	// 	host     : '1.1.1.1',

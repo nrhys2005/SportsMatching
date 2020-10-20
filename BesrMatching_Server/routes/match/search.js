@@ -14,10 +14,10 @@ router.get('/:search', function (req, res) {
     var sql;
     console.log('Search = '+ search);
     if (search == "none") {
-        sql = 'select * from best_matching.match where match.end_time>=NOW()';
+        sql = "select id, title, ground_name, DATE_FORMAT(start_time,'%Y-%m-%d %H:%i') as start_time, DATE_FORMAT(end_time,'%Y-%m-%d %H:%i') as end_time, cost, max_user, create_time, participants from best_matching.match where match.end_time>=NOW()";
     }
     else {
-        sql = 'select * from best_matching.match where match.end_time >= NOW() and match.max_user <> match.participants and match.participants <> 0 and match.title like ?';
+        sql = "select id, title, ground_name, DATE_FORMAT(start_time,'%Y-%m-%d %H:%i') as start_time, DATE_FORMAT(end_time,'%Y-%m-%d %H:%i') as end_time, cost, max_user, create_time, participants from best_matching.match where match.end_time >= NOW() and match.max_user <> match.participants and match.participants <> 0 and match.title like ?";
         search_data_array.push('%' + search + '%');
     }
     dbconn.query(sql, search_data_array, function (err, rows, fields) {//DB connect
@@ -27,10 +27,10 @@ router.get('/:search', function (req, res) {
                 res.json({ "result": "no find" });
             }
             else {
+                console.log(rows[0].start_time);
                 console.log('Query Select Success(result": "Success)');
                 res.json({ "result": "Success",match_info : rows });
             }
-
         } else {
             console.log('Query Select Error : ' + err);
             res.json({ "result": err });

@@ -12,4 +12,6 @@ router.use('/', require('./ground'));
 router.use('/search', require('./search'));
 //구장 등록
 router.use('/create', require('./create'));
+//구장 등록
+router.use('/book', require('./book'));
 module.exports = router;

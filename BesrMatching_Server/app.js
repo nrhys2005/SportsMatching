@@ -4,6 +4,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
+var bodyParser = require('body-parser')
 //const FileStore = require('session-file-store')(session)
 //express 서버 포트 설정(cafe24 호스팅 서버는 8001 포트 사용)
 app.set('port', process.env.PORT || PORT);
@@ -16,6 +17,9 @@ app.use(session({
     //store: new FileStore()
 }))
 
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false}));
 
 //라우팅 모듈 선언
 

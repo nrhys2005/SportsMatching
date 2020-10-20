@@ -33,7 +33,7 @@ router.post('/', function (req, res) {
                 }
                 else {
                     for(var i=0;i<rows.length;i++){
-                       if(rows[i].end_time.getTime()>=start_time.getTime() && end_time.getTime()>=rows[i].start_time.getTime()){
+                       if(rows[i].end_time>=start_time && end_time>=rows[i].start_time){
                             check = false;
                             break;
                         }
@@ -69,15 +69,15 @@ router.post('/', function (req, res) {
                                                     res.json({ "result": "no find" });
                                                 }
                                                 else {
-                                                    console.log('Query insert success(result": "Success)');
+                                                    console.log('matching_user insert success');
                                                     res.json({ "result": "Success" });
                                                 }
-
                                             } else {
                                                 console.log('Query insert error : ' + err);
                                                 res.json({ "result": err });
                                             }
                                         });
+                                        
                                     }
 
                                 } else {
@@ -98,4 +98,5 @@ router.post('/', function (req, res) {
         });
     });
 });
+
 module.exports = router;

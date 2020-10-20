@@ -28,7 +28,7 @@
           android:text="리스트예약"
           />
       <Button
-          android:id="@+id/my_booking"
+          android:id="@+id/book"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:background="@android:color/transparent"

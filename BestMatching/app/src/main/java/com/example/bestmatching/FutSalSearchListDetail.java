@@ -29,6 +29,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -77,8 +78,10 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
     String price;
 
     private DatePickerDialog.OnDateSetListener callbackMethod;
-    private CustomTimePicker.OnTimeSetListener start;
-    private CustomTimePicker.OnTimeSetListener end;
+    private CustomTimePickerDialog.OnTimeSetListener start;
+    private CustomTimePickerDialog.OnTimeSetListener end;
+
+    private int TIME_PICKER_INTERVAL = 30;
 
     private int stuck = 10;
 
@@ -148,24 +151,118 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
         }
 
         public void onDraw(Canvas canvas){ // 캔버스는 뷰의 그리기 표면이며 이 위에 그림을 그린다.
-            Paint paint = new Paint();
+            Paint Pnt = new Paint();
 
-            for(int x=0; x<1920; x+=80){
+            for(int x=0; x<1920; x+=40){
 
-                paint.setStyle(Paint.Style.STROKE); //선만있는 사각형 // Paint 객체 생성
-                //paint.setColor(Color.argb(255,0,0,0));  // 색상 정하기
-                paint.setARGB(255,0,0,0);
-                RectF rect = new RectF(x, 0, x+60, 100);
-                //RectF rect = new RectF(x,0,x+60,80); //(시작X,시작Y,끝X,끝y) 사각형
-                canvas.drawRect(rect, paint);     // 모서리둥근사각형메서드 그리기 ( 사각형 좌표,가로둥글기,세로둥글기,paint ) ;
+                Pnt.setStyle(Paint.Style.FILL); //선만있는 사각형 // Paint 객체 생성
+                Pnt.setARGB(255, 0, 0, 0);  // 색상 정하기
+                RectF rect=new RectF(x,0,x+30,100); //(시작X,시작Y,끝X,끝y) 사각형
+//                if(x>start_time*50 && x<end_time*50)
+//                {
+//                    Pnt.setARGB(255, 128, 128, 128);  // 색상 정하기
+//                    Pnt.setStyle(Paint.Style.FILL); //선만있는 사각형 // Paint 객체 생성
+//                }
+                if(x>500 && x<560) {
+                    Pnt.setARGB(255, 0, 255, 0);  // 색상 정하기
+                    Pnt.setStyle(Paint.Style.FILL_AND_STROKE); //선만있는 사각형 // Paint 객체 생성
+                }
+                Pnt.setStrokeWidth(3f);
+                canvas.drawRect(rect, Pnt);     // 모서리둥근사각형메서드 그리기 ( 사각형 좌표,가로둥글기,세로둥글기,paint ) ;
+                Pnt.setTextSize(20);
+                canvas.drawText("hi",200,30,Pnt);
             }
         }
 
         protected void onMeasure (int widthMeasureSpec, int heightMeasureSpec){
-            setMeasuredDimension(1920, 120);
+            setMeasuredDimension(1920, 120);  // 뷰의 크기를 폭 2560, 높이 2560으로 강제로 지정
         }
 
     }
+  /*  public class Get extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+
+            InputStream is = null;
+            try {
+
+                is = new URL(urls[0]).openStream();
+
+
+                // System.out.println(urls[0]);
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+                String str;
+                StringBuffer buffer = new StringBuffer();
+
+                while ((str = rd.readLine()) != null) {
+                    buffer.append(str);
+                }
+
+                //URL 내용들
+                String receiveMsg = buffer.toString();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(receiveMsg);
+                    String msg = jsonObject.getString("result");
+
+                    if (msg.equals("200")) {
+                        String notice_info = jsonObject.getString("question_info");
+                        JSONArray jsonArray = new JSONArray(notice_info);
+
+                        questionSize = jsonArray.length();
+
+                        for (int i = 0; i < questionSize; i++) {
+                            JSONObject js = jsonArray.getJSONObject(i);
+
+                            question_id.add(js.getString("user_id"));
+                            question_category.add(js.getString("category"));
+                            question_title.add(js.getString("title"));
+                            question_content.add(js.getString("content"));
+
+
+                        }
+                    } else if (msg.equals("no find")) {
+                        questionSize = 0;
+                    } else {
+                        //Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+        //doInBackground메소드가 끝나면 여기로 와서 텍스트뷰의 값을 바꿔준다.
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            //TODO 겟 처리 후 결과
+            if (questionSize != 0) {
+                for (int i = 0; i < questionSize; i++) {
+                    questionAdapter.addItem(question_category.get(i), question_title.get(i),question_id.get(i),question_content.get(i));
+                }
+                questionAdapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(getActivity(), "문의내용이 없습니다.", Toast.LENGTH_SHORT).show();
+            }
+
+
+
+
+        }
+
+    }
+    */
+
     // 안스에서 노드js로 데이터 보내는 부분
     public class Post extends AsyncTask<String, String, String> {
 
@@ -328,6 +425,24 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
                 .request();
     }
 
+    private boolean mIgnoreEvent=false;
+
+    private TimePicker.OnTimeChangedListener mTimePickerListener=new TimePicker.OnTimeChangedListener(){
+        public void onTimeChanged(TimePicker timePicker, int hourOfDay, int minute){
+            if (mIgnoreEvent)
+                return;
+            if (minute%TIME_PICKER_INTERVAL!=0){
+                int minuteFloor=minute-(minute%TIME_PICKER_INTERVAL);
+                minute=minuteFloor + (minute==minuteFloor+1 ? TIME_PICKER_INTERVAL : 0);
+                if (minute==60)
+                    minute=0;
+                mIgnoreEvent=true;
+                timePicker.setCurrentMinute(minute);
+                mIgnoreEvent=false;
+            }
+
+        }
+    };
     @Override
     public void onClick(View v) {
         int a = v.getId();
@@ -340,43 +455,40 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
                 callbackMethod = new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        //year,month,dayOfMont
                         book_date.setText(String.format("%d", year) + "-" + String.format("%02d", month + 1) + "-" + String.format("%02d", dayOfMonth));
+
                     }
                 };
 
-                DatePickerDialog d = new DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, callbackMethod, 2020, 9, 1);
+                DatePickerDialog d = new DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, callbackMethod, 2020, 10, 1);
                 d.show();
                 break;
 
             //시작시간 버튼
             case R.id.book_start_time:
-                start = new CustomTimePicker.OnTimeSetListener() {
+                start = new CustomTimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         book_start_time.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
                     }
-                };
+                };// using CustomTimePickerDialog
+                CustomTimePickerDialog t1 = new CustomTimePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT, start, 12,00, true);
 
-                /*TimePickerDialog t1 = new TimePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT, start, 12,00, true);
-                t1.setTitle("시작시간");
-                System.out.println("g");
-                t1.show();*/
-
-                CustomTimePicker t1 = new CustomTimePicker(getActivity(), AlertDialog.THEME_HOLO_LIGHT, start,12,00,true);
                 t1.setTitle("시작시간");
                 t1.show();
                 break;
 
             //종료시간 버튼
             case R.id.book_end_time:
-                end = new CustomTimePicker.OnTimeSetListener() {
+                end = new CustomTimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         book_end_time.setText(String.format("%02d",hourOfDay) + ":" + String.format("%02d",minute));
                     }
                 };
 
-                CustomTimePicker t2 = new CustomTimePicker(getActivity(), AlertDialog.THEME_HOLO_LIGHT, end,12,00,true);
+                CustomTimePickerDialog t2 = new CustomTimePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT, end, 12,00, true);
                 t2.setTitle("종료시간");
                 t2.show();
                 break;

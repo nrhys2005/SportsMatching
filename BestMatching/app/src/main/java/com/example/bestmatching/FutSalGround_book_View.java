@@ -3,6 +3,7 @@ package com.example.bestmatching;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -31,7 +32,6 @@ public class FutSalGround_book_View extends View {
         Paint paint = new Paint(); // 페인트 객체 생성
         paint.setColor(Color.RED); // 빨간색으로 설정
 
-        canvas.drawRect(100, 100, 200, 200, paint);
     }
 
     /**

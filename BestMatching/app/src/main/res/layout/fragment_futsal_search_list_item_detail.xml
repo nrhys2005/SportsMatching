@@ -76,17 +76,7 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <HorizontalScrollView
-                    android:id="@+id/book_time_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="@drawable/corner_trans"
-                    android:scrollbars="none">
-                    <!--                    <com.example.bestmatching.FutSalGround_book_View-->
-                    <!--                        android:id="@+id/customView"-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="wrap_content"/>-->
-                </HorizontalScrollView>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -155,7 +145,17 @@
                         android:textStyle="bold" />
 
                 </LinearLayout>
-
+                <HorizontalScrollView
+                    android:id="@+id/book_time_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/corner_trans"
+                    android:scrollbars="none">
+                    <!--                    <com.example.bestmatching.FutSalGround_book_View-->
+                    <!--                        android:id="@+id/customView"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"/>-->
+                </HorizontalScrollView>
                 <ImageView
                     android:id="@+id/detail_ground"
                     android:layout_width="match_parent"

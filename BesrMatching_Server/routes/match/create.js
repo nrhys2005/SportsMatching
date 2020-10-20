@@ -33,7 +33,7 @@ router.post('/', function (req, res) {
                 }
                 else {
                     for(var i=0;i<rows.length;i++){
-                       if(rows[i].end_time.getTime()>=start_time.getTime() && end_time.getTime()>=rows[i].start_time.getTime()){
+                       if(rows[i].end_time>=start_time && end_time>=rows[i].start_time){
                             check = false;
                             break;
                         }

@@ -7,7 +7,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -75,8 +77,8 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
     String price;
 
     private DatePickerDialog.OnDateSetListener callbackMethod;
-    private TimePickerDialog.OnTimeSetListener start;
-    private TimePickerDialog.OnTimeSetListener end;
+    private CustomTimePicker.OnTimeSetListener start;
+    private CustomTimePicker.OnTimeSetListener end;
 
     private int stuck = 10;
 
@@ -134,39 +136,33 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
         book_btn.setOnClickListener(this);
 
         book_time_view.addView(new ColorView(context));
-        book_time_view.setRight(500);
 
         BootpayAnalytics.init(context, "5f6c1743878a56001dffad61");
 
         return view;
     }
+
     class ColorView extends View {
         public ColorView(Context context){
             super(context);
         }
 
         public void onDraw(Canvas canvas){ // 캔버스는 뷰의 그리기 표면이며 이 위에 그림을 그린다.
-            Paint Pnt = new Paint();
+            Paint paint = new Paint();
 
-            for(int x=0; x<2500; x+=60){
-                Pnt.setStyle(Paint.Style.STROKE); //선만있는 사각형 // Paint 객체 생성
-                Pnt.setARGB(255, 0, 0, 0);  // 색상 정하기
-                RectF rect=new RectF(x,0,x+50,100); //(시작X,시작Y,끝X,끝y)
-                if(x>300 && x<430)
-                {
-                    Pnt.setARGB(255, 128, 128, 128);  // 색상 정하기
-                    Pnt.setStyle(Paint.Style.FILL); //선만있는 사각형 // Paint 객체 생성
-                }
-                if(x>500 && x<560) {
-                    Pnt.setARGB(255, 0, 255, 0);  // 색상 정하기
-                    Pnt.setStyle(Paint.Style.FILL); //선만있는 사각형 // Paint 객체 생성
-                }
-                canvas.drawRect(rect, Pnt);     // 모서리둥근사각형메서드 그리기 ( 사각형 좌표,가로둥글기,세로둥글기,paint ) ;
+            for(int x=0; x<1920; x+=80){
+
+                paint.setStyle(Paint.Style.STROKE); //선만있는 사각형 // Paint 객체 생성
+                //paint.setColor(Color.argb(255,0,0,0));  // 색상 정하기
+                paint.setARGB(255,0,0,0);
+                RectF rect = new RectF(x, 0, x+60, 100);
+                //RectF rect = new RectF(x,0,x+60,80); //(시작X,시작Y,끝X,끝y) 사각형
+                canvas.drawRect(rect, paint);     // 모서리둥근사각형메서드 그리기 ( 사각형 좌표,가로둥글기,세로둥글기,paint ) ;
             }
         }
 
         protected void onMeasure (int widthMeasureSpec, int heightMeasureSpec){
-            setMeasuredDimension(2560, 120);  // 뷰의 크기를 폭 2560, 높이 2560으로 강제로 지정
+            setMeasuredDimension(1920, 120);
         }
 
     }
@@ -354,29 +350,33 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
 
             //시작시간 버튼
             case R.id.book_start_time:
-                start = new TimePickerDialog.OnTimeSetListener() {
+                start = new CustomTimePicker.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         book_start_time.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
                     }
                 };
 
-                TimePickerDialog t1 = new TimePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT, start, 12,00, true);
+                /*TimePickerDialog t1 = new TimePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT, start, 12,00, true);
                 t1.setTitle("시작시간");
                 System.out.println("g");
+                t1.show();*/
+
+                CustomTimePicker t1 = new CustomTimePicker(getActivity(), AlertDialog.THEME_HOLO_LIGHT, start,12,00,true);
+                t1.setTitle("시작시간");
                 t1.show();
                 break;
 
             //종료시간 버튼
             case R.id.book_end_time:
-                end = new TimePickerDialog.OnTimeSetListener() {
+                end = new CustomTimePicker.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         book_end_time.setText(String.format("%02d",hourOfDay) + ":" + String.format("%02d",minute));
                     }
                 };
 
-                TimePickerDialog t2 = new TimePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT, end, 12,00, true);
+                CustomTimePicker t2 = new CustomTimePicker(getActivity(), AlertDialog.THEME_HOLO_LIGHT, end,12,00,true);
                 t2.setTitle("종료시간");
                 t2.show();
                 break;

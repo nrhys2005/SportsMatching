@@ -32,7 +32,6 @@ public class FutSalGround_book_View extends View {
         paint.setColor(Color.RED); // 빨간색으로 설정
 
         canvas.drawRect(100, 100, 200, 200, paint);
-        // 좌표값과 페인트 객체를 이용해서 사각형을 그리는 drawRect()
     }
 
     /**

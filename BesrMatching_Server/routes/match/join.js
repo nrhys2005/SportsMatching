@@ -6,8 +6,7 @@ const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태
 //매치 참가
 router.post('/', function (req, res) {
     console.log('<<match/join>>');
-    req.on('data', (data) => {
-        var inputData = JSON.parse(data); // JSON data 받음
+    var inputData = req.body;
         var user_id = inputData.user_id;
         var match_id = inputData.match_id;
         console.log("cancel id, match_id= " + user_id+ match_id);
@@ -85,6 +84,5 @@ router.post('/', function (req, res) {
                 res.json({ "result": err });
             }
         });
-    });
 });
 module.exports = router;

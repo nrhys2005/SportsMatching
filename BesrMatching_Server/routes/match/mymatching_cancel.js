@@ -6,8 +6,7 @@ const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태
 //매칭 취소
 router.post('/', function (req, res) {
     console.log('<<match/mymatching_cancel>>');
-    req.on('data', (data) => {
-        var inputData = JSON.parse(data); // JSON data 받음
+    var inputData = req.body;
         var user_id = inputData.user_id;
         var match_id = inputData.match_id;
         var delete_data_array = [];
@@ -48,6 +47,5 @@ router.post('/', function (req, res) {
                 res.json({ "result": err });
             }
         });
-    });
 });
 module.exports = router;

@@ -7,9 +7,9 @@ router.post('/', function (req, res) {
 
     console.log('<<ground/create>>');
 
-    req.on('data', (data) => {
+
         var input_data_array= [];
-        var inputData = JSON.parse(data); // JSON data 받음
+        var inputData = req.body;
 
         //input_data_array.push(inputData.id);// json->array
         input_data_array.push(inputData.name);
@@ -28,6 +28,6 @@ router.post('/', function (req, res) {
                 res.json({ "result": err });
             }
         });
-    });
+
 });
 module.exports = router;

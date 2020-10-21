@@ -10,9 +10,7 @@ router.post('/', function (req, res) {
     console.log('<<signup>>');
 
     
-    req.on('data', (data) => {
-        
-        var inputData = JSON.parse(data); // JSON data 받음
+        var inputData = req.body; // JSON data 받음
         var input_data_array= [];
         input_data_array.push(inputData.id);// json->array
         input_data_array.push(inputData.name);
@@ -48,14 +46,13 @@ router.post('/', function (req, res) {
         // });
         //input_data_array.push(inputData.pw);
        
-    });
+ 
 });
 
 router.post('/check', function (req, res, next) {
     console.log('<<Signup/check>>');
-    
-    req.on('data', (data) => {
-        inputData = JSON.parse(data);
+ 
+        var inputData = req.body;
         var find_id = inputData.id;
 
         
@@ -81,7 +78,7 @@ router.post('/check', function (req, res, next) {
                 console.log(err);
             }
         });
-    });
+
     
 });
 

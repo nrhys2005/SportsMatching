@@ -6,9 +6,9 @@ const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태
 //신고하기----------------------------------------
 router.post('/', function (req, res) {
     console.log('<<Help/Report>>');
-    req.on('data', (data) => {
+
         var input_data_array= [];
-        var inputData = JSON.parse(data); // JSON data 받음
+        var inputData = req.body; // JSON data 받음
 
         var result_code =404;
         input_data_array.push(inputData.report_title);
@@ -32,6 +32,6 @@ router.post('/', function (req, res) {
                 res.json({ "result": result_code });
             }
         });
-    });
+
 });
 module.exports = router;

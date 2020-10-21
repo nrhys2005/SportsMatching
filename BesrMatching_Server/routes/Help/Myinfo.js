@@ -6,12 +6,12 @@ const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태
 //내정보(post)------------------------------------------
 router.post('/', function (req, res) {
     console.log('<<Help/Myinfo_Post>>');
-    req.on('data', (data) => {
+    var inputData = req.body;
         
         var result_code=404;
 
         var input_data_array= [];
-        var inputData = JSON.parse(data); // JSON data 받음
+        
 
         input_data_array.push(inputData.mail);
         input_data_array.push(inputData.phone);
@@ -35,7 +35,7 @@ router.post('/', function (req, res) {
                 res.json({ "result": result_code });
             }
         });
-    });
+
 });
 //내정보(get)------------------------------------------
 router.get('/', function (req, res) {

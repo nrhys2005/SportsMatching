@@ -7,9 +7,8 @@ router.post('/', function (req, res) {
     
     console.log('<<match/create(post)>>');
  
-    req.on('data', (data) => {
         var input_data_array= [];
-        var inputData = JSON.parse(data); // JSON data 받음
+        var inputData = req.body;
         let start_time = new Date((inputData.date+ " " +inputData.start_time+":00"));
         let end_time = new Date(inputData.date+ " " +inputData.end_time+":00");
         let today = new Date();
@@ -96,7 +95,6 @@ router.post('/', function (req, res) {
                 console.log('' + err);
             }
         });
-    });
 });
 
 router.get('/booking_list', function (req, res) {  

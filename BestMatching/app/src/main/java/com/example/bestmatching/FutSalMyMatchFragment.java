@@ -102,9 +102,7 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
         f.setArguments(bundle);
         ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), f);
     }
-    Date d= new Date();
-    SimpleDateFormat fd= new SimpleDateFormat("yyyy/MM/dd/ HH:mm:ss");
-    String s = fd.format(d);
+
     // 노드js에서 안스로 데이터 받는 부분
     public class Get extends AsyncTask<String, String, String> {
 

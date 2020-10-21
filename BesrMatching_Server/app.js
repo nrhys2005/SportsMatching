@@ -18,8 +18,8 @@ app.use(session({
 }))
 
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false}));
+// app.use(bodyParser.json())
+// app.use(bodyParser.urlencoded({ extended: false}));
 
 //라우팅 모듈 선언
 

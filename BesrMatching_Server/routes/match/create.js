@@ -101,7 +101,7 @@ router.post('/', function (req, res) {
 
 router.get('/match_list', function (req, res) {  
     console.log('<<match/create(get)>>');
-
+    
     var sql = 'select * from best_matching.book_list,best_matching.ground where book_list.ground_id = ground.id and book_list.user_id = ?';
     dbconn.query(sql, req.query.user_id, function (err, rows, fields) {//DB connect
         if (!err) {
@@ -115,9 +115,11 @@ router.get('/match_list', function (req, res) {
 
 router.get('/select_match', function (req, res) {  
     console.log('<<match/create/select_match>>');
-    
+    var select_array = [];
+    select_array.push(req.query.ground_id);
+    select_array.push(req.query.user_id);
     var sql = 'select * from best_matching.book_list,best_matching.ground where book_list.ground_id = ground.id and ground.id=? and book_list.user_id = ?';
-    dbconn.query(sql, req.query.user_id, function (err, rows, fields) {//DB connect
+    dbconn.query(sql, select_array, function (err, rows, fields) {//DB connect
         if (!err) {
             console.log("match "+req.query.ground_id)
             res.json({ "result": 'Success', rows });

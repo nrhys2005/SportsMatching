@@ -152,7 +152,7 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
         colorView = new ColorView(context);
 
         book_time_view.addView(colorView);
-  
+
         new Get().execute(ip + "/ground/timecheck/2020-10-21");
 
 

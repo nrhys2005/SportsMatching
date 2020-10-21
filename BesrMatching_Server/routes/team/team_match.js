@@ -7,8 +7,8 @@ router.post('/', function (req, res) {
     console.log('<<team/team_match>>');
 });
 
-router.get('/match_list', function (req, res) {  
-    console.log('<<team/team_match/match_list>>');
+router.get('/booking_list', function (req, res) {  
+    console.log('<<team/team_match/booking_list>>');
 
     var sql = 'select * from best_matching.book_list,best_matching.ground where book_list.ground_id = ground.id and book_list.user_id = ?';
     dbconn.query(sql, req.query.user_id, function (err, rows, fields) {//DB connect
@@ -17,6 +17,7 @@ router.get('/match_list', function (req, res) {
             res.json({ "result": 'Success', rows });
         } else {
             console.log('' + err);
+            res.json({ "result":  'fail'});
         }
     });
 });
@@ -24,7 +25,7 @@ router.get('/member_list', function (req, res) {
     console.log('<<team/team_match/member_list>>');
     var sql=  'select * from best_matching.user where team_name= ?';
 
-    dbconn.query(sql, dreq.query.team_name, function (err, rows, fields) {//DB connect
+    dbconn.query(sql, req.query.team_name, function (err, rows, fields) {//DB connect
         if (!err) {
             console.log('Query Select Success(result: Success)');
             res.json({ "result": 'Success', member_info : rows});

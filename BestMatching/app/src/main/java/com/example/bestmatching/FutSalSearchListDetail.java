@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.strictmode.IntentReceiverLeakedViolation;
@@ -103,15 +104,10 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
         book_start_time = (TextView)view.findViewById(R.id.book_start_time);
         book_end_time = (TextView)view.findViewById(R.id.book_end_time);
         detail_ground = (ImageView)view.findViewById(R.id.detail_ground);
-
         book_time_view = (HorizontalScrollView)view.findViewById(R.id.book_time_view);
-
 
         name = getArguments().getString("name");
         price = getArguments().getString("price");
-        //Toast.makeText(getActivity(),Integer.toString(a),Toast.LENGTH_SHORT).show();
-
-
 
         detail_name.setText(name);
         detail_price.setText(price + "원");
@@ -153,29 +149,36 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
         public void onDraw(Canvas canvas){ // 캔버스는 뷰의 그리기 표면이며 이 위에 그림을 그린다.
             Paint Pnt = new Paint();
 
-            for(int x=0; x<1920; x+=40){
+            for(int x=0; x<1920; x+=80){
 
                 Pnt.setStyle(Paint.Style.FILL); //선만있는 사각형 // Paint 객체 생성
                 Pnt.setARGB(255, 0, 0, 0);  // 색상 정하기
-                RectF rect=new RectF(x,0,x+30,100); //(시작X,시작Y,끝X,끝y) 사각형
-//                if(x>start_time*50 && x<end_time*50)
-//                {
-//                    Pnt.setARGB(255, 128, 128, 128);  // 색상 정하기
-//                    Pnt.setStyle(Paint.Style.FILL); //선만있는 사각형 // Paint 객체 생성
-//                }
-                if(x>500 && x<560) {
+                RectF rect=new RectF(x,0,x+70,100); //(시작X,시작Y,끝X,끝y) 사각형
+
+                if(x>=80 && x<=150) {
                     Pnt.setARGB(255, 0, 255, 0);  // 색상 정하기
                     Pnt.setStyle(Paint.Style.FILL_AND_STROKE); //선만있는 사각형 // Paint 객체 생성
                 }
+
                 Pnt.setStrokeWidth(3f);
                 canvas.drawRect(rect, Pnt);     // 모서리둥근사각형메서드 그리기 ( 사각형 좌표,가로둥글기,세로둥글기,paint ) ;
-                Pnt.setTextSize(20);
-                canvas.drawText("hi",200,30,Pnt);
+            }
+
+            for(int x=0; x<1920; x+=80) {
+                int i = x/80;
+                //String t = Integer.toString(i);
+                String t = String.format("%02d", i);
+
+                Paint paint = new Paint();
+                paint.setARGB(255, 0, 0, 0);
+                paint.setTextSize(35);
+                paint.setTypeface(Typeface.create(Typeface.DEFAULT_BOLD, Typeface.NORMAL));
+                canvas.drawText(t, 15+x, 150, paint);
             }
         }
 
         protected void onMeasure (int widthMeasureSpec, int heightMeasureSpec){
-            setMeasuredDimension(1920, 120);  // 뷰의 크기를 폭 2560, 높이 2560으로 강제로 지정
+            setMeasuredDimension(1920, 180);  // 뷰의 크기를 폭 2560, 높이 2560으로 강제로 지정
         }
 
     }
@@ -254,9 +257,6 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
             } else {
                 Toast.makeText(getActivity(), "문의내용이 없습니다.", Toast.LENGTH_SHORT).show();
             }
-
-
-
 
         }
 
@@ -461,7 +461,7 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
                     }
                 };
 
-                DatePickerDialog d = new DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, callbackMethod, 2020, 10, 1);
+                DatePickerDialog d = new DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, callbackMethod, 2020, 9, 1);
                 d.show();
                 break;
 

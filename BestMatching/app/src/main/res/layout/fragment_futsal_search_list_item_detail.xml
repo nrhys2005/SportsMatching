@@ -145,10 +145,11 @@
                         android:textStyle="bold" />
 
                 </LinearLayout>
+
                 <HorizontalScrollView
                     android:id="@+id/book_time_view"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="70dp"
                     android:background="@drawable/corner_trans"
                     android:scrollbars="none">
                     <!--                    <com.example.bestmatching.FutSalGround_book_View-->
@@ -156,6 +157,7 @@
                     <!--                        android:layout_width="match_parent"-->
                     <!--                        android:layout_height="wrap_content"/>-->
                 </HorizontalScrollView>
+
                 <ImageView
                     android:id="@+id/detail_ground"
                     android:layout_width="match_parent"

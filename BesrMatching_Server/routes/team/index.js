@@ -23,5 +23,7 @@ router.use('/create', require('./create'));
 //팀 검색 
 router.use('/search', require('./search'));
 
+router.use('/team_match', require('./team_match'));
+
 
 module.exports = router;

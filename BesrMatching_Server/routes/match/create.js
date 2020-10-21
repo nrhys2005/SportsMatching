@@ -5,7 +5,7 @@ const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태
  
 router.post('/', function (req, res) {
     
-    console.log('<<match/create>>');
+    console.log('<<match/create(post)>>');
  
     req.on('data', (data) => {
         var input_data_array= [];
@@ -99,4 +99,32 @@ router.post('/', function (req, res) {
     });
 });
 
+router.get('/match_list', function (req, res) {  
+    console.log('<<match/create(get)>>');
+
+    var sql = 'select * from best_matching.book_list,best_matching.ground where book_list.ground_id = ground.id and book_list.user_id = ?';
+    dbconn.query(sql, req.query.user_id, function (err, rows, fields) {//DB connect
+        if (!err) {
+            console.log("match "+req.query.ground_id)
+            res.json({ "result": 'Success', rows });
+        } else {
+            console.log('' + err);
+        }
+    });
+});
+
+router.get('/select_match', function (req, res) {  
+    console.log('<<match/create/select_match>>');
+    
+    var sql = 'select * from best_matching.book_list,best_matching.ground where book_list.ground_id = ground.id and ground.id=? and book_list.user_id = ?';
+    dbconn.query(sql, req.query.user_id, function (err, rows, fields) {//DB connect
+        if (!err) {
+            console.log("match "+req.query.ground_id)
+            res.json({ "result": 'Success', rows });
+        } else {
+            console.log('' + err);
+            res.json({ "result": 'fail' });
+        }
+    });
+});
 module.exports = router;

@@ -24,12 +24,12 @@ router.post('/', function (req, res) {
             }
             else {
                 console.log('Query insert success(result": "Success)');
-                res.json({ "result": "Success" });
+                res.json({ "result": "ok" });
             }
 
         } else {
             console.log('Query insert error : ' + err);
-            res.json({ "result": err });
+            res.json({ "result": 'fail'});
         }
     });
 });
@@ -45,9 +45,10 @@ router.get('/check', function (req, res) {
     dbconn.query(check_sql, input_data_array, function (err, rows, fields) {//DB connect
         if (!err) {
             console.log("match "+req.query.ground_id)
-            res.json({ "result": 'ok', rows });
+            res.json({ "result": 'Success', rows });
         } else {
             console.log('' + err);
+            res.json({ "result": 'fail'});
         }
     });
 });

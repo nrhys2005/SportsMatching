@@ -41,7 +41,7 @@ router.get('/check', function (req, res) {
     input_data_array.push(req.query.date + " " + "00:00:00");
     input_data_array.push(req.query.date + " " + "23:59:59");
     
-    var check_sql = 'select * from best_matching.book_list where book_list.ground_id = ? and book_list.start_time >= ? and book_list.end_time <= ?';
+    var check_sql = "select  ground_id, user_id, phone, DATE_FORMAT(start_time,'%Y-%m-%d %H:%i') as start_time, DATE_FORMAT(end_time,'%Y-%m-%d %H:%i') as end_time from best_matching.book_list where book_list.ground_id = ? and book_list.start_time >= ? and book_list.end_time <= ?";
     dbconn.query(check_sql, input_data_array, function (err, rows, fields) {//DB connect
         if (!err) {
             console.log("match "+req.query.ground_id)

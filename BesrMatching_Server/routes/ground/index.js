@@ -14,4 +14,6 @@ router.use('/search', require('./search'));
 router.use('/create', require('./create'));
 //구장 등록
 router.use('/book', require('./book'));
+//구장 예약 현황 확인
+router.use('/timecheck', require('./timecheck'));
 module.exports = router;

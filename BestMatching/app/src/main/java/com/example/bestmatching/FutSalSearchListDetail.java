@@ -44,6 +44,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import kr.co.bootpay.Bootpay;
 import kr.co.bootpay.BootpayAnalytics;
@@ -61,6 +62,8 @@ import kr.co.bootpay.model.BootUser;
 
 public class FutSalSearchListDetail extends Fragment implements View.OnClickListener {
 
+    LoginActivity lg = new LoginActivity();
+    public String ip=lg.ip;
     private Context context;
 
     TextView detail_name;
@@ -82,9 +85,21 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
     private CustomTimePickerDialog.OnTimeSetListener start;
     private CustomTimePickerDialog.OnTimeSetListener end;
 
+    ArrayList<String> start_time = new ArrayList<>(); //시간 ex)2020-10-21 21:00
+    ArrayList<String> end_time = new ArrayList<>(); //시간 ex)2020-10-21 23:00
+
+    ArrayList<Integer> start_hour = new ArrayList<>(); //시간 ex) 21
+    ArrayList<Integer> end_hour = new ArrayList<>(); //시간 ex) 23
+
     private int TIME_PICKER_INTERVAL = 30;
 
     private int stuck = 10;
+    private int timeinfoSize=0;
+
+    private ColorView colorView;
+
+    private int select_start=0;
+    private int select_end=0;
 
     public static FutSalSearchListDetail newInstance() {
         return new FutSalSearchListDetail();
@@ -133,8 +148,13 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
         book_end_time.setOnClickListener(this);
         back_btn.setOnClickListener(this);
         book_btn.setOnClickListener(this);
+        book_date.setText(String.format("%d", 2020) + "-" + String.format("%02d", 10) + "-" + String.format("%02d", 21));//오늘 날짜 추가하는 기능 추가
+        colorView = new ColorView(context);
 
-        book_time_view.addView(new ColorView(context));
+        book_time_view.addView(colorView);
+  
+        new Get().execute(ip + "/ground/timecheck/2020-10-21");
+
 
         BootpayAnalytics.init(context, "5f6c1743878a56001dffad61");
 
@@ -145,25 +165,59 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
         public ColorView(Context context){
             super(context);
         }
+//        public void invalidate()
+//        {
+//            invalidate();
+//        }
 
         public void onDraw(Canvas canvas){ // 캔버스는 뷰의 그리기 표면이며 이 위에 그림을 그린다.
             Paint Pnt = new Paint();
-
+            if(book_start_time.equals(""))
+            {
+                book_end_time.setText("");
+                select_start=0;
+                select_end=0;
+            }
             for(int x=0; x<1920; x+=80){
 
                 Pnt.setStyle(Paint.Style.FILL); //선만있는 사각형 // Paint 객체 생성
                 Pnt.setARGB(255, 0, 0, 0);  // 색상 정하기
                 RectF rect=new RectF(x,0,x+70,100); //(시작X,시작Y,끝X,끝y) 사각형
-
-                if(x>=80 && x<=150) {
-                    Pnt.setARGB(255, 0, 255, 0);  // 색상 정하기
-                    Pnt.setStyle(Paint.Style.FILL_AND_STROKE); //선만있는 사각형 // Paint 객체 생성
-                }
+//
+//                if(x>=80 && x<=150) {
+//                    Pnt.setARGB(255, 0, 255, 0);  // 색상 정하기
+//                    Pnt.setStyle(Paint.Style.FILL_AND_STROKE); //선만있는 사각형 // Paint 객체 생성
+//                }
 
                 Pnt.setStrokeWidth(3f);
                 canvas.drawRect(rect, Pnt);     // 모서리둥근사각형메서드 그리기 ( 사각형 좌표,가로둥글기,세로둥글기,paint ) ;
             }
+            if(start_hour.size()!=0) {
+                for (int i = 0; i < start_hour.size(); i++) {
+                    Pnt.setStyle(Paint.Style.FILL); //선만있는 사각형 // Paint 객체 생성
+                    Pnt.setARGB(255, 255, 0, 0);  // 색상 정하기
+                    int time_interval=end_hour.get(i)-start_hour.get(i);
+                    for(int d=0;d<time_interval;d++) {
+                        RectF rect = new RectF(((start_hour.get(i)+d )* 80), 0, ((start_hour.get(i)+d) * 80)+70, 100); //(시작X,시작Y,끝X,끝y) 사각형
+                        Pnt.setStrokeWidth(3f);
+                        canvas.drawRect(rect, Pnt);     // 모서리둥근사각형메서드 그리기 ( 사각형 좌표,가로둥글기,세로둥글기,paint ) ;
+                    }
+//                    System.out.println("시작시간 " + start_hour.get(i));
+//                    System.out.println("종료시간 " + end_hour.get(i));
+                }
+            }
 
+            int selcet_inerval=select_end-select_start;
+           // System.out.println("st"+select_start+"se"+select_end);
+            for(int d=0;d<selcet_inerval;d++)
+            {
+
+                Pnt.setStyle(Paint.Style.FILL); //선만있는 사각형 // Paint 객체 생성
+                Pnt.setARGB(255, 0, 255, 0);  // 색상 정하기
+                RectF rect = new RectF(((select_start+d )* 80), 0, ((select_start+d) * 80)+70, 100); //(시작X,시작Y,끝X,끝y) 사각형
+                Pnt.setStrokeWidth(3f);
+                canvas.drawRect(rect, Pnt);
+            }
             for(int x=0; x<1920; x+=80) {
                 int i = x/80;
                 //String t = Integer.toString(i);
@@ -173,7 +227,7 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
                 paint.setARGB(255, 0, 0, 0);
                 paint.setTextSize(35);
                 paint.setTypeface(Typeface.create(Typeface.DEFAULT_BOLD, Typeface.NORMAL));
-                canvas.drawText(t, 15+x, 150, paint);
+                canvas.drawText(t, x-3, 150, paint);
             }
         }
 
@@ -182,7 +236,7 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
         }
 
     }
-  /*  public class Get extends AsyncTask<String, String, String> {
+    public class Get extends AsyncTask<String, String, String> {
 
         @Override
         protected String doInBackground(String... urls) {
@@ -209,24 +263,26 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
                     JSONObject jsonObject = new JSONObject(receiveMsg);
                     String msg = jsonObject.getString("result");
 
-                    if (msg.equals("200")) {
-                        String notice_info = jsonObject.getString("question_info");
-                        JSONArray jsonArray = new JSONArray(notice_info);
+                    if (msg.equals("Success")) {
+                        start_time.clear();
+                        end_time.clear();
+                        start_hour.clear();
+                        end_hour.clear();
+                        String time_info = jsonObject.getString("time_info");
+                        JSONArray jsonArray = new JSONArray(time_info);
 
-                        questionSize = jsonArray.length();
+                        timeinfoSize = jsonArray.length();
 
-                        for (int i = 0; i < questionSize; i++) {
+                        for (int i = 0; i < timeinfoSize; i++) {
                             JSONObject js = jsonArray.getJSONObject(i);
+                            start_time.add(js.getString("start_time"));
+                            end_time.add(js.getString("end_time"));
 
-                            question_id.add(js.getString("user_id"));
-                            question_category.add(js.getString("category"));
-                            question_title.add(js.getString("title"));
-                            question_content.add(js.getString("content"));
 
 
                         }
                     } else if (msg.equals("no find")) {
-                        questionSize = 0;
+                        timeinfoSize = 0;
                     } else {
                         //Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
                     }
@@ -249,19 +305,31 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             //TODO 겟 처리 후 결과
-            if (questionSize != 0) {
-                for (int i = 0; i < questionSize; i++) {
-                    questionAdapter.addItem(question_category.get(i), question_title.get(i),question_id.get(i),question_content.get(i));
+
+            if (timeinfoSize != 0) {
+                for (int i = 0; i < timeinfoSize; i++) {
+
+                    String[] stime = start_time.get(i).split(" ");
+                    String starthour = stime[1];
+                    String[] shour = starthour.split(":");
+                    start_hour.add(Integer.parseInt(shour[0]));
+
+                    String[] etime = end_time.get(i).split(" ");
+                    String endhour = etime[1];
+                    String[] ehour = endhour.split(":");
+                    end_hour.add(Integer.parseInt(ehour[0]));
                 }
-                questionAdapter.notifyDataSetChanged();
-            } else {
-                Toast.makeText(getActivity(), "문의내용이 없습니다.", Toast.LENGTH_SHORT).show();
+
             }
 
+            else {
+
+            }
+            colorView.invalidate();
         }
 
     }
-    */
+
 
     // 안스에서 노드js로 데이터 보내는 부분
     public class Post extends AsyncTask<String, String, String> {
@@ -427,22 +495,6 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
 
     private boolean mIgnoreEvent=false;
 
-    private TimePicker.OnTimeChangedListener mTimePickerListener=new TimePicker.OnTimeChangedListener(){
-        public void onTimeChanged(TimePicker timePicker, int hourOfDay, int minute){
-            if (mIgnoreEvent)
-                return;
-            if (minute%TIME_PICKER_INTERVAL!=0){
-                int minuteFloor=minute-(minute%TIME_PICKER_INTERVAL);
-                minute=minuteFloor + (minute==minuteFloor+1 ? TIME_PICKER_INTERVAL : 0);
-                if (minute==60)
-                    minute=0;
-                mIgnoreEvent=true;
-                timePicker.setCurrentMinute(minute);
-                mIgnoreEvent=false;
-            }
-
-        }
-    };
     @Override
     public void onClick(View v) {
         int a = v.getId();
@@ -457,6 +509,7 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         //year,month,dayOfMont
                         book_date.setText(String.format("%d", year) + "-" + String.format("%02d", month + 1) + "-" + String.format("%02d", dayOfMonth));
+                        new Get().execute(ip + "/ground/timecheck/"+String.format("%d", year) + "-" + String.format("%02d", month + 1) + "-" + String.format("%02d", dayOfMonth));
 
                     }
                 };
@@ -467,10 +520,13 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
 
             //시작시간 버튼
             case R.id.book_start_time:
+                select_end=0;
+                select_start=0;
                 start = new CustomTimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         book_start_time.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
+                        select_start=hourOfDay;
                     }
                 };// using CustomTimePickerDialog
                 CustomTimePickerDialog t1 = new CustomTimePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT, start, 12,00, true);
@@ -485,6 +541,18 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         book_end_time.setText(String.format("%02d",hourOfDay) + ":" + String.format("%02d",minute));
+                        select_end=hourOfDay;
+                        for(int i=0;i<start_hour.size();i++)
+                            if((start_hour.get(i)<select_start&&end_hour.get(i)>select_start)||(start_hour.get(i)<select_end&&end_hour.get(i)>=select_end)||(select_start<=start_hour.get(i)&&select_end>end_hour.get(i)))
+                            {
+                                Toast.makeText(context.getApplicationContext(), "이미 예약되어 있습니다. 다시 선택해 주세요.", Toast.LENGTH_SHORT).show();
+
+                                select_start=0;
+                                select_end=0;
+                                book_start_time.setText("");
+                                book_end_time.setText("");
+                            }
+                        colorView.invalidate();
                     }
                 };
 

@@ -10,8 +10,8 @@ moment.tz.setDefault('Asia/Seoul')
 
 router.post('/', function (req, res) {
     console.log('<<Login>>');
-    req.on('data', (data) => {
-        inputData = JSON.parse(data);
+
+        inputData = req.body
         var login_id = inputData.id;
         var login_pw = inputData.pw;
         console.log('로그인 시도 아이디 : ' + login_id);
@@ -59,7 +59,6 @@ router.post('/', function (req, res) {
             }
         })
 
-    });
 });
 
 

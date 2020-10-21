@@ -76,6 +76,33 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/corner_trans">
+
+                    <TextView
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:text="전화번호"
+                        android:layout_marginRight="5dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/book_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:background="@null"
+                        android:textColor="@color/black"
+                        android:hint="전화번호 입력하세요."
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:singleLine = "true"
+                        android:lines = "1"/>
+                </LinearLayout>
+
 
 
                 <LinearLayout

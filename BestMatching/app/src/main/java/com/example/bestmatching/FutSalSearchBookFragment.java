@@ -62,7 +62,7 @@ public class FutSalSearchBookFragment extends Fragment implements View.OnClickLi
         futsal_my_book = (ListView) view.findViewById(R.id.futsal_my_book);
         futsal_my_book.setAdapter(futsalSearchBookAdapter);
 
-        //new Get().execute(ip + "/match/mymatching_list/" + now_id);
+        new Get().execute(ip + "/ground/booking_list/" + now_id);
 
         futsalSearchBookAdapter.notifyDataSetChanged();
 
@@ -94,22 +94,22 @@ public class FutSalSearchBookFragment extends Fragment implements View.OnClickLi
                     String msg = jsonObject.getString("result");
 
                     if (msg.equals("Success")) {
-                        String item = jsonObject.getString("mymatch_list_info");
+                        String item = jsonObject.getString("info");
                         JSONArray jsonArray = new JSONArray(item);
 
                         mybookSize = jsonArray.length();
 
                         for (int i = 0; i < mybookSize; i++) {
                             JSONObject js = jsonArray.getJSONObject(i);
-                            my_book_groundName.add(js.getString("title"));
-                            my_book_price.add(js.getString("ground_name"));
+                            my_book_groundName.add(js.getString("name"));
+                            my_book_price.add(js.getString("price"));
                             my_book_start_time.add(js.getString("start_time"));
                             my_book_end_time.add(js.getString("end_time"));
                         }
                     } else if (msg.equals("no find")) {
                         mybookSize = 0;
                     } else {
-                        //Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -144,6 +144,7 @@ public class FutSalSearchBookFragment extends Fragment implements View.OnClickLi
                 }
                 futsalSearchBookAdapter.notifyDataSetChanged();
             } else {
+                //Toast.makeText(getActivity(), my_book_groundName.get(0), Toast.LENGTH_SHORT).show();
                 Toast.makeText(getActivity(), "검색결과 없습니다.", Toast.LENGTH_SHORT).show();
             }
 

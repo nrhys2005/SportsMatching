@@ -17,4 +17,6 @@ router.use('/book', require('./book'));
 //예약 리스트
 router.use('/booking_list', require('./booking_list'));
 
+//구장 예약 현황 확인
+router.use('/timecheck', require('./timecheck'));
 module.exports = router;

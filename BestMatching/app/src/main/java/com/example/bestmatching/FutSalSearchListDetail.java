@@ -103,7 +103,6 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
     private int select_end=0;
 
     public int id;
-    String ip = lg.ip;
     private String now_id = lg.Myid;
 
     public static FutSalSearchListDetail newInstance() {

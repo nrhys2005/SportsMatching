@@ -177,7 +177,7 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
 
         public void onDraw(Canvas canvas){ // 캔버스는 뷰의 그리기 표면이며 이 위에 그림을 그린다.
             Paint Pnt = new Paint();
-            if(book_start_time.equals(""))
+            if(book_start_time.equals("")||select_start==0)
             {
                 book_end_time.setText("");
                 select_start=0;
@@ -549,7 +549,14 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
                             if((start_hour.get(i)<select_start&&end_hour.get(i)>select_start)||(start_hour.get(i)<select_end&&end_hour.get(i)>=select_end)||(select_start<=start_hour.get(i)&&select_end>end_hour.get(i)))
                             {
                                 Toast.makeText(context.getApplicationContext(), "이미 예약되어 있습니다. 다시 선택해 주세요.", Toast.LENGTH_SHORT).show();
-
+                                select_start=0;
+                                select_end=0;
+                                book_start_time.setText("");
+                                book_end_time.setText("");
+                            }
+                            if(select_start>select_end)
+                            {
+                                Toast.makeText(context.getApplicationContext(), "시간 선택을 다시 해주세요.", Toast.LENGTH_SHORT).show();
                                 select_start=0;
                                 select_end=0;
                                 book_start_time.setText("");

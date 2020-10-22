@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,6 +33,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class FutSalMatchRegisterFragment extends Fragment implements View.OnClickListener {
 
@@ -49,11 +51,20 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
     String ip = lg.ip;
     String now_id = lg.Myid;
 
+    // 개수
+    private int myBook;
+
     private DatePickerDialog.OnDateSetListener callbackMethod;
     private TimePickerDialog.OnTimeSetListener start;
     private TimePickerDialog.OnTimeSetListener end;
 
     Button match_register;
+
+    ArrayList<String> my_groundName = new ArrayList<>();
+    ArrayList<String> my_start_time = new ArrayList<>();
+    ArrayList<String> my_end_time = new ArrayList<>();
+
+    String[] items;
 
     public static FutSalMatchRegisterFragment newInstance() {
         return new FutSalMatchRegisterFragment();
@@ -198,20 +209,103 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
         }
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // 노드js에서 안스로 데이터 받는 부분
+    public class Get extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+            String url = "";
+            InputStream is = null;
+            try {
+                is = new URL(urls[0]).openStream();
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+                String str;
+                StringBuffer buffer = new StringBuffer();
+                while ((str = rd.readLine()) != null) {
+                    buffer.append(str);
+                }
+
+                //URL 내용들
+                String receiveMsg = buffer.toString();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(receiveMsg);
+                    String msg = jsonObject.getString("result");
+
+                    if (msg.equals("Success")) {
+                        String item = jsonObject.getString("rows");
+                        JSONArray jsonArray = new JSONArray(item);
+
+                        myBook = jsonArray.length();
+
+                        for (int i = 0; i < myBook; i++) {
+                            JSONObject js = jsonArray.getJSONObject(i);
+                            my_groundName.add(js.getString("name"));
+                            my_start_time.add(js.getString("start_time"));
+                            my_end_time.add(js.getString("end_time"));
+                        }
+                    } else if (msg.equals("no find")) {
+                        myBook = 0;
+                    } else {
+                        Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+        //doInBackground메소드가 끝나면 여기로 와서 텍스트뷰의 값을 바꿔준다.
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            if (myBook != 0) {
+                for (int i = 0; i < myBook; i++) {
+
+                    String start1 = my_start_time.get(i).substring(0,10);
+                    String start2 = my_start_time.get(i).substring(11,16);
+
+                    String end1 = my_end_time.get(i).substring(0,10);
+                    String end2 = my_end_time.get(i).substring(11,16);
+
+                }
+
+            } else {
+                Toast.makeText(getActivity(), "검색결과 없습니다.", Toast.LENGTH_SHORT).show();
+            }
+
+
+        }
+
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @Override
     public void onClick(View v) {
         int a = v.getId();
 
         switch (a) {
             case R.id.select_stadium:
-
-                final String[] items = {"경북대 상주캠 풋살장", "경북대 대구캠 풋살장"};
+                new Get().execute(ip + "/match/create/booking_list?user_id=" + now_id);
+               // final String[] items = {"경북대 상주캠 풋살장", "경북대 대구캠 풋살장"};
+                items = my_groundName.toArray(new String[my_groundName.size()]);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
                 builder.setTitle("선택하세요")
                         .setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
-
                             public void onClick(DialogInterface dialog, int index) {
                                 /*Toast.makeText(context, items[index], Toast.LENGTH_SHORT).show();*/
                                 select_stadium.setText(items[index]);
@@ -222,6 +316,7 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 /* Toast.makeText(context, "ok", Toast.LENGTH_SHORT).show();*/
+
                             }
                         })
 

@@ -12,7 +12,7 @@ router.get('/:date', function (req, res) {
     
     dbconn.query(sql, timecheck_, function (err, rows, fields) {//DB connect
         if (!err) {
-            console.log("time "+rows[1].end_time)
+            //console.log("time "+rows[1].end_time)
             res.json({ "result": 'Success', time_info : rows });
         } else {
             console.log('' + err);

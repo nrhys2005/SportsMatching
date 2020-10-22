@@ -180,7 +180,8 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
             }
             for(int x=0; x<1920; x+=80){
 
-                Pnt.setStyle(Paint.Style.FILL); //선만있는 사각형 // Paint 객체 생성
+                Pnt.setStyle(Paint.Style.STROKE); //선만있는 사각형 // Paint 객체 생성
+
                 Pnt.setARGB(255, 0, 0, 0);  // 색상 정하기
                 RectF rect=new RectF(x,0,x+70,100); //(시작X,시작Y,끝X,끝y) 사각형
 //
@@ -194,7 +195,7 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
             }
             if(start_hour.size()!=0) {
                 for (int i = 0; i < start_hour.size(); i++) {
-                    Pnt.setStyle(Paint.Style.FILL); //선만있는 사각형 // Paint 객체 생성
+                    Pnt.setStyle(Paint.Style.FILL_AND_STROKE); //선만있는 사각형 // Paint 객체 생성
                     Pnt.setARGB(255, 255, 0, 0);  // 색상 정하기
                     int time_interval=end_hour.get(i)-start_hour.get(i);
                     for(int d=0;d<time_interval;d++) {
@@ -212,7 +213,7 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
             for(int d=0;d<selcet_inerval;d++)
             {
 
-                Pnt.setStyle(Paint.Style.FILL); //선만있는 사각형 // Paint 객체 생성
+                Pnt.setStyle(Paint.Style.FILL_AND_STROKE); //선만있는 사각형 // Paint 객체 생성
                 Pnt.setARGB(255, 0, 255, 0);  // 색상 정하기
                 RectF rect = new RectF(((select_start+d )* 80), 0, ((select_start+d) * 80)+70, 100); //(시작X,시작Y,끝X,끝y) 사각형
                 Pnt.setStrokeWidth(3f);

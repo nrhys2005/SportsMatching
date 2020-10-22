@@ -12,8 +12,9 @@ router.use('/', require('./ground'));
 router.use('/search', require('./search'));
 //구장 등록
 router.use('/create', require('./create'));
-//구장 등록
+//구장 예약
 router.use('/book', require('./book'));
-
+//예약 리스트
 router.use('/booking_list', require('./booking_list'));
+
 module.exports = router;

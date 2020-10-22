@@ -61,10 +61,12 @@ import kr.co.bootpay.model.BootUser;
 
 public class FutSalSearchListDetail extends Fragment implements View.OnClickListener {
 
+    LoginActivity lg = new LoginActivity();
     private Context context;
 
     TextView detail_name;
     TextView detail_price;
+    TextView book_phone;
     TextView book_date;
     TextView book_start_time;
     TextView book_end_time;
@@ -86,6 +88,10 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
 
     private int stuck = 10;
 
+    public int id;
+    String ip = lg.ip;
+    private String now_id = lg.Myid;
+
     public static FutSalSearchListDetail newInstance() {
         return new FutSalSearchListDetail();
     }
@@ -100,6 +106,7 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
 
         detail_name = (TextView)view.findViewById(R.id.detail_name);
         detail_price = (TextView)view.findViewById(R.id.detail_price);
+        book_phone = (TextView)view.findViewById(R.id.book_phone);
         book_date = (TextView)view.findViewById(R.id.book_date);
         book_start_time = (TextView)view.findViewById(R.id.book_start_time);
         book_end_time = (TextView)view.findViewById(R.id.book_end_time);
@@ -113,7 +120,7 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
         detail_price.setText(price + "원");
 
 
-        int id = getArguments().getInt("id");
+        id = getArguments().getInt("id");
         switch (id) {
             case 1:
                 Bitmap bm1 = BitmapFactory.decodeResource(getResources(), R.drawable.sangju);
@@ -272,15 +279,12 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
                 //JSONObject를 만들고 key value 형식으로 값을 저장해준다.
                 JSONObject jsonObject = new JSONObject();
 
-                //jsonObject.put("title", match_title.getText().toString());
-                //jsonObject.put("ground_name", select_stadium.getText().toString());
-                //jsonObject.put("date", match_date.getText().toString());
-                //jsonObject.put("start_time", match_start_time.getText().toString());
-                //jsonObject.put("end_time", match_end_time.getText().toString());
-                //jsonObject.put("cost", match_cost.getText().toString());
-                //jsonObject.put("max_user", match_max_user.getText().toString());
-                //jsonObject.put("user_id", now_id);
-
+                jsonObject.put("ground_id", getArguments().getInt("id"));
+                jsonObject.put("user_id", now_id);
+                jsonObject.put("phone", book_phone.getText().toString());
+                jsonObject.put("date", book_date.getText().toString());
+                jsonObject.put("start_time", book_start_time.getText().toString());
+                jsonObject.put("end_time", book_end_time.getText().toString());
 
                 HttpURLConnection con = null;
                 BufferedReader reader = null;
@@ -352,7 +356,7 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
                 JSONObject jsonObject = new JSONObject(result);
                 String msg = jsonObject.getString("result");
 
-                if (msg.equals("Success")) {
+                if (msg.equals("ok")) {
                     Toast.makeText(context.getApplicationContext(), "예약 성공", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context.getApplicationContext(), "예약 실패", Toast.LENGTH_SHORT).show();
@@ -495,6 +499,7 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
 
             //예약 버튼
             case R.id.book_btn:
+                new Post().execute(ip + "/ground/book");
                 kakao();
                 break;
         }

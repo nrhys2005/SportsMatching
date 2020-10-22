@@ -62,7 +62,7 @@ public class FutSalSearchBookFragment extends Fragment implements View.OnClickLi
         futsal_my_book = (ListView) view.findViewById(R.id.futsal_my_book);
         futsal_my_book.setAdapter(futsalSearchBookAdapter);
 
-        new Get().execute(ip + "/ground/booking_list/" + now_id);
+        new Get().execute(ip + "/ground/booking_list?user_id=" + now_id);
 
         futsalSearchBookAdapter.notifyDataSetChanged();
 
@@ -94,7 +94,7 @@ public class FutSalSearchBookFragment extends Fragment implements View.OnClickLi
                     String msg = jsonObject.getString("result");
 
                     if (msg.equals("Success")) {
-                        String item = jsonObject.getString("info");
+                        String item = jsonObject.getString("rows");
                         JSONArray jsonArray = new JSONArray(item);
 
                         mybookSize = jsonArray.length();

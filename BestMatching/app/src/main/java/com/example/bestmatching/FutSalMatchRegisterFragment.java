@@ -61,10 +61,12 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
     Button match_register;
 
     ArrayList<String> my_groundName = new ArrayList<>();
+    ArrayList<String> my_groundInfo = new ArrayList<>();
     ArrayList<String> my_start_time = new ArrayList<>();
     ArrayList<String> my_end_time = new ArrayList<>();
 
     String[] groundItems;
+    String[] groundInfoItems;
     String[] startTimeItems;
     String[] endTimeItems;
 
@@ -247,6 +249,17 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
                         for (int i = 0; i < myBook; i++) {
                             JSONObject js = jsonArray.getJSONObject(i);
                             my_groundName.add(js.getString("name"));
+
+                            my_groundInfo.add(js.getString("name")
+                                    +"\n"
+                                    +(js.getString("start_time").substring(5, 7))
+                                    +"/"
+                                    +(js.getString("start_time").substring(8, 10))
+                                    +"  "
+                                    +(js.getString("start_time").substring(11,16))
+                                    +" ~ "
+                                    +(js.getString("end_time").substring(11,16)));
+
                             my_start_time.add(js.getString("start_time"));
                             my_end_time.add(js.getString("end_time"));
                         }
@@ -278,6 +291,7 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
                 for (int i = 0; i < myBook; i++) {
 
                     groundItems = my_groundName.toArray(new String[my_groundName.size()]);
+                    groundInfoItems = my_groundInfo.toArray(new String[my_groundInfo.size()]);
                     startTimeItems = my_start_time.toArray(new String[my_start_time.size()]);
                     endTimeItems = my_end_time.toArray(new String[my_end_time.size()]);
 
@@ -305,20 +319,23 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
                 // final String[] items = {"경북대 상주캠 풋살장", "경북대 대구캠 풋살장"};
 
                 final ArrayList<String> selectedGroundItem = new ArrayList<String>();
+                final ArrayList<String> selectedGroundInfo = new ArrayList<String>();
                 final ArrayList<String> selectedStart_time = new ArrayList<String>();
                 final ArrayList<String> selectedEnd_time = new ArrayList<String>();
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
                 builder.setTitle("선택하세요")
-                        .setSingleChoiceItems(groundItems, -1, new DialogInterface.OnClickListener() {
+                        .setSingleChoiceItems(groundInfoItems, -1, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int index) {
                                 /*Toast.makeText(context, items[index], Toast.LENGTH_SHORT).show();*/
                                 selectedGroundItem.clear();
+                                selectedGroundInfo.clear();
                                 selectedStart_time.clear();
                                 selectedEnd_time.clear();
 
                                 selectedGroundItem.add(groundItems[index]);
+                                selectedGroundInfo.add(groundInfoItems[index]);
                                 selectedStart_time.add(startTimeItems[index]);
                                 selectedEnd_time.add(endTimeItems[index]);
                             }

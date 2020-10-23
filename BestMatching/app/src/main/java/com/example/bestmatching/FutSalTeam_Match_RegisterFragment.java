@@ -58,16 +58,21 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
 
     private int ground_size;
     ArrayList<String> my_book_groundName = new ArrayList<>();
+    ArrayList<String> my_groundName = new ArrayList<>();
     ArrayList<String> my_book_price = new ArrayList<>();
     ArrayList<String> my_book_start_time = new ArrayList<>();
     ArrayList<String> my_book_end_time = new ArrayList<>();
 
 
+    String[] groundnameItems;
+    String[] groundItems;
+    String[] startTimeItems;
+    String[] endTimeItems;
 
-    private DatePickerDialog.OnDateSetListener callbackMethod;
-    private TimePickerDialog.OnTimeSetListener start;
-    private TimePickerDialog.OnTimeSetListener end;
-    private String[] ground_name = new String[];
+//    private DatePickerDialog.OnDateSetListener callbackMethod;
+//    private TimePickerDialog.OnTimeSetListener start;
+//    private TimePickerDialog.OnTimeSetListener end;
+
 
     public static FutSalTeam_Match_RegisterFragment newInstance() {
         return new FutSalTeam_Match_RegisterFragment();
@@ -96,8 +101,8 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
 //        match_start_time.setOnClickListener(this);
 //        match_end_time.setOnClickListener(this);
 //        match_date.setOnClickListener(this);
-//예약된 구장 선택시 예약 날짜 및 시간 TextView에 표시하기
 
+        new Get().execute(ip+"/team/team_match/booking_list?user_id=" + now_id);
         select_stadium.setOnClickListener(this);
         match_register.setOnClickListener(this);
         select_player.setOnClickListener(this);
@@ -224,6 +229,7 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
 
         }
     }
+
     public class Get extends AsyncTask<String, String, String> {
 
         @Override
@@ -255,6 +261,15 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
                         for (int i = 0; i < ground_size; i++) {
                             JSONObject js = jsonArray.getJSONObject(i);
                             my_book_groundName.add(js.getString("name"));
+                            my_groundName.add(js.getString("name")
+                                    +"\n"
+                                    +(js.getString("start_time").substring(5, 7))
+                                    +"/"
+                                    +(js.getString("start_time").substring(8, 10))
+                                    +"  "
+                                    +(js.getString("start_time").substring(11,16))
+                                    +" ~ "
+                                    +(js.getString("end_time").substring(11,16)));
                             my_book_price.add(js.getString("price"));
                             my_book_start_time.add(js.getString("start_time"));
                             my_book_end_time.add(js.getString("end_time"));
@@ -286,41 +301,53 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
             if (ground_size != 0) {
                 for (int i = 0; i < ground_size; i++) {
 
-                    String start1 = my_book_start_time.get(i).substring(0,10);
-                    String start2 = my_book_start_time.get(i).substring(11,16);
 
-                    String end1 = my_book_end_time.get(i).substring(0,10);
-                    String end2 = my_book_end_time.get(i).substring(11,16);
+                    groundnameItems = my_book_groundName.toArray(new String[my_book_groundName.size()]);
+                    groundItems = my_groundName.toArray(new String[my_groundName.size()]);
+                    startTimeItems = my_book_start_time.toArray(new String[my_book_start_time.size()]);
+                    endTimeItems = my_book_end_time.toArray(new String[my_book_end_time.size()]);
+
                 }
 
             } else {
-                //Toast.makeText(getActivity(), my_book_groundName.get(0), Toast.LENGTH_SHORT).show();
-                Toast.makeText(getActivity(), "검색결과 없습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "구장예약을 먼저 해주세요.", Toast.LENGTH_SHORT).show();
+                ((MainActivity) getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalSearchMapFragment.newInstance());
             }
 
-
         }
-
     }
+
     @Override
     public void onClick(View v) {
         int a = v.getId();
 
         switch (a) {
             case R.id.select_stadium:
+                final ArrayList<String> selectedGroundNameItem = new ArrayList<String>();
+                final ArrayList<String> selectedGroundItem = new ArrayList<String>();
+                final ArrayList<String> selectedStart_time = new ArrayList<String>();
+                final ArrayList<String> selectedEnd_time = new ArrayList<String>();
 
-                ground_name = new String[]{};
-                new Get().execute(ip+"/");
+                //겟을 여기다 해야할지 creatview에다 해야할지 테스트해보기
 
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
                 builder.setTitle("선택하세요")
-                        .setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+                        .setSingleChoiceItems(groundItems, -1, new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int index) {
                                 /*Toast.makeText(context, items[index], Toast.LENGTH_SHORT).show();*/
-                                select_stadium.setText(items[index]);
+                                System.out.println("##");
+                                selectedGroundNameItem.clear();
+                                selectedGroundItem.clear();
+                                selectedStart_time.clear();
+                                selectedEnd_time.clear();
+
+                                selectedGroundNameItem.add(groundnameItems[index]);
+                                selectedGroundItem.add(groundItems[index]);
+                                selectedStart_time.add(startTimeItems[index]);
+                                selectedEnd_time.add(endTimeItems[index]);
                             }
                         })
 
@@ -328,6 +355,15 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 /* Toast.makeText(context, "ok", Toast.LENGTH_SHORT).show();*/
+                                String date = selectedStart_time.get(0).substring(0, 10);
+                                String start = selectedStart_time.get(0).substring(11, 16);
+                                String end = selectedEnd_time.get(0).substring(11, 16);
+
+                                select_stadium.setText(selectedGroundNameItem.get(0));
+
+                                match_date.setText(date);
+                                match_start_time.setText(start);
+                                match_end_time.setText(end);
                             }
                         })
 
@@ -344,10 +380,10 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
                 break;
 
 
-
             case R.id.match_register:
                 new Post().execute(ip + "/team_match/create");
                 break;
         }
     }
 }
+

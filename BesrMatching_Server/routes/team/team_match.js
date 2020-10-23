@@ -10,7 +10,7 @@ router.post('/', function (req, res) {
 router.get('/booking_list', function (req, res) {  
     console.log('<<team/team_match/booking_list>>');
 
-    var sql = '     ;
+    var sql = 'select * from best_matching.book_list,best_matching.ground where book_list.ground_id = ground.id and book_list.user_id = ?';
     dbconn.query(sql, req.query.user_id, function (err, rows, fields) {//DB connect
         if (!err) {
             console.log("match "+req.query.ground_id)

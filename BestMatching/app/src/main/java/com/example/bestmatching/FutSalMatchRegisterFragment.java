@@ -64,7 +64,9 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
     ArrayList<String> my_start_time = new ArrayList<>();
     ArrayList<String> my_end_time = new ArrayList<>();
 
-    String[] items;
+    String[] groundItems;
+    String[] startTimeItems;
+    String[] endTimeItems;
 
     public static FutSalMatchRegisterFragment newInstance() {
         return new FutSalMatchRegisterFragment();
@@ -84,6 +86,8 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
         match_cost = (EditText) view.findViewById(R.id.match_cost);
         match_max_user = (EditText) view.findViewById(R.id.match_max_user);
         match_register = (Button) view.findViewById(R.id.match_register);
+
+        new Get().execute(ip + "/match/create/booking_list?user_id=" + now_id);
 
 
         match_start_time.setOnClickListener(this);
@@ -273,16 +277,15 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
             if (myBook != 0) {
                 for (int i = 0; i < myBook; i++) {
 
-                    String start1 = my_start_time.get(i).substring(0,10);
-                    String start2 = my_start_time.get(i).substring(11,16);
-
-                    String end1 = my_end_time.get(i).substring(0,10);
-                    String end2 = my_end_time.get(i).substring(11,16);
+                    groundItems = my_groundName.toArray(new String[my_groundName.size()]);
+                    startTimeItems = my_start_time.toArray(new String[my_start_time.size()]);
+                    endTimeItems = my_end_time.toArray(new String[my_end_time.size()]);
 
                 }
 
             } else {
-                Toast.makeText(getActivity(), "검색결과 없습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "구장예약을 먼저 해주세요.", Toast.LENGTH_SHORT).show();
+                ((MainActivity) getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalSearchMapFragment.newInstance());
             }
 
 
@@ -298,17 +301,26 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
 
         switch (a) {
             case R.id.select_stadium:
-                new Get().execute(ip + "/match/create/booking_list?user_id=" + now_id);
-               // final String[] items = {"경북대 상주캠 풋살장", "경북대 대구캠 풋살장"};
-                items = my_groundName.toArray(new String[my_groundName.size()]);
+
+                // final String[] items = {"경북대 상주캠 풋살장", "경북대 대구캠 풋살장"};
+
+                final ArrayList<String> selectedGroundItem = new ArrayList<String>();
+                final ArrayList<String> selectedStart_time = new ArrayList<String>();
+                final ArrayList<String> selectedEnd_time = new ArrayList<String>();
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
                 builder.setTitle("선택하세요")
-                        .setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+                        .setSingleChoiceItems(groundItems, -1, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int index) {
                                 /*Toast.makeText(context, items[index], Toast.LENGTH_SHORT).show();*/
-                                select_stadium.setText(items[index]);
+                                selectedGroundItem.clear();
+                                selectedStart_time.clear();
+                                selectedEnd_time.clear();
+
+                                selectedGroundItem.add(groundItems[index]);
+                                selectedStart_time.add(startTimeItems[index]);
+                                selectedEnd_time.add(endTimeItems[index]);
                             }
                         })
 
@@ -316,6 +328,15 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 /* Toast.makeText(context, "ok", Toast.LENGTH_SHORT).show();*/
+
+                                String date = selectedStart_time.get(0).substring(0, 10);
+                                String start = selectedStart_time.get(0).substring(11, 16);
+                                String end = selectedEnd_time.get(0).substring(11, 16);
+
+                                select_stadium.setText(selectedGroundItem.get(0));
+                                match_date.setText(date);
+                                match_start_time.setText(start);
+                                match_end_time.setText(end);
 
                             }
                         })
@@ -334,7 +355,7 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
 
             //날짜버튼 눌렀을때
             case R.id.match_date:
-                callbackMethod = new DatePickerDialog.OnDateSetListener() {
+                /*callbackMethod = new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         match_date.setText(String.format("%d", year) + "-" + String.format("%02d", month + 1) + "-" + String.format("%02d", dayOfMonth));
@@ -342,12 +363,12 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
                 };
 
                 DatePickerDialog d = new DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, callbackMethod, 2020, 9, 1);
-                d.show();
+                d.show();*/
                 break;
 
             //시작시간 버튼
             case R.id.match_start_time:
-                start = new TimePickerDialog.OnTimeSetListener() {
+                /*start = new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         match_start_time.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
@@ -356,12 +377,12 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
 
                 TimePickerDialog t1 = new TimePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT, start, 12,00, true);
                 t1.setTitle("시작시간");
-                t1.show();
+                t1.show();*/
                 break;
 
             //종료시간 버튼
             case R.id.match_end_time:
-                end = new TimePickerDialog.OnTimeSetListener() {
+               /* end = new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         match_end_time.setText(String.format("%02d",hourOfDay) + ":" + String.format("%02d",minute));
@@ -370,7 +391,7 @@ public class FutSalMatchRegisterFragment extends Fragment implements View.OnClic
 
                 TimePickerDialog t2 = new TimePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT, end, 12,00, true);
                 t2.setTitle("종료시간");
-                t2.show();
+                t2.show();*/
                 break;
 
             case R.id.match_register:

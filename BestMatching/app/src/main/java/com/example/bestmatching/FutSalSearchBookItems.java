@@ -6,6 +6,7 @@ public class FutSalSearchBookItems {
     private String prcieStr;
     private String startTimeStr;
     private String endTimeStr;
+    private int groundId;
 
     public void setGroundName(String groundName) {
         groundNameStr = groundName;
@@ -21,6 +22,10 @@ public class FutSalSearchBookItems {
 
     public void setEndtime(String end_time) {
         endTimeStr = end_time;
+    }
+
+    public void setId(int id) {
+        groundId = id;
     }
 
     ////////////////////////////////////////////
@@ -42,6 +47,8 @@ public class FutSalSearchBookItems {
         return this.endTimeStr;
     }
 
-
+    public int getId() {
+        return this.groundId;
+    }
 
 }

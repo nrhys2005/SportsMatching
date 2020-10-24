@@ -45,6 +45,7 @@ public class FutSalSearchBookFragment extends Fragment implements View.OnClickLi
     ArrayList<String> my_book_price = new ArrayList<>();
     ArrayList<String> my_book_start_time = new ArrayList<>();
     ArrayList<String> my_book_end_time = new ArrayList<>();
+    ArrayList<Integer> my_book_ground_id = new ArrayList<>();
 
     public static FutSalSearchBookFragment newInstance() {
         return new FutSalSearchBookFragment();
@@ -105,6 +106,7 @@ public class FutSalSearchBookFragment extends Fragment implements View.OnClickLi
                             my_book_price.add(js.getString("price"));
                             my_book_start_time.add(js.getString("start_time"));
                             my_book_end_time.add(js.getString("end_time"));
+                            my_book_ground_id.add(js.getInt("ground_id"));
                         }
                     } else if (msg.equals("no find")) {
                         mybookSize = 0;
@@ -140,11 +142,10 @@ public class FutSalSearchBookFragment extends Fragment implements View.OnClickLi
                     String end2 = my_book_end_time.get(i).substring(11,16);
 
                     futsalSearchBookAdapter.addItem(my_book_groundName.get(i), my_book_price.get(i),
-                            start1 + "   " + start2, end1 + "   " + end2);
+                            start1 + "   " + start2, end1 + "   " + end2, my_book_ground_id.get(i));
                 }
                 futsalSearchBookAdapter.notifyDataSetChanged();
             } else {
-                //Toast.makeText(getActivity(), my_book_groundName.get(0), Toast.LENGTH_SHORT).show();
                 Toast.makeText(getActivity(), "검색결과 없습니다.", Toast.LENGTH_SHORT).show();
             }
 

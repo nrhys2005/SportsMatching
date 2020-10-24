@@ -63,10 +63,9 @@ router.post('/', function (req, res) {
 //팀 가입신청 승인
 router.post('/agreement', function (req, res) {
     console.log('<<Team/agreement>>');
-    req.on('data', (data) => {
         var result_code=404;
         var data_array= [];
-        var Data = JSON.parse(data); // JSON data 받음
+        var Data = req.body; // JSON data 받음
         var team_name =Data.team_name;
         var nu=null;
         var user_id = Data.user_id;
@@ -99,6 +98,5 @@ router.post('/agreement', function (req, res) {
                 res.json( {"result": result_code});
             }
         });
-    });
 });
 module.exports = router;

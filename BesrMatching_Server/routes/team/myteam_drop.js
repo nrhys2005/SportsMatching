@@ -8,10 +8,9 @@ router.post('/', function (req, res) {
 
     console.log('<<Team/myteam_drop>>');
 
-    req.on('data', (data) => {
         var result_code=404;
         var update_data_array = [];
-        var inputData = JSON.parse(data); // JSON data 받음
+        var inputData = req.body; // JSON data 받음
         console.log('input_data : ' + inputData);
         var sql_update = 'update best_matching.user set team_name = null where id=?';
 
@@ -30,6 +29,5 @@ router.post('/', function (req, res) {
                 res.json({ "result": result_code });
             }
         });
-    });
 });
 module.exports = router;

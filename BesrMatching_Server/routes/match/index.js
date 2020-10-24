@@ -12,13 +12,15 @@ router.use('/create',  require('./create'));
 router.use('/join',  require('./join'));
 //매치 검색
 router.use('/search',  require('./search'));
-//팀 버튼
+//내 매치리스트
 router.use('/mymatching_list',  require('./mymatching_list'));
-//팀 버튼
+//매칭 취소
 router.use('/mymatching_cancel',  require('./mymatching_cancel'));
-//팀 버튼
+//매치 참여자리스트 
 router.use('/match_participants_list',  require('./match_participants_list'));
-//팀 버튼
+//내 매칭정보
 router.use('/mymatching',  require('./mymatching'));
+//팀매칭
+router.use('/create_team_match', require('./create_team_match'));
 
 module.exports = router;

@@ -8,9 +8,9 @@ router.post('/', function (req, res) {
 
     console.log('<<Team/create>>');
     var result_code = 404;
-    req.on('data', (data) => {
+    
         var input_data_array= [];
-        var inputData = JSON.parse(data); // JSON data 받음
+        var inputData = req.body; // JSON data 받음
         console.log('input_data : ' + inputData); 
 
         input_data_array.push(inputData.team_name);// json->array
@@ -51,5 +51,5 @@ router.post('/', function (req, res) {
             }
         });
     });
-});
+
 module.exports = router;

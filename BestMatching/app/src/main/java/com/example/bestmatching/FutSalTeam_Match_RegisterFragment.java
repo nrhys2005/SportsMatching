@@ -39,7 +39,7 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
 
     private Context context;
     LoginActivity lg = new LoginActivity();
-
+    LoginResultActivity lr = new LoginResultActivity();
     EditText match_title;
     TextView select_stadium;
     TextView match_date;
@@ -55,19 +55,28 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
 
     String ip = lg.ip;
     String now_id = lg.Myid;
+    String team_name = lr.team_name;
 
     private int ground_size;
+    private int member_size;
+
     ArrayList<String> my_book_groundName = new ArrayList<>();
     ArrayList<String> my_groundName = new ArrayList<>();
     ArrayList<String> my_book_price = new ArrayList<>();
     ArrayList<String> my_book_start_time = new ArrayList<>();
     ArrayList<String> my_book_end_time = new ArrayList<>();
 
+    ArrayList<String> member_id = new ArrayList<>();
+    ArrayList<String> send_member = new ArrayList<>();
+    AlertDialog.Builder builder;
+    AlertDialog dialog;
 
     String[] groundnameItems;
     String[] groundItems;
     String[] startTimeItems;
     String[] endTimeItems;
+
+    String[] memberItems;
 
 //    private DatePickerDialog.OnDateSetListener callbackMethod;
 //    private TimePickerDialog.OnTimeSetListener start;
@@ -102,7 +111,10 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
 //        match_end_time.setOnClickListener(this);
 //        match_date.setOnClickListener(this);
 
-        new Get().execute(ip+"/team/team_match/booking_list?user_id=" + now_id);
+        new Get().execute(ip+"/match/create_team_match/booking_list?user_id=" + now_id);
+
+        new Get().execute(ip+"/match/create_team_match/member_list?team_name=" + team_name);
+
         select_stadium.setOnClickListener(this);
         match_register.setOnClickListener(this);
         select_player.setOnClickListener(this);
@@ -139,12 +151,15 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
                 jsonObject.put("date", match_date.getText().toString());
                 jsonObject.put("start_time", match_start_time.getText().toString());
                 jsonObject.put("end_time", match_end_time.getText().toString());
-                jsonObject.put("cost", match_cost.getText().toString());
+                jsonObject.put("cost",  Integer.parseInt(match_cost.getText().toString()));
                 jsonObject.put("user", match_user.getText().toString());
-                //인원만 보내고 인원 정보들을 team_matching_user테이블에 추가해야함.. 방법고려,,
+                //인원수만 보내고 인원 정보들을 team_matching_user테이블에 추가해야함.. 방법고려,,
+                //->
+                jsonObject.put("member_info",send_member);
                 jsonObject.put("min_user", min_player_number.getText().toString());
                 jsonObject.put("max_user", max_player_number.getText().toString());
                 jsonObject.put("user_id", now_id);
+
 
 
                 HttpURLConnection con = null;
@@ -252,12 +267,12 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
                     JSONObject jsonObject = new JSONObject(receiveMsg);
                     String msg = jsonObject.getString("result");
 
-                    if (msg.equals("Success")) {
+                    if (msg.equals("Success_booking")) {
                         String item = jsonObject.getString("rows");
                         JSONArray jsonArray = new JSONArray(item);
 
                         ground_size = jsonArray.length();
-
+                        member_size=0;
                         for (int i = 0; i < ground_size; i++) {
                             JSONObject js = jsonArray.getJSONObject(i);
                             my_book_groundName.add(js.getString("name"));
@@ -274,9 +289,21 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
                             my_book_start_time.add(js.getString("start_time"));
                             my_book_end_time.add(js.getString("end_time"));
                         }
-                    } else if (msg.equals("no find")) {
-                        ground_size = 0;
+                    } else if (msg.equals("Success_member")) {
+                            String item = jsonObject.getString("member_info");
+                            JSONArray jsonArray = new JSONArray(item);
+
+                            member_size = jsonArray.length();
+                            ground_size=0;
+                            for(int i=0;i<member_size;i++)
+                            {
+                                JSONObject js = jsonArray.getJSONObject(i);
+                                if(!now_id.equals(js.getString("id")))
+                                    member_id.add(js.getString("id"));
+                            }
+
                     } else {
+                        ground_size=0;
                         Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
                     }
 
@@ -298,18 +325,25 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            if (ground_size != 0) {
+            if (ground_size != 0&&member_size==0) {
                 for (int i = 0; i < ground_size; i++) {
-
-
                     groundnameItems = my_book_groundName.toArray(new String[my_book_groundName.size()]);
                     groundItems = my_groundName.toArray(new String[my_groundName.size()]);
                     startTimeItems = my_book_start_time.toArray(new String[my_book_start_time.size()]);
                     endTimeItems = my_book_end_time.toArray(new String[my_book_end_time.size()]);
 
                 }
+                System.out.println(ground_size+"는 0이아님");
 
-            } else {
+            }else if(member_size!=0&&ground_size==0)
+            {
+                for( int i=0;i<member_size;i++)
+                {
+                    memberItems = member_id.toArray(new String[member_id.size()]);
+                }
+                System.out.println(ground_size+"는 0임");
+            }
+            else {
                 Toast.makeText(getActivity(), "구장예약을 먼저 해주세요.", Toast.LENGTH_SHORT).show();
                 ((MainActivity) getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalSearchMapFragment.newInstance());
             }
@@ -331,7 +365,7 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
                 //겟을 여기다 해야할지 creatview에다 해야할지 테스트해보기
 
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder = new AlertDialog.Builder(context);
 
                 builder.setTitle("선택하세요")
                         .setSingleChoiceItems(groundItems, -1, new DialogInterface.OnClickListener() {
@@ -379,9 +413,52 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
                 dialog.show();
                 break;
 
+            case R.id.select_player:
+                builder = new AlertDialog.Builder(context);
+                final ArrayList<String> selectedItems = new ArrayList<String>();
+
+                builder.setTitle("함께 뛸 팀원을 선택해 주세요.")
+
+                .setMultiChoiceItems(memberItems, null, new DialogInterface.OnMultiChoiceClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int pos, boolean isChecked)
+                    {
+                        if(isChecked == true) // Checked 상태일 때 추가
+                        {
+                            selectedItems.add(memberItems[pos]);
+                        }
+                        else				  // Check 해제 되었을 때 제거
+                        {
+                            selectedItems.remove(pos);
+                        }
+                    }
+                })
+
+                .setPositiveButton("확인", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int pos)
+                    {
+
+                        for(int i =0; i<selectedItems.size();i++)
+                        {
+                            send_member.add(selectedItems.get(i));
+                        }
+                        System.out.println(send_member);
+                        match_user.setText( Integer.toString(selectedItems.size()));
+                    }
+                })
+                        .setNeutralButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                /*Toast.makeText(context, "취소", Toast.LENGTH_SHORT).show();*/
+                            }
+                        });
+                dialog = builder.create();
+                dialog.show();
+                break;
 
             case R.id.match_register:
-                new Post().execute(ip + "/team_match/create");
+                new Post().execute(ip + "/match/create_team_match");
                 break;
         }
     }

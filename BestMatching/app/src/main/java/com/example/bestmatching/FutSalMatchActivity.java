@@ -18,6 +18,8 @@ public class FutSalMatchActivity extends Fragment implements View.OnClickListene
 
     private Context context;
     LoginActivity lg = new LoginActivity();
+    LoginResultActivity lr = new LoginResultActivity();
+    int Team_Master = lr.Team_Master;
     String ip = lg.ip;
     String now_id = lg.Myid;
 
@@ -77,7 +79,10 @@ public class FutSalMatchActivity extends Fragment implements View.OnClickListene
                                     ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalMatchRegisterFragment.newInstance());
                                 }
                                 else{
-                                    Toast.makeText(context, "팀 매칭 등록클릭", Toast.LENGTH_SHORT).show();
+                                    if(Team_Master==1)
+                                        ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalTeam_Match_RegisterFragment.newInstance());
+                                    else
+                                        Toast.makeText(context, "팀장만 등록할 수 있습니다.", Toast.LENGTH_SHORT).show();
                                 }
 
 

@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView"
+    android:background="@drawable/background2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+   <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto"
+       xmlns:tools="http://schemas.android.com/tools"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:gravity="center"
+       android:orientation="vertical">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center"
+       android:orientation="vertical"
+       android:background="@drawable/corner_black"
+       android:layout_margin="5dp">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          >
+         <TextView
+             android:layout_width="100dp"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:textSize="13sp"
+             android:gravity="center"
+             android:text="매칭제목"
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:padding="10dp"/>
+
+         <EditText
+             android:id="@+id/match_title"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:background="@drawable/corner_black"
+             android:gravity="center"
+             android:hint="제목을 입력해주세요."
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:padding="10dp"
+             android:singleLine = "true"
+             android:lines = "1"/>
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="10dp"
+          >
+         <TextView
+             android:layout_width="100dp"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:textSize="15sp"
+             android:gravity="center"
+             android:text="구장"
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:padding="10dp"/>
+
+         <TextView
+             android:id="@+id/select_stadium"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:background="@drawable/corner_black"
+             android:gravity="center"
+             android:hint="구장을 선택해주세요."
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:padding="10dp"
+             android:singleLine = "true"
+             android:lines = "1"/>
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="10dp"
+          >
+         <TextView
+             android:layout_width="100dp"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:textSize="15sp"
+             android:gravity="center"
+             android:text="날짜"
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:padding="10dp"/>
+
+         <TextView
+             android:id="@+id/match_date"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:background="@drawable/corner_black"
+             android:gravity="center"
+             android:hint="날짜를 선택해주세요."
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:padding="10dp"
+             android:singleLine = "true"
+             android:lines = "1"/>
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:layout_marginBottom="10dp"
+          >
+         <TextView
+             android:layout_width="100dp"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:textSize="15sp"
+             android:gravity="center"
+             android:text="시간"
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:padding="10dp"
+             android:singleLine = "true"
+             android:lines = "1"/>
+
+         <TextView
+             android:id="@+id/match_start_time"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:background="@drawable/corner_black"
+             android:gravity="center"
+             android:hint="시작시간"
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:layout_weight="0.5"
+             android:padding="10dp" />
+
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:textSize="13sp"
+             android:gravity="center"
+             android:text="~"
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:padding="10dp"
+             android:singleLine = "true"
+             android:lines = "1"/>
+
+         <TextView
+             android:id="@+id/match_end_time"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:background="@drawable/corner_black"
+             android:gravity="center"
+             android:hint="종료시간"
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:layout_weight="0.5"
+             android:padding="10dp" />
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="10dp"
+          >
+         <TextView
+             android:layout_width="100dp"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:textSize="15sp"
+             android:gravity="center"
+             android:text="요금"
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:padding="10dp"
+             android:singleLine = "true"
+             android:lines = "1"/>
+
+         <EditText
+             android:id="@+id/match_cost"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:background="@drawable/corner_black"
+             android:gravity="center"
+             android:hint="요금"
+             android:inputType="number"
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:padding="10dp" />
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="10dp"
+          >
+         <TextView
+             android:layout_width="100dp"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:textSize="15sp"
+             android:gravity="center"
+             android:text="참가인원"
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:padding="10dp"
+             android:singleLine = "true"
+             android:lines = "1"/>
+
+         <TextView
+             android:id="@+id/match_user"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:background="@drawable/corner_black"
+             android:gravity="center"
+             android:hint="인원"
+             android:inputType="number"
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:padding="10dp" />
+
+
+      </LinearLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="10dp"
+          >
+         <Button
+             android:id="@+id/select_player"
+             android:layout_width="wrap_content"
+             android:layout_height="40dp"
+             android:background="@drawable/button_shape"
+             android:layout_marginLeft="100dp"
+             android:text="선수 선택"
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:layout_weight="1"
+             />
+
+         <Button
+             android:id="@+id/confirm_player"
+             android:layout_width="wrap_content"
+             android:layout_height="40dp"
+             android:background="@drawable/button_shape"
+             android:layout_marginLeft="30dp"
+             android:text="선수 확인"
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:layout_weight="1"
+             />
+
+
+      </LinearLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:layout_marginBottom="10dp"
+          >
+         <TextView
+             android:layout_width="100dp"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:textSize="15sp"
+             android:gravity="center"
+             android:text="필요인원"
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:padding="10dp"
+             android:singleLine = "true"
+             android:lines = "1"/>
+
+         <EditText
+             android:id="@+id/min_player_number"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:background="@drawable/corner_black"
+             android:gravity="center"
+             android:hint="최소인원"
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:layout_weight="0.5"
+             android:padding="10dp" />
+
+
+         <EditText
+             android:id="@+id/max_player_number"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             android:background="@drawable/corner_black"
+             android:gravity="center"
+             android:layout_marginLeft="30dp"
+             android:hint="최대인원"
+             android:textStyle="bold"
+             android:textColor="@color/black"
+             android:layout_weight="0.5"
+             android:padding="10dp" />
+      </LinearLayout>
+   </LinearLayout>
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_gravity="center"
+       android:gravity="center"
+       android:layout_marginTop="20dp"
+       android:paddingLeft="20dp"
+       android:paddingRight="20dp"
+       android:weightSum="1">
+
+      <Button
+          android:id="@+id/match_register"
+          android:layout_width="wrap_content"
+          android:layout_height="50dp"
+          android:background="@drawable/button_shape"
+          android:text="매칭등록"
+          android:textStyle="bold"
+          android:textColor="@color/black"
+          android:layout_weight="1"
+          />
+
+   </LinearLayout>
+
+</LinearLayout>
+</ScrollView>

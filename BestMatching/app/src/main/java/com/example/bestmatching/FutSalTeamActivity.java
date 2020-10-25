@@ -32,7 +32,6 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
     Button team_info;
     Button team_create;
     Button team_search;
-    Button team_match;
 
     public static String team_name="";
     public static String get_master_id="";
@@ -57,12 +56,10 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
         team_info = (Button)view.findViewById(R.id.team_info);
         team_create = (Button)view.findViewById(R.id.team_create);
         team_search = (Button)view.findViewById(R.id.team_search);
-        team_match = (Button)view.findViewById(R.id.team_match);
 
         team_info.setOnClickListener(this);
         team_create.setOnClickListener(this);
         team_search.setOnClickListener(this);
-        team_match.setOnClickListener(this);
 
         new Get().execute(ip + "/team/team?id="+send_id);
 
@@ -119,18 +116,6 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
                 break;
             case R.id.team_search:
                 ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamSearchFragment.newInstance());
-
-                break;
-            case R.id.team_match:
-                switch (Team_Master)
-                {
-                    case 0:
-                        Toast.makeText(context.getApplicationContext(), "팀장만 매치등록이 가능합니다.", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 1:
-                        ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeam_Match_RegisterFragment.newInstance());
-                        break;
-                }
                 break;
         }
     }

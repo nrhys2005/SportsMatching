@@ -41,7 +41,7 @@ router.post('/', function (req, res) {
                         var match_user_array = [];
                         //안쓰에서 member_info 배열에 담아서 넘김
                         //배열 처리하는 부분 없으므로 지금은 팀매칭을 등록한 사람 즉, 팀장만 팀매칭유저테이블에 컬럼추가
-                        match_user_array.push(user_id);
+                        match_user_array.push(req.body.member_info);
                         match_user_array.push(rows[0].id);
                         console.log("team_matching_user(" + user_id + ", " + rows[0].id + ")");
                         var insert_sql = "INSERT INTO best_matching.team_matching_user(user_id,team_match_id) values(?,?)";

@@ -9,7 +9,7 @@ router.get('/match/:user_id', function (req, res) {
     var user_id = req.params.user_id;
     //var Data = JSON.parse(data); // JSON data 받음
     console.log('Search = '+ user_id);
-    var sql = "select id, title, ground_name, DATE_FORMAT(start_time,'%Y-%m-%d %H:%i') as start_time, DATE_FORMAT(end_time,'%Y-%m-%d %H:%i') as end_time, cost, max_user, create_time, participants from best_matching.match where match.end_time>=NOW() and matching_user.user_id= ?";
+    var sql = "select id, title, ground_name, DATE_FORMAT(start_time,'%Y-%m-%d %H:%i') as start_time, DATE_FORMAT(end_time,'%Y-%m-%d %H:%i') as end_time, cost, max_user, create_time, participants from best_matching.match,best_matching.matching_user where match.id = matching_user.match_id andmatch.end_time>=NOW() and matching_user.user_id= ?";
 
     dbconn.query(sql, user_id, function (err, rows, fields) {//DB connect
         if (!err) {

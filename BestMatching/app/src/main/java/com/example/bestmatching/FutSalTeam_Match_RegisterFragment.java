@@ -102,7 +102,7 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
 //        match_end_time.setOnClickListener(this);
 //        match_date.setOnClickListener(this);
 
-        new Get().execute(ip+"/team/team_match/booking_list?user_id=" + now_id);
+        new Get().execute(ip+"/match/create_team_match/booking_list?user_id=" + now_id);
         select_stadium.setOnClickListener(this);
         match_register.setOnClickListener(this);
         select_player.setOnClickListener(this);

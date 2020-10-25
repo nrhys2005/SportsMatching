@@ -241,7 +241,51 @@ public class FutSalMatchActivity extends Fragment implements View.OnClickListene
                 break;
 
             case R.id.match_3:
-                ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalMyMatchFragment.newInstance());
+                //((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalMyMatchFragment.newInstance());
+                final String[] items3 = {"나의 용병매칭", "나의 팀매칭"};
+                final ArrayList<String> selectedItems3 = new ArrayList<>();
+                selectedItems3.add("NULL");
+
+                AlertDialog.Builder builder3 = new AlertDialog.Builder(context);
+
+                builder3.setTitle("선택하세요")
+                        .setSingleChoiceItems(items3, -1, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int index) {
+                                /*Toast.makeText(context, items[index], Toast.LENGTH_SHORT).show();*/
+                                selectedItems3.clear();
+                                selectedItems3.add(items3[index]);
+
+                            }
+                        })
+
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                /* Toast.makeText(context, "ok", Toast.LENGTH_SHORT).show();*/
+                                if (selectedItems3.get(0).equals("나의 용병매칭")){
+                                    ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalMyMatchFragment.newInstance());
+                                }
+                                else if(selectedItems3.get(0)== "NULL") {
+                                    Toast.makeText(context, "다시 선택하세요.", Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    ((MainActivity) getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalTeam_Match_RegisterFragment.newInstance());
+                                }
+
+
+                            }
+                        })
+
+                        .setNeutralButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                /*Toast.makeText(context, "취소", Toast.LENGTH_SHORT).show();*/
+                            }
+                        });
+                ;
+
+                AlertDialog dialog3 = builder3.create();
+                dialog3.show();
                 break;
         }
     }

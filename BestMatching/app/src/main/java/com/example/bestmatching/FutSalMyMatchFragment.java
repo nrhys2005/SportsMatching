@@ -74,7 +74,7 @@ public class FutSalMyMatchFragment extends Fragment implements View.OnClickListe
         futsal_my_match = (ListView) view.findViewById(R.id.futsal_my_match);
         futsal_my_match.setAdapter(futsalMyMatchAdapter);
 
-        new Get().execute(ip + "/match/mymatching_list/" + now_id);
+        new Get().execute(ip + "/match/mymatching_list/match/" + now_id);
 
         futsalMyMatchAdapter.notifyDataSetChanged();
 

@@ -4,7 +4,7 @@ const dbConObj = require('../../config/db_info');   //디비 정보 import
 const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태)에 저장)
  
 //내 매칭 참가 리스트
-router.get('match/:user_id', function (req, res) {
+router.get('/match/:user_id', function (req, res) {
     console.log('<<match/mymatching_list>>');
     var user_id = req.params.user_id;
     //var Data = JSON.parse(data); // JSON data 받음
@@ -29,7 +29,7 @@ router.get('match/:user_id', function (req, res) {
         }
     });
 });
-router.get('team_match/:user_id', function (req, res) {
+router.get('/team_match/:user_id', function (req, res) {
     console.log('<<match/mymatching_list>>');
     var user_id = req.params.user_id;
     //var Data = JSON.parse(data); // JSON data 받음

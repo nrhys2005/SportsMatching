@@ -4,7 +4,7 @@ const dbConObj = require('../../config/db_info');   //디비 정보 import
 const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태)에 저장)
  
 //매치 검색
-router.get('/h', function (req, res) {
+router.get('/', function (req, res) {
     console.log('<<match/search>>');
     var search = req.query.search;
     var search_data_array = [];

@@ -72,7 +72,7 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
         futsal_match_search = (ListView) view.findViewById(R.id.futsal_match_search);
         futsal_match_search.setAdapter(futsalMatchSearchAdapter);
 
-        new Get().execute(ip + "/match/search/none&user_id="+lg.Myid);
+        new Get().execute(ip + "/match/search/search=none&user_id="+lg.Myid);
 
         futsalMatchSearchAdapter.notifyDataSetChanged();
 
@@ -230,7 +230,7 @@ public class FutSalMatchSearchFragment extends Fragment implements View.OnClickL
 
                 if (text.length() > 0) {
                     clear();
-                    new Get().execute(ip + "/match/search/" + text);
+                    new Get().execute(ip + "/match/search/search=" + text+"&user_id="+lg.Myid);
                 } else {
                     Toast.makeText(getActivity(), "검색내용을 입력하세요.", Toast.LENGTH_SHORT).show();
                 }

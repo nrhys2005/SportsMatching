@@ -111,9 +111,9 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
 //        match_end_time.setOnClickListener(this);
 //        match_date.setOnClickListener(this);
 
-        new Get().execute(ip+"/match/create_team_match/booking_list?user_id=" + now_id);
+        new Get1().execute(ip+"/match/create_team_match/booking_list?user_id=" + now_id);
 
-        new Get().execute(ip+"/match/create_team_match/member_list?team_name=" + team_name);
+        new Get2().execute(ip+"/match/create_team_match/member_list?team_name=" + team_name);
 
         select_stadium.setOnClickListener(this);
         match_register.setOnClickListener(this);
@@ -245,7 +245,7 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
         }
     }
 
-    public class Get extends AsyncTask<String, String, String> {
+    public class Get1 extends AsyncTask<String, String, String> {
 
         @Override
         protected String doInBackground(String... urls) {
@@ -272,7 +272,6 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
                         JSONArray jsonArray = new JSONArray(item);
 
                         ground_size = jsonArray.length();
-                        member_size=0;
                         for (int i = 0; i < ground_size; i++) {
                             JSONObject js = jsonArray.getJSONObject(i);
                             my_book_groundName.add(js.getString("name"));
@@ -289,20 +288,7 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
                             my_book_start_time.add(js.getString("start_time"));
                             my_book_end_time.add(js.getString("end_time"));
                         }
-                    } else if (msg.equals("Success_member")) {
-                            String item = jsonObject.getString("member_info");
-                            JSONArray jsonArray = new JSONArray(item);
-
-                            member_size = jsonArray.length();
-                            ground_size=0;
-                            for(int i=0;i<member_size;i++)
-                            {
-                                JSONObject js = jsonArray.getJSONObject(i);
-                                if(!now_id.equals(js.getString("id")))
-                                    member_id.add(js.getString("id"));
-                            }
-
-                    } else {
+                    }  else {
                         ground_size=0;
                         Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
                     }
@@ -325,7 +311,7 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            if (ground_size != 0&&member_size==0) {
+            if (ground_size != 0) {
                 for (int i = 0; i < ground_size; i++) {
                     groundnameItems = my_book_groundName.toArray(new String[my_book_groundName.size()]);
                     groundItems = my_groundName.toArray(new String[my_groundName.size()]);
@@ -333,24 +319,84 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
                     endTimeItems = my_book_end_time.toArray(new String[my_book_end_time.size()]);
 
                 }
-                System.out.println(ground_size+"는 0이아님");
+            }
+            else {
+                Toast.makeText(getActivity(), "구장예약을 먼저 해주세요.", Toast.LENGTH_SHORT).show();
+                //((MainActivity) getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalSearchMapFragment.newInstance());
+            }
 
-            }else if(member_size!=0&&ground_size==0)
+        }
+    }
+    public class Get2 extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+            String url = "";
+            InputStream is = null;
+            try {
+                is = new URL(urls[0]).openStream();
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+                String str;
+                StringBuffer buffer = new StringBuffer();
+                while ((str = rd.readLine()) != null) {
+                    buffer.append(str);
+                }
+
+                //URL 내용들
+                String receiveMsg = buffer.toString();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(receiveMsg);
+                    String msg = jsonObject.getString("result");
+
+             if (msg.equals("Success_member")) {
+                        String item = jsonObject.getString("member_info");
+                        JSONArray jsonArray = new JSONArray(item);
+
+                        member_size = jsonArray.length();
+                        for(int i=0;i<member_size;i++)
+                        {
+                            JSONObject js = jsonArray.getJSONObject(i);
+                            if(!now_id.equals(js.getString("id")))
+                                member_id.add(js.getString("id"));
+                        }
+
+                    } else {
+                        Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+        //doInBackground메소드가 끝나면 여기로 와서 텍스트뷰의 값을 바꿔준다.
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+           if(member_size!=0)
             {
                 for( int i=0;i<member_size;i++)
                 {
                     memberItems = member_id.toArray(new String[member_id.size()]);
                 }
-                System.out.println(ground_size+"는 0임");
             }
             else {
-                Toast.makeText(getActivity(), "구장예약을 먼저 해주세요.", Toast.LENGTH_SHORT).show();
-                ((MainActivity) getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalSearchMapFragment.newInstance());
+                Toast.makeText(getActivity(), "팀원이 없습니다..", Toast.LENGTH_SHORT).show();
+                //((MainActivity) getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalSearchMapFragment.newInstance());
             }
 
         }
     }
-
     @Override
     public void onClick(View v) {
         int a = v.getId();

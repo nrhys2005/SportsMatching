@@ -28,6 +28,8 @@ public class FutSalMatchActivity extends Fragment implements View.OnClickListene
 
     private Context context;
     LoginActivity lg = new LoginActivity();
+    LoginResultActivity lr = new LoginResultActivity();
+    int Team_Master = lr.Team_Master;
     String ip = lg.ip;
     String now_id = lg.Myid;
 

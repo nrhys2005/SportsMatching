@@ -85,4 +85,87 @@ router.post('/', function (req, res) {
             }
         });
 });
+
+//팀 매치 참가
+router.post('/team', function (req, res) {
+    console.log('<<match/join/team>>');
+
+    var user_count = req.body.user_count ;
+    var team_match_id = req.body.team_match_id;
+    var sql = 'select * from  best_matching.team_matching_user where user_id = ? and team_match_id= ?';
+    var params = [member_info[0], team_match_id]
+    dbconn.query(sql, params, function (err, rows, fields) {//DB connect
+        if (!err) {
+            if (rows.length == 0) {
+                var count_sql = 'select * from best_matching.team_match where team_match.id =?';
+                dbconn.query(count_sql, team_match_id, function (err, rows, fields) {//DB connect
+                    if (!err) {
+                        if (rows.length == 0) {
+                            console.log('Query Select Success("result": "no find")');
+                            res.json({ "result": "no find" });
+                        }
+                        else {
+                            if (rows[0].participants + user_count > rows[0].max_user||user_count<rows[0].min_user) {
+                                console.log('Query Select Success(result": "team_matching is full")');
+                                res.json({ "result": "full" });
+                            }
+                            else {
+                                var insert_data_array = [];
+                                for(var i=0;i<req.body.user;i++){
+                                    insert_data_array.push([req.body.member_info[i],team_match_id]);
+                                   
+                                }
+                                var insert_sql = "INSERT INTO best_matching.team_matching_user(user_id,team_match_id) values(?,?)";
+                                dbconn.query(insert_sql, [insert_data_array], function (err, rows, fields) {//DB connect
+                                    if (!err) {
+                                        if (rows.length == 0) {
+                                            console.log('Query insert success("result": "fail")');
+                                            res.json({ "result": "fail" });
+                                        }
+                                        else {
+                                            console.log('Query insert success(result": "Success)');
+                                        }
+
+                                    } else {
+                                        console.log('Query insert error : ' + err);
+                                        res.json({ "result": err });
+                                    }
+                                });
+                                var update_sql = "UPDATE best_matching.team_match SET participants = ? where id = ?";
+                                dbconn.query(update_sql, [rows[0].participants+user_count ,team_match_id], function (err, rows, fields) {//DB connect
+                                    if (!err) {
+                                        if (rows.length == 0) {
+                                            console.log('Query update success("result": "fail")');
+                                            res.json({ "result": "fail" });
+                                        }
+                                        else {
+                                            console.log('Query update success(result": "Success)');
+                                            res.json({ "result": "Success" });
+                                        }
+
+                                    } else {
+                                        console.log('Query update error : ' + err);
+                                        res.json({ "result": err });
+                                    }
+                                });
+                            }
+                        }
+
+                    } else {
+                        console.log('Query Select Error : ' + err);
+                        res.json({ "result": err });
+                    }
+                });
+            }
+            else {
+                console.log('Query Select Success("result": "Already participating")');
+                res.json({ "result": "Already participating" });
+            }
+
+        } else {
+            console.log('Query Select Error : ' + err);
+            res.json({ "result": err });
+        }
+    });
+});
 module.exports = router;

@@ -6,13 +6,12 @@ const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태
 //팀 가입신청
 router.post('/', function (req, res) {
     console.log('<<Team/join>>');
-    req.on('data', (data) => {
-        
+    
         var result_code=404;
 
         var check_data_array= [];
         var data_array= [];
-        var Data = JSON.parse(data); // JSON data 받음
+        var Data = req.body; // JSON data 받음
       
         
         check_data_array.push(Data.team_name);
@@ -57,7 +56,6 @@ router.post('/', function (req, res) {
                 res.json({ "result": result_code,"err":err });
             }
         });
-    });
 });
 
 //팀 가입신청 승인

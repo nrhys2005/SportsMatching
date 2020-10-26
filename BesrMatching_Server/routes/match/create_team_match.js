@@ -37,7 +37,7 @@ router.post('/', function (req, res) {
                     else {
                         //console.log('Query Select Success(result": "Success)');
                         var match_user_array = [];
-                       
+                        //console.log(req.body.member_info);
                         var match_id = rows[0].id;
                         for(var i=0;i<req.body.user;i++){
                             match_user_array.push([req.body.member_info[i],match_id]);
@@ -74,10 +74,10 @@ router.post('/', function (req, res) {
 router.get('/booking_list', function (req, res) {  
     console.log('<<match/team_match/booking_list>>');
 
-    var sql = 'select * from best_matching.book_list,best_matching.ground where book_list.ground_id = ground.id and book_list.user_id = ?';
+    var sql = "select book_list.ground_id, book_list.user_id, book_list.phone, DATE_FORMAT(book_list.start_time,'%Y-%m-%d %H:%i') as start_time, DATE_FORMAT(book_list.end_time,'%Y-%m-%d %H:%i') as end_time, ground.id, ground.name, ground.latitude, ground.longtitude, ground.price from best_matching.book_list,best_matching.ground where book_list.ground_id = ground.id and book_list.user_id = ?";
     dbconn.query(sql, req.query.user_id, function (err, rows, fields) {//DB connect
         if (!err) {
-            console.log("match "+req.query.ground_id)
+            console.log("match "+req.query.user_id)
             res.json({ "result": 'Success_booking', rows });
         } else {
             console.log('' + err);

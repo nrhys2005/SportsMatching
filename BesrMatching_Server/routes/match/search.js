@@ -39,7 +39,7 @@ router.get('/', function (req, res) {
         }
     });
 });
-router.get('/team', function (req, res) {
+router.get('/team_match', function (req, res) {
     console.log('<<match/search>>');
     var search = req.query.search;
     var search_data_array = [];

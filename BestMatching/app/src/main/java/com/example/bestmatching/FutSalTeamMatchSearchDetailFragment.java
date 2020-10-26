@@ -1,6 +1,8 @@
 package com.example.bestmatching;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,16 +28,20 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class FutSalTeamMatchSearchDetailFragment extends Fragment implements View.OnClickListener {
 
     private Context context;
 
     LoginActivity lg = new LoginActivity();
+    LoginResultActivity lr = new LoginResultActivity();
+    String team_name = lr.team_name;
     String ip = lg.ip;
     String now_id = lg.Myid;
-    public String team_match_id;
 
+    public String team_match_id;
+    private int member_size;
     TextView detail_team_match_title;
     TextView detail_team_match_ground_name;
     TextView detail_team_match_start_time;
@@ -47,6 +54,12 @@ public class FutSalTeamMatchSearchDetailFragment extends Fragment implements Vie
     Button team_match_participants;
     Button team_match_join;
 
+    //ArrayList<String> member_id = new ArrayList<>();
+    ArrayList<String> send_member = new ArrayList<>();
+    String[] memberItems;
+    AlertDialog.Builder builder;
+    AlertDialog dialog;
+    ArrayList<String> member_id = new ArrayList<>();
     public static FutSalTeamMatchSearchDetailFragment newInstance() {
         return new FutSalTeamMatchSearchDetailFragment();
     }
@@ -94,10 +107,80 @@ public class FutSalTeamMatchSearchDetailFragment extends Fragment implements Vie
         back_btn.setOnClickListener(this);
         team_match_participants.setOnClickListener(this);
         team_match_join.setOnClickListener(this);
+        new Get().execute(ip+"/match/create_team_match/member_list?team_name=" + team_name);
 
         return view;
     }
+    public class Get extends AsyncTask<String, String, String> {
 
+        @Override
+        protected String doInBackground(String... urls) {
+            String url = "";
+            InputStream is = null;
+            try {
+                is = new URL(urls[0]).openStream();
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+                String str;
+                StringBuffer buffer = new StringBuffer();
+                while ((str = rd.readLine()) != null) {
+                    buffer.append(str);
+                }
+
+                //URL 내용들
+                String receiveMsg = buffer.toString();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(receiveMsg);
+                    String msg = jsonObject.getString("result");
+
+                    if (msg.equals("Success_member")) {
+                        String item = jsonObject.getString("member_info");
+                        JSONArray jsonArray = new JSONArray(item);
+
+                        member_size = jsonArray.length();
+                        for(int i=0;i<member_size;i++)
+                        {
+                            JSONObject js = jsonArray.getJSONObject(i);
+                            if(!now_id.equals(js.getString("id")))
+                                member_id.add(js.getString("id"));
+                        }
+
+                    } else {
+                        Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+        //doInBackground메소드가 끝나면 여기로 와서 텍스트뷰의 값을 바꿔준다.
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            if(member_size!=0)
+            {
+                for( int i=0;i<member_size;i++)
+                {
+                    memberItems = member_id.toArray(new String[member_id.size()]);
+                }
+            }
+            else {
+                Toast.makeText(getActivity(), "팀원이 없습니다..", Toast.LENGTH_SHORT).show();
+                //((MainActivity) getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalSearchMapFragment.newInstance());
+            }
+
+        }
+    }
     // 안스에서 노드js로 데이터 보내는 부분
     public class Post extends AsyncTask<String, String, String> {
 
@@ -106,10 +189,10 @@ public class FutSalTeamMatchSearchDetailFragment extends Fragment implements Vie
             try {
                 //JSONObject를 만들고 key value 형식으로 값을 저장해준다.
                 JSONObject jsonObject = new JSONObject();
-
+                JSONArray ja = new JSONArray(send_member);
                 jsonObject.put("user_id", now_id);
                 jsonObject.put("team_match_id", team_match_id);
-
+                jsonObject.put("member_info", ja);
                 HttpURLConnection con = null;
                 BufferedReader reader = null;
 
@@ -207,9 +290,50 @@ public class FutSalTeamMatchSearchDetailFragment extends Fragment implements Vie
                 ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), f);
                 break;
             case R.id.team_match_join:
-                //멀티플체크 후 서버에 user_count,team_match아이디, memberinfo 배열 보내기
-                //new Post().execute(ip + "/match/join/team");
+                builder = new AlertDialog.Builder(context);
+                final ArrayList<String> selectedItems = new ArrayList<String>();
+                selectedItems.clear();
+                builder.setTitle("함께 뛸 팀원을 선택해 주세요.")
+
+                        .setMultiChoiceItems(memberItems, null, new DialogInterface.OnMultiChoiceClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialog, int pos, boolean isChecked)
+                            {
+
+                                if(isChecked == true) // Checked 상태일 때 추가
+                                {
+                                    selectedItems.add(memberItems[pos]);
+                                }
+                                else				  // Check 해제 되었을 때 제거
+                                {
+                                    selectedItems.remove(pos);
+                                }
+                            }
+                        })
+
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialog, int pos)
+                            {
+                                send_member.add(now_id);
+                                for(int i =0; i<selectedItems.size();i++)
+                                {
+                                    send_member.add(selectedItems.get(i));
+                                }
+
+                                new Post().execute(ip + "/match/join/team");
+                            }
+                        })
+                        .setNeutralButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                /*Toast.makeText(context, "취소", Toast.LENGTH_SHORT).show();*/
+                            }
+                        });
+                dialog = builder.create();
+                dialog.show();
                 break;
+
         }
 
     }

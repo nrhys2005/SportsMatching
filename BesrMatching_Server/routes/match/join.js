@@ -93,6 +93,7 @@ router.post('/team', function (req, res) {
     var user_count = req.body.user_count ;
     var team_match_id = req.body.team_match_id;
     var sql = 'select * from  best_matching.team_matching_user where user_id = ? and team_match_id= ?';
+    var member_info = req.body.member_info;
     var params = [member_info[0], team_match_id]
     dbconn.query(sql, params, function (err, rows, fields) {//DB connect
         if (!err) {
@@ -111,7 +112,7 @@ router.post('/team', function (req, res) {
                             }
                             else {
                                 var insert_data_array = [];
-                                for(var i=0;i<req.body.user;i++){
+                                for(var i=0;i<req.body.user_count;i++){
                                     insert_data_array.push([req.body.member_info[i],team_match_id]);
                                    
                                 }

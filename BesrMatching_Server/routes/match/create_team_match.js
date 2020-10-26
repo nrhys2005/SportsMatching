@@ -39,7 +39,7 @@ router.post('/', function (req, res) {
                         var match_user_array = [];
                         //console.log(req.body.member_info);
                         var match_id = rows[0].id;
-                        for(var i=0;i<req.body.user;i++){
+                        for(var i=0;i<req.body.user_count;i++){
                             match_user_array.push([req.body.member_info[i],match_id]);
                            
                         }

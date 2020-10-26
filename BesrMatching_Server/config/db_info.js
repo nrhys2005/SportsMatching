@@ -23,7 +23,7 @@ const dbconnInfo = {
 const dbconnection = {
 	init : function(){
 		var hostname = os.hostname();
-		if(hostname === 'HyeonSeok-NT'){
+		if(hostname === 'HyeonSeok'){
 			return mysql.createConnection(dbconnInfo.dev);	//로컬개발환경
         }
         // else{

@@ -108,7 +108,7 @@ public class FutSalTeamMatchSearchDetailFragment extends Fragment implements Vie
                 JSONObject jsonObject = new JSONObject();
 
                 jsonObject.put("user_id", now_id);
-                jsonObject.put("match_id", team_match_id);
+                jsonObject.put("team_match_id", team_match_id);
 
                 HttpURLConnection con = null;
                 BufferedReader reader = null;
@@ -200,14 +200,15 @@ public class FutSalTeamMatchSearchDetailFragment extends Fragment implements Vie
                 ((MainActivity)getActivity()).backFragment(FutSalMatchActivity.newInstance(), FutSalTeamMatchSearchFragment.newInstance());
                 break;
             case R.id.team_match_participants:
-               /* Bundle bundle = new Bundle();
+                Bundle bundle = new Bundle();
                 bundle.putString("id", team_match_id);
-                FutSalMatchSearchPartFragment f = new FutSalMatchSearchPartFragment();
+                FutSalTeamMatchSearchPartFragment f = new FutSalTeamMatchSearchPartFragment();
                 f.setArguments(bundle);
-                ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), f);*/
+                ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), f);
                 break;
             case R.id.team_match_join:
-               /* new Post().execute(ip + "/match/join");*/
+                //멀티플체크 후 서버에 user_count,team_match아이디, memberinfo 배열 보내기
+                //new Post().execute(ip + "/match/join/team");
                 break;
         }
 

@@ -147,7 +147,7 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
                 jsonObject.put("start_time", match_start_time.getText().toString());
                 jsonObject.put("end_time", match_end_time.getText().toString());
                 jsonObject.put("cost",  Integer.parseInt(match_cost.getText().toString()));
-                jsonObject.put("user", String.valueOf(Integer.parseInt(match_user.getText().toString())+1));
+                jsonObject.put("user_count", String.valueOf(Integer.parseInt(match_user.getText().toString())+1));
                 jsonObject.put("member_info",ja);
                 jsonObject.put("min_user", min_player_number.getText().toString());
                 jsonObject.put("max_user", max_player_number.getText().toString());

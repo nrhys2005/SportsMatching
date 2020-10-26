@@ -21,7 +21,7 @@ router.post('/', function (req, res) {
     input_data_array.push(req.body.max_user);
     input_data_array.push(req.body.min_user);
     input_data_array.push(today);
-    input_data_array.push(req.body.user);
+    input_data_array.push(req.body.user_count);//participants
 
     var sql_insert = 'INSERT INTO best_matching.team_match (title, ground_name, start_time, end_time,cost,max_user,min_user,create_time, participants) VALUES(?, ?, ?, ?, ?,?,?,?,?)';
     dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect

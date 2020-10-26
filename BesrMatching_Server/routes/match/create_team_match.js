@@ -12,7 +12,7 @@ router.post('/', function (req, res) {
     let end_time = new Date(req.body.date + " " + req.body.end_time + ":00");
     let today = new Date();
     //var user_id = req.body.user_id;
-    
+
     input_data_array.push(req.body.title);// json->array
     input_data_array.push(req.body.ground_name);
     input_data_array.push(start_time);
@@ -74,7 +74,7 @@ router.post('/', function (req, res) {
 router.get('/booking_list', function (req, res) {  
     console.log('<<match/team_match/booking_list>>');
 
-    var sql = 'select * from best_matching.book_list,best_matching.ground where book_list.ground_id = ground.id and book_list.user_id = ?';
+    var sql = "select book_list.ground_id, book_list.user_id, book_list.phone, DATE_FORMAT(book_list.start_time,'%Y-%m-%d %H:%i') as start_time, DATE_FORMAT(book_list.end_time,'%Y-%m-%d %H:%i') as end_time, ground.id, ground.name, ground.latitude, ground.longtitude, ground.price from best_matching.book_list,best_matching.ground where book_list.ground_id = ground.id and book_list.user_id = ?";
     dbconn.query(sql, req.query.user_id, function (err, rows, fields) {//DB connect
         if (!err) {
             console.log("match "+req.query.ground_id)

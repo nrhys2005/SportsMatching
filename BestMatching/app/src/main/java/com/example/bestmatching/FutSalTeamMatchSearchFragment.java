@@ -72,11 +72,12 @@ public class FutSalTeamMatchSearchFragment extends Fragment implements View.OnCl
         futsal_team_match_search = (ListView) view.findViewById(R.id.futsal_team_match_search);
         futsal_team_match_search.setAdapter(futsalTeamMatchSearchAdapter);
 
-        new Get().execute(ip + "/match/search/team_match?team_match_id=none&user_id="+lg.Myid);
+        new Get().execute(ip + "/match/search/team_match/?search=none&user_id="+lg.Myid);
 
         futsalTeamMatchSearchAdapter.notifyDataSetChanged();
 
         team_matchsearch_text.setOnClickListener(this);
+        team_matchsearch_btn.setOnClickListener(this);
         futsal_team_match_search.setOnItemClickListener(this);
 
         return view;
@@ -97,9 +98,9 @@ public class FutSalTeamMatchSearchFragment extends Fragment implements View.OnCl
         bundle.putString("participants", team_match_search_participants.get(pos));
         bundle.putString("max_user", team_match_search_max_user.get(pos));
         bundle.putString("id", match_id.get(pos));
-        //FutSalMatchSearchDetailFragment f = new FutSalMatchSearchDetailFragment();
-        //f.setArguments(bundle);
-        //((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), f);
+        FutSalTeamMatchSearchDetailFragment f = new FutSalTeamMatchSearchDetailFragment();
+        f.setArguments(bundle);
+        ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), f);
     }
 
     // 노드js에서 안스로 데이터 받는 부분
@@ -217,7 +218,7 @@ public class FutSalTeamMatchSearchFragment extends Fragment implements View.OnCl
 
                 if (text.length() > 0) {
                     clear();
-                    new Get().execute(ip + "/match/search/" + text);
+                    new Get().execute(ip + "/match/search/team_match/?search=" + text+"&user_id="+lg.Myid);
                 } else {
                     Toast.makeText(getActivity(), "검색내용을 입력하세요.", Toast.LENGTH_SHORT).show();
                 }

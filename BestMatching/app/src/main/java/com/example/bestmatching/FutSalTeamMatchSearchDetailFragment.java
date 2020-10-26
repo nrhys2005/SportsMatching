@@ -88,8 +88,8 @@ public class FutSalTeamMatchSearchDetailFragment extends Fragment implements Vie
         detail_team_match_max_user.setText(max_user + "명");
 
         back_btn = (Button)view.findViewById(R.id.back_btn);
-        team_match_participants = (Button)view.findViewById(R.id.match_participants);
-        team_match_join = (Button)view.findViewById(R.id.match_join);
+        team_match_participants = (Button)view.findViewById(R.id.team_match_participants);
+        team_match_join = (Button)view.findViewById(R.id.team_match_join);
 
         back_btn.setOnClickListener(this);
         team_match_participants.setOnClickListener(this);

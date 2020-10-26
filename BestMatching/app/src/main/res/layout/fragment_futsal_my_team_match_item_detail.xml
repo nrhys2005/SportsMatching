@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background2"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/corner_black"
+            android:gravity="top"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/match"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:text="매칭제목" />
+
+                    <TextView
+                        android:id="@+id/detail_my_team_match_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:textColor="@color/black"
+                        android:paddingLeft="30dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/match"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:text="구장" />
+
+                    <TextView
+                        android:id="@+id/detail_my_team_match_ground_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:paddingLeft="55dp"
+                        android:textColor="@color/black"
+                        android:text="" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/match"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:text="시작시간" />
+
+                    <TextView
+                        android:id="@+id/detail_my_team_match_start_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:textColor="@color/black"
+                        android:paddingLeft="30dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/match"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:text="종료시간" />
+
+                    <TextView
+                        android:id="@+id/detail_my_team_match_end_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:textColor="@color/black"
+                        android:paddingLeft="30dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/match"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:text="요금" />
+
+                    <TextView
+                        android:id="@+id/detail_my_team_match_cost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:textColor="@color/black"
+                        android:paddingLeft="55dp"
+                        android:text="" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/match"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:text="인원" />
+
+                    <TextView
+                        android:id="@+id/detail_my_team_match_part_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:paddingLeft="55dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:paddingLeft="50dp"
+                        android:textColor="@color/black"
+                        android:text="/" />
+
+                    <TextView
+                        android:id="@+id/detail_my_team_match_max_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:textColor="@color/black"
+                        android:paddingLeft="55dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/back_btn"
+                android:background="@drawable/button_shape"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:layout_margin="5dp"
+                android:text="이전" />
+
+            <Button
+                android:id="@+id/my_team_match_participants"
+                android:background="@drawable/button_shape"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:layout_margin="5dp"
+                android:text="팀원보기" />
+
+<!--            <Button-->
+<!--                android:id="@+id/match_cancel"-->
+<!--                android:background="@drawable/button_shape"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:layout_margin="5dp"-->
+<!--                android:text="매칭취소" />-->
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

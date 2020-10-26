@@ -1,0 +1,65 @@
+package com.example.bestmatching;
+
+public class FutSalMyTeamMatchItems {
+
+    private String titleStr;
+    private String groundStr;
+    private String startTimeStr;
+    private String endTimeStr;
+    private String partUserStr;
+    private String maxUserStr;
+
+    public void setTitle(String title) {
+        titleStr = title;
+    }
+
+    public void setGround(String ground) {
+        groundStr = ground;
+    }
+
+
+    public void setStartTime(String start_time) {
+        startTimeStr = start_time;
+    }
+
+    public void setEndtime(String end_time) {
+        endTimeStr = end_time;
+    }
+
+    public void setPartUser(String part_user) {
+        partUserStr = part_user;
+    }
+
+    public void setMaxUser(String max_user) {
+        maxUserStr = max_user;
+    }
+
+    ////////////////////////////////////////////
+
+
+    public String getTitle() {
+        return this.titleStr;
+    }
+
+    public String getGround() {
+        return this.groundStr;
+    }
+
+    public String getStartTime() {
+        return this.startTimeStr;
+    }
+
+    public String getEndTime() {
+        return this.endTimeStr;
+    }
+
+    public String getPartUser() {
+        return this.partUserStr;
+    }
+
+    public String getMaxUser() {
+        return this.maxUserStr;
+    }
+
+
+}

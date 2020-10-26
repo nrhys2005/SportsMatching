@@ -12,7 +12,7 @@ router.post('/', function (req, res) {
     let end_time = new Date(req.body.date + " " + req.body.end_time + ":00");
     let today = new Date();
     //var user_id = req.body.user_id;
-    
+
     input_data_array.push(req.body.title);// json->array
     input_data_array.push(req.body.ground_name);
     input_data_array.push(start_time);

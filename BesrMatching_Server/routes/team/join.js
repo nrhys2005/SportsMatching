@@ -6,19 +6,19 @@ const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태
 //팀 가입신청
 router.post('/', function (req, res) {
     console.log('<<Team/join>>');
-    
+    var inputData = req.body;
+        
         var result_code=404;
 
         var check_data_array= [];
         var data_array= [];
-        var Data = req.body; // JSON data 받음
-      
-        
-        check_data_array.push(Data.team_name);
-        check_data_array.push(Data.user_id);
+      //  var Data = JSON.parse(inputData); // JSON data 받음
+
+        check_data_array.push(inputData.team_name);
+        check_data_array.push(inputData.user_id);
         
         data_array.push("Waiting");
-        data_array.push(Data.user_id);
+        data_array.push(inputData.user_id);
         var check_sql = 'select * from best_matching.team_waiting where team_name = ? and user_id = ?'
         dbconn.query(check_sql, check_data_array, function (err, rows, fields) {//DB connect
             if (!err) {
@@ -56,7 +56,8 @@ router.post('/', function (req, res) {
                 res.json({ "result": result_code,"err":err });
             }
         });
-});
+    });
+
 
 //팀 가입신청 승인
 router.post('/agreement', function (req, res) {

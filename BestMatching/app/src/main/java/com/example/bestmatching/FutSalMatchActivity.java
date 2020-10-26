@@ -222,7 +222,7 @@ public class FutSalMatchActivity extends Fragment implements View.OnClickListene
                                         Toast.makeText(context, "팀장만 가능합니다.", Toast.LENGTH_SHORT).show();
                                     }
                                     else {
-                                        ((MainActivity) getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalTeam_Match_RegisterFragment.newInstance());
+                                        ((MainActivity) getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalTeamMatchSearchFragment.newInstance());
                                     }
                                 }
 

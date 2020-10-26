@@ -213,7 +213,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:text="팀원보기" />
+                android:text="참가자 명단" />
 
             <Button
                 android:id="@+id/team_match_join"

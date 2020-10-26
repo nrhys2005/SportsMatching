@@ -202,7 +202,7 @@ public class FutSalMyTeamMatchDetailFragment extends Fragment implements View.On
             case R.id.my_team_match_participants:
                 Bundle bundle = new Bundle();
                 bundle.putString("id", my_team_match_id);
-                FutSalMatchSearchPartFragment f = new FutSalMatchSearchPartFragment();///수정,추가
+                FutSalTeamMatchSearchPartFragment f = new FutSalTeamMatchSearchPartFragment();///수정,추가
                 f.setArguments(bundle);
                 ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), f);
                 break;

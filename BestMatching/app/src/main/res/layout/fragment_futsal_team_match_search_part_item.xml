@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background2"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -42,15 +41,16 @@
                         android:src="@color/colorAccent"
                         android:textStyle="bold"
                         android:textColor="@color/black"
-                        android:text="매칭제목" />
+                        android:text="이름" />
 
                     <TextView
-                        android:id="@+id/detail_my_team_match_title"
+                        android:id="@+id/part_name"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
                         android:textColor="@color/black"
-                        android:paddingLeft="30dp" />
+                        android:paddingLeft="36dp"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -65,167 +65,111 @@
                         android:src="@color/colorAccent"
                         android:textStyle="bold"
                         android:textColor="@color/black"
-                        android:text="구장" />
+                        android:text="나이" />
 
                     <TextView
-                        android:id="@+id/detail_my_team_match_ground_name"
+                        android:id="@+id/part_age"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="left"
-                        android:paddingLeft="55dp"
                         android:textColor="@color/black"
+                        android:paddingLeft="36dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/match"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:text="지역" />
+
+                    <TextView
+                        android:id="@+id/part_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:textColor="@color/black"
+                        android:paddingLeft="36dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/match"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:text="포지션" />
+
+                    <TextView
+                        android:id="@+id/part_pos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:textColor="@color/black"
+                        android:paddingLeft="25dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/match"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:text="이메일" />
+
+                    <TextView
+                        android:id="@+id/part_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:textColor="@color/black"
+                        android:paddingLeft="25dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/match"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:text="전화번호" />
+
+                    <TextView
+                        android:id="@+id/part_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:textColor="@color/black"
+                        android:paddingLeft="15dp"
                         android:text="" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/match"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@color/colorAccent"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:text="시작시간" />
-
-                    <TextView
-                        android:id="@+id/detail_my_team_match_start_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="left"
-                        android:textColor="@color/black"
-                        android:paddingLeft="30dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/match"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@color/colorAccent"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:text="종료시간" />
-
-                    <TextView
-                        android:id="@+id/detail_my_team_match_end_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="left"
-                        android:textColor="@color/black"
-                        android:paddingLeft="30dp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/match"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@color/colorAccent"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:text="요금" />
-
-                    <TextView
-                        android:id="@+id/detail_my_team_match_cost"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="left"
-                        android:textColor="@color/black"
-                        android:paddingLeft="55dp"
-                        android:text="" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/match"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@color/colorAccent"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:text="인원" />
-
-                    <TextView
-                        android:id="@+id/detail_my_team_match_part_user"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="left"
-                        android:text=""
-                        android:textColor="@color/black"
-                        android:paddingLeft="55dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="left"
-                        android:paddingLeft="50dp"
-                        android:textColor="@color/black"
-                        android:text="/" />
-
-                    <TextView
-                        android:id="@+id/detail_my_team_match_max_user"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="left"
-                        android:textColor="@color/black"
-                        android:paddingLeft="55dp"/>
                 </LinearLayout>
 
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/back_btn"
-                android:background="@drawable/button_shape"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="@color/black"
-                android:layout_margin="5dp"
-                android:text="이전" />
-
-            <Button
-                android:id="@+id/my_team_match_participants"
-                android:background="@drawable/button_shape"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="@color/black"
-                android:layout_margin="5dp"
-                android:text="참가자 명단" />
-
-<!--            <Button-->
-<!--                android:id="@+id/match_cancel"-->
-<!--                android:background="@drawable/button_shape"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:layout_margin="5dp"-->
-<!--                android:text="매칭취소" />-->
         </LinearLayout>
 
     </LinearLayout>

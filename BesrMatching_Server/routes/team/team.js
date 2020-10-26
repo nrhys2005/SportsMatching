@@ -12,13 +12,13 @@ router.get('/', function (req, res) {
     var data_array = [];
     var sql = 'SELECT id,master_id,user.team_name,wait_state FROM best_matching.user left join team using (team_name) where id =?';
     
-    console.log('id = '+ user_id);
+    //console.log('id = '+ user_id);
     data_array.push(user_id);
    
     dbconn.query(sql, data_array, function (err, rows, fields) {//DB connect
         if (!err) {
             console.log('Query Select Success(result: Success)');
-            console.log(rows);
+            //console.log(rows);
             result_code=200;
             res.json({ "result": result_code, team_main : rows});
         } else {

@@ -14,11 +14,11 @@ router.get('/', function (req, res) {
     var sql;
     console.log('Search = '+ search);
     if (search == "none") {
-        sql = "select id, title, ground_name, DATE_FORMAT(start_time,'%Y-%m-%d %H:%i') as start_time, DATE_FORMAT(end_time,'%Y-%m-%d %H:%i') as end_time, cost, max_user, create_time, participants from best_matching.match,best_matching.matching_user where match.id = matching_user.match_id and match.end_time>=NOW() and match.max_user <> match.participants and match.participants <> 0 and matching_user.match_id not in (select matching_user.match_id from best_matching.matching_user where user_id = ?)";
+        sql = "select distinct id, title, ground_name, DATE_FORMAT(start_time,'%Y-%m-%d %H:%i') as start_time, DATE_FORMAT(end_time,'%Y-%m-%d %H:%i') as end_time, cost, max_user, create_time, participants from best_matching.match,best_matching.matching_user where match.id = matching_user.match_id and match.end_time>=NOW() and match.max_user <> match.participants and match.participants <> 0 and matching_user.match_id not in (select matching_user.match_id from best_matching.matching_user where user_id = ?)";
         search_data_array.push( req.query.user_id);
     }
     else {
-        sql = "select id, title, ground_name, DATE_FORMAT(start_time,'%Y-%m-%d %H:%i') as start_time, DATE_FORMAT(end_time,'%Y-%m-%d %H:%i') as end_time, cost, max_user, create_time, participants from best_matching.match,best_matching.matching_user where match.id = matching_user.match_id and match.end_time>=NOW() and match.max_user <> match.participants and match.participants <> 0 and match.title like ? and matching_user.match_id not in (select matching_user.match_id from best_matching.matching_user where user_id = ?)";
+        sql = "select distinct id, title, ground_name, DATE_FORMAT(start_time,'%Y-%m-%d %H:%i') as start_time, DATE_FORMAT(end_time,'%Y-%m-%d %H:%i') as end_time, cost, max_user, create_time, participants from best_matching.match,best_matching.matching_user where match.id = matching_user.match_id and match.end_time>=NOW() and match.max_user <> match.participants and match.participants <> 0 and match.title like ? and matching_user.match_id not in (select matching_user.match_id from best_matching.matching_user where user_id = ?)";
         search_data_array.push( req.query.user_id);
         search_data_array.push('%' + search + '%');
     }
@@ -41,7 +41,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/team_match', function (req, res) {
-    console.log('<<match/search>>');
+    console.log('<<match/search/team_match>>');
     var search = req.query.search;
     var search_data_array = [];
     let today = new Date(new Date().toISOString(). replace(/T/, ' ').replace(/\..+/, ''));
@@ -50,11 +50,11 @@ router.get('/team_match', function (req, res) {
     var sql;
     console.log('Search = '+ search);
     if (search == "none") {
-        sql = "select id, title, ground_name, DATE_FORMAT(start_time,'%Y-%m-%d %H:%i') as start_time, DATE_FORMAT(end_time,'%Y-%m-%d %H:%i') as end_time, cost, max_user,min_user, create_time, participants from best_matching.team_match,best_matching.team_matching_user where team_match.id = team_matching_user.team_match_id and team_match.end_time>=NOW()  and team_match.max_user <> team_match.participants and team_match.participants <> 0 and team_matching_user.team_match_id not EXIST (select team_matching_user.match_id from best_matching.team_matching_user where user_id = ?)";
+        sql = "select distinct id, title, ground_name, DATE_FORMAT(start_time,'%Y-%m-%d %H:%i') as start_time, DATE_FORMAT(end_time,'%Y-%m-%d %H:%i') as end_time, cost, max_user,min_user, create_time, participants from best_matching.team_match,best_matching.team_matching_user where team_match.id = team_matching_user.team_match_id and team_match.end_time>=NOW()  and team_match.max_user <> team_match.participants and team_match.participants <> 0 and team_matching_user.team_match_id not in (select team_matching_user.team_match_id from best_matching.team_matching_user where user_id = ?)";
         search_data_array.push( req.query.user_id);
     }
     else {
-        sql = "select id, title, ground_name, DATE_FORMAT(start_time,'%Y-%m-%d %H:%i') as start_time, DATE_FORMAT(end_time,'%Y-%m-%d %H:%i') as end_time, cost, max_user,min_user, create_time, participants from best_matching.team_match,best_matching.team_matching_user where team_match.id = team_matching_user.team_match_id and team_match.end_time>=NOW() and team_match.max_user <> team_match.participants and team_match.participants <> 0 and team_match.title like ? and team_matching_user.team_match_id not EXIST (select team_matching_user.match_id from best_matching.team_matching_user where user_id = ?)";
+        sql = "select distinct id, title, ground_name, DATE_FORMAT(start_time,'%Y-%m-%d %H:%i') as start_time, DATE_FORMAT(end_time,'%Y-%m-%d %H:%i') as end_time, cost, max_user,min_user, create_time, participants from best_matching.team_match,best_matching.team_matching_user where team_match.id = team_matching_user.team_match_id and team_match.end_time>=NOW() and team_match.max_user <> team_match.participants and team_match.participants <> 0 and team_match.title like ? and team_matching_user.team_match_id not in (select team_matching_user.team_match_id from best_matching.team_matching_user where user_id = ?)";
         search_data_array.push( req.query.user_id);
         search_data_array.push('%' + search + '%');
     }

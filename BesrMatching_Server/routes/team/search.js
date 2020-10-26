@@ -31,7 +31,7 @@ router.get('/:search', function (req, res) {
             }
             else {
                 console.log('Query Select Success(result": "Success)');
-                console.log(rows);
+                //console.log(rows);
                 result_code=200;
                 res.json({ "result": result_code ,team_info : rows});
             }

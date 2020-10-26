@@ -47,7 +47,7 @@ router.get('/', function (req, res) {
                     //     return a.dis < b.dis ? -1 : 1 ;
                     // });
                     //data.sort((a,b)=> a - b );
-                    console.log(list);
+                    //console.log(list);
                     res.json({ "result": "Success", ground_info : list});
                 }
                 else{

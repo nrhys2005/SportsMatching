@@ -72,7 +72,7 @@ public class FutSalTeamMatchSearchFragment extends Fragment implements View.OnCl
         futsal_team_match_search = (ListView) view.findViewById(R.id.futsal_team_match_search);
         futsal_team_match_search.setAdapter(futsalTeamMatchSearchAdapter);
 
-        //new Get().execute(ip + "/match/search/none");
+        new Get().execute(ip + "/match/search/team_match?team_match_id=none&user_id="+lg.Myid);
 
         futsalTeamMatchSearchAdapter.notifyDataSetChanged();
 

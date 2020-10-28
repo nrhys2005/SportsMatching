@@ -8,11 +8,12 @@ router.post('/', function (req, res) {
     console.log('<<match/create_team_match>>');
  
     var input_data_array = [];
+    var user_count = req.body.user_count ;
     let start_time = new Date((req.body.date + " " + req.body.start_time + ":00"));
     let end_time = new Date(req.body.date + " " + req.body.end_time + ":00");
     let today = new Date();
     //var user_id = req.body.user_id;
-
+    var member_info = req.body.member_info;
     input_data_array.push(req.body.title);// json->array
     input_data_array.push(req.body.ground_name);
     input_data_array.push(start_time);
@@ -21,7 +22,7 @@ router.post('/', function (req, res) {
     input_data_array.push(req.body.max_user);
     input_data_array.push(req.body.min_user);
     input_data_array.push(today);
-    input_data_array.push(req.body.user_count);//participants
+    input_data_array.push(user_count);//participants
 
     var sql_insert = 'INSERT INTO best_matching.team_match (title, ground_name, start_time, end_time,cost,max_user,min_user,create_time, participants) VALUES(?, ?, ?, ?, ?,?,?,?,?)';
     dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
@@ -37,12 +38,13 @@ router.post('/', function (req, res) {
                     else {
                         //console.log('Query Select Success(result": "Success)');
                         var match_user_array = [];
-                        //console.log(req.body.member_info);
+                        console.log(member_info);
                         var match_id = rows[0].id;
-                        for(var i=0;i<req.body.user_count;i++){
-                            match_user_array.push([req.body.member_info[i],match_id]);
+                        for(var i=0;i<user_count;i++){
+                            match_user_array.push([member_info[i],match_id]);
+                            console.log([member_info[i],match_id]);
                         }
-                        console.log("team_matching_user",match_user_array, "");
+                        //console.log("team_matching_user",match_user_array, "");
                         var insert_sql = "INSERT INTO best_matching.team_matching_user(user_id,team_match_id) values ?;";
                         dbconn.query(insert_sql, [match_user_array], function (err) {//DB connect
                             if (!err) {

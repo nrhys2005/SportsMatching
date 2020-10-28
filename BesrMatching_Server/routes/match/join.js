@@ -87,8 +87,8 @@ router.post('/', function (req, res) {
 });
 
 //팀 매치 참가
-router.post('/team', function (req, res) {
-    console.log('<<match/join/team>>');
+router.post('/team_match', function (req, res) {
+    console.log('<<match/join/team_match>>');
 
     var user_count = req.body.user_count ;
     var team_match_id = req.body.team_match_id;
@@ -107,15 +107,16 @@ router.post('/team', function (req, res) {
                         }
                         else {
                             if (rows[0].participants + user_count > rows[0].max_user||user_count<rows[0].min_user) {
-                                console.log('Query Select Success(result": "team_matching is full")');
-                                res.json({ "result": "full" });
+                                console.log('Query Select Success(result": "full or lack")');
+                                res.json({ "result": "full or lack" });
                             }
                             else {
                                 var insert_data_array = [];
                                 for(var i=0;i<user_count;i++){
-                                    insert_data_array.push([req.body.member_info[i],team_match_id]);
+                                    insert_data_array.push([member_info[i],team_match_id]);
                                 }
-                                var insert_sql = "INSERT INTO best_matching.team_matching_user(user_id,team_match_id) values(?,?)";
+                                //console.log(insert_data_array);
+                                var insert_sql = "INSERT INTO best_matching.team_matching_user(user_id,team_match_id) values ? ";
                                 dbconn.query(insert_sql, [insert_data_array], function (err, rows, fields) {//DB connect
                                     if (!err) {
                                         if (rows.length == 0) {
@@ -132,7 +133,9 @@ router.post('/team', function (req, res) {
                                     }
                                 });
                                 var update_sql = "UPDATE best_matching.team_match SET participants = ? where id = ?";
-                                dbconn.query(update_sql, [rows[0].participants+user_count ,team_match_id], function (err, rows, fields) {//DB connect
+                                var update_data = [rows[0].participants+user_count,team_match_id]
+                                //console.log(update_data);
+                                dbconn.query(update_sql, update_data, function (err, rows, fields) {//DB connect
                                     if (!err) {
                                         if (rows.length == 0) {
                                             console.log('Query update success("result": "fail")');

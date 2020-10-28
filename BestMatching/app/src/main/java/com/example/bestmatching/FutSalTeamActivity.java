@@ -32,6 +32,7 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
     Button team_info;
     Button team_create;
     Button team_search;
+    Button team_board;
 
     public static String team_name="";
     public static String get_master_id="";
@@ -56,10 +57,12 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
         team_info = (Button)view.findViewById(R.id.team_info);
         team_create = (Button)view.findViewById(R.id.team_create);
         team_search = (Button)view.findViewById(R.id.team_search);
+        team_board = (Button)view.findViewById(R.id.team_board);
 
         team_info.setOnClickListener(this);
         team_create.setOnClickListener(this);
         team_search.setOnClickListener(this);
+        team_board.setOnClickListener(this);
 
         new Get().execute(ip + "/team/team?id="+send_id);
 
@@ -116,6 +119,9 @@ public class FutSalTeamActivity extends Fragment implements View.OnClickListener
                 break;
             case R.id.team_search:
                 ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamSearchFragment.newInstance());
+                break;
+            case R.id.team_board:
+                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeam_BoardFragment.newInstance());
                 break;
         }
     }

@@ -21,7 +21,7 @@ router.post('/', function (req, res) {
     input_data_array.push(req.body.max_user);
     input_data_array.push(req.body.min_user);
     input_data_array.push(today);
-    input_data_array.push(req.body.user);
+    input_data_array.push(req.body.user_count);
 
     var sql_insert = 'INSERT INTO best_matching.team_match (title, ground_name, start_time, end_time,cost,max_user,min_user,create_time, participants) VALUES(?, ?, ?, ?, ?,?,?,?,?)';
     dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
@@ -39,9 +39,8 @@ router.post('/', function (req, res) {
                         var match_user_array = [];
                         //console.log(req.body.member_info);
                         var match_id = rows[0].id;
-                        for(var i=0;i<req.body.user;i++){
+                        for(var i=0;i<req.body.user_count;i++){
                             match_user_array.push([req.body.member_info[i],match_id]);
-                           
                         }
                         console.log("team_matching_user",match_user_array, "");
                         var insert_sql = "INSERT INTO best_matching.team_matching_user(user_id,team_match_id) values ?;";

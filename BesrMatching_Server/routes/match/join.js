@@ -111,9 +111,8 @@ router.post('/team', function (req, res) {
                             }
                             else {
                                 var insert_data_array = [];
-                                for(var i=0;i<req.body.user;i++){
+                                for(var i=0;i<user_count;i++){
                                     insert_data_array.push([req.body.member_info[i],team_match_id]);
-                                   
                                 }
                                 var insert_sql = "INSERT INTO best_matching.team_matching_user(user_id,team_match_id) values(?,?)";
                                 dbconn.query(insert_sql, [insert_data_array], function (err, rows, fields) {//DB connect

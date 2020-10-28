@@ -76,7 +76,14 @@ router.post('/agreement', function (req, res) {
 
         dbconn.query(update_sql, data_array, function (err, rows, fields) {//DB connect
             if (!err) {
-                console.log('Query update success');
+                var sql = 'update best_matching.team set member_count = member_count + 1 where team_name = ?';
+                dbconn.query(sql, team_name, function (err, rows, fields) {//DB connect
+                    if (!err) {
+                        console.log('Query update success');
+                    } else {
+                        console.log('Query Update Error : ' + err);
+                    }
+                });
                 var delete_sql = 'DELETE from team_waiting where user_id = ?';
                 dbconn.query(delete_sql, user_id, function (err, rows, fields) {//DB connect
                     if (!err) {

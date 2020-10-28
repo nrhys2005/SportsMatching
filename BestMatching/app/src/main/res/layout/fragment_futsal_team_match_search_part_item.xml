@@ -41,6 +41,29 @@
                         android:src="@color/colorAccent"
                         android:textStyle="bold"
                         android:textColor="@color/black"
+                        android:text="팀이름" />
+
+                    <TextView
+                        android:id="@+id/part_team_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left"
+                        android:textColor="@color/black"
+                        android:paddingLeft="25dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/match"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:text="이름" />
 
                     <TextView

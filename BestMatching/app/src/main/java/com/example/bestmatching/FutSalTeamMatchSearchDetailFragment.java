@@ -40,7 +40,7 @@ public class FutSalTeamMatchSearchDetailFragment extends Fragment implements Vie
     String ip = lg.ip;
     String now_id = lg.Myid;
 
-    public String team_match_id;
+    public int team_match_id;
     private int member_size;
     TextView detail_team_match_title;
     TextView detail_team_match_ground_name;
@@ -85,7 +85,7 @@ public class FutSalTeamMatchSearchDetailFragment extends Fragment implements Vie
         String cost = getArguments().getString("cost");
         String participants = getArguments().getString("participants");
         String max_user = getArguments().getString("max_user");
-        team_match_id = getArguments().getString("id");
+        team_match_id = getArguments().getInt("id");
 
         String start1 = start_time.substring(0,10);
         String start2 = start_time.substring(11,16);
@@ -190,9 +190,10 @@ public class FutSalTeamMatchSearchDetailFragment extends Fragment implements Vie
                 //JSONObject를 만들고 key value 형식으로 값을 저장해준다.
                 JSONObject jsonObject = new JSONObject();
                 JSONArray ja = new JSONArray(send_member);
-                jsonObject.put("user_id", now_id);
+                //jsonObject.put("user_count", now_id);
                 jsonObject.put("team_match_id", team_match_id);
                 jsonObject.put("member_info", ja);
+                System.out.println("team_match_id : "+ team_match_id+"\n member_info : "+ja);
                 HttpURLConnection con = null;
                 BufferedReader reader = null;
 
@@ -284,7 +285,7 @@ public class FutSalTeamMatchSearchDetailFragment extends Fragment implements Vie
                 break;
             case R.id.team_match_participants:
                 Bundle bundle = new Bundle();
-                bundle.putString("id", team_match_id);
+                bundle.putInt("id", team_match_id);
                 FutSalTeamMatchSearchPartFragment f = new FutSalTeamMatchSearchPartFragment();
                 f.setArguments(bundle);
                 ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), f);
@@ -321,7 +322,7 @@ public class FutSalTeamMatchSearchDetailFragment extends Fragment implements Vie
                                     send_member.add(selectedItems.get(i));
                                 }
 
-                                new Post().execute(ip + "/match/join/team");
+                                new Post().execute(ip + "/match/join/team_match");
                             }
                         })
                         .setNeutralButton("취소", new DialogInterface.OnClickListener() {

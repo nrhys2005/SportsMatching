@@ -1,13 +1,17 @@
 package com.example.bestmatching;
 
 public class FutSalTeamMatchSearchPartItems {
-
+    private String team_nameStr;
     private String nameStr;
     private String ageStr;
     private String locationStr;
     private String posStr;
     private String emailStr;
     private String phoneStr;
+
+    public void setTeam_name(String team_name) {
+        team_nameStr = team_name;
+    }
 
     public void setName(String name) {
         nameStr = name;
@@ -36,7 +40,9 @@ public class FutSalTeamMatchSearchPartItems {
 
     ////////////////////////////////////////////
 
-
+    public String getTeam_name() {
+        return this.team_nameStr;
+    }
     public String getName() {
         return this.nameStr;
     }

@@ -52,7 +52,7 @@ public class FutSalTeamMatchSearchFragment extends Fragment implements View.OnCl
     ArrayList<String> team_match_cost = new ArrayList<>();
     ArrayList<String> team_match_search_participants = new ArrayList<>();
     ArrayList<String> team_match_search_max_user = new ArrayList<>();
-    ArrayList<String> match_id = new ArrayList<>();
+    ArrayList<Integer> match_id = new ArrayList<>();
 
     public static FutSalTeamMatchSearchFragment newInstance() {
         return new FutSalTeamMatchSearchFragment();
@@ -97,7 +97,7 @@ public class FutSalTeamMatchSearchFragment extends Fragment implements View.OnCl
         bundle.putString("cost", team_match_cost.get(pos));
         bundle.putString("participants", team_match_search_participants.get(pos));
         bundle.putString("max_user", team_match_search_max_user.get(pos));
-        bundle.putString("id", match_id.get(pos));
+        bundle.putInt("id", match_id.get(pos));
         FutSalTeamMatchSearchDetailFragment f = new FutSalTeamMatchSearchDetailFragment();
         f.setArguments(bundle);
         ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), f);
@@ -141,7 +141,7 @@ public class FutSalTeamMatchSearchFragment extends Fragment implements View.OnCl
                             team_match_cost.add(js.getString("cost"));
                             team_match_search_participants.add(js.getString("participants"));
                             team_match_search_max_user.add(js.getString("max_user"));
-                            match_id.add(js.getString("id"));
+                            match_id.add(js.getInt("id"));
                         }
                     } else if (msg.equals("no find")) {
                         teammatchSize = 0;

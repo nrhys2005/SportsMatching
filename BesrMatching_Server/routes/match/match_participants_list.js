@@ -36,8 +36,8 @@ router.get('/team_match/:team_match_id', function (req, res) {
     var team_match_id = req.params.team_match_id;
     //var Data = JSON.parse(data); // JSON data 받음
     console.log('Search = '+ team_match_id);
-    var sql = 'select * from best_matching.user, best_matching.team_matching_user where user.id = team_matching_user.user_id and team_matching_user.match_id =?';
-    dbconn.query(sql, match_id, function (err, rows, fields) {//DB connect
+    var sql = 'select * from best_matching.user, best_matching.team_matching_user where user.id = team_matching_user.user_id and team_matching_user.team_match_id =?';
+    dbconn.query(sql, team_match_id, function (err, rows, fields) {//DB connect
         if (!err) {
             if (rows.length == 0) {
                 console.log('Query Select Success("result": "no find")');

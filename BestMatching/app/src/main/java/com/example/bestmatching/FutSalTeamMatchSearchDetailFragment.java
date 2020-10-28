@@ -307,7 +307,7 @@ public class FutSalTeamMatchSearchDetailFragment extends Fragment implements Vie
                                 }
                                 else				  // Check 해제 되었을 때 제거
                                 {
-                                    selectedItems.remove(pos);
+                                    selectedItems.remove(memberItems[pos]);
                                 }
                             }
                         })

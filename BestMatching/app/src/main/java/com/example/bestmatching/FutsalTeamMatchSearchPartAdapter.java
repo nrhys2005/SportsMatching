@@ -11,12 +11,14 @@ import java.util.ArrayList;
 
 public class FutsalTeamMatchSearchPartAdapter extends BaseAdapter {
 
+    private TextView part_team_name;
     private TextView part_name;
     private TextView part_age;
     private TextView part_location;
     private TextView part_pos;
     private TextView part_email;
     private TextView part_phone;
+
 
     private ArrayList<FutSalTeamMatchSearchPartItems> teammatchPartItems = new ArrayList<FutSalTeamMatchSearchPartItems>();
 
@@ -56,7 +58,7 @@ public class FutsalTeamMatchSearchPartAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.fragment_futsal_team_match_search_part_item, parent, false);
         }
-
+        part_team_name = (TextView) convertView.findViewById(R.id.part_team_name);
         part_name = (TextView) convertView.findViewById(R.id.part_name);
         part_age = (TextView) convertView.findViewById(R.id.part_age);
         part_location = (TextView) convertView.findViewById(R.id.part_location);
@@ -66,12 +68,17 @@ public class FutsalTeamMatchSearchPartAdapter extends BaseAdapter {
 
         FutSalTeamMatchSearchPartItems futSalTeamMatchSearchPartItems = teammatchPartItems.get(position);
 
+        part_team_name.setText(futSalTeamMatchSearchPartItems.getTeam_name());
         part_name.setText(futSalTeamMatchSearchPartItems.getName());
         part_age.setText(futSalTeamMatchSearchPartItems.getAge());
         part_location.setText(futSalTeamMatchSearchPartItems.getLoc());
         part_pos.setText(futSalTeamMatchSearchPartItems.getPos());
         part_email.setText(futSalTeamMatchSearchPartItems.getEmail());
         part_phone.setText(futSalTeamMatchSearchPartItems.getPhone());
+
+        if (part_team_name.getText().toString().equals("null") || part_team_name.getText().toString().equals(""))
+            part_team_name.setText("정보없음");
+
 
         if (part_name.getText().toString().equals("null") || part_name.getText().toString().equals(""))
             part_name.setText("정보없음");
@@ -96,9 +103,10 @@ public class FutsalTeamMatchSearchPartAdapter extends BaseAdapter {
 
 
     //아이템 데이터 추가를 위한 함수
-    public void addItem(String name, String age, String location, String pos, String email, String phone){
+    public void addItem(String team_name, String name, String age, String location, String pos, String email, String phone){
         FutSalTeamMatchSearchPartItems Team_matchSearchPartItems = new FutSalTeamMatchSearchPartItems();
 
+        Team_matchSearchPartItems.setTeam_name(team_name);
         Team_matchSearchPartItems.setName(name);
         Team_matchSearchPartItems.setAge(age);
         Team_matchSearchPartItems.setLoc(location);

@@ -38,7 +38,7 @@ public class FutSalTeamMatchSearchPartFragment extends Fragment implements View.
 
     //팀 개수
     private int matchPartSize;
-
+    ArrayList<String> part_team_name = new ArrayList<>();
     ArrayList<String> part_name = new ArrayList<>();
     ArrayList<String> part_age = new ArrayList<>();
     ArrayList<String> part_location = new ArrayList<>();
@@ -103,6 +103,7 @@ public class FutSalTeamMatchSearchPartFragment extends Fragment implements View.
 
                         for (int i = 0; i < matchPartSize; i++) {
                             JSONObject js = jsonArray.getJSONObject(i);
+                            part_team_name.add(js.getString("team_name"));
                             part_name.add(js.getString("name"));
                             part_age.add(js.getString("age"));
                             part_location.add(js.getString("location"));
@@ -136,7 +137,7 @@ public class FutSalTeamMatchSearchPartFragment extends Fragment implements View.
 
             if (matchPartSize != 0) {
                 for (int i = 0; i < matchPartSize; i++) {
-                    futsalTeamMatchSearchPartAdapter.addItem(part_name.get(i), part_age.get(i), part_location.get(i), part_pos.get(i),
+                    futsalTeamMatchSearchPartAdapter.addItem(part_team_name.get(i),part_name.get(i), part_age.get(i), part_location.get(i), part_pos.get(i),
                             part_email.get(i), part_phone.get(i));
                 }
                 futsalTeamMatchSearchPartAdapter.notifyDataSetChanged();

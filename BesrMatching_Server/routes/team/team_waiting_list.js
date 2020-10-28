@@ -25,7 +25,7 @@ router.get('/', function (req, res) {
             }
             else {
                 console.log('Query Select Success(result": 200)');
-                console.log(rows);
+                //console.log(rows);
                 result_code=200;
                 res.json({ "result": result_code ,agree_info : rows});
             }

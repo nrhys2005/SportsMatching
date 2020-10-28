@@ -89,11 +89,11 @@ router.post('/', function (req, res) {
 //팀 매치 참가
 router.post('/team_match', function (req, res) {
     console.log('<<match/join/team_match>>');
-
-    var user_count = req.body.user_count ;
+    var member_info = req.body.member_info;
+    var user_count = member_info.length;
     var team_match_id = req.body.team_match_id;
     var sql = 'select * from  best_matching.team_matching_user where user_id = ? and team_match_id= ?';
-    var member_info = req.body.member_info;
+    
     var params = [member_info[0], team_match_id]
     dbconn.query(sql, params, function (err, rows, fields) {//DB connect
         if (!err) {
@@ -115,7 +115,7 @@ router.post('/team_match', function (req, res) {
                                 for(var i=0;i<user_count;i++){
                                     insert_data_array.push([member_info[i],team_match_id]);
                                 }
-                                //console.log(insert_data_array);
+                                console.log(insert_data_array);
                                 var insert_sql = "INSERT INTO best_matching.team_matching_user(user_id,team_match_id) values ? ";
                                 dbconn.query(insert_sql, [insert_data_array], function (err, rows, fields) {//DB connect
                                     if (!err) {
@@ -134,7 +134,7 @@ router.post('/team_match', function (req, res) {
                                 });
                                 var update_sql = "UPDATE best_matching.team_match SET participants = ? where id = ?";
                                 var update_data = [rows[0].participants+user_count,team_match_id]
-                                //console.log(update_data);
+                                console.log(update_data);
                                 dbconn.query(update_sql, update_data, function (err, rows, fields) {//DB connect
                                     if (!err) {
                                         if (rows.length == 0) {

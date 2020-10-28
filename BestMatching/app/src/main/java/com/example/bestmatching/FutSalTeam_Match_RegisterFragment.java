@@ -469,7 +469,7 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
                         }
                         else				  // Check 해제 되었을 때 제거
                         {
-                            selectedItems.remove(pos);
+                            selectedItems.remove(memberItems[pos]);
                         }
                     }
                 })

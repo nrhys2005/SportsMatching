@@ -277,6 +277,7 @@ public class FutSalTeam_Board_Item_Detail extends Fragment implements View.OnCli
                     JSONObject jsonObject = new JSONObject(receiveMsg);
                     String msg = jsonObject.getString("result");
                     if (msg.equals("Success")) {
+                        part_list.clear();
                         String part_arr = jsonObject.getString("part_list");
                         JSONArray ja = new JSONArray(part_arr);
                         part_arr_size = ja.length();
@@ -333,6 +334,7 @@ public class FutSalTeam_Board_Item_Detail extends Fragment implements View.OnCli
                     JSONObject jsonObject = new JSONObject(receiveMsg);
                     String msg = jsonObject.getString("result");
                     if (msg.equals("Success")) {
+                        no_part_list.clear();
                         String no_part_arr = jsonObject.getString("no_part_list");
                         JSONArray ja = new JSONArray(no_part_arr);
                         no_part_arr_size = ja.length();
@@ -487,6 +489,7 @@ public class FutSalTeam_Board_Item_Detail extends Fragment implements View.OnCli
                             public void onClick(DialogInterface dialog, int pos)
                             {
                                 new Get_Part().execute(ip+"/team/team_board/part_list?team_board_id="+team_board_id);
+                                new Get_NoPart().execute(ip+"/team/team_board/no_part_list?team_board_id="+team_board_id);
                                 partView.invalidate();
                                 nopartView.invalidate();
                             }
@@ -510,6 +513,7 @@ public class FutSalTeam_Board_Item_Detail extends Fragment implements View.OnCli
                             @Override
                             public void onClick(DialogInterface dialog, int pos)
                             {
+                                new Get_Part().execute(ip+"/team/team_board/part_list?team_board_id="+team_board_id);
                                 new Get_NoPart().execute(ip+"/team/team_board/no_part_list?team_board_id="+team_board_id);
                                 partView.invalidate();
                                 nopartView.invalidate();

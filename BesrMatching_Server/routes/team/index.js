@@ -22,6 +22,7 @@ router.use('/myteam_drop', require('./myteam_drop'));
 router.use('/create', require('./create'));
 //팀 검색 
 router.use('/search', require('./search'));
-
+//팀 게시물
+router.use('/team_board', require('./team_board'));
 
 module.exports = router;

@@ -6,20 +6,19 @@ const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태
 //팀 가입신청
 router.post('/', function (req, res) {
     console.log('<<Team/join>>');
-    req.on('data', (data) => {
+    var inputData = req.body;
         
         var result_code=404;
 
         var check_data_array= [];
         var data_array= [];
-        var Data = JSON.parse(data); // JSON data 받음
-      
-        
-        check_data_array.push(Data.team_name);
-        check_data_array.push(Data.user_id);
+      //  var Data = JSON.parse(inputData); // JSON data 받음
+
+        check_data_array.push(inputData.team_name);
+        check_data_array.push(inputData.user_id);
         
         data_array.push("Waiting");
-        data_array.push(Data.user_id);
+        data_array.push(inputData.user_id);
         var check_sql = 'select * from best_matching.team_waiting where team_name = ? and user_id = ?'
         dbconn.query(check_sql, check_data_array, function (err, rows, fields) {//DB connect
             if (!err) {
@@ -58,7 +57,7 @@ router.post('/', function (req, res) {
             }
         });
     });
-});
+
 
 //팀 가입신청 승인
 router.post('/agreement', function (req, res) {
@@ -77,7 +76,14 @@ router.post('/agreement', function (req, res) {
 
         dbconn.query(update_sql, data_array, function (err, rows, fields) {//DB connect
             if (!err) {
-                console.log('Query update success');
+                var sql = 'update best_matching.team set member_count = member_count + 1 where team_name = ?';
+                dbconn.query(sql, team_name, function (err, rows, fields) {//DB connect
+                    if (!err) {
+                        console.log('Query update success');
+                    } else {
+                        console.log('Query Update Error : ' + err);
+                    }
+                });
                 var delete_sql = 'DELETE from team_waiting where user_id = ?';
                 dbconn.query(delete_sql, user_id, function (err, rows, fields) {//DB connect
                     if (!err) {

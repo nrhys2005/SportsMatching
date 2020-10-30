@@ -52,7 +52,7 @@ public class FutSalTeamMatchSearchFragment extends Fragment implements View.OnCl
     ArrayList<String> team_match_cost = new ArrayList<>();
     ArrayList<String> team_match_search_participants = new ArrayList<>();
     ArrayList<String> team_match_search_max_user = new ArrayList<>();
-    ArrayList<String> match_id = new ArrayList<>();
+    ArrayList<Integer> match_id = new ArrayList<>();
 
     public static FutSalTeamMatchSearchFragment newInstance() {
         return new FutSalTeamMatchSearchFragment();
@@ -72,11 +72,12 @@ public class FutSalTeamMatchSearchFragment extends Fragment implements View.OnCl
         futsal_team_match_search = (ListView) view.findViewById(R.id.futsal_team_match_search);
         futsal_team_match_search.setAdapter(futsalTeamMatchSearchAdapter);
 
-        //new Get().execute(ip + "/match/search/none");
+        new Get().execute(ip + "/match/search/team_match/?search=none&user_id="+lg.Myid);
 
         futsalTeamMatchSearchAdapter.notifyDataSetChanged();
 
         team_matchsearch_text.setOnClickListener(this);
+        team_matchsearch_btn.setOnClickListener(this);
         futsal_team_match_search.setOnItemClickListener(this);
 
         return view;
@@ -96,10 +97,10 @@ public class FutSalTeamMatchSearchFragment extends Fragment implements View.OnCl
         bundle.putString("cost", team_match_cost.get(pos));
         bundle.putString("participants", team_match_search_participants.get(pos));
         bundle.putString("max_user", team_match_search_max_user.get(pos));
-        bundle.putString("id", match_id.get(pos));
-        //FutSalMatchSearchDetailFragment f = new FutSalMatchSearchDetailFragment();
-        //f.setArguments(bundle);
-        //((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), f);
+        bundle.putInt("id", match_id.get(pos));
+        FutSalTeamMatchSearchDetailFragment f = new FutSalTeamMatchSearchDetailFragment();
+        f.setArguments(bundle);
+        ((MainActivity)getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), f);
     }
 
     // 노드js에서 안스로 데이터 받는 부분
@@ -140,7 +141,7 @@ public class FutSalTeamMatchSearchFragment extends Fragment implements View.OnCl
                             team_match_cost.add(js.getString("cost"));
                             team_match_search_participants.add(js.getString("participants"));
                             team_match_search_max_user.add(js.getString("max_user"));
-                            match_id.add(js.getString("id"));
+                            match_id.add(js.getInt("id"));
                         }
                     } else if (msg.equals("no find")) {
                         teammatchSize = 0;
@@ -217,7 +218,7 @@ public class FutSalTeamMatchSearchFragment extends Fragment implements View.OnCl
 
                 if (text.length() > 0) {
                     clear();
-                    new Get().execute(ip + "/match/search/" + text);
+                    new Get().execute(ip + "/match/search/team_match/?search=" + text+"&user_id="+lg.Myid);
                 } else {
                     Toast.makeText(getActivity(), "검색내용을 입력하세요.", Toast.LENGTH_SHORT).show();
                 }

@@ -20,10 +20,11 @@ router.post('/', function (req, res) {
         input_data_array.push(inputData.location);
         input_data_array.push(inputData.week);
         input_data_array.push(inputData.comment);
+        input_data_array.push(1);
 
         console.log('input_data : ' + input_data_array); 
         
-        var sql_insert = 'INSERT INTO best_matching.team (team_name,master_id, phonenumber, age_avg, level, location,week,comment) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
+        var sql_insert = 'INSERT INTO best_matching.team (team_name,master_id, phonenumber, age_avg, level, location,week,comment,member_count) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
         dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
             if (!err) {
                 console.log('Query insert success');

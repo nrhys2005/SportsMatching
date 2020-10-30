@@ -222,7 +222,7 @@ public class FutSalMatchActivity extends Fragment implements View.OnClickListene
                                         Toast.makeText(context, "팀장만 가능합니다.", Toast.LENGTH_SHORT).show();
                                     }
                                     else {
-                                        ((MainActivity) getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalTeam_Match_RegisterFragment.newInstance());
+                                        ((MainActivity) getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalTeamMatchSearchFragment.newInstance());
                                     }
                                 }
 
@@ -271,7 +271,7 @@ public class FutSalMatchActivity extends Fragment implements View.OnClickListene
                                     Toast.makeText(context, "다시 선택하세요.", Toast.LENGTH_SHORT).show();
                                 }
                                 else{
-                                    ((MainActivity) getActivity()).replaceFragment(FutSalMatchActivity.newInstance(), FutSalTeam_Match_RegisterFragment.newInstance());
+                                    ((MainActivity) getActivity()).replaceFragment(FutSalMatchActivity.newInstance(),FutSalMyTeamMatchFragment.newInstance());
                                 }
 
 

@@ -28,4 +28,31 @@ router.get('/:match_id', function (req, res) {
         }
     });
 });
+
+ 
+//매칭 참여자 리스트
+router.get('/team_match/:team_match_id', function (req, res) {
+    console.log('<<match/match_participants_list/team_match>>');
+    var team_match_id = req.params.team_match_id;
+    //var Data = JSON.parse(data); // JSON data 받음
+    console.log('Search = '+ team_match_id);
+    var sql = 'select * from best_matching.user, best_matching.team_matching_user where user.id = team_matching_user.user_id and team_matching_user.team_match_id =?';
+    dbconn.query(sql, team_match_id, function (err, rows, fields) {//DB connect
+        if (!err) {
+            if (rows.length == 0) {
+                console.log('Query Select Success("result": "no find")');
+                res.json({ "result": 404 });
+            }
+            else {
+                console.log('Query Select Success(result": "Success)');
+                console.log(rows);
+                res.json({ "result": "Success",mymatch_info : rows });
+            }
+
+        } else {
+            console.log('Query Select Error : ' + err);
+            res.json({ "result": 404,"err": err });
+        }
+    });
+});
 module.exports = router;

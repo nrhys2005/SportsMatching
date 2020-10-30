@@ -48,7 +48,6 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
     EditText match_cost;
     TextView match_user;
     Button select_player;
-    Button confirm_player;
     EditText min_player_number;
     EditText max_player_number;
     Button match_register;
@@ -101,7 +100,6 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
         match_cost = (EditText) view.findViewById(R.id.match_cost);
         match_user = (TextView) view.findViewById(R.id.match_user);
         select_player = (Button) view.findViewById(R.id.select_player);
-        confirm_player = (Button) view.findViewById(R.id.confirm_player);
         min_player_number = (EditText) view.findViewById(R.id.min_player_number);
         max_player_number = (EditText) view.findViewById(R.id.max_player_number);
         match_register = (Button) view.findViewById(R.id.match_register);
@@ -118,7 +116,6 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
         select_stadium.setOnClickListener(this);
         match_register.setOnClickListener(this);
         select_player.setOnClickListener(this);
-        confirm_player.setOnClickListener(this);
 
         return view;
     }
@@ -143,19 +140,15 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
             try {
                 //JSONObject를 만들고 key value 형식으로 값을 저장해준다.
                 JSONObject jsonObject = new JSONObject();
-                //jsonObject.put("user_id", "androidTest");
-                //jsonObject.put("name", "yun");
-
+                JSONArray ja = new JSONArray(send_member);
                 jsonObject.put("title", match_title.getText().toString());
                 jsonObject.put("ground_name", select_stadium.getText().toString());
                 jsonObject.put("date", match_date.getText().toString());
                 jsonObject.put("start_time", match_start_time.getText().toString());
                 jsonObject.put("end_time", match_end_time.getText().toString());
                 jsonObject.put("cost",  Integer.parseInt(match_cost.getText().toString()));
-                jsonObject.put("user", match_user.getText().toString());
-                //인원수만 보내고 인원 정보들을 team_matching_user테이블에 추가해야함.. 방법고려,,
-                //->
-                jsonObject.put("member_info",send_member);
+                jsonObject.put("user_count", String.valueOf(Integer.parseInt(match_user.getText().toString())+1));
+                jsonObject.put("member_info",ja);
                 jsonObject.put("min_user", min_player_number.getText().toString());
                 jsonObject.put("max_user", max_player_number.getText().toString());
                 jsonObject.put("user_id", now_id);
@@ -462,20 +455,21 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
             case R.id.select_player:
                 builder = new AlertDialog.Builder(context);
                 final ArrayList<String> selectedItems = new ArrayList<String>();
-
+                selectedItems.clear();
                 builder.setTitle("함께 뛸 팀원을 선택해 주세요.")
 
                 .setMultiChoiceItems(memberItems, null, new DialogInterface.OnMultiChoiceClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int pos, boolean isChecked)
                     {
+
                         if(isChecked == true) // Checked 상태일 때 추가
                         {
                             selectedItems.add(memberItems[pos]);
                         }
                         else				  // Check 해제 되었을 때 제거
                         {
-                            selectedItems.remove(pos);
+                            selectedItems.remove(memberItems[pos]);
                         }
                     }
                 })
@@ -484,11 +478,12 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
                     @Override
                     public void onClick(DialogInterface dialog, int pos)
                     {
-
+                        send_member.add(now_id);
                         for(int i =0; i<selectedItems.size();i++)
                         {
                             send_member.add(selectedItems.get(i));
                         }
+
                         System.out.println(send_member);
                         match_user.setText( Integer.toString(selectedItems.size()));
                     }
@@ -504,7 +499,9 @@ public class FutSalTeam_Match_RegisterFragment extends Fragment implements View.
                 break;
 
             case R.id.match_register:
+                System.out.println(send_member);
                 new Post().execute(ip + "/match/create_team_match");
+                System.out.println(send_member);
                 break;
         }
     }

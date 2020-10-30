@@ -120,6 +120,7 @@ public class FutSalTeamSearchDetailFragment extends Fragment implements View.OnC
                             case 0://팀 가입신청 수락 대기중 상태가 아닐 때
                                 new Post().execute(ip + "/team/join");
                                 ((MainActivity) getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeamSearchFragment.newInstance());
+                                Toast.makeText(context.getApplicationContext(),"가입신청이 완료되었습니다.",Toast.LENGTH_SHORT).show();
                                 break;
                             case 1://팀 가입신청 수락 대기중 상태일 때
                                 Toast.makeText(context.getApplicationContext(),"가입신청 수락 대기중에 있어 신청할 수 없습니다.",Toast.LENGTH_SHORT).show();

@@ -6,7 +6,6 @@ const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태
 //팀원 조회----------------------------------
 router.get('/', function (req, res) {
     console.log('<<Team/myteam_list_get>>');
-
     var result_code = 404;
     var team_name = req.query.team_name;
     
@@ -27,6 +26,5 @@ router.get('/', function (req, res) {
             res.json({ "result": result_code });
         }
     });
-
 });
 module.exports = router;

@@ -45,10 +45,11 @@ public class FutSalTeam_BoardFragment extends Fragment implements View.OnClickLi
     private Context context;
     private int boardSize;
 
+    ArrayList<Integer> team_board_id = new ArrayList<>();
     ArrayList<String> team_name = new ArrayList<>();
     ArrayList<String> title = new ArrayList<>();
     ArrayList<Integer> part_count = new ArrayList<>();
-    ArrayList<Integer> no_count = new ArrayList<>();
+    ArrayList<Integer> no_part_count = new ArrayList<>();
     ArrayList<Integer> max_part_count = new ArrayList<>();
 
     Button team_board_register;
@@ -71,7 +72,7 @@ public class FutSalTeam_BoardFragment extends Fragment implements View.OnClickLi
 
         futsal_team_board.setAdapter(boardAdapter);
 
-        //new Get().execute(ip + "/Help/Notice");
+        new Get().execute(ip + "/team/team_board/list?user_id="+now_id);
 
         futsal_team_board.setOnItemClickListener(this);
         team_board_register.setOnClickListener(this);
@@ -101,12 +102,15 @@ public class FutSalTeam_BoardFragment extends Fragment implements View.OnClickLi
         pos = position;
         //Toast.makeText(view.getContext(), Integer.toString(pos), Toast.LENGTH_SHORT).show();
         Bundle bundle = new Bundle();
-        bundle.putString("team_name", team_name.get(pos));
+        bundle.putInt("team_board_id",team_board_id.get(pos));
         bundle.putString("title", title.get(pos));
-
-       /* FutSalHelp_NoticeDetailFragment f = new FutSalHelp_NoticeDetailFragment();
+        bundle.putString("team_name", team_name.get(pos));
+        bundle.putInt("part_count",part_count.get(pos));
+        bundle.putInt("no_part_count",no_part_count.get(pos));
+        bundle.putInt("max_part_count",max_part_count.get(pos));
+        FutSalTeam_Board_Item_Detail f = new FutSalTeam_Board_Item_Detail();
         f.setArguments(bundle);
-        ((MainActivity)getActivity()).replaceFragment(FutSalHelpActivity.newInstance(), f);*/
+        ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), f);
     }
 
     public class Get extends AsyncTask<String, String, String> {
@@ -136,23 +140,26 @@ public class FutSalTeam_BoardFragment extends Fragment implements View.OnClickLi
                     JSONObject jsonObject = new JSONObject(receiveMsg);
                     String msg = jsonObject.getString("result");
 
-                    if (msg.equals("200")) {
-                        String notice_info = jsonObject.getString("notice_info");
-                        JSONArray jsonArray = new JSONArray(notice_info);
+                    if (msg.equals("Success")) {
+                        String board_info = jsonObject.getString("team_board_info");
+                        JSONArray jsonArray = new JSONArray(board_info);
 
                         boardSize = jsonArray.length();
 
                         for (int i = 0; i < boardSize; i++) {
                             JSONObject js = jsonArray.getJSONObject(i);
-
-                            team_name.add(js.getString("team_name"));
+                            team_board_id.add(js.getInt("id"));
                             title.add(js.getString("title"));
-
+                            team_name.add(js.getString("team_name"));
+                            part_count.add(js.getInt("part_count"));
+                            no_part_count.add(js.getInt("no_part_count"));
+                            max_part_count.add(js.getInt("max_part_count"));
                         }
-                    } else if (msg.equals("no find")) {
+                    } else if (msg.equals("Fail")) {
                         boardSize = 0;
-                    } else {
                         //Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
+                    } else {
+                        //
                     }
 
 
@@ -175,7 +182,7 @@ public class FutSalTeam_BoardFragment extends Fragment implements View.OnClickLi
             //TODO 겟 처리 후 결과
             if (boardSize != 0) {
                 for (int i = 0; i < boardSize; i++) {
-                    boardAdapter.addItem(team_name.get(i), title.get(i));
+                    boardAdapter.addItem(title.get(i));
                 }
                 boardAdapter.notifyDataSetChanged();
             } else {

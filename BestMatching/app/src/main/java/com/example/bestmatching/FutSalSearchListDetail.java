@@ -170,10 +170,6 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
         public ColorView(Context context){
             super(context);
         }
-//        public void invalidate()
-//        {
-//            invalidate();
-//        }
 
         public void onDraw(Canvas canvas){ // 캔버스는 뷰의 그리기 표면이며 이 위에 그림을 그린다.
             Paint Pnt = new Paint();

@@ -13,8 +13,9 @@ import java.util.ArrayList;
 public class FutsalTeam_BoardAdapter extends BaseAdapter implements View.OnClickListener {
 
 
-    private TextView team_board_name;
+
     private TextView team_board_title;
+    private TextView team_board_time;
 
 
     public ArrayList<FutSalTeam_BoardItems> boardItems = new ArrayList<FutSalTeam_BoardItems>();
@@ -56,24 +57,23 @@ public class FutsalTeam_BoardAdapter extends BaseAdapter implements View.OnClick
             convertView = inflater.inflate(R.layout.fragment_futsal_team_board_item, parent, false);
         }
 
-        team_board_name = (TextView) convertView.findViewById(R.id.team_board_name);
         team_board_title = (TextView) convertView.findViewById(R.id.team_board_title);
-
+        //team_board_time = (TextView) convertView.findViewById(R.id.team_board_time);
         FutSalTeam_BoardItems futSalTeam_BoardItems = boardItems.get(position);
 
-        team_board_name.setText(futSalTeam_BoardItems.getTeamNameStr());
         team_board_title.setText(futSalTeam_BoardItems.getTitleStr());
+     //   team_board_time.setText(futSalTeam_BoardItems.getTimeStr());
 
         return convertView;
     }
 
 
     //아이템 데이터 추가를 위한 함수
-    public void addItem( String team_name , String title){
+    public void addItem( String title){
         FutSalTeam_BoardItems teamBoardItems = new FutSalTeam_BoardItems();
 
-        teamBoardItems.setTeamName(team_name);
         teamBoardItems.setTitle(title);
+      //  teamBoardItems.setTime(time);
 
         boardItems.add(teamBoardItems);
     }

@@ -58,7 +58,7 @@ public class FutSalTeam_BoardRegisterFragment extends Fragment implements View.O
 
         context = container.getContext();
         board_team_name = (TextView) view.findViewById(R.id.board_team_name);
-        title = (TextView)view.findViewById(R.id.title);
+        title = (TextView)view.findViewById(R.id.board_title);
 
         board_regist = (Button)view.findViewById(R.id.board_regist);
         back_btn = (Button)view.findViewById(R.id.back_btn);
@@ -79,11 +79,9 @@ public class FutSalTeam_BoardRegisterFragment extends Fragment implements View.O
             try {
                 JSONObject jsonObject = new JSONObject();
 
+                jsonObject.put("team_name",board_team_name.getText().toString());
+                jsonObject.put("title", title.getText().toString());
 
-               /* jsonObject.put("title", question_title.getText().toString());
-                jsonObject.put("user_id", lg.Myid);
-                jsonObject.put("category", question_category.getText().toString());
-                jsonObject.put("content", question_content.getText().toString());*/
 
                 try {
                     //URL url = new URL("http://192.168.25.16:3000/users");
@@ -153,7 +151,7 @@ public class FutSalTeam_BoardRegisterFragment extends Fragment implements View.O
                 JSONObject jsonObject = new JSONObject(result);
                 String msg = jsonObject.getString("result");
 
-                if ( msg.equals("200")){
+                if ( msg.equals("Success")){
                     Toast.makeText(context.getApplicationContext(),"게시물 등록 완료",Toast.LENGTH_SHORT).show();
 
                 }
@@ -172,8 +170,8 @@ public class FutSalTeam_BoardRegisterFragment extends Fragment implements View.O
 
         switch (a) {
             case R.id.board_regist:
-                //new Post().execute(ip + "/Help/Question_Regist");
-                //((MainActivity)getActivity()).replaceFragment(FutSalHelpActivity.newInstance(), FutSalHelp_QuestionFragment.newInstance());
+                new Post().execute(ip + "/team/team_board/create");
+                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeam_BoardFragment.newInstance());
                 break;
             case R.id.back_btn:
                 ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeam_BoardFragment.newInstance());

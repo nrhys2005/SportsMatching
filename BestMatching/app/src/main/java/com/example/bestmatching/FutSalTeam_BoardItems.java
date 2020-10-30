@@ -3,16 +3,13 @@ package com.example.bestmatching;
 public class FutSalTeam_BoardItems {
 
 
-    private String teamNameStr;
     private String titleStr;
+
     private String part_countStr;
     private String no_countStr;
     private String max_part_countStr;
 
 
-    public void setTeamName(String teamName) {
-        teamNameStr=teamName;
-    }
 
     public void setTitle(String title) {
         titleStr = title;
@@ -34,9 +31,6 @@ public class FutSalTeam_BoardItems {
 
     ////////////////////////////////////////////
 
-    public String getTeamNameStr() {
-        return this.teamNameStr;
-    }
 
     public String getTitleStr() {
         return this.titleStr;

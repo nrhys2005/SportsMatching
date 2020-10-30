@@ -29,6 +29,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
@@ -156,8 +157,74 @@ public class FutSalTeam_Board_Item_Detail extends Fragment implements View.OnCli
 
         new Get_Part().execute(ip+"/team/team_board/part_list?team_board_id="+team_board_id);
         new Get_NoPart().execute(ip+"/team/team_board/no_part_list?team_board_id="+team_board_id);
+        part.invalidate();
+        no_part.invalidate();
         return view;
     }
+
+    public class Get_board extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+
+            InputStream is = null;
+            try {
+
+                is = new URL(urls[0]).openStream();
+
+
+                // System.out.println(urls[0]);
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+                String str;
+                StringBuffer buffer = new StringBuffer();
+
+                while ((str = rd.readLine()) != null) {
+                    buffer.append(str);
+                }
+
+                //URL 내용들
+                String receiveMsg = buffer.toString();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(receiveMsg);
+                    String msg = jsonObject.getString("result");
+
+                    if (msg.equals("Success")) {
+                        part_count = jsonObject.getInt("part_count");
+                        no_part_count = jsonObject.getInt("no_part_count");
+                        System.out.println(part_count+","+no_part_count);
+                    } else if (msg.equals("Fail")) {
+
+                        //Toast.makeText(context.getApplicationContext(), "에러", Toast.LENGTH_SHORT).show();
+                    } else {
+                        //
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+        //doInBackground메소드가 끝나면 여기로 와서 텍스트뷰의 값을 바꿔준다.
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            //TODO 겟 처리 후 결과
+            partView.invalidate();
+            nopartView.invalidate();
+            System.out.println("새로고침2");
+        }
+
+    }
+
 
     class PartView extends View {
         public PartView(Context context) {
@@ -168,19 +235,21 @@ public class FutSalTeam_Board_Item_Detail extends Fragment implements View.OnCli
             Pnt.setStyle(Paint.Style.FILL_AND_STROKE);
             Pnt.setARGB(255, 128, 128, 128);
             //비율설정해야함
-            RectF all_rect = new RectF(100, 0, bar_width, 50);
+            RectF all_rect = new RectF(0, 0, bar_width, 50);
             canvas.drawRect(all_rect, Pnt);
 
             Pnt.setARGB(255, 0, 210, 0);
+
             part_bar_width= cell_bar*part_count;
-            if(max_part_count==part_count)
+            if(max_part_count<=part_count)
                 part_bar_width = bar_width;
-            System.out.println("ttt"+part_bar_width);
-            RectF part_rect = new RectF(100, 0, part_bar_width+100, 50);
+
+        //    System.out.println("ttt"+part_bar_width);
+            RectF part_rect = new RectF(0, 0, part_bar_width-100, 50);
             canvas.drawRect(part_rect, Pnt);
         }
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-            setMeasuredDimension(disx-100, 180);
+            setMeasuredDimension(disx-100, 80);
         }
     }
     class NoPartView extends View {
@@ -191,22 +260,22 @@ public class FutSalTeam_Board_Item_Detail extends Fragment implements View.OnCli
             Paint Pnt = new Paint();
             Pnt.setStyle(Paint.Style.FILL_AND_STROKE);
             Pnt.setARGB(255, 128, 128, 128);
-            RectF rect2 = new RectF(100, 0, bar_width, 50);
+            RectF rect2 = new RectF(0, 0, bar_width, 50);
 
             canvas.drawRect(rect2, Pnt);
 
             Pnt.setARGB(255, 210, 0, 0);
-            System.out.println("ttttttttt"+no_part_count);
+       //     System.out.println("ttttttttt"+no_part_count);
             no_part_bar_width = cell_bar*no_part_count;
-            if(max_part_count==no_part_count)
+            if(max_part_count<=no_part_count)
                 no_part_bar_width = bar_width;
 
-            RectF no_part_rect = new RectF(100, 0, no_part_bar_width+100, 50);
+            RectF no_part_rect = new RectF(0, 0, no_part_bar_width-100, 50);
             canvas.drawRect(no_part_rect, Pnt);
         }
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
-            setMeasuredDimension(disx-100, 180);  // 뷰의 크기를 폭 2560, 높이 2560으로 강제로 지정
+            setMeasuredDimension(disx-100, 80);  // 뷰의 크기를 폭 2560, 높이 2560으로 강제로 지정
         }
 
     }
@@ -255,6 +324,7 @@ public class FutSalTeam_Board_Item_Detail extends Fragment implements View.OnCli
                 else
                     Radio_no_part.setChecked(true);
             }
+
         }
     }
 
@@ -278,6 +348,7 @@ public class FutSalTeam_Board_Item_Detail extends Fragment implements View.OnCli
                     String msg = jsonObject.getString("result");
                     if (msg.equals("Success")) {
                         part_list.clear();
+                        part_memberItems= null;
                         String part_arr = jsonObject.getString("part_list");
                         JSONArray ja = new JSONArray(part_arr);
                         part_arr_size = ja.length();
@@ -308,8 +379,6 @@ public class FutSalTeam_Board_Item_Detail extends Fragment implements View.OnCli
                 for( int i=0;i<part_arr_size;i++)
                 {
                     part_memberItems = part_list.toArray(new String[part_list.size()]);
-                    partView.invalidate();
-                    nopartView.invalidate();
                 }
             }
         }
@@ -335,6 +404,7 @@ public class FutSalTeam_Board_Item_Detail extends Fragment implements View.OnCli
                     String msg = jsonObject.getString("result");
                     if (msg.equals("Success")) {
                         no_part_list.clear();
+                        no_part_memberItems= null;
                         String no_part_arr = jsonObject.getString("no_part_list");
                         JSONArray ja = new JSONArray(no_part_arr);
                         no_part_arr_size = ja.length();
@@ -365,8 +435,7 @@ public class FutSalTeam_Board_Item_Detail extends Fragment implements View.OnCli
                 for( int i=0;i<no_part_arr_size;i++)
                 {
                     no_part_memberItems = no_part_list.toArray(new String[no_part_list.size()]);
-                    partView.invalidate();
-                    nopartView.invalidate();
+
                 }
             }
         }
@@ -456,14 +525,19 @@ public class FutSalTeam_Board_Item_Detail extends Fragment implements View.OnCli
 
                 if (msg.equals("Success")) {
                     Toast.makeText(context.getApplicationContext(), "투표 성공", Toast.LENGTH_SHORT).show();
-                    partView.invalidate();
-                    nopartView.invalidate();
                 } else {
                     Toast.makeText(context.getApplicationContext(), "투표 실패", Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+            new Get_Part().execute(ip+"/team/team_board/part_list?team_board_id="+team_board_id);
+            new Get_NoPart().execute(ip+"/team/team_board/no_part_list?team_board_id="+team_board_id);
+            new Get_board().execute(ip+"/team/team_board/board_info?team_board_id="+team_board_id);
+            new Get_state().execute(ip + "/team/team_board/state?team_board_id=" + team_board_id + "&user_id=" + now_id);
+            System.out.println("새로고침1");
+
         }
     }
 
@@ -488,10 +562,8 @@ public class FutSalTeam_Board_Item_Detail extends Fragment implements View.OnCli
                             @Override
                             public void onClick(DialogInterface dialog, int pos)
                             {
-                                new Get_Part().execute(ip+"/team/team_board/part_list?team_board_id="+team_board_id);
-                                new Get_NoPart().execute(ip+"/team/team_board/no_part_list?team_board_id="+team_board_id);
-                                partView.invalidate();
-                                nopartView.invalidate();
+
+
                             }
                         });
                 dialog = builder.create();
@@ -513,10 +585,7 @@ public class FutSalTeam_Board_Item_Detail extends Fragment implements View.OnCli
                             @Override
                             public void onClick(DialogInterface dialog, int pos)
                             {
-                                new Get_Part().execute(ip+"/team/team_board/part_list?team_board_id="+team_board_id);
-                                new Get_NoPart().execute(ip+"/team/team_board/no_part_list?team_board_id="+team_board_id);
-                                partView.invalidate();
-                                nopartView.invalidate();
+
                             }
                         });
                 dialog = builder.create();
@@ -524,18 +593,35 @@ public class FutSalTeam_Board_Item_Detail extends Fragment implements View.OnCli
                // Toast.makeText(context.getApplicationContext(), "불참가자", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.team_board_vote:
-                if (Radio_part.isChecked() || Radio_no_part.isChecked()) {
-                    if (Radio_part.isChecked())
-                        vote = "1";
-                    else if (Radio_no_part.isChecked())
-                        vote = "0";
-                    new Post().execute(ip+"/team/team_board/vote");
-                    new Get_Part().execute(ip+"/team/team_board/part_list?team_board_id="+team_board_id);
-                    new Get_NoPart().execute(ip+"/team/team_board/no_part_list?team_board_id="+team_board_id);
-                } else
-                    Toast.makeText(context.getApplicationContext(), "참가, 불참 중 선택해주세요.", Toast.LENGTH_SHORT).show();
-                partView.invalidate();
-                nopartView.invalidate();
+                builder = new AlertDialog.Builder(context);
+                builder.setTitle("투표 하시겠습니까?")
+
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialog, int pos)
+                            {
+
+                                if (Radio_part.isChecked() || Radio_no_part.isChecked()) {
+                                    if (Radio_part.isChecked())
+                                        vote = "1";
+                                    else if (Radio_no_part.isChecked())
+                                        vote = "0";
+
+                                    if(state.equals("yes")&&part_state.equals("1")&&vote.equals("1"))
+                                        Toast.makeText(context.getApplicationContext(), "한 곳에 두번 투표 불가.", Toast.LENGTH_SHORT).show();
+                                    else if(state.equals("yes")&&part_state.equals("0")&&vote.equals("0"))
+                                        Toast.makeText(context.getApplicationContext(), "한 곳에 두번 투표 불가.", Toast.LENGTH_SHORT).show();
+                                    else
+                                        new Post().execute(ip+"/team/team_board/vote");
+
+                                } else
+                                    Toast.makeText(context.getApplicationContext(), "참가, 불참 중 선택해주세요.", Toast.LENGTH_SHORT).show();
+                                new Get_board().execute(ip+"/team/team_board/board_info?team_board_id="+team_board_id);
+                            }
+                        });
+                dialog = builder.create();
+                dialog.show();
+
                 break;
         }
 

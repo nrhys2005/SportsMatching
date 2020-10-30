@@ -171,10 +171,10 @@ public class FutSalTeam_BoardRegisterFragment extends Fragment implements View.O
         switch (a) {
             case R.id.board_regist:
                 new Post().execute(ip + "/team/team_board/create");
-                ((MainActivity)getActivity()).replaceFragment(FutSalTeam_BoardRegisterFragment.newInstance(), FutSalTeam_BoardFragment.newInstance());
+                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeam_BoardFragment.newInstance());
                 break;
             case R.id.back_btn:
-                ((MainActivity)getActivity()).replaceFragment(FutSalTeam_BoardRegisterFragment.newInstance(), FutSalTeam_BoardFragment.newInstance());
+                ((MainActivity)getActivity()).replaceFragment(FutSalTeamActivity.newInstance(), FutSalTeam_BoardFragment.newInstance());
                 break;
 
         }

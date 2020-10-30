@@ -135,42 +135,85 @@ router.get('/no_part_list', function (req, res) {
         }
     });
 });
-
-
+router.get('/board_info', function (req, res) {
+    console.log('<<Team/team_board/board_info>>');
+    var select_sql = "select * from best_matching.team_board where id = ? "
+    dbconn.query(select_sql, req.query.team_board_id, function (err, rows, fields) {//DB connect
+        if (!err) {
+            console.log('Query Select Success(result": "Success)');
+            res.json({ "result": "Success", part_count : rows[0].part_count, no_part_count : rows[0].no_part_count
+        
+        })
+            
+        } else {
+            console.log('Query Select Error : ' + err);
+            res.json({ "result": "Fail" });
+        }
+    });
+});
 router.post('/vote', function (req, res) {
     console.log('<<Team/team_board/vote>>');
-    var team_board_id = req.body.team_board_id
-    var user_id = req.body.user_id
-    var state = req.body.state
-    var vote = req.body.vote
+    var team_board_id = req.body.team_board_id;
+    var user_id = req.body.user_id;
+    var state = req.body.state;
+    var vote = req.body.vote;
+    var update_board_sql;
     if (state == "no") {
-        var data = [team_board_id,user_id, vote]
-        var insert_sql = "insert into best_matching.team_board_part_list(team_board_id,user_id,part) values (?,?,?)"
-        dbconn.query(insert_sql, data, function (err, rows, fields) {//DB connect
-            if (!err) {
-                console.log('Query Select Success(result": "Success)');
+        if(vote == "1")
+            update_board_sql = 'update team_board set part_count = part_count+1 where id = ? ';
+        else
+            update_board_sql = 'update team_board set no_part_count = no_part_count+1 where id = ? ';
+        dbconn.query(update_board_sql,team_board_id,function(err,rows,fields)
+        {
+            if(!err){
+                console.log('Query update Success(result": "Success)');
                 res.json({ "result": "Success"})
-
-            } else {
-                console.log('Query Select Error : ' + err);
-                res.json({ "result": "Fail" });
+                var data = [team_board_id,user_id, vote]
+                var insert_sql = "insert into best_matching.team_board_part_list(team_board_id,user_id,part) values (?,?,?)";
+                dbconn.query(insert_sql, data, function (err, rows, fields) {//DB connect
+                    if (!err) {
+                        console.log('Query Select Success(result": "Success)');
+                        res.json({ "result": "Success"})
+                    } else {
+                        console.log('Query Select Error : ' + err);
+                        res.json({ "result": "Fail" });
+                    }
+                });
+            }
+            else {
+                    console.log('Query update Error : ' + err);
+                    res.json({ "result": "Fail" });
             }
         });
     }
     else if(state == "yes") {
+        if(vote == "1"){
+            update_board_sql = 'update team_board set part_count = part_count+1 , no_part_count = no_part_count-1 where id = ? ';
+        }
+        else{
+            update_board_sql = 'update team_board set part_count = part_count-1 , no_part_count = no_part_count+1 where id = ? ';
+        }
+        
         var update_sql = "update best_matching.team_board_part_list set part = ? where team_board_id = ? and user_id = ?"
-        dbconn.query(update_sql, [vote,team_board_id,user_id], function (err, rows, fields) {//DB connect
+        dbconn.query(update_board_sql, team_board_id, function (err, rows, fields) {
             if (!err) {
-                console.log('Query update Success(result": "Success)');
-                res.json({ "result": "Success"})
-
-            } else {
+                console.log(update_board_sql);
+                dbconn.query(update_sql, [vote, team_board_id, user_id], function (err, rows, fields) {//DB connect
+                    if (!err) {
+                        console.log('Query update Success(result": "Success)');
+                        res.json({ "result": "Success" })
+                    } else {
+                        console.log('Query update Error : ' + err);
+                        res.json({ "result": "Fail" });
+                    }
+                });
+            }
+            else {
                 console.log('Query update Error : ' + err);
                 res.json({ "result": "Fail" });
             }
         });
     }
 });
-
 
 module.exports = router;

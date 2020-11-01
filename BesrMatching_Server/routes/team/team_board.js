@@ -167,7 +167,6 @@ router.post('/vote', function (req, res) {
         {
             if(!err){
                 console.log('Query update Success(result": "Success)');
-                res.json({ "result": "Success"})
                 var data = [team_board_id,user_id, vote]
                 var insert_sql = "insert into best_matching.team_board_part_list(team_board_id,user_id,part) values (?,?,?)";
                 dbconn.query(insert_sql, data, function (err, rows, fields) {//DB connect

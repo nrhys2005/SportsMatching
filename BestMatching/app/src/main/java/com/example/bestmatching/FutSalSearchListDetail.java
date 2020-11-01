@@ -153,12 +153,12 @@ public class FutSalSearchListDetail extends Fragment implements View.OnClickList
         book_end_time.setOnClickListener(this);
         back_btn.setOnClickListener(this);
         book_btn.setOnClickListener(this);
-        book_date.setText(String.format("%d", 2020) + "-" + String.format("%02d", 10) + "-" + String.format("%02d", 21));//오늘 날짜 추가하는 기능 추가
+        book_date.setText(String.format("%d", 2020) + "-" + String.format("%02d", 11) + "-" + String.format("%02d", 01));//오늘 날짜 추가하는 기능 추가
         colorView = new ColorView(context);
 
         book_time_view.addView(colorView);
 
-        new Get().execute(ip + "/ground/timecheck/2020-10-21");
+        new Get().execute(ip + "/ground/timecheck/2020-11-01");
 
 
         BootpayAnalytics.init(context, "5f6c1743878a56001dffad61");

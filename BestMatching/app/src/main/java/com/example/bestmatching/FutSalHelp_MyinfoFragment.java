@@ -284,7 +284,7 @@ public class FutSalHelp_MyinfoFragment extends Fragment implements View.OnClickL
                 position.setText(e_position);
 
             if(team.getText().equals("null") || team.getText().equals(""))
-                team.setText("팀을 선택하세요");
+                team.setText("소속팀 없습니다");
 
             System.out.println(result);
         }

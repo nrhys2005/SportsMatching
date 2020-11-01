@@ -24,7 +24,7 @@ router.post('/', function (req, res) {
 
         console.log('input_data : ' + input_data_array); 
         
-        var sql_insert = 'INSERT INTO best_matching.team (team_name,master_id, phonenumber, age_avg, level, location,week,comment,member_count) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
+        var sql_insert = 'INSERT INTO best_matching.team (team_name,master_id, phonenumber, age_avg, level, location,week,comment,member_count) VALUES(?, ?, ?, ?, ?, ?, ?, ?,?)';
         dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
             if (!err) {
                 console.log('Query insert success');

@@ -6,16 +6,12 @@ const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태
 //팀원 추방
 router.post('/expulsion', function (req, res) {
     console.log('<<Team/expulsion>>');
-
         var result_code =404;
         var data_array= [];
-        var Data = req.body; // JSON data 받음
-        var user_id = Data.id;
-        var nu1=null;
-        var nu2=null;
+        var user_id = req.body.id;
         var update_sql = 'update best_matching.user set team_name = ?, wait_state= ?  where user.id = ?';
-        data_array.push(nu1);
-        data_array.push(nu2);
+        data_array.push(null);
+        data_array.push(null);
         data_array.push(user_id);
 
         dbconn.query(update_sql, data_array, function (err, rows, fields) {//DB connect

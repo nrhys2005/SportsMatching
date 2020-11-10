@@ -9,12 +9,11 @@ router.get('/', function (req, res) {
     console.log('<<Help/Question_Get>>');
     
     var sql = 'select user_id,title,category,content from best_matching.Question';
-
     var result_code =404;
     dbconn.query(sql, function (err, rows, fields) {//DB connect
         if (!err) {
             console.log('Query Select Success(result: Success)');
-            console.log(rows);
+            //console.log(rows);
             result_code=200;
             res.json({ "result": result_code, question_info : rows});
 

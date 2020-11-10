@@ -11,9 +11,8 @@ moment.tz.setDefault('Asia/Seoul')
 router.post('/', function (req, res) {
     console.log('<<Login>>');
 
-    var inputData = req.body
-    var login_id = inputData.id;
-    var login_pw = inputData.pw;
+    var login_id = req.body.id;
+    var login_pw = req.body.pw;
     console.log('로그인 시도 아이디 : ' + login_id);
     var sql = 'select * from user where id=?';
     var result = 'error';

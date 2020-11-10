@@ -7,8 +7,7 @@ const dbconnInfo = {
 		port: '3306',
 		user: 'root',
 		password: 'knu2020!',
-		database: 'best_matching', 
-		multipleStatements : true,
+		database: 'best_matching'
 	}//,
 	// real:{
 	// 	host     : '1.1.1.1',

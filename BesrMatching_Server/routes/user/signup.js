@@ -51,11 +51,8 @@ router.post('/', function (req, res) {
 
 router.post('/check', function (req, res, next) {
     console.log('<<Signup/check>>');
- 
         var inputData = req.body;
         var find_id = inputData.id;
-
-        
         var sql = 'SELECT * FROM user WHERE id = ?';
         var param = find_id;
         dbconn.query(sql, param, function (err, rows, fields) {

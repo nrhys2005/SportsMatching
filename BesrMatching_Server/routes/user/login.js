@@ -10,7 +10,6 @@ moment.tz.setDefault('Asia/Seoul')
 
 router.post('/', function (req, res) {
     console.log('<<Login>>');
-
     var inputData = req.body
     var login_id = inputData.id;
     var login_pw = inputData.pw;

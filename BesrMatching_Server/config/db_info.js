@@ -6,24 +6,16 @@ const dbconnInfo = {
 		host: 'localhost',
 		port: '3306',
 		user: 'root',
-		password: 'knu2020!',
+		password: 'root',
 		database: 'best_matching', 
 		multipleStatements : true,
-	}//,
-	// real:{
-	// 	host     : '1.1.1.1',
-	// 	port: '1111',
-	// 	user     : 'cafe24',
-	// 	password : 'cafe24',
-	// 	database : 'cafe24DB',
-	// 	multipleStatements : true
-	// }	
+	}
 };
 
 const dbconnection = {
 	init : function(){
 		var hostname = os.hostname();
-		if(hostname === 'HyeonSeok'){
+		if(hostname === 'SANGHUN'){
 			return mysql.createConnection(dbconnInfo.dev);	//로컬개발환경
         }
         // else{

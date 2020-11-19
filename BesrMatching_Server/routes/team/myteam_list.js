@@ -8,7 +8,6 @@ router.get('/', function (req, res) {
     console.log('<<Team/myteam_list_get>>');
     var result_code = 404;
     var team_name = req.query.team_name;
-    
     var data_array = [];
     var sql=  'select id, name, age, location, phone, position from best_matching.user where team_name= ?';
     console.log('team_name = '+ team_name);

@@ -9,12 +9,8 @@ router.get('/', function (req, res) {
     var result_code=404;
     var team_name = req.query.team_name;
     var data_array = [];
-    
-    var sql;
-    
     data_array.push(team_name);
-    
-    sql ='select user_id, name, age, location, phone, position from best_matching.user, best_matching.team_waiting where user.id=team_waiting.user_id and team_waiting.team_name=?';
+    var sql ='select user_id, name, age, location, phone, position from best_matching.user, best_matching.team_waiting where user.id=team_waiting.user_id and team_waiting.team_name=?';
 
     dbconn.query(sql, data_array, function (err, rows, fields) {//DB connect
         if (!err) {

@@ -7,11 +7,9 @@ const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태
 router.get('/', function (req, res) {
     console.log('<<Team/team_get>>');
     var result_code = 404;
-
     var user_id = req.query.id;
     var data_array = [];
-    var sql = 'SELECT id,master_id,user.team_name,wait_state FROM best_matching.user left join team using (team_name) where id =?';
-        
+    var sql = 'SELECT id,master_id,user.team_name,wait_state FROM best_matching.user left join team using (team_name) where id =?';   
     data_array.push(user_id);
    
     dbconn.query(sql, data_array, function (err, rows, fields) {//DB connect

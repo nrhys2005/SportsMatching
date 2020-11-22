@@ -6,7 +6,7 @@ const dbconnInfo = {
 		host: 'localhost',
 		port: '3306',
 		user: 'root',
-		password: 'root',
+		password: 'knu2020!',
 		database: 'best_matching', 
 		multipleStatements : true,
 	}
@@ -15,7 +15,7 @@ const dbconnInfo = {
 const dbconnection = {
 	init : function(){
 		var hostname = os.hostname();
-		if(hostname === 'SANGHUN'){
+		if(hostname === 'HyeonSeok'){
 			return mysql.createConnection(dbconnInfo.dev);	//로컬개발환경
         }
         // else{

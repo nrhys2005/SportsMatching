@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 router.use(session({
     secret: 'session_secret!',
     resave: false,
-    saveUninitialize: false,
+    saveUninitialized: true,
 }));
 //유저 라우팅
 router.use('/user', require('./user/index'));

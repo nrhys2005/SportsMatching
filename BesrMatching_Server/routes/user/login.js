@@ -42,7 +42,7 @@ router.post('/', function (req, res) {
                             if (key.toString('base64') === pw) {
                                 code = 'Success';
                                 console.log('로그인 성공! ' + login_id + '님 환영합니다!');
-                                req.session.user_id = user.dataValues.user_id;
+                                req.session.user_id = login_id;
                                 req.session.login = true;
                                 req.session.save();
                             }

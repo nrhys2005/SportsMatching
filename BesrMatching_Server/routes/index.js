@@ -1,11 +1,17 @@
 const express = require('express');
 const router = express.Router();
+var session = require('express-session');
 
 //라우터의 get()함수를 이용해 request URL('/')에 대한 업무처리 로직 정의
 router.get('/', function(req, res, next) {
     res.send('index page');
 });
-
+//session setting
+router.use(session({
+    secret: 'session_secret!',
+    resave: false,
+    saveUninitialized: true,
+}));
 //유저 라우팅
 router.use('/user', require('./user/index'));
 //매치 라우팅

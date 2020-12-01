@@ -1,0 +1,47 @@
+version: "3"
+services:
+  app:
+    # 소스 변경사항을 적용시키기위해 node이미지 대신 빌드 옵션을 줬다.
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: server
+    volumes:
+      - ./:/server
+    ports:
+      - "5000:8080"
+    # DB연결
+    depends_on:
+      - mysql
+      - redis
+    # 컨테이너 생성시 DB컨테이너가 초기화 되기 전에 연결을 시도해서 서버가 뻗어버리는 현상 고치기위한 스크립트.
+    command:
+      - bash
+      - -c
+      - |
+        /wait-for-it.sh mysql:3307 -t 20
+        npm start
+
+  mysql:
+    image: mysql:8.0.17
+    container_name: mysql
+    ports:
+      - "3307:3306" # host에 mysql이 이미 있는경우 port 에러나서 수정
+    environment:
+      MYSQL_ROOT_PASSWORD: "root" # MYSQL password
+      MYSQL_DATABASE: "ufo"
+    command: # 한글깨짐 방지
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./database/mysql:/var/lib/mysql
+
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379" # bind 6000 to basic port 6379
+    volumes:
+      - ./database/redis_data:/data
+    environment:
+      - REQUIREPASS=redispw

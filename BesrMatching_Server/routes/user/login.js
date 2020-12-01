@@ -43,14 +43,11 @@ router.post('/', function (req, res) {
                                 code = 'Success';
                                 console.log('로그인 성공! ' + login_id + '님 환영합니다!');
                                 req.session.user_id = login_id;
-                                req.session.login = true;
-                                req.session.save();
                             }
                             else {
                                 console.log(pw);
                                 code = 'No find'
                                 console.log('비밀번호가 틀렸습니다!');
-                                req.session.login = false;
                             }
                             res.json({
                                 'result': code
@@ -64,12 +61,11 @@ router.post('/', function (req, res) {
 });
 
 router.post('/auto', function (req, res) {
-    if (req.session == null || !req.session.login) {
-        // 로그인 안됨
-        res.send(false);
-    } else {
-        // 로그인 되어있음
+    if (req.session.user_id) {
         res.send(true);
-    }
+      } else {
+        //없으면
+        res.send(false);
+      }
 });
 module.exports = router;

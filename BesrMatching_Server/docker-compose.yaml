@@ -4,14 +4,14 @@ services:
     # 소스 변경사항을 적용시키기위해 node이미지 대신 빌드 옵션을 줬다.
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile #Dockerfile 파일 설정
     container_name: server
     volumes:
       - ./:/server
     ports:
-      - "5000:8080"
+      - "5000:8080" #포트번호
     # DB연결
-    depends_on:
+    depends_on: #의존성 처리
       - mysql
       - redis
     # 컨테이너 생성시 DB컨테이너가 초기화 되기 전에 연결을 시도해서 서버가 뻗어버리는 현상 고치기위한 스크립트.
@@ -34,7 +34,7 @@ services:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
     volumes:
-      - ./database/mysql:/var/lib/mysql
+      - ./database/mysql:/var/lib/mysql #database/mysql mapping
 
   redis:
     image: redis
@@ -42,6 +42,6 @@ services:
     ports:
       - "6379:6379" # bind 6000 to basic port 6379
     volumes:
-      - ./database/redis_data:/data
+      - ./database/redis_data:/data  #database/redis_data mapping
     environment:
-      - REQUIREPASS=redispw
+      - REQUIREPASS=redispw #redis db password 설정 

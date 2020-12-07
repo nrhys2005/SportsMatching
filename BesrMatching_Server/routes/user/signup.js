@@ -4,49 +4,76 @@ const crypto = require('crypto');
 const dbConObj = require('../../config/db_info');   //디비 정보 import
 const dbconn = dbConObj.init(); //sql 실행결과( results(배열 + json 형태)에 저장)
 
-
-router.post('/', function (req, res) {
-
+const {User}= require('../../models');
+router.post('/', (req, res)=> {
     console.log('<<signup>>');
-
-
     var input_data_array = [];
-    input_data_array.push(req.body.id);// json->array
+    input_data_array.push(req.body.id);
     input_data_array.push(req.body.name);
-    //var buffer;
     crypto.randomBytes(64, (err, buf) => {
-        crypto.pbkdf2(req.body.pw, buf.toString('base64'), 100000, 64, 'sha512', (err, key) => {
-            //crypto.pbkdf2(inputData.pw, buf.toString('base64'), 9000, 64, 'sha512', (err, key) => {
+        crypto.pbkdf2(req.body.pw, buf.toString('base64'), 100000, 64, 'sha512', (err, key) => {            
             input_data_array.push(buf.toString('base64')); //salt
-            input_data_array.push(key.toString('base64')); //pwd
-            // console.log("buf = " +buf.toString('base64')); 
-            // console.log("key = " +key.toString('base64')); // 'dWhPkH6c4X1Y71A/DrAHhML3DyKQdEkUOIaSmYCI7xZkD5bLZhPF0dOSs2YZA/Y4B8XNfWd3DHIqR5234RtHzw=='
-            //buffer = buf.toString('base64');
-            // pw = buf.toString('base64')+key.toString('base64');
-
+            input_data_array.push(key.toString('base64')); //pwd        
             input_data_array.push(req.body.email);
-            console.log('input_data : ' + input_data_array); // 회원가입 내용 출력
 
-            var sql_insert = 'INSERT INTO best_matching.user (id, name, salt, pw, email) VALUES(?, ?, ?, ?, ?)';
-            dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
-                if (!err) {
-                    console.log('Query insert success');
-                    res.json({ "result": "Success" });
-                } else {
-                    console.log('Query Error : ' + err);
-                    res.json({ "result": err });
-                }
+            User.create({
+                id : req.body.id,
+                name: req.body.name,
+                salt: buf.toString('base64'),
+                pw: key.toString('base64'),
+                email: req.body.email
+            }).then(()=>{
+                res.json({ "result": "Success" });
+            }).catch(()=>{
+                res.json({ "result": err });
             });
         });
     });
-    // crypto.pbkdf2("pass", "salt", 100000, 64, 'sha512', (err, key) => {
-    //     console.log(key.toString('base64'));
-    //     console.log(key.toString('base64') === "pass");
-    // });
-    //input_data_array.push(inputData.pw);
-
-
 });
+
+
+// router.post('/', function (req, res) {
+
+//     console.log('<<signup>>');
+
+
+//     var input_data_array = [];
+//     input_data_array.push(req.body.id);// json->array
+//     input_data_array.push(req.body.name);
+//     //var buffer;
+//     crypto.randomBytes(64, (err, buf) => {
+//         crypto.pbkdf2(req.body.pw, buf.toString('base64'), 100000, 64, 'sha512', (err, key) => {
+//             //crypto.pbkdf2(inputData.pw, buf.toString('base64'), 9000, 64, 'sha512', (err, key) => {
+//             input_data_array.push(buf.toString('base64')); //salt
+//             input_data_array.push(key.toString('base64')); //pwd
+//             // console.log("buf = " +buf.toString('base64')); 
+//             // console.log("key = " +key.toString('base64')); // 'dWhPkH6c4X1Y71A/DrAHhML3DyKQdEkUOIaSmYCI7xZkD5bLZhPF0dOSs2YZA/Y4B8XNfWd3DHIqR5234RtHzw=='
+//             //buffer = buf.toString('base64');
+//             // pw = buf.toString('base64')+key.toString('base64');
+
+//             input_data_array.push(req.body.email);
+//             console.log('input_data : ' + input_data_array); // 회원가입 내용 출력
+
+//             var sql_insert = 'INSERT INTO best_matching.user (id, name, salt, pw, email) VALUES(?, ?, ?, ?, ?)';
+//             dbconn.query(sql_insert, input_data_array, function (err, rows, fields) {//DB connect
+//                 if (!err) {
+//                     console.log('Query insert success');
+//                     res.json({ "result": "Success" });
+//                 } else {
+//                     console.log('Query Error : ' + err);
+//                     res.json({ "result": err });
+//                 }
+//             });
+//         });
+//     });
+//     // crypto.pbkdf2("pass", "salt", 100000, 64, 'sha512', (err, key) => {
+//     //     console.log(key.toString('base64'));
+//     //     console.log(key.toString('base64') === "pass");
+//     // });
+//     //input_data_array.push(inputData.pw);
+
+
+// });
 
 router.post('/check', function (req, res, next) {
     console.log('<<Signup/check>>');

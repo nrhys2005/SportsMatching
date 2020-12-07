@@ -1,0 +1,10 @@
+{
+    "development": {
+        "username": "root",
+        "password": "knu2020!",
+        "database": "best_matching",
+        "host": "localhost",
+        "dialect": "mysql",
+        "operatorAliases": false
+    }
+}

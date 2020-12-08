@@ -1,5 +1,3 @@
-//const { DataTypes } = require("sequelize/types");
-const { sequelize, Team } = require(".");
 var models = require('../models');
 module.exports = (sequelize, DataTypes) => {
     const team = sequelize.define('team', {
@@ -35,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
         create_time: {
             type: DataTypes.STRING(45),
         },
-        teammeber_count: {
+        member_count: {
             type: DataTypes.INTEGER,
         }
     }, {
@@ -43,15 +41,10 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'team'
     });
     team.associate = (models) => {
-        models.Team.hasMany(models.User, {
-            foreignKey: 'fk_user_team'
-        });
-        models.Team.hasMany(models.Team_waiting, {
-            foreignKey: 'fk_team_wating_team'
-        });
-        models.Team.hasMany(models.Team_board, {
-            foreignKey: 'fk_team_board_team'
-        });
+        models.Team.hasOne(models.User);
+        models.Team.hasOne(models.Team_waiting);
+        models.Team.hasMany(models.Team_board);
+     
     };
     return team;
 };

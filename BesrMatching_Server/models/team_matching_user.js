@@ -1,25 +1,25 @@
 var models = require('../models');
 module.exports = (sequelize, DataTypes)=>{
-    const matching_user = sequelize.define('matching_user',{
+    const team_matching_user = sequelize.define('team_matching_user',{
         user_id:{
             type: DataTypes.STRING(14),
             allowNull: false,
         },
-        match_id:{
+        team_match_id:{
             type: DataTypes.INTEGER,
             allowNull: false,
         },
     }, {
         timestamps: false,
-        tableName: 'matching_user'
+        tableName: 'team_matching_user'
     });
-    matching_user.associate = (models)=>{
-        models.Matching_user.belongsTo(models.user, {
+    team_matching_user.associate = (models)=>{
+        models.Team_matching_user.belongsTo(models.user, {
             foreignKey: 'user_id'
         });
-        models.Matching_user.belongsTo(models.match, {
+        models.Team_matching_user.belongsTo(models.team_match, {
             foreignKey: 'match_id'
         });
     };
-    return matching_user;
+    return team_matching_user;
 };

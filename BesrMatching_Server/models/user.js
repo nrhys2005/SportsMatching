@@ -43,9 +43,9 @@ module.exports = (sequelize, DataTypes)=>{
         left_foot:{
             type: DataTypes.STRING(5),        
         },
-        // team_name:{       
-        //     type: DataTypes.STRING(10),               
-        // },
+         team_name:{       
+            type: DataTypes.STRING(10),               
+         },
         wait_state:{
             type: DataTypes.STRING(20),
         }
@@ -54,21 +54,15 @@ module.exports = (sequelize, DataTypes)=>{
         tableName: 'user'
     });
     user.associate = (models)=>{
-        models.User.hasMany(models.book_list,{
-            foreignKey: 'fk_book_list_user'
+        models.User.belongsTo(models.team, {
+            foreignKey: 'team_name'
         });
-        models.User.hasMany(models.team_waiting,{
-            foreignKey: 'fk_team_wating_user'
-        });
-        models.User.hasMany(models.matching_user,{
-            foreignKey: 'fk_matching_user_user'
-        });
-        models.User.hasMany(models.team_matching_user,{
-            foreignKey: 'fk_team_matching_user_user'
-        });
-        models.User.hasMany(models.team_board_part_list,{
-            foreignKey: 'fk_team_board_part_list_user'
-        });
+        
+        models.User.hasMany(models.book_list);//
+        models.User.hasMany(models.team_waiting);//
+        models.User.hasMany(models.matching_user);//
+        models.User.hasMany(models.team_matching_user);
+        models.User.hasMany(models.team_board_part_list);//
     };    
     return user;
 };

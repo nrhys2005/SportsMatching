@@ -22,10 +22,8 @@ module.exports = (sequelize, DataTypes)=>{
         timestamps: false,
         tableName: 'ground'
     });
-    ground.associate = (models)=>{
-        models.Ground.hasMany(models.book_list,{
-            foreignKey: 'ground_id'
-        });
+     ground.associate = (models)=>{
+        models.Ground.hasMany(models.book_list);//
     };
     return ground;
 };

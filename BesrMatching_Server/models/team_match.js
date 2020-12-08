@@ -1,6 +1,6 @@
 var models = require('../models');
 module.exports = (sequelize, DataTypes)=>{
-    const match = sequelize.define('match',{
+    const team_match = sequelize.define('team_match',{
         id :{
             type: DataTypes.INTEGER,
             allowNull: false,      
@@ -21,21 +21,25 @@ module.exports = (sequelize, DataTypes)=>{
         cost :{
             type: DataTypes.INTEGER,
         },
+        participants:{
+            type: DataTypes.INTEGER,
+        },
         max_user :{
             type: DataTypes.INTEGER,
         },
-        create_time :{
-            type: DataTypes.STRING(45),                        
-        },
-        participants :{
+        min_user:{
             type: DataTypes.INTEGER,
         },
+        create_time :{
+            type: DataTypes.DATE,          
+        },
+       
     }, {
         timestamps: false,
-        tableName: 'match'
+        tableName: 'team_match'
     });
-    match.associate = (models)=>{
-        models.Match.hasMany(models.matching_user);
+    team_match.associate = (models)=>{
+        models.Team_match.hasMany(models.team_matching_user);
     };
-    return match;
+    return team_match;
 };

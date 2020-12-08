@@ -23,5 +23,6 @@ db.Sequelize = Sequelize;
 
 db.User = require('./user')(sequelize,Sequelize);
 db.Team = require('./team')(sequelize,Sequelize);
-
+db.Ground = require('./ground')(sequelize,Sequelize);
+db.Book_list = require('./book_list')(sequelize,Sequelize);
 module.exports = db;

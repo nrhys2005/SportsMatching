@@ -1,6 +1,6 @@
 var models = require('../models');
 module.exports = (sequelize, DataTypes)=>{
-    return sequelize.define('user',{
+    const user = sequelize.define('user',{
         id: {
             type: DataTypes.STRING(14),
             allowNull: false,      
@@ -70,5 +70,5 @@ module.exports = (sequelize, DataTypes)=>{
             foreignKey: 'fk_team_board_part_list_user'
         });
     };    
-    
+    return user;
 };
